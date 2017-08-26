@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.kdq</groupId>
-  <artifactId>xlang</artifactId>
+  <artifactId>xswing.xreflect.xapp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>xlang</name>
+  <name>xswing.xreflect.xapp</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -23,7 +23,7 @@
     </dependency>
     <dependency>
     	<groupId>org.kdq</groupId>
-    	<artifactId>xlang.xreflect</artifactId>
+    	<artifactId>xswing.xreflect.impl</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

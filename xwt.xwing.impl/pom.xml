@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.kdq</groupId>
-  <artifactId>xlang</artifactId>
+  <artifactId>xwt.xwing.impl</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>xlang</name>
+  <name>xwt.xwing.impl</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -23,7 +23,12 @@
     </dependency>
     <dependency>
     	<groupId>org.kdq</groupId>
-    	<artifactId>xlang.xreflect</artifactId>
+    	<artifactId>xwt.xwing</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.kdq</groupId>
+    	<artifactId>xwt.impl</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
