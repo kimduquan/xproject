@@ -1,5 +1,7 @@
 package org.kdq.xswing.xreflect;
 
-public interface XObjectPanel {
+import org.kdq.xswing.XPanel;
+
+public interface XObjectPanel extends XPanel {
 
 }

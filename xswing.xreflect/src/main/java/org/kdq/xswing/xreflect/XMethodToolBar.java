@@ -1,5 +1,7 @@
 package org.kdq.xswing.xreflect;
 
-public interface XMethodToolBar {
+import org.kdq.xswing.XToolBar;
+
+public interface XMethodToolBar extends XToolBar {
 
 }

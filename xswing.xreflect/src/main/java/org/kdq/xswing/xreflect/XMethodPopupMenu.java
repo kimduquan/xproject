@@ -1,6 +1,8 @@
 package org.kdq.xswing.xreflect;
 
-public interface XMethodPopupMenu {
+import org.kdq.xswing.XPopupMenu;
+
+public interface XMethodPopupMenu extends XPopupMenu {
 
 	XMethodMenuItem[] xgetMethodMenuItems();
 }

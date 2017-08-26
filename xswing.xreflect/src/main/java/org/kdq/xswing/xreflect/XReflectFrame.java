@@ -1,6 +1,8 @@
 package org.kdq.xswing.xreflect;
 
-public interface XReflectFrame {
+import org.kdq.xswing.XFrame;
+
+public interface XReflectFrame extends XFrame {
 
 	XObjectTree xgetObjectTree();
 	XMethodToolBar xgetMethodToolBar();

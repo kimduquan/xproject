@@ -1,5 +1,5 @@
 package org.kdq.xswing;
 
-public interface XPanel {
+public interface XPanel extends XContainer {
 
 }

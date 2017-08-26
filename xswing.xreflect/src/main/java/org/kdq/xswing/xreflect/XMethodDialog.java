@@ -1,5 +1,7 @@
 package org.kdq.xswing.xreflect;
 
-public interface XMethodDialog {
+import org.kdq.xswing.XDialog;
+
+public interface XMethodDialog extends XDialog {
 
 }

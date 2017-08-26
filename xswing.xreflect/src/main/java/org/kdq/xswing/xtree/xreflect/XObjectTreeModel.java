@@ -1,5 +1,7 @@
 package org.kdq.xswing.xtree.xreflect;
 
-public interface XObjectTreeModel {
+import org.kdq.xswing.xtree.XTreeModel;
+
+public interface XObjectTreeModel extends XTreeModel {
 
 }

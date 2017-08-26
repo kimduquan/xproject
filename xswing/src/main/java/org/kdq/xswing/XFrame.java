@@ -1,5 +1,6 @@
 package org.kdq.xswing;
 
-public interface XFrame {
+public interface XFrame extends XWindow {
 
+	
 }

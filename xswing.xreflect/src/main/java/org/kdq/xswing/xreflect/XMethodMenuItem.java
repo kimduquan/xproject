@@ -1,5 +1,7 @@
 package org.kdq.xswing.xreflect;
 
-public interface XMethodMenuItem {
+import org.kdq.xswing.XMenuItem;
+
+public interface XMethodMenuItem extends XMenuItem {
 
 }
