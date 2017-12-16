@@ -1,11 +1,14 @@
 package xproject.xlang.xreflect;
 
-import xproject.xlang.XClass;
+import java.rmi.RemoteException;
 
-public interface XConstructor {
-	XClass xgetDeclaringClass();
-	XModifier xgetModifiers();
-	XParameter[] xgetParameters();
-	int xgetParameterCount();
-	XClass[] xgetParameterTypes();
+import xproject.xlang.XClass;
+import xproject.xrmi.XRemote;
+
+public interface XConstructor extends XRemote {
+	XClass xgetDeclaringClass() throws RemoteException;
+	XModifier xgetModifiers() throws RemoteException;
+	XParameter[] xgetParameters() throws RemoteException;
+	int xgetParameterCount() throws RemoteException;
+	XClass[] xgetParameterTypes() throws RemoteException;
 }

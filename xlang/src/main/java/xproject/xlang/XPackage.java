@@ -1,6 +1,10 @@
 package xproject.xlang;
 
-public interface XPackage {
+import java.rmi.RemoteException;
 
-	String xgetName();
+import xproject.xrmi.XRemote;
+
+public interface XPackage extends XRemote {
+
+	String xgetName() throws RemoteException;
 }

@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.kdq</groupId>
-  <artifactId>xlang</artifactId>
+  <groupId>xproject</groupId>
+  <artifactId>xrmi</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>xlang</name>
+  <name>xrmi</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -20,11 +20,6 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>xproject</groupId>
-    	<artifactId>xrmi</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

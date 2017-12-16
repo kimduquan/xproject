@@ -142,6 +142,7 @@ public class XClassImpl implements XClass {
 		return null;
 	}
 	
+	/*
 	public static boolean xisBoolean(XClass xclass)
 	{
 		return boolean.class.getName().equals(xclass.xgetName());
@@ -176,6 +177,7 @@ public class XClassImpl implements XClass {
 	{
 		return String.class.getName().equals(xclass.xgetName());
 	}
+	*/
 
 	public XConstructor[] xgetConstructors() {
 		// TODO Auto-generated method stub

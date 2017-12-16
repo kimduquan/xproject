@@ -1,10 +1,14 @@
 package xproject.xlang;
 
-public interface XObject {
+import java.rmi.RemoteException;
 
-	XClass xgetClass();
-	String xtoString();
-	int xhashCode();
+import xproject.xrmi.XRemote;
+
+public interface XObject extends XRemote {
+
+	XClass xgetClass() throws RemoteException;
+	String xtoString() throws RemoteException;
+	int xhashCode() throws RemoteException;
 	
 	public static final XObject NULL = new XObject(){
 

@@ -1,7 +1,11 @@
 package xproject.xlang.xreflect;
 
-public interface XModifier {
-	boolean xisStatic();
-	boolean xisPublic();
-	boolean xisAbstract();
+import java.rmi.RemoteException;
+
+import xproject.xrmi.XRemote;
+
+public interface XModifier extends XRemote {
+	boolean xisStatic() throws RemoteException;
+	boolean xisPublic() throws RemoteException;
+	boolean xisAbstract() throws RemoteException;
 }
