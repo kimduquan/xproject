@@ -1,63 +1,59 @@
-package org.kdq.xlang.impl;
+package xproject.xlang.impl;
 
-import org.kdq.xlang.XClass;
-import org.kdq.xlang.XObject;
+import xproject.xlang.XClass;
+import xproject.xlang.XObject;
 
-public class XObjectImpl implements XObject {
+public class XObjectImpl implements XObject{
 
-	public String xtoString() {
-		// TODO Auto-generated method stub
-		return null;
+	private XClass xclass;
+	private Object object;
+	
+	protected XObjectImpl(Object object)
+	{
+		xclass = null;
+		this.object = object;
 	}
-
-	public XObject xclone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void xfinalize() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public boolean xequals(XObject obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
+	
+	
+	@Override
 	public XClass xgetClass() {
 		// TODO Auto-generated method stub
-		return null;
+		if(xclass == null)
+		{
+			try {
+				xclass = XClassImpl.xnew(object.getClass());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return xclass;
 	}
 
+	public Object get()
+	{
+		return object;
+	}
+
+	@Override
+	public String xtoString() {
+		// TODO Auto-generated method stub
+		return object.toString();
+	}
+	
+	public static XObject xnew(Object object)
+	{
+		if(object == null)
+			return XObject.NULL;
+		return new XObjectImpl(object);
+	}
+
+
+
+	@Override
 	public int xhashCode() {
 		// TODO Auto-generated method stub
-		return 0;
+		return System.identityHashCode(object);
 	}
-
-	public void xnotify() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void xnotifyAll() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void xwait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void xwait(long timeout) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void xwait(long timeout, int nanos) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

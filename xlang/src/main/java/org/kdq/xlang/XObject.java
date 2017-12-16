@@ -1,16 +1,28 @@
-package org.kdq.xlang;
+package xproject.xlang;
 
 public interface XObject {
 
-	String xtoString();
-	XObject xclone();
-	void xfinalize();
-	boolean xequals(XObject obj);
 	XClass xgetClass();
+	String xtoString();
 	int xhashCode();
-	void xnotify();
-	void xnotifyAll();
-	void xwait();
-	void xwait(long timeout);
-	void xwait(long timeout, int nanos);
+	
+	public static final XObject NULL = new XObject(){
+
+		@Override
+		public XClass xgetClass() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String xtoString() {
+			// TODO Auto-generated method stub
+			return "";
+		}
+
+		@Override
+		public int xhashCode() {
+			// TODO Auto-generated method stub
+			return 0;
+		}};
 }

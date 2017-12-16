@@ -1,21 +1,21 @@
-package org.kdq.xlang;
+package xproject.xlang;
 
-import org.kdq.xlang.xreflect.XConstructor;
-import org.kdq.xlang.xreflect.XField;
-import org.kdq.xlang.xreflect.XMethod;
+import xproject.xlang.xreflect.XConstructor;
+import xproject.xlang.xreflect.XField;
+import xproject.xlang.xreflect.XMethod;
+import xproject.xlang.xreflect.XModifier;
 
 public interface XClass {
 
-	String xgetName();
-	String xgetSimpleName();
-	XConstructor xgetConstructor(XClass... parameterTypes);
-	XConstructor[] xgetConstructors();
 	XField[] xgetFields();
-	XField xgetField(String name);
-	boolean xisInstance(XObject obj);
-	XMethod xgetMethod(String name, XClass... parameterTypes);
+	boolean xisPrimitive();
 	XMethod[] xgetMethods();
-	XPackage xgetPackage();
-	XClass xgetSupperclass();
-
+	String xgetSimpleName();
+	String xgetName();
+	boolean xisArray();
+	XClass xgetComponentType();
+	XClass xgetSuperClass();
+	XConstructor[] xgetConstructors();
+	XModifier xgetModifiers();
+	static final String XOBJECT_CLASS_NAME = "java.lang.Object";
 }
