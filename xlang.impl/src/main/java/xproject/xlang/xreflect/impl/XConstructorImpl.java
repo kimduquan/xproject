@@ -21,8 +21,8 @@ public class XConstructorImpl implements XConstructor {
 	{
 		constructor = c;
 		modifiers = new XModifierImpl(c.getModifiers());
-		initializeParameters();
-		initializeParameterTypes();
+		xparameters = null;
+		xparameterTypes = null;
 	}
 	
 	public static XConstructor xnew(Constructor<?> c)
@@ -80,6 +80,8 @@ public class XConstructorImpl implements XConstructor {
 
 	public XParameter[] xgetParameters() {
 		// TODO Auto-generated method stub
+		if(xparameters == null)
+			initializeParameters();
 		return xparameters;
 	}
 
@@ -90,6 +92,8 @@ public class XConstructorImpl implements XConstructor {
 
 	public XClass[] xgetParameterTypes() {
 		// TODO Auto-generated method stub
+		if(xparameterTypes == null)
+			initializeParameterTypes();
 		return xparameterTypes;
 	}
 }

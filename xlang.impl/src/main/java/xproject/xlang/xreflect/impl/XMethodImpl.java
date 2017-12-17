@@ -24,8 +24,8 @@ public class XMethodImpl implements XMethod {
 	{
 		method = m;
 		modifiers = new XModifierImpl(m.getModifiers());
-		initializeParameters();
-		initializeParameterTypes();
+		xparameters = null;
+		xparameterTypes = null;
 	}
 	
 	protected void initializeParameters()
@@ -107,6 +107,8 @@ public class XMethodImpl implements XMethod {
 
 	public XParameter[] xgetParameters() {
 		// TODO Auto-generated method stub
+		if(xparameters == null)
+			initializeParameters();
 		return xparameters;
 	}
 
@@ -117,6 +119,8 @@ public class XMethodImpl implements XMethod {
 
 	public XClass[] xgetParameterTypes() {
 		// TODO Auto-generated method stub
+		if(xparameterTypes == null)
+			initializeParameterTypes();
 		return xparameterTypes;
 	}
 }
