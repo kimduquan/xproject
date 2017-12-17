@@ -2,7 +2,6 @@ package xproject.xlang.xreflect.impl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import xproject.xlang.XClass;
@@ -20,10 +19,10 @@ public class XMethodImpl implements XMethod {
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
 	
-	protected XMethodImpl(Method m)
+	private XMethodImpl(Method m)
 	{
 		method = m;
-		modifiers = new XModifierImpl(m.getModifiers());
+		modifiers = XModifierImpl.xnew(m.getModifiers());
 		xparameters = null;
 		xparameterTypes = null;
 	}
@@ -33,7 +32,7 @@ public class XMethodImpl implements XMethod {
 		ArrayList<XParameter> params = new ArrayList<XParameter>();
 		for(Parameter p : method.getParameters())
 		{
-			params.add(new XParameterImpl(p));
+			params.add(XParameterImpl.xnew(p));
 		}
 		xparameters = new XParameter[params.size()];
 		int i = 0;
@@ -84,13 +83,9 @@ public class XMethodImpl implements XMethod {
 	public static XMethod xnew(Method method)
 	{
 		XMethod xmethod = new XMethodImpl(method);
-		String name = "";
-		try {
-			name = xmethod.xgetName();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		String name = method.getName();
+		
 		if(xmethods.containsKey(name))
 		{
 			ArrayList<XMethod> methods = xmethods.get(name);

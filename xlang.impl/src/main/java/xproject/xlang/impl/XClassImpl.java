@@ -24,13 +24,13 @@ public class XClassImpl implements XClass {
 	private XConstructor[] constructors;
 	private XModifier modifiers;
 	
-	protected XClassImpl(Class<?> cls)
+	private XClassImpl(Class<?> cls)
 	{
 		this.cls = cls;
 		initializeFields();
 		initializeMethods();
 		initializeConstructors();
-		modifiers = new XModifierImpl(cls.getModifiers());
+		modifiers = XModifierImpl.xnew(cls.getModifiers());
 	}
 	
 	protected void initializeFields()
@@ -132,13 +132,8 @@ public class XClassImpl implements XClass {
 	public XClass xgetSuperClass() {
 		// TODO Auto-generated method stub
 		Class<?> superCls = cls.getSuperclass();
-		try {
-			if(superCls != null)
-				return XClassImpl.xnew(cls.getSuperclass());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(superCls != null)
+			return XClassImpl.xnew(cls.getSuperclass());
 		return null;
 	}
 	
@@ -176,8 +171,7 @@ public class XClassImpl implements XClass {
 	public static boolean xisString(XClass xclass)
 	{
 		return String.class.getName().equals(xclass.xgetName());
-	}
-	*/
+	}*/
 
 	public XConstructor[] xgetConstructors() {
 		// TODO Auto-generated method stub

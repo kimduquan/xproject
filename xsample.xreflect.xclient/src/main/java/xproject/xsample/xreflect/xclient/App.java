@@ -3,6 +3,7 @@ package xproject.xsample.xreflect.xclient;
 import java.rmi.RemoteException;
 
 import xproject.xlang.XClass;
+import xproject.xlang.xreflect.XMethod;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
 
@@ -18,6 +19,10 @@ public class App
         try {
 			XClass cls = (XClass) registry.lookup("RemoteWebDriver");
 			System.out.println(cls.xgetName());
+			for(XMethod method : cls.xgetMethods())
+			{
+				System.out.println(method.xgetName());
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

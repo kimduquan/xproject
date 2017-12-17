@@ -17,10 +17,10 @@ public class XConstructorImpl implements XConstructor {
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
 	
-	protected XConstructorImpl(Constructor<?> c)
+	private XConstructorImpl(Constructor<?> c)
 	{
 		constructor = c;
-		modifiers = new XModifierImpl(c.getModifiers());
+		modifiers = XModifierImpl.xnew(c.getModifiers());
 		xparameters = null;
 		xparameterTypes = null;
 	}
@@ -35,7 +35,7 @@ public class XConstructorImpl implements XConstructor {
 		ArrayList<XParameter> params = new ArrayList<XParameter>();
 		for(Parameter p : constructor.getParameters())
 		{
-			params.add(new XParameterImpl(p));
+			params.add(XParameterImpl.xnew(p));
 		}
 		xparameters = new XParameter[params.size()];
 		int i = 0;

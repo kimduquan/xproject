@@ -8,7 +8,7 @@ public class XModifierImpl implements XModifier {
 
 	private int modifiers;
 	
-	public XModifierImpl(int m)
+	private XModifierImpl(int m)
 	{
 		modifiers = m;
 	}
@@ -28,5 +28,8 @@ public class XModifierImpl implements XModifier {
 		return Modifier.isAbstract(modifiers);
 	}
 
-	
+	public static XModifier xnew(int m)
+	{
+		return new XModifierImpl(m);
+	}
 }

@@ -1,14 +1,14 @@
 package xproject.xlang.xreflect.impl;
 
 import java.lang.reflect.Array;
-
 import xproject.xlang.XObject;
 import xproject.xlang.impl.XObjectImpl;
 import xproject.xlang.xreflect.XArray;
 
 public class XArrayImpl extends XObjectImpl implements XArray {
 	
-	public XArrayImpl(Object object) {
+	private XArrayImpl(Object object) 
+	{
 		super(object);
 	}
 
@@ -20,7 +20,7 @@ public class XArrayImpl extends XObjectImpl implements XArray {
 		{
 			if(object.getClass().isArray())
 			{
-				xobj = new XArrayImpl(object);
+				xobj = XArrayImpl.xnew(object);
 			}
 			else
 			{
@@ -42,5 +42,4 @@ public class XArrayImpl extends XObjectImpl implements XArray {
 		// TODO Auto-generated method stub
 		return Array.getLength(get());
 	}
-
 }

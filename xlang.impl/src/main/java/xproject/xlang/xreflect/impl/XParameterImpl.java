@@ -10,7 +10,7 @@ public class XParameterImpl implements XParameter {
 
 	private Parameter parameter;
 	
-	public XParameterImpl(Parameter p)
+	private XParameterImpl(Parameter p)
 	{
 		parameter = p;
 	}
@@ -25,5 +25,8 @@ public class XParameterImpl implements XParameter {
 		return XClassImpl.xnew(parameter.getType());
 	}
 	
-	
+	public static XParameter xnew(Parameter p)
+	{
+		return new XParameterImpl(p);
+	}
 }

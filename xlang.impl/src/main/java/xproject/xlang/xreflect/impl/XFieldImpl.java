@@ -14,10 +14,10 @@ public class XFieldImpl implements XField {
 	private Field field;
 	private XModifier modifiers;
 	
-	protected XFieldImpl(Field f)
+	private XFieldImpl(Field f)
 	{
 		field = f;
-		modifiers = new XModifierImpl(f.getModifiers());
+		modifiers = XModifierImpl.xnew(f.getModifiers());
 	}
 
 	public XModifier xgetModifiers() {
@@ -27,13 +27,7 @@ public class XFieldImpl implements XField {
 
 	public XClass xgetType() {
 		// TODO Auto-generated method stub
-		try {
-			return XClassImpl.xnew(field.getType());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return XClassImpl.xnew(field.getType());
 	}
 
 	public XObject xget(XObject object) throws Exception {
@@ -52,7 +46,7 @@ public class XFieldImpl implements XField {
 			return XObject.NULL;
 		
 		if(value.getClass().isArray())
-			return new XArrayImpl(value);
+			return XArrayImpl.xnew(value);
 					
 		return XObjectImpl.xnew(value);
 	}
@@ -64,17 +58,11 @@ public class XFieldImpl implements XField {
 
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
-		try {
-			return XClassImpl.xnew(field.getDeclaringClass());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return XClassImpl.xnew(field.getDeclaringClass());
 	}
 	
 	public static XField xnew(Field field)
 	{
-		return new XFieldImpl(field);
+		return XFieldImpl.xnew(field);
 	}
 }
