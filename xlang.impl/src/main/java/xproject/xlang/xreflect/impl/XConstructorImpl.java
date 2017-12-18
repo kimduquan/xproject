@@ -2,10 +2,8 @@ package xproject.xlang.xreflect.impl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-
 import xproject.xlang.XClass;
-import xproject.xlang.impl.XClassImpl;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
@@ -16,13 +14,15 @@ public class XConstructorImpl implements XConstructor {
 	private XModifier modifiers;
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
+	private XClass declaringClass;
 	
-	private XConstructorImpl(Constructor<?> c)
+	protected XConstructorImpl(Constructor<?> c)
 	{
 		constructor = c;
-		modifiers = XModifierImpl.xnew(c.getModifiers());
+		modifiers = null;
 		xparameters = null;
 		xparameterTypes = null;
+		declaringClass = null;
 	}
 	
 	public static XConstructor xnew(Constructor<?> c)
@@ -32,49 +32,35 @@ public class XConstructorImpl implements XConstructor {
 	
 	protected void initializeParameters()
 	{
-		ArrayList<XParameter> params = new ArrayList<XParameter>();
-		for(Parameter p : constructor.getParameters())
+		Parameter[] parameters = constructor.getParameters();
+		xparameters = new XParameter[parameters.length];
+		for(int i = 0; i< parameters.length; i++)
 		{
-			params.add(XParameterImpl.xnew(p));
-		}
-		xparameters = new XParameter[params.size()];
-		int i = 0;
-		for(XParameter p : params)
-		{
-			xparameters[i] = p;
-			i++;
+			xparameters[i] = XFactoryImpl.get().xParameter(parameters[i]);
 		}
 	}
 	
 	protected void initializeParameterTypes()
 	{
-		ArrayList<XClass> xclasses = new ArrayList<XClass>();
-		for(Class<?> type : constructor.getParameterTypes())
+		Class<?>[] types = constructor.getParameterTypes();
+		xparameterTypes = new XClass[types.length];
+		for(int i = 0; i < types.length; i++)
 		{
-			xclasses.add(XClassImpl.xnew(type));
-		}
-		xparameterTypes = new XClass[xclasses.size()];
-		int i = 0;
-		for(XClass xtype : xclasses)
-		{
-			xparameterTypes[i] = xtype;
-			i++;
+			xparameterTypes[i] = XFactoryImpl.get().xClass(types[i]);
 		}
 	}
 
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
-		try {
-			return XClassImpl.xnew(constructor.getDeclaringClass());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		if(declaringClass == null)
+		declaringClass = XFactoryImpl.get().xClass(constructor.getDeclaringClass());
+		return declaringClass;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
+		if(modifiers == null)
+			XFactoryImpl.get().xModifier(constructor.getModifiers());
 		return modifiers;
 	}
 

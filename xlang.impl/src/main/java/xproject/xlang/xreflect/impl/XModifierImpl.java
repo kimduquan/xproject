@@ -8,7 +8,7 @@ public class XModifierImpl implements XModifier {
 
 	private int modifiers;
 	
-	private XModifierImpl(int m)
+	protected XModifierImpl(int m)
 	{
 		modifiers = m;
 	}

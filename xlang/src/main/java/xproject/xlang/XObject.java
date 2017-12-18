@@ -1,14 +1,13 @@
 package xproject.xlang;
 
-import java.rmi.RemoteException;
-
 import xproject.xrmi.XRemote;
 
 public interface XObject extends XRemote {
 
-	XClass xgetClass() throws RemoteException;
-	String xtoString() throws RemoteException;
-	int xhashCode() throws RemoteException;
+	XClass xgetClass() throws Exception;
+	String xtoString() throws Exception;
+	int xhashCode() throws Exception;
+	Object x();
 	
 	public static final XObject NULL = new XObject(){
 
@@ -25,5 +24,10 @@ public interface XObject extends XRemote {
 		public int xhashCode() {
 			// TODO Auto-generated method stub
 			return 0;
+		}
+
+		public Object x() {
+			// TODO Auto-generated method stub
+			return null;
 		}};
 }

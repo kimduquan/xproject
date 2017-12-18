@@ -20,17 +20,12 @@ public class XObjectImpl implements XObject{
 		// TODO Auto-generated method stub
 		if(xclass == null)
 		{
-			try {
-				xclass = XClassImpl.xnew(object.getClass());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			xclass = XClassImpl.xnew(object.getClass());
 		}
 		return xclass;
 	}
 
-	public Object get()
+	public Object x()
 	{
 		return object;
 	}
@@ -42,8 +37,6 @@ public class XObjectImpl implements XObject{
 	
 	public static XObject xnew(Object object)
 	{
-		if(object == null)
-			return XObject.NULL;
 		return new XObjectImpl(object);
 	}
 

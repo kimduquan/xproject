@@ -9,10 +9,6 @@ import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
-import xproject.xlang.xreflect.impl.XConstructorImpl;
-import xproject.xlang.xreflect.impl.XFieldImpl;
-import xproject.xlang.xreflect.impl.XMethodImpl;
-import xproject.xlang.xreflect.impl.XModifierImpl;
 
 public class XClassImpl implements XClass {
 	
@@ -23,14 +19,18 @@ public class XClassImpl implements XClass {
 	private XMethod[] methods;
 	private XConstructor[] constructors;
 	private XModifier modifiers;
+	private XClass superClass;
+	private XClass componentType;
 	
-	private XClassImpl(Class<?> cls)
+	protected XClassImpl(Class<?> cls)
 	{
 		this.cls = cls;
-		initializeFields();
-		initializeMethods();
-		initializeConstructors();
-		modifiers = XModifierImpl.xnew(cls.getModifiers());
+		fields = null;
+		methods = null;
+		constructors = null;
+		modifiers = null;
+		superClass = null;
+		componentType = null;
 	}
 	
 	protected void initializeFields()
@@ -40,7 +40,7 @@ public class XClassImpl implements XClass {
 		
 		for(int i = 0; i < fs.length; i++)
 		{
-			fields[i] = XFieldImpl.xnew(fs[i]);
+			fields[i] = XFactoryImpl.get().xField(fs[i]);
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class XClassImpl implements XClass {
 		
 		for(int i = 0; i < ms.length; i++)
 		{
-			methods[i] = XMethodImpl.xnew(ms[i]);
+			methods[i] = XFactoryImpl.get().xMethod(ms[i]);
 		}
 	}
 	protected void initializeConstructors()
@@ -61,7 +61,7 @@ public class XClassImpl implements XClass {
 		
 		for(int i = 0; i < cs.length; i++)
 		{
-			constructors[i] = XConstructorImpl.xnew(cs[i]);
+			constructors[i] = XFactoryImpl.get().xConstructor(cs[i]);
 		}
 	}
 	
@@ -71,8 +71,7 @@ public class XClassImpl implements XClass {
 			return xclasses.get(name);
 		else
 		{
-			XClassImpl newClass = new XClassImpl(Class.forName(name));
-			xclasses.put(name, newClass);
+			XClass newClass = XFactoryImpl.get().xClass(Class.forName(name));
 			return newClass;
 		}
 	}
@@ -83,13 +82,15 @@ public class XClassImpl implements XClass {
 		if(xclasses.containsKey(name))
 			return xclasses.get(name);
 		
-		XClassImpl newClass = new XClassImpl(cls);
+		XClass newClass = new XClassImpl(cls);
 		xclasses.put(name, newClass);
 		return newClass;
 	}
 
 	public XField[] xgetFields() {
 		// TODO Auto-generated method stub
+		if(fields == null)
+			initializeFields();
 		return fields;
 	}
 
@@ -100,6 +101,8 @@ public class XClassImpl implements XClass {
 
 	public XMethod[] xgetMethods() {
 		// TODO Auto-generated method stub
+		if(methods == null)
+			initializeMethods();
 		return methods;
 	}
 
@@ -120,21 +123,24 @@ public class XClassImpl implements XClass {
 
 	public XClass xgetComponentType() {
 		// TODO Auto-generated method stub
-		try {
-			return XClassImpl.xnew(cls.getComponentType());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(componentType == null)
+		{
+			Class<?> type = cls.getComponentType();
+			if(type != null)
+				componentType = XFactoryImpl.get().xClass(type);
 		}
-		return null;
+		return componentType;
 	}
 
 	public XClass xgetSuperClass() {
 		// TODO Auto-generated method stub
-		Class<?> superCls = cls.getSuperclass();
-		if(superCls != null)
-			return XClassImpl.xnew(cls.getSuperclass());
-		return null;
+		if(superClass == null)
+		{
+			Class<?> superCls = cls.getSuperclass();
+			if(superCls != null)
+				superClass = XFactoryImpl.get().xClass(cls.getSuperclass());
+		}
+		return superClass;
 	}
 	
 	/*
@@ -175,11 +181,15 @@ public class XClassImpl implements XClass {
 
 	public XConstructor[] xgetConstructors() {
 		// TODO Auto-generated method stub
+		if(constructors == null)
+			initializeConstructors();
 		return constructors;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
+		if(modifiers == null)
+			modifiers = XFactoryImpl.get().xModifier(cls.getModifiers());
 		return modifiers;
 	}
 }

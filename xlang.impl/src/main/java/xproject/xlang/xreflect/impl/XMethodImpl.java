@@ -5,7 +5,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import xproject.xlang.XClass;
-import xproject.xlang.impl.XClassImpl;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
@@ -18,44 +18,34 @@ public class XMethodImpl implements XMethod {
 	private XModifier modifiers;
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
+	private XClass declaringClass;
 	
-	private XMethodImpl(Method m)
+	protected XMethodImpl(Method m)
 	{
 		method = m;
-		modifiers = XModifierImpl.xnew(m.getModifiers());
+		modifiers = null;
 		xparameters = null;
 		xparameterTypes = null;
+		declaringClass = null;
 	}
 	
 	protected void initializeParameters()
 	{
-		ArrayList<XParameter> params = new ArrayList<XParameter>();
-		for(Parameter p : method.getParameters())
+		Parameter[] params = method.getParameters();
+		xparameters = new XParameter[params.length];
+		for(int i = 0; i < params.length; i++)
 		{
-			params.add(XParameterImpl.xnew(p));
-		}
-		xparameters = new XParameter[params.size()];
-		int i = 0;
-		for(XParameter p : params)
-		{
-			xparameters[i] = p;
-			i++;
+			xparameters[i] = XFactoryImpl.get().xParameter(params[i]);
 		}
 	}
 	
 	protected void initializeParameterTypes()
 	{
-		ArrayList<XClass> xclasses = new ArrayList<XClass>();
-		for(Class<?> type : method.getParameterTypes())
+		Class<?>[] types = method.getParameterTypes();
+		xparameterTypes = new XClass[types.length];
+		for(int i = 0; i < types.length; i++)
 		{
-			xclasses.add(XClassImpl.xnew(type));
-		}
-		xparameterTypes = new XClass[xclasses.size()];
-		int i = 0;
-		for(XClass xtype : xclasses)
-		{
-			xparameterTypes[i] = xtype;
-			i++;
+			xparameterTypes[i] = XFactoryImpl.get().xClass(types[i]);
 		}
 	}
 
@@ -66,17 +56,15 @@ public class XMethodImpl implements XMethod {
 
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
-		try {
-			return XClassImpl.xnew(method.getDeclaringClass());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		if(declaringClass == null)
+			declaringClass = XFactoryImpl.get().xClass(method.getDeclaringClass());
+		return declaringClass;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
+		if(modifiers == null)
+			modifiers = XFactoryImpl.get().xModifier(method.getModifiers());
 		return modifiers;
 	}
 	

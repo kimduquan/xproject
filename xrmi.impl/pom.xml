@@ -26,5 +26,10 @@
     	<artifactId>xrmi</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+    	<groupId>org.kdq</groupId>
+    	<artifactId>xlang.impl</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>

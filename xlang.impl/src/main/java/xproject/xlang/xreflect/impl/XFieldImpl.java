@@ -4,8 +4,7 @@ import java.lang.reflect.Field;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
-import xproject.xlang.impl.XClassImpl;
-import xproject.xlang.impl.XObjectImpl;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XModifier;
 
@@ -13,42 +12,36 @@ public class XFieldImpl implements XField {
 
 	private Field field;
 	private XModifier modifiers;
+	private XClass type;
+	private XClass declaringClass;
 	
-	private XFieldImpl(Field f)
+	protected XFieldImpl(Field f)
 	{
 		field = f;
-		modifiers = XModifierImpl.xnew(f.getModifiers());
+		modifiers = null;
+		type = null;
+		declaringClass = null;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
+		if(modifiers == null)
+			modifiers = XFactoryImpl.get().xModifier(field.getModifiers());
 		return modifiers;
 	}
 
 	public XClass xgetType() {
 		// TODO Auto-generated method stub
-		return XClassImpl.xnew(field.getType());
+		if(type == null)
+			type = XFactoryImpl.get().xClass(field.getType());
+		return type;
 	}
 
 	public XObject xget(XObject object) throws Exception {
 		// TODO Auto-generated method stub
-		Object value = null;
-		Object obj = null;
-		
-		if(object instanceof XObjectImpl)
-		{
-			obj = ((XObjectImpl)object).get();
-		}
-		
-		value = field.get(obj);
-		
-		if(value == null)
-			return XObject.NULL;
-		
-		if(value.getClass().isArray())
-			return XArrayImpl.xnew(value);
+		Object value = field.get(object.x());
 					
-		return XObjectImpl.xnew(value);
+		return XFactoryImpl.get().xObject(value);
 	}
 
 	public String xgetName() {
@@ -58,11 +51,13 @@ public class XFieldImpl implements XField {
 
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
-		return XClassImpl.xnew(field.getDeclaringClass());
+		if(declaringClass == null)
+			declaringClass = XFactoryImpl.get().xClass(field.getDeclaringClass());
+		return declaringClass;
 	}
 	
 	public static XField xnew(Field field)
 	{
-		return XFieldImpl.xnew(field);
+		return new XFieldImpl(field);
 	}
 }

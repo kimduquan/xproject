@@ -3,16 +3,18 @@ package xproject.xlang.xreflect.impl;
 import java.lang.reflect.Parameter;
 
 import xproject.xlang.XClass;
-import xproject.xlang.impl.XClassImpl;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XParameter;
 
 public class XParameterImpl implements XParameter {
 
 	private Parameter parameter;
+	private XClass type;
 	
-	private XParameterImpl(Parameter p)
+	protected XParameterImpl(Parameter p)
 	{
 		parameter = p;
+		type = null;
 	}
 
 	public String xgetName() {
@@ -22,7 +24,9 @@ public class XParameterImpl implements XParameter {
 
 	public XClass xgetType() {
 		// TODO Auto-generated method stub
-		return XClassImpl.xnew(parameter.getType());
+		if(type == null)
+			type = XFactoryImpl.get().xClass(parameter.getType());
+		return type;
 	}
 	
 	public static XParameter xnew(Parameter p)

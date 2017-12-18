@@ -28,7 +28,7 @@
     </dependency>
     <dependency>
     	<groupId>xproject</groupId>
-    	<artifactId>xrmi.impl</artifactId>
+    	<artifactId>xrmi</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

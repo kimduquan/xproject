@@ -11,7 +11,7 @@ public class XRegistryImpl implements XRegistry {
 
 	private Registry registry = null;
 	
-	private XRegistryImpl(Registry reg)
+	protected XRegistryImpl(Registry reg)
 	{
 		registry = reg;
 	}
@@ -43,7 +43,7 @@ public class XRegistryImpl implements XRegistry {
 		return registry.list();
 	}
 
-	public XRemote lookup(String name) throws RemoteException, Exception {
+	public XRemote xlookup(String name) throws RemoteException, Exception {
 		// TODO Auto-generated method stub
 		return (XRemote) registry.lookup(name);
 	}

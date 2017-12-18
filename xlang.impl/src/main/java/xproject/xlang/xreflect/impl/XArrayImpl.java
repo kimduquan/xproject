@@ -2,44 +2,35 @@ package xproject.xlang.xreflect.impl;
 
 import java.lang.reflect.Array;
 import xproject.xlang.XObject;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.impl.XObjectImpl;
 import xproject.xlang.xreflect.XArray;
 
 public class XArrayImpl extends XObjectImpl implements XArray {
 	
-	private XArrayImpl(Object object) 
+	protected XArrayImpl(Object object) 
 	{
 		super(object);
 	}
 
 	public XObject xget(int index) {
 		// TODO Auto-generated method stub
-		XObject xobj = XObject.NULL;
-		Object object = Array.get(get(), index);
-		if(object != null)
-		{
-			if(object.getClass().isArray())
-			{
-				xobj = XArrayImpl.xnew(object);
-			}
-			else
-			{
-				xobj = XObjectImpl.xnew(object);
-			}
-		}
-		return xobj;
+		Object obj = Array.get(x(), index);
+		return XFactoryImpl.get().xObject(obj);
 	}
 
-	public void xset(int index, XObject object) {
+	public void xset(int index, XObject xobject) {
 		// TODO Auto-generated method stub
-		if(object instanceof XObjectImpl) {
-			XObjectImpl xobject = (XObjectImpl) object;
-			Array.set(get(), index, xobject.get());
-		}
+		Array.set(x(), index, xobject.x());
 	}
 
 	public int xgetLength() {
 		// TODO Auto-generated method stub
-		return Array.getLength(get());
+		return Array.getLength(x());
+	}
+	
+	public static XArray xnew(Object object)
+	{
+		return new XArrayImpl(object);
 	}
 }

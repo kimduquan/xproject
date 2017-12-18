@@ -1,19 +1,22 @@
 package xproject.xlang.impl;
 
-import java.rmi.RemoteException;
-
 import xproject.xlang.XPackage;
 
 public class XPackageImpl implements XPackage {
 
-	private XPackageImpl() throws RemoteException {
-		super();
-		// TODO Auto-generated constructor stub
+	private Package xpackage;
+	
+	protected XPackageImpl(Package pkg) {
+		xpackage = pkg;
 	}
 
 	public String xgetName() {
 		// TODO Auto-generated method stub
-		return null;
+		return xpackage.getName();
 	}
 
+	public static XPackage xnew(Package pkg)
+	{
+		return new XPackageImpl(pkg);
+	}
 }
