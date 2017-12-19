@@ -2,6 +2,7 @@ package xproject.xsample.xreflect.xclient;
 
 import xproject.xlang.XClass;
 import xproject.xlang.xreflect.XMethod;
+import xproject.xlang.xreflect.XParameter;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
 
@@ -21,6 +22,10 @@ public class App
 			for(XMethod method : cls.xgetMethods())
 			{
 				System.out.println(method.xgetName());
+				for(XParameter param : method.xgetParameters())
+				{
+					System.out.println("\t" + param.xgetName() + " : " + param.xgetType().xgetName());
+				}
 			}
         }
 		catch(Exception ex)
