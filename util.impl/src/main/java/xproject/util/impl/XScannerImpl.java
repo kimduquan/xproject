@@ -156,6 +156,21 @@ public class XScannerImpl implements XScanner {
 		
 		return null;
 	}
+	
+	public static XScanner xnew(XScanner parent, String delimiter)
+	{
+		try 
+		{
+			XScanner scanner = xnew("String", parent.xnextLine());
+			scanner = scanner.xuseDelimiter(delimiter);
+			return scanner;
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public boolean xnextBoolean() throws Exception {
 		// TODO Auto-generated method stub
