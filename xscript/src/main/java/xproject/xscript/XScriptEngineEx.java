@@ -8,7 +8,7 @@ import xproject.xlang.xreflect.XArray;
 public interface XScriptEngineEx extends XScriptEngine {
 
 	//
-	XObject xeval(String method, XScanner inLineScanner, XScriptContext context) throws Exception;
+	XObject xeval(String method, XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception;
 	
 	//
 	XObject xinvoke(String method, XScanner inLineScanner, XScriptContext context) throws Exception;
@@ -19,13 +19,11 @@ public interface XScriptEngineEx extends XScriptEngine {
 	
 	//
 	XObject xnew(XScanner scanner, XScriptContext context) throws Exception;
-	XObject xnew(XClass xclass, XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
-	void xtry(XScriptContext context) throws Exception;
+	void xtry(XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
-	XObject xcatch(XClass exceptionType, XScanner scanner, XScriptContext context) throws Exception;
 	XObject xcatch(XScanner scanner, XScriptContext context) throws Exception;
 	
 	boolean xif(XScanner scanner, XScriptContext context) throws Exception;
@@ -38,7 +36,7 @@ public interface XScriptEngineEx extends XScriptEngine {
 	
 	//
 	XObject xreturn(XScanner scanner, XScriptContext context) throws Exception;
-	XObject xreturn(XObject xobject) throws Exception;
+	XObject xreturn(String name, XObject xobject, XScriptContext context) throws Exception;
 	
 	public static final String IMPORT = "import";
 	public static final String NEW = "new";

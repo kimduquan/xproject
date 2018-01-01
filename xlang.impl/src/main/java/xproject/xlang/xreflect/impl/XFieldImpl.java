@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
-import xproject.xlang.impl.XFactoryImpl;
+import xproject.xlang.impl.XFactory;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XModifier;
 
@@ -14,26 +14,28 @@ public class XFieldImpl implements XField {
 	private XModifier modifiers;
 	private XClass type;
 	private XClass declaringClass;
+	private XFactory xfactory;
 	
-	protected XFieldImpl(Field f)
+	protected XFieldImpl(Field f, XFactory xfactory)
 	{
 		field = f;
 		modifiers = null;
 		type = null;
 		declaringClass = null;
+		this.xfactory = xfactory;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
-			modifiers = XFactoryImpl.get().xModifier(field.getModifiers());
+			modifiers = xfactory.xModifier(field.getModifiers());
 		return modifiers;
 	}
 
 	public XClass xgetType() {
 		// TODO Auto-generated method stub
 		if(type == null)
-			type = XFactoryImpl.get().xClass(field.getType());
+			type = xfactory.xClass(field.getType());
 		return type;
 	}
 
@@ -41,7 +43,7 @@ public class XFieldImpl implements XField {
 		// TODO Auto-generated method stub
 		Object value = field.get(object.x());
 					
-		return XFactoryImpl.get().xObject(value);
+		return xfactory.xObject(value);
 	}
 
 	public String xgetName() {
@@ -52,12 +54,12 @@ public class XFieldImpl implements XField {
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
-			declaringClass = XFactoryImpl.get().xClass(field.getDeclaringClass());
+			declaringClass = xfactory.xClass(field.getDeclaringClass());
 		return declaringClass;
 	}
 	
-	public static XField xnew(Field field)
+	public static XField xnew(Field field, XFactory xfactory)
 	{
-		return new XFieldImpl(field);
+		return new XFieldImpl(field, xfactory);
 	}
 }

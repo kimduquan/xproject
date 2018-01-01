@@ -3,7 +3,8 @@ package xproject.xlang.xreflect.impl;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import xproject.xlang.XClass;
-import xproject.xlang.impl.XFactoryImpl;
+import xproject.xlang.XObject;
+import xproject.xlang.impl.XFactory;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
@@ -15,19 +16,21 @@ public class XConstructorImpl implements XConstructor {
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
 	private XClass declaringClass;
+	private XFactory xfactory;
 	
-	protected XConstructorImpl(Constructor<?> c)
+	protected XConstructorImpl(Constructor<?> c, XFactory xfactory)
 	{
 		constructor = c;
 		modifiers = null;
 		xparameters = null;
 		xparameterTypes = null;
 		declaringClass = null;
+		this.xfactory = xfactory;
 	}
 	
-	public static XConstructor xnew(Constructor<?> c)
+	public static XConstructor xnew(Constructor<?> c, XFactory xfactory)
 	{
-		return new XConstructorImpl(c);
+		return new XConstructorImpl(c, xfactory);
 	}
 	
 	protected void initializeParameters()
@@ -36,7 +39,7 @@ public class XConstructorImpl implements XConstructor {
 		xparameters = new XParameter[parameters.length];
 		for(int i = 0; i< parameters.length; i++)
 		{
-			xparameters[i] = XFactoryImpl.get().xParameter(parameters[i]);
+			xparameters[i] = xfactory.xParameter(parameters[i]);
 		}
 	}
 	
@@ -46,21 +49,21 @@ public class XConstructorImpl implements XConstructor {
 		xparameterTypes = new XClass[types.length];
 		for(int i = 0; i < types.length; i++)
 		{
-			xparameterTypes[i] = XFactoryImpl.get().xClass(types[i]);
+			xparameterTypes[i] = xfactory.xClass(types[i]);
 		}
 	}
 
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
-		declaringClass = XFactoryImpl.get().xClass(constructor.getDeclaringClass());
+		declaringClass = xfactory.xClass(constructor.getDeclaringClass());
 		return declaringClass;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
-			XFactoryImpl.get().xModifier(constructor.getModifiers());
+			xfactory.xModifier(constructor.getModifiers());
 		return modifiers;
 	}
 
@@ -81,5 +84,15 @@ public class XConstructorImpl implements XConstructor {
 		if(xparameterTypes == null)
 			initializeParameterTypes();
 		return xparameterTypes;
+	}
+
+	public XObject xnewInstance(XObject[] xobjects) throws Exception {
+		// TODO Auto-generated method stub
+		Object[] params = new Object[xobjects.length];
+		for(int i = 0; i < params.length; i++)
+		{
+			params[i] = xobjects[i].x();
+		}
+		return xfactory.xObject(constructor.newInstance(params));
 	}
 }

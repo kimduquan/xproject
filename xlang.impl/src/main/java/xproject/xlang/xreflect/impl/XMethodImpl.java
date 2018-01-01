@@ -5,7 +5,8 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import xproject.xlang.XClass;
-import xproject.xlang.impl.XFactoryImpl;
+import xproject.xlang.XObject;
+import xproject.xlang.impl.XFactory;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
@@ -19,14 +20,16 @@ public class XMethodImpl implements XMethod {
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
 	private XClass declaringClass;
+	private XFactory xfactory;
 	
-	protected XMethodImpl(Method m)
+	protected XMethodImpl(Method m, XFactory xfactory)
 	{
 		method = m;
 		modifiers = null;
 		xparameters = null;
 		xparameterTypes = null;
 		declaringClass = null;
+		this.xfactory = xfactory;
 	}
 	
 	protected void initializeParameters()
@@ -35,7 +38,7 @@ public class XMethodImpl implements XMethod {
 		xparameters = new XParameter[params.length];
 		for(int i = 0; i < params.length; i++)
 		{
-			xparameters[i] = XFactoryImpl.get().xParameter(params[i]);
+			xparameters[i] = xfactory.xParameter(params[i]);
 		}
 	}
 	
@@ -45,7 +48,7 @@ public class XMethodImpl implements XMethod {
 		xparameterTypes = new XClass[types.length];
 		for(int i = 0; i < types.length; i++)
 		{
-			xparameterTypes[i] = XFactoryImpl.get().xClass(types[i]);
+			xparameterTypes[i] = xfactory.xClass(types[i]);
 		}
 	}
 
@@ -57,20 +60,20 @@ public class XMethodImpl implements XMethod {
 	public XClass xgetDeclaringClass() {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
-			declaringClass = XFactoryImpl.get().xClass(method.getDeclaringClass());
+			declaringClass = xfactory.xClass(method.getDeclaringClass());
 		return declaringClass;
 	}
 
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
-			modifiers = XFactoryImpl.get().xModifier(method.getModifiers());
+			modifiers = xfactory.xModifier(method.getModifiers());
 		return modifiers;
 	}
 	
-	public static XMethod xnew(Method method)
+	public static XMethod xnew(Method method, XFactory xfactory)
 	{
-		XMethod xmethod = new XMethodImpl(method);
+		XMethod xmethod = new XMethodImpl(method, xfactory);
 
 		String name = method.getName();
 		
@@ -105,5 +108,16 @@ public class XMethodImpl implements XMethod {
 		if(xparameterTypes == null)
 			initializeParameterTypes();
 		return xparameterTypes;
+	}
+
+	public XObject xinvoke(XObject xobject, XObject[] xparameters)  throws Exception
+	{
+		// TODO Auto-generated method stub
+		Object[] params = new Object[xparameters.length];
+		for(int i = 0; i< params.length; i++)
+		{
+			params[i] = xparameters[i].x();
+		}
+		return xfactory.xObject(method.invoke(xobject.x(), params));
 	}
 }

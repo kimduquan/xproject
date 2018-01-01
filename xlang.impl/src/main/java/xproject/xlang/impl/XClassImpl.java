@@ -21,8 +21,9 @@ public class XClassImpl implements XClass {
 	private XModifier modifiers;
 	private XClass superClass;
 	private XClass componentType;
+	private XFactory xfactory;
 	
-	protected XClassImpl(Class<?> cls)
+	protected XClassImpl(Class<?> cls, XFactory factory)
 	{
 		this.cls = cls;
 		fields = null;
@@ -31,6 +32,7 @@ public class XClassImpl implements XClass {
 		modifiers = null;
 		superClass = null;
 		componentType = null;
+		xfactory = factory;
 	}
 	
 	protected void initializeFields()
@@ -40,7 +42,7 @@ public class XClassImpl implements XClass {
 		
 		for(int i = 0; i < fs.length; i++)
 		{
-			fields[i] = XFactoryImpl.get().xField(fs[i]);
+			fields[i] = xfactory.xField(fs[i]);
 		}
 	}
 	
@@ -51,7 +53,7 @@ public class XClassImpl implements XClass {
 		
 		for(int i = 0; i < ms.length; i++)
 		{
-			methods[i] = XFactoryImpl.get().xMethod(ms[i]);
+			methods[i] = xfactory.xMethod(ms[i]);
 		}
 	}
 	protected void initializeConstructors()
@@ -61,29 +63,27 @@ public class XClassImpl implements XClass {
 		
 		for(int i = 0; i < cs.length; i++)
 		{
-			constructors[i] = XFactoryImpl.get().xConstructor(cs[i]);
+			constructors[i] = xfactory.xConstructor(cs[i]);
 		}
 	}
 	
-	public static XClass xforName(String name) throws Exception
+	public static XClass xforName(String name, XFactory xfactory) throws Exception
 	{
 		if(xclasses.containsKey(name))
 			return xclasses.get(name);
 		else
 		{
-			XClass newClass = XFactoryImpl.get().xClass(Class.forName(name));
+			Class<?> cls = Class.forName(name);
+			name = cls.getName();
+			XClass newClass = xfactory.xClass(cls);
+			xclasses.put(name, newClass);
 			return newClass;
 		}
 	}
 	
-	public static XClass xnew(Class<?> cls)
+	public static XClass xnew(Class<?> cls, XFactory xfactory)
 	{
-		String name = cls.getName();
-		if(xclasses.containsKey(name))
-			return xclasses.get(name);
-		
-		XClass newClass = new XClassImpl(cls);
-		xclasses.put(name, newClass);
+		XClass newClass = new XClassImpl(cls, xfactory);
 		return newClass;
 	}
 
@@ -127,7 +127,7 @@ public class XClassImpl implements XClass {
 		{
 			Class<?> type = cls.getComponentType();
 			if(type != null)
-				componentType = XFactoryImpl.get().xClass(type);
+				componentType = xfactory.xClass(type);
 		}
 		return componentType;
 	}
@@ -138,46 +138,10 @@ public class XClassImpl implements XClass {
 		{
 			Class<?> superCls = cls.getSuperclass();
 			if(superCls != null)
-				superClass = XFactoryImpl.get().xClass(cls.getSuperclass());
+				superClass = xfactory.xClass(cls.getSuperclass());
 		}
 		return superClass;
 	}
-	
-	/*
-	public static boolean xisBoolean(XClass xclass)
-	{
-		return boolean.class.getName().equals(xclass.xgetName());
-	}
-	public static boolean xisByte(XClass xclass)
-	{
-		return byte.class.getName().equals(xclass.xgetName());
-	}
-	public static boolean xisDouble(XClass xclass)
-	{
-		return double.class.getName().equals(xclass.xgetName());
-	}
-	public static boolean xisFloat(XClass xclass)
-	{
-		return float.class.getName().equals(xclass.xgetName());
-	}
-	public static boolean xisInt(XClass xclass)
-	{
-		return int.class.getName().equals(xclass.xgetName());
-	}
-	public static boolean xisLong(XClass xclass)
-	{
-		return long.class.getName().equals(xclass.xgetName());
-	}
-	
-	public static boolean xisShort(XClass xclass)
-	{
-		return short.class.getName().equals(xclass.xgetName());
-	}
-	
-	public static boolean xisString(XClass xclass)
-	{
-		return String.class.getName().equals(xclass.xgetName());
-	}*/
 
 	public XConstructor[] xgetConstructors() {
 		// TODO Auto-generated method stub
@@ -189,7 +153,43 @@ public class XClassImpl implements XClass {
 	public XModifier xgetModifiers() {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
-			modifiers = XFactoryImpl.get().xModifier(cls.getModifiers());
+			modifiers = xfactory.xModifier(cls.getModifiers());
 		return modifiers;
+	}
+
+	public XMethod xgetMethod(String name, XClass[] parameterTypes) throws Exception
+	{
+		// TODO Auto-generated method stub
+		Class<?>[] classes = new Class<?>[parameterTypes.length];
+		for(int i = 0; i< classes.length; i++)
+		{
+			classes[i] = parameterTypes[i].x();
+		}
+		Method mt = cls.getMethod(name, classes);
+		
+		if(mt != null)
+			return xfactory.xMethod(mt);
+		
+		return null;
+	}
+
+	public Class<?> x() {
+		// TODO Auto-generated method stub
+		return cls;
+	}
+
+	public XConstructor xgetConstructor(XClass[] parameterTypes) throws Exception {
+		// TODO Auto-generated method stub
+		Class<?>[] classes = new Class<?>[parameterTypes.length];
+		for(int i = 0; i< classes.length; i++)
+		{
+			classes[i] = parameterTypes[i].x();
+		}
+		Constructor<?> ct = cls.getConstructor(classes);
+		
+		if(ct != null)
+			return xfactory.xConstructor(ct);
+		
+		return null;
 	}
 }

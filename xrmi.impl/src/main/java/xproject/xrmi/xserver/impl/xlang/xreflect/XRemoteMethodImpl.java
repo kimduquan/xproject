@@ -1,6 +1,7 @@
 package xproject.xrmi.xserver.impl.xlang.xreflect;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
@@ -46,6 +47,12 @@ public class XRemoteMethodImpl extends XUnicastRemoteObject<XMethod> implements 
 	public XClass[] xgetParameterTypes() throws Exception {
 		// TODO Auto-generated method stub
 		return ref().xgetParameterTypes();
+	}
+
+	public XObject xinvoke(XObject xobject, XObject[] xparameters)  throws Exception
+	{
+		// TODO Auto-generated method stub
+		return ref().xinvoke(xobject, xparameters);
 	}
 
 }

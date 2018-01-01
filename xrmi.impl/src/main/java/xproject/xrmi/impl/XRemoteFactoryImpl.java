@@ -6,10 +6,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XException;
 import xproject.xlang.XObject;
 import xproject.xlang.XPackage;
 import xproject.xlang.impl.XFactory;
-import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
@@ -19,6 +19,7 @@ import xproject.xlang.xreflect.XParameter;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
 import xproject.xrmi.xserver.impl.xlang.XRemoteClassImpl;
+import xproject.xrmi.xserver.impl.xlang.XRemoteExceptionImpl;
 import xproject.xrmi.xserver.impl.xlang.XRemoteObjectImpl;
 import xproject.xrmi.xserver.impl.xlang.XRemotePackageImpl;
 import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteArrayImpl;
@@ -52,9 +53,19 @@ public class XRemoteFactoryImpl implements XRemoteFactory {
 	public XObject xObject(Object object) {
 		// TODO Auto-generated method stub
 		XObject xobject = ref.xObject(object);
-		try {
-			xobject = new XRemoteObjectImpl(xobject);
-		} catch (Exception e) {
+		try 
+		{
+			if(xobject instanceof XArray)
+			{
+				xobject = new XRemoteArrayImpl((XArray)xobject);
+			}
+			else
+			{
+				xobject = new XRemoteObjectImpl(xobject);
+			}
+		} 
+		catch (Exception e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -71,18 +82,6 @@ public class XRemoteFactoryImpl implements XRemoteFactory {
 			e.printStackTrace();
 		}
 		return xpkg;
-	}
-
-	public XArray xArray(Object object) {
-		// TODO Auto-generated method stub
-		XArray xarray = ref.xArray(object);
-		try {
-			xarray = new XRemoteArrayImpl(xarray);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return xarray;
 	}
 
 	public XConstructor xConstructor(Constructor<?> constructor) {
@@ -145,20 +144,25 @@ public class XRemoteFactoryImpl implements XRemoteFactory {
 		return xparam;
 	}
 	
-	private static XRemoteFactory instance = null;
-	
-	public static XRemoteFactory get()
+	public static XRemoteFactory xnew(XFactory ref)
 	{
-		if(instance == null)
-		{
-			instance = new XRemoteFactoryImpl(XFactoryImpl.get());
-			XFactoryImpl.set(instance);
-		}
-		return instance;
+		return new XRemoteFactoryImpl(ref);
 	}
 
 	public XRegistry xRegistry() {
 		// TODO Auto-generated method stub
 		return XRegistryImpl.xnew();
+	}
+
+	public XException xException(Exception ex) {
+		// TODO Auto-generated method stub
+		XException xexception = ref.xException(ex);
+		try {
+			xexception = new XRemoteExceptionImpl(xexception);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return xexception;
 	}
 }

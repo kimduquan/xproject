@@ -2,21 +2,24 @@ package xproject.xlang.xreflect.impl;
 
 import java.lang.reflect.Array;
 import xproject.xlang.XObject;
-import xproject.xlang.impl.XFactoryImpl;
+import xproject.xlang.impl.XFactory;
 import xproject.xlang.impl.XObjectImpl;
 import xproject.xlang.xreflect.XArray;
 
 public class XArrayImpl extends XObjectImpl implements XArray {
 	
-	protected XArrayImpl(Object object) 
+	private XFactory xfactory;
+	
+	protected XArrayImpl(Object object, XFactory xfactory) 
 	{
-		super(object);
+		super(object, xfactory);
+		this.xfactory = xfactory;
 	}
 
 	public XObject xget(int index) {
 		// TODO Auto-generated method stub
 		Object obj = Array.get(x(), index);
-		return XFactoryImpl.get().xObject(obj);
+		return xfactory.xObject(obj);
 	}
 
 	public void xset(int index, XObject xobject) {
@@ -29,8 +32,8 @@ public class XArrayImpl extends XObjectImpl implements XArray {
 		return Array.getLength(x());
 	}
 	
-	public static XArray xnew(Object object)
+	public static XArray xnew(Object object, XFactory xfactory)
 	{
-		return new XArrayImpl(object);
+		return new XArrayImpl(object, xfactory);
 	}
 }

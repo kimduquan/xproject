@@ -2,6 +2,8 @@ package xproject.xscript.impl;
 
 import xproject.util.XScanner;
 import xproject.util.impl.XScannerImpl;
+import xproject.xlang.impl.XFactory;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
 
@@ -15,7 +17,8 @@ public class App
     {
         XScanner scanner = XScannerImpl.xnew("InputStream", "System.in");
         XScriptContext context = XScriptContextImpl.xnew();
-        XScriptEngine engine = XScriptEngineImpl.xnew();
+        XFactory xfactory = XFactoryImpl.xnew();
+        XScriptEngine engine = XScriptEngineImpl.xnew(xfactory);
         try {
 			engine.xeval(scanner, context);
 		} catch (Exception e) {

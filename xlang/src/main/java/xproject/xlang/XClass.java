@@ -19,4 +19,7 @@ public interface XClass extends XRemote {
 	XConstructor[] xgetConstructors() throws Exception;
 	XModifier xgetModifiers() throws Exception;
 	static final String XOBJECT_CLASS_NAME = "java.lang.Object";
+	XMethod xgetMethod(String name, XClass[] parameterTypes) throws Exception;
+	XConstructor xgetConstructor(XClass[] parameterTypes) throws Exception;
+	Class<?> x();
 }

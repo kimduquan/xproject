@@ -9,7 +9,7 @@ public interface XObject extends XRemote {
 	int xhashCode() throws Exception;
 	Object x();
 	
-	public static final XObject NULL = new XObject(){
+	public static final XObject xnull = new XObject(){
 
 		public XClass xgetClass() {
 			// TODO Auto-generated method stub

@@ -17,7 +17,7 @@ public class XScriptContextImpl implements XScriptContext {
 	
 	public XObject xgetAttribute(String name) throws Exception {
 		// TODO Auto-generated method stub
-		return XObject.NULL;
+		return XObject.xnull;
 	}
 
 	public XBindings xgetBindings(int scope) throws Exception {

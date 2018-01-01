@@ -2,16 +2,15 @@ package xproject.xscript.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import xproject.util.XScanner;
 import xproject.util.impl.XScannerImpl;
 import xproject.xlang.XClass;
+import xproject.xlang.XException;
 import xproject.xlang.XObject;
 import xproject.xlang.impl.XClassImpl;
-import xproject.xlang.impl.XFactoryImpl;
-import xproject.xlang.impl.XObjectImpl;
+import xproject.xlang.impl.XFactory;
 import xproject.xlang.xreflect.XArray;
+import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
@@ -22,24 +21,23 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 
 	private static final String THIS = "this";
 	private static final String CLASS = "class";
-	private static final String PACKAGE = "package";
+	private static final String RETURN = "return";
 	private static final String PARAMETER_NAME_PREFIX = "-";
 	private static final String OBJECT_REF_PREFIX = "#";
 	private static final String PARAMETER_SEPARATOR = "\t";
 	
 	private XObject xthis;
 	private HashMap<String, XClass> importedClasses;
+	private XException xexception;
 	
-	private boolean isReturned;
-	private XObject returnedObj;
+	private XFactory xfactory;
 	
-	protected XScriptEngineImpl()
+	protected XScriptEngineImpl(XFactory factory)
 	{
-		xthis = XObject.NULL;
+		xthis = XObject.xnull;
 		importedClasses = new HashMap<String, XClass>();
-		
-		isReturned = false;
-		returnedObj = null;
+		xfactory = factory;
+		xexception = null;
 	}
 	
 	protected String xgetParam(String param, XScanner scanner, String defVal) throws Exception
@@ -80,6 +78,20 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return defObj;
 	}
 	
+	protected void xsetObjectParam(String param, XScanner scanner, XScriptContext context, XObject defObj) throws Exception
+	{
+		String value = xgetParam(param, scanner, "");
+		if(value.isEmpty() == false)
+		{
+			if(value.startsWith(OBJECT_REF_PREFIX))
+			{
+				value = value.substring(OBJECT_REF_PREFIX.length());
+				XBindings bindings = context.xgetBindings(XScriptContext.XGLOBAL_SCOPE);
+				bindings.xput(value, defObj);
+			}
+		}
+	}
+	
 	protected XClass xgetClassParam(String param, XScanner scanner, XScriptContext context, XClass defCls) throws Exception
 	{
 		String clsName = xgetParam(CLASS, scanner, "");
@@ -93,33 +105,16 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return defCls;
 	}
 	
-	public XObject xeval(XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception
-	{
-		String methodName = "";
-		while(inLineScanner.xhasNext() && methodName.isEmpty())
-		{
-			methodName = inLineScanner.xnext();
-		}
-		
-		if(methodName.isEmpty() == false)
-		{
-			xeval(methodName, inLineScanner, context);
-		}
-		return XObject.NULL;
-	}
+	
 	
 	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
-		xthis = XFactoryImpl.get().xObject(this);
+		xthis = xfactory.xObject(this);
 		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(THIS, xthis);
 		
 		XScanner inLineScanner = null;
 		
-		for(
-				isReturned = false, 
-				returnedObj = null;
-				
-				isReturned == false && scanner.xhasNextLine();)
+		for(;scanner.xhasNextLine();)
 		{
 			inLineScanner = XScannerImpl.xnew(scanner, PARAMETER_SEPARATOR);
 			
@@ -132,13 +127,24 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return xthis;
 	}
 	
-	public XObject xeval(String method, XScanner inLineScanner, XScriptContext context) throws Exception
+	public XObject xeval(XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception
 	{
-		if(method.equals(RETURN))
+		String methodName = "";
+		while(inLineScanner.xhasNext() && methodName.isEmpty())
 		{
-			return xreturn(inLineScanner, context);
+			methodName = inLineScanner.xnext();
 		}
-		else if(method.equals(IMPORT))
+		
+		if(methodName.isEmpty() == false)
+		{
+			return xeval(methodName, scanner, inLineScanner, context);
+		}
+		return XObject.xnull;
+	}
+	
+	public XObject xeval(String method, XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception
+	{
+		if(method.equals(IMPORT))
 		{
 			ximport(inLineScanner, context);
 		}
@@ -146,17 +152,25 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		{
 			return xnew(inLineScanner, context);
 		}
+		else if(method.equals(RETURN))
+		{
+			return xreturn(inLineScanner, context);
+		}
 		else if(method.equals(TRY))
 		{
-			
+			xtry(scanner, context);
+		}
+		else if(method.equals(CATCH))
+		{
+			xcatch(scanner, context);
 		}
 			
 		return xinvoke(method, inLineScanner, context);
 	}
 	
-	public static XScriptEngine xnew()
+	public static XScriptEngine xnew(XFactory xfactory)
 	{
-		return new XScriptEngineImpl();
+		return new XScriptEngineImpl(xfactory);
 	}
 
 	public void ximport(XScanner scanner, XScriptContext context) throws Exception {
@@ -164,7 +178,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		String name = xgetParam(CLASS, scanner, "");
 		if(name.isEmpty() == false)
 		{
-			XClass xclass = XClassImpl.xforName(name);
+			XClass xclass = XClassImpl.xforName(name, xfactory);
 			ximport(xclass);
 		}
 	}
@@ -174,21 +188,14 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		importedClasses.put(xclass.xgetName(), xclass);
 	}
 	
-	public XObject xreturn(XObject obj) throws Exception
-	{
-		returnedObj = obj;
-		isReturned = true;
-		return obj;
-	}
-	
 	public XObject xinvoke(String method, XScanner scanner, XScriptContext context) throws Exception 
 	{
 		ArrayList<XClass> xclasses = new ArrayList<XClass>();
-		xclasses.addAll(this.importedClasses.values());
+		xclasses.addAll(importedClasses.values());
 		
-		XObject xobject = xgetObjectParam(THIS, scanner, context, XObject.NULL);
+		XObject xobject = xgetObjectParam(THIS, scanner, context, XObject.xnull);
 		
-		if(xobject == XObject.NULL) 
+		if(xobject == XObject.xnull) 
 		{
 			XClass xclass = xgetClassParam(CLASS, scanner, context, null);
 			if(xclass != null)
@@ -203,104 +210,214 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			xclasses.add(xobject.xgetClass());
 		}
 		
-		boolean isStatic = xobject == XObject.NULL;
-		ArrayList<XMethod> xmethods = new ArrayList<XMethod>();
-		
-		for(XClass xclass : xclasses)
-		{
-			for(XMethod xmethod : xclass.xgetMethods())
-			{
-				if(xmethod.xgetName().equals(method) && xmethod.xgetModifiers().xisStatic() == isStatic)
-				{
-					xmethods.add(xmethod);
-				}
-			}
-		}
-		
-		
 		
 		ArrayList<XObject> paramValues = new ArrayList<XObject>();
-		for(int index = 0; scanner.xhasNext(); index++)
+		
+		for(; scanner.xhasNext();)
 		{
 			String name = scanner.xnext();
 			if(name.startsWith(PARAMETER_NAME_PREFIX))
 			{
 				name = name.substring(0, PARAMETER_NAME_PREFIX.length());
-				XClass paramType = null;
-				Class<?> primitiveType = null;
 				
 				if(scanner.xhasNextBoolean())
 				{
-					primitiveType = Boolean.class;
+					paramValues.add(xfactory.xObject(scanner.xnextBoolean()));
 				}
 				else if(scanner.xhasNextByte())
 				{
-					primitiveType = Byte.class;
+					paramValues.add(xfactory.xObject(scanner.xnextByte()));
 				}
 				else if(scanner.xhasNextDouble())
 				{
-					primitiveType = Double.class;
+					paramValues.add(xfactory.xObject(scanner.xnextDouble()));
 				}
 				else if(scanner.xhasNextFloat())
 				{
-					primitiveType = Float.class;
+					paramValues.add(xfactory.xObject(scanner.xnextFloat()));
 				}
 				else if(scanner.xhasNextInt())
 				{
-					primitiveType = Integer.class;
+					paramValues.add(xfactory.xObject(scanner.xnextInt()));
 				}
 				else if(scanner.xhasNextLong())
 				{
-					primitiveType = Long.class;
+					paramValues.add(xfactory.xObject(scanner.xnextLong()));
 				}
 				else if(scanner.xhasNextShort())
 				{
-					primitiveType = Short.class;
+					paramValues.add(xfactory.xObject(scanner.xnextShort()));
 				}
 				else if(scanner.xhasNext())
 				{
+					String value = scanner.xnext();
 					
-				}
-				
-
-				ArrayList<XMethod> xmethods2 = new ArrayList<XMethod>();
-				for(XMethod xmethod : xmethods)
-				{
-					if(name.isEmpty() || xmethod.xgetName().equals(name))
+					if(value.startsWith(OBJECT_REF_PREFIX))
 					{
-						XClass[] paramTypes = xmethod.xgetParameterTypes();
-						if(paramTypes.length > index)
+						value = value.substring(OBJECT_REF_PREFIX.length());
+						XBindings bindings = context.xgetBindings(XScriptContext.XGLOBAL_SCOPE);
+						if(bindings.xcontainsKey(value))
 						{
-							
+							paramValues.add(bindings.xget(value));
 						}
+					}
+					else
+					{
+						paramValues.add(xfactory.xObject(value));
 					}
 				}
 			}
 		}
 		
-		return xthis;
+		XClass[] xparameterTypes = new XClass[paramValues.size()];
+		for(int i = 0; i < xparameterTypes.length; i++)
+		{
+			xparameterTypes[i] = paramValues.get(i).xgetClass();
+		}
+		
+		XMethod xmethod = null;
+		for(XClass xclass : xclasses)
+		{
+			xmethod = xclass.xgetMethod(method, xparameterTypes);
+			if(xmethod != null)
+			{
+				break;
+			}
+		}
+		
+		if(xmethod != null)
+		{
+			XObject[] xparameters = new XObject[paramValues.size()];
+			xparameters = paramValues.toArray(xparameters);
+			XObject xreturn = xmethod.xinvoke(xobject, xparameters);
+			xsetObjectParam(RETURN, scanner, context, xreturn);
+			return xreturn;
+		}
+		
+		return XObject.xnull;
 	}
 
 	
 
 	public XObject xnew(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public XObject xnew(XClass xclass, XScanner scanner, XScriptContext context) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void xtry(XScriptContext context) throws Exception {
-		// TODO Auto-generated method stub
+		ArrayList<XClass> xclasses = new ArrayList<XClass>();
+		xclasses.addAll(importedClasses.values());
 		
+		XObject xobject = xgetObjectParam(THIS, scanner, context, XObject.xnull);
+		
+		if(xobject == XObject.xnull) 
+		{
+			XClass xclass = xgetClassParam(CLASS, scanner, context, null);
+			if(xclass != null)
+			{
+				xclasses.clear();
+				xclasses.add(xclass);
+			}
+		}
+		else
+		{
+			xclasses.clear();
+			xclasses.add(xobject.xgetClass());
+		}
+		
+		
+		ArrayList<XObject> paramValues = new ArrayList<XObject>();
+		
+		for(; scanner.xhasNext();)
+		{
+			String name = scanner.xnext();
+			if(name.startsWith(PARAMETER_NAME_PREFIX))
+			{
+				name = name.substring(0, PARAMETER_NAME_PREFIX.length());
+				
+				if(scanner.xhasNextBoolean())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextBoolean()));
+				}
+				else if(scanner.xhasNextByte())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextByte()));
+				}
+				else if(scanner.xhasNextDouble())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextDouble()));
+				}
+				else if(scanner.xhasNextFloat())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextFloat()));
+				}
+				else if(scanner.xhasNextInt())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextInt()));
+				}
+				else if(scanner.xhasNextLong())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextLong()));
+				}
+				else if(scanner.xhasNextShort())
+				{
+					paramValues.add(xfactory.xObject(scanner.xnextShort()));
+				}
+				else if(scanner.xhasNext())
+				{
+					String value = scanner.xnext();
+					
+					if(value.startsWith(OBJECT_REF_PREFIX))
+					{
+						value = value.substring(OBJECT_REF_PREFIX.length());
+						XBindings bindings = context.xgetBindings(XScriptContext.XGLOBAL_SCOPE);
+						if(bindings.xcontainsKey(value))
+						{
+							paramValues.add(bindings.xget(value));
+						}
+					}
+					else
+					{
+						paramValues.add(xfactory.xObject(value));
+					}
+				}
+			}
+		}
+		
+		XClass[] xparameterTypes = new XClass[paramValues.size()];
+		for(int i = 0; i < xparameterTypes.length; i++)
+		{
+			xparameterTypes[i] = paramValues.get(i).xgetClass();
+		}
+		
+		XConstructor xconstructor = null;
+		for(XClass xclass : xclasses)
+		{
+			xconstructor = xclass.xgetConstructor(xparameterTypes);
+			if(xconstructor != null)
+			{
+				break;
+			}
+		}
+		
+		if(xconstructor != null)
+		{
+			XObject[] xparameters = new XObject[paramValues.size()];
+			xparameters = paramValues.toArray(xparameters);
+			XObject xreturn = xconstructor.xnewInstance(xparameters);
+			xsetObjectParam(RETURN, scanner, context, xreturn);
+			return xreturn;
+		}
+		
+		return XObject.xnull;
 	}
 
-	public XObject xcatch(XClass exceptionType, XScanner scanner, XScriptContext context) throws Exception {
+	public void xtry(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		try
+		{
+			xeval(scanner, context);
+		}
+		catch(Exception ex)
+		{
+			xexception = xfactory.xException(ex);
+		}
 	}
 
 	public XObject xcatch(XScanner scanner, XScriptContext context) throws Exception {
@@ -334,6 +451,11 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	}
 
 	public XObject xreturn(XScanner scanner, XScriptContext context) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XObject xreturn(String name, XObject xobject, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,11 +7,13 @@ public class XObjectImpl implements XObject{
 
 	private XClass xclass;
 	private Object object;
+	private XFactory xfactory;
 	
-	protected XObjectImpl(Object object)
+	protected XObjectImpl(Object object, XFactory factory)
 	{
 		xclass = null;
 		this.object = object;
+		xfactory = factory;
 	}
 	
 	
@@ -20,7 +22,7 @@ public class XObjectImpl implements XObject{
 		// TODO Auto-generated method stub
 		if(xclass == null)
 		{
-			xclass = XClassImpl.xnew(object.getClass());
+			xclass = xfactory.xClass(object.getClass());
 		}
 		return xclass;
 	}
@@ -35,9 +37,9 @@ public class XObjectImpl implements XObject{
 		return object.toString();
 	}
 	
-	public static XObject xnew(Object object)
+	public static XObject xnew(Object object, XFactory xfactory)
 	{
-		return new XObjectImpl(object);
+		return new XObjectImpl(object, xfactory);
 	}
 
 
