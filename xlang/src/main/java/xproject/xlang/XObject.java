@@ -7,7 +7,7 @@ public interface XObject extends XRemote {
 	XClass xgetClass() throws Exception;
 	String xtoString() throws Exception;
 	int xhashCode() throws Exception;
-	Object x();
+	Object x() throws Exception;
 	
 	public static final XObject xnull = new XObject(){
 

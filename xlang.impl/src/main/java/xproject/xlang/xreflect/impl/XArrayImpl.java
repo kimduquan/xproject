@@ -16,18 +16,21 @@ public class XArrayImpl extends XObjectImpl implements XArray {
 		this.xfactory = xfactory;
 	}
 
-	public XObject xget(int index) {
+	public XObject xget(int index) throws Exception
+	{
 		// TODO Auto-generated method stub
 		Object obj = Array.get(x(), index);
 		return xfactory.xObject(obj);
 	}
 
-	public void xset(int index, XObject xobject) {
+	public void xset(int index, XObject xobject) throws Exception
+	{
 		// TODO Auto-generated method stub
 		Array.set(x(), index, xobject.x());
 	}
 
-	public int xgetLength() {
+	public int xgetLength() throws Exception
+	{
 		// TODO Auto-generated method stub
 		return Array.getLength(x());
 	}

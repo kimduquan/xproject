@@ -5,7 +5,6 @@ import java.util.HashMap;
 import xproject.util.XScanner;
 import xproject.util.impl.XScannerImpl;
 import xproject.xlang.XClass;
-import xproject.xlang.XException;
 import xproject.xlang.XObject;
 import xproject.xlang.impl.XClassImpl;
 import xproject.xlang.impl.XFactory;
@@ -20,24 +19,21 @@ import xproject.xscript.XScriptEngineEx;
 public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 
 	private static final String THIS = "this";
+	private static final String NULL = "null";
 	private static final String CLASS = "class";
 	private static final String RETURN = "return";
 	private static final String PARAMETER_NAME_PREFIX = "-";
 	private static final String OBJECT_REF_PREFIX = "#";
 	private static final String PARAMETER_SEPARATOR = "\t";
 	
-	private XObject xthis;
 	private HashMap<String, XClass> importedClasses;
-	private XException xexception;
 	
 	private XFactory xfactory;
 	
 	protected XScriptEngineImpl(XFactory factory)
 	{
-		xthis = XObject.xnull;
 		importedClasses = new HashMap<String, XClass>();
 		xfactory = factory;
-		xexception = null;
 	}
 	
 	protected String xgetParam(String param, XScanner scanner, String defVal) throws Exception
@@ -109,8 +105,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	
 	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
-		xthis = xfactory.xObject(this);
-		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(THIS, xthis);
+		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(NULL, XObject.xnull);
 		
 		XScanner inLineScanner = null;
 		
@@ -124,7 +119,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			inLineScanner = null;
 		}
 		
-		return xthis;
+		return XObject.xnull;
 	}
 	
 	public XObject xeval(XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception
@@ -160,9 +155,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		{
 			xtry(scanner, context);
 		}
-		else if(method.equals(CATCH))
+		else if(method.equals(IF))
 		{
-			xcatch(scanner, context);
+			xif(scanner, context);
 		}
 			
 		return xinvoke(method, inLineScanner, context);
@@ -408,6 +403,34 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return XObject.xnull;
 	}
 
+	public XScanner xgoto(String line, XScanner scanner, XScriptContext context) throws Exception
+	{
+		XScanner inLineScanner = null;
+		
+		for(;scanner.xhasNextLine();)
+		{
+			inLineScanner = XScannerImpl.xnew(scanner, PARAMETER_SEPARATOR);
+			
+			if(inLineScanner.xhasNext())
+			{
+				String methodName = "";
+				while(inLineScanner.xhasNext() && methodName.isEmpty())
+				{
+					methodName = inLineScanner.xnext();
+				}
+				
+				if(methodName.equals(line))
+				{
+					break;
+				}
+			}
+			
+			inLineScanner.xclose();
+			inLineScanner = null;
+		}
+		return inLineScanner;
+	}
+	
 	public void xtry(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		try
@@ -416,13 +439,20 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		}
 		catch(Exception ex)
 		{
-			xexception = xfactory.xException(ex);
+			XScanner catchLine = null;
+			catchLine = xgoto(CATCH, scanner, context);
+
+			if(catchLine != null)
+			{
+				xcatch(xfactory.xObject(ex), catchLine, scanner, context);
+			}
 		}
 	}
 
-	public XObject xcatch(XScanner scanner, XScriptContext context) throws Exception {
+	public XObject xcatch(XObject exception, XScanner inLineScanner, XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		xsetObjectParam(RETURN, inLineScanner, context, exception);
+		return exception;
 	}
 
 	public boolean xif(XScanner scanner, XScriptContext context) throws Exception {
@@ -455,10 +485,4 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return null;
 	}
 
-	public XObject xreturn(String name, XObject xobject, XScriptContext context) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }

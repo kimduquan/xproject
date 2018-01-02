@@ -27,7 +27,7 @@ public class XObjectImpl implements XObject{
 		return xclass;
 	}
 
-	public Object x()
+	public Object x() throws Exception
 	{
 		return object;
 	}

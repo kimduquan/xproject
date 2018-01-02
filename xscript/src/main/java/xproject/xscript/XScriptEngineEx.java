@@ -24,7 +24,7 @@ public interface XScriptEngineEx extends XScriptEngine {
 	void xtry(XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
-	XObject xcatch(XScanner scanner, XScriptContext context) throws Exception;
+	//XObject xcatch(XScanner scanner, XScriptContext context) throws Exception;
 	
 	boolean xif(XScanner scanner, XScriptContext context) throws Exception;
 	boolean xelse(XScanner scanner, XScriptContext context) throws Exception;
@@ -36,7 +36,7 @@ public interface XScriptEngineEx extends XScriptEngine {
 	
 	//
 	XObject xreturn(XScanner scanner, XScriptContext context) throws Exception;
-	XObject xreturn(String name, XObject xobject, XScriptContext context) throws Exception;
+	//XObject xreturn(String name, XObject xobject, XScriptContext context) throws Exception;
 	
 	public static final String IMPORT = "import";
 	public static final String NEW = "new";

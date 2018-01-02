@@ -31,7 +31,8 @@ public class XRemoteObjectImpl extends XUnicastRemoteObject<XObject> implements 
 		return ref().xhashCode();
 	}
 
-	public Object x() {
+	public Object x() throws Exception
+	{
 		// TODO Auto-generated method stub
 		return ref().x();
 	}
