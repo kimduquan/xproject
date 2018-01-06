@@ -73,7 +73,7 @@ public class XRemoteClassImpl extends XUnicastRemoteObject<XClass> implements XC
 		return ref().xgetMethod(name, parameterTypes);
 	}
 
-	public Class<?> x() {
+	public Class<?> x() throws Exception {
 		// TODO Auto-generated method stub
 		return ref().x();
 	}
