@@ -33,17 +33,19 @@ public class NewObjectDynamicMenu extends XNewObjectDynamicMenu {
 	}
 
 
-	@Override
 	protected XRegistry xregistry() {
 		// TODO Auto-generated method stub
 		return XRegistryImpl.xnew();
 	}
 
 
-	@Override
 	protected XMenuFactory xmenuFactory() {
 		// TODO Auto-generated method stub
 		return XMenuFactoryImpl.xinstance();
 	}
 		
+	protected String xgetContributionURI()
+	{
+		return "bundleclass://xproject.xap.impl/xproject.xap.xhandler.impl.XNewObjectHandlerImpl";
+	}
 }

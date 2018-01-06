@@ -1,6 +1,8 @@
 package xproject.xap.xui;
 
-public interface XUIElement {
+import xproject.xap.XApplicationElement;
+
+public interface XUIElement extends XApplicationElement {
 
 	Object x() throws Exception;
 }

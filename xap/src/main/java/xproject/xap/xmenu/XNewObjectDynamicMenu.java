@@ -15,6 +15,7 @@ public abstract class XNewObjectDynamicMenu implements XDynamicMenu {
 
 	abstract protected XRegistry xregistry();
 	abstract protected XMenuFactory xmenuFactory();
+	abstract protected String xgetContributionURI();
 	
 	public void xaboutToShow(List<XMenuElement> items) throws Exception {
 		// TODO Auto-generated method stub
@@ -36,7 +37,9 @@ public abstract class XNewObjectDynamicMenu implements XDynamicMenu {
 						{
 							XDirectMenuItem xmenuItem = xfactory.xcreateDirectMenuItem();
 							xmenuItem.xsetLabel(xclass.xgetSimpleName());
+							xmenuItem.xsetContributionURI(this.xgetContributionURI());
 							items.add(xmenuItem);
+							xmenuItem.xgetTransientData().put("XConstructor", xconstructors[0]);
 						}
 						else
 						{
@@ -47,7 +50,9 @@ public abstract class XNewObjectDynamicMenu implements XDynamicMenu {
 							{
 								XDirectMenuItem xmenuItem = xfactory.xcreateDirectMenuItem();
 								xmenuItem.xsetLabel(xclass.xgetSimpleName());
+								xmenuItem.xsetContributionURI(this.xgetContributionURI());
 								xmenu.xgetChildren().xadd(xmenuItem);
+								xmenuItem.xgetTransientData().put("XConstructor", xconstructor);
 							}
 						}
 					}
