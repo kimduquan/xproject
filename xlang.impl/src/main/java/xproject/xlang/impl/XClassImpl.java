@@ -35,7 +35,7 @@ public class XClassImpl implements XClass {
 		xfactory = factory;
 	}
 	
-	protected void initializeFields()
+	protected void initializeFields() throws Exception
 	{
 		Field[] fs = cls.getFields();
 		fields = new XField[fs.length];
@@ -46,7 +46,7 @@ public class XClassImpl implements XClass {
 		}
 	}
 	
-	protected void initializeMethods()
+	protected void initializeMethods() throws Exception
 	{
 		Method[] ms = cls.getMethods();
 		methods = new XMethod[ms.length];
@@ -56,7 +56,7 @@ public class XClassImpl implements XClass {
 			methods[i] = xfactory.xMethod(ms[i]);
 		}
 	}
-	protected void initializeConstructors()
+	protected void initializeConstructors() throws Exception
 	{
 		Constructor<?>[] cs = cls.getConstructors();
 		constructors = new XConstructor[cs.length];
@@ -87,7 +87,7 @@ public class XClassImpl implements XClass {
 		return newClass;
 	}
 
-	public XField[] xgetFields() {
+	public XField[] xgetFields() throws Exception {
 		// TODO Auto-generated method stub
 		if(fields == null)
 			initializeFields();
@@ -99,7 +99,7 @@ public class XClassImpl implements XClass {
 		return cls.isPrimitive();
 	}
 
-	public XMethod[] xgetMethods() {
+	public XMethod[] xgetMethods() throws Exception {
 		// TODO Auto-generated method stub
 		if(methods == null)
 			initializeMethods();
@@ -121,7 +121,7 @@ public class XClassImpl implements XClass {
 		return cls.isArray();
 	}
 
-	public XClass xgetComponentType() {
+	public XClass xgetComponentType() throws Exception {
 		// TODO Auto-generated method stub
 		if(componentType == null)
 		{
@@ -132,7 +132,7 @@ public class XClassImpl implements XClass {
 		return componentType;
 	}
 
-	public XClass xgetSuperClass() {
+	public XClass xgetSuperClass() throws Exception {
 		// TODO Auto-generated method stub
 		if(superClass == null)
 		{
@@ -143,14 +143,14 @@ public class XClassImpl implements XClass {
 		return superClass;
 	}
 
-	public XConstructor[] xgetConstructors() {
+	public XConstructor[] xgetConstructors() throws Exception {
 		// TODO Auto-generated method stub
 		if(constructors == null)
 			initializeConstructors();
 		return constructors;
 	}
 
-	public XModifier xgetModifiers() {
+	public XModifier xgetModifiers() throws Exception {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
 			modifiers = xfactory.xModifier(cls.getModifiers());

@@ -16,7 +16,7 @@ public class XRegistryImpl implements XRegistry {
 		registry = reg;
 	}
 
-	public void xbind(String name, XRemote remote) throws RemoteException, Exception {
+	public void xbind(String name, XRemote remote) throws Exception {
 		// TODO Auto-generated method stub
 		registry.bind(name, remote);
 		
@@ -33,7 +33,7 @@ public class XRegistryImpl implements XRegistry {
 		return null;
 	}
 
-	public void xrebind(String name, XRemote remote) throws RemoteException, Exception {
+	public void xrebind(String name, XRemote remote) throws Exception {
 		// TODO Auto-generated method stub
 		registry.rebind(name, remote);
 	}
@@ -43,12 +43,12 @@ public class XRegistryImpl implements XRegistry {
 		return registry.list();
 	}
 
-	public XRemote xlookup(String name) throws RemoteException, Exception {
+	public XRemote xlookup(String name) throws Exception {
 		// TODO Auto-generated method stub
 		return (XRemote) registry.lookup(name);
 	}
 
-	public void xunbind(String name) throws RemoteException, Exception {
+	public void xunbind(String name) throws Exception {
 		// TODO Auto-generated method stub
 		registry.unbind(name);
 	}

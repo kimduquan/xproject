@@ -32,7 +32,7 @@ public class XMethodImpl implements XMethod {
 		this.xfactory = xfactory;
 	}
 	
-	protected void initializeParameters()
+	protected void initializeParameters() throws Exception
 	{
 		Parameter[] params = method.getParameters();
 		xparameters = new XParameter[params.length];
@@ -42,7 +42,7 @@ public class XMethodImpl implements XMethod {
 		}
 	}
 	
-	protected void initializeParameterTypes()
+	protected void initializeParameterTypes() throws Exception
 	{
 		Class<?>[] types = method.getParameterTypes();
 		xparameterTypes = new XClass[types.length];
@@ -57,14 +57,14 @@ public class XMethodImpl implements XMethod {
 		return method.getName();
 	}
 
-	public XClass xgetDeclaringClass() {
+	public XClass xgetDeclaringClass() throws Exception {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
 			declaringClass = xfactory.xClass(method.getDeclaringClass());
 		return declaringClass;
 	}
 
-	public XModifier xgetModifiers() {
+	public XModifier xgetModifiers() throws Exception {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
 			modifiers = xfactory.xModifier(method.getModifiers());
@@ -91,7 +91,7 @@ public class XMethodImpl implements XMethod {
 		return xmethod;
 	}
 
-	public XParameter[] xgetParameters() {
+	public XParameter[] xgetParameters() throws Exception {
 		// TODO Auto-generated method stub
 		if(xparameters == null)
 			initializeParameters();
@@ -103,7 +103,7 @@ public class XMethodImpl implements XMethod {
 		return method.getParameterCount();
 	}
 
-	public XClass[] xgetParameterTypes() {
+	public XClass[] xgetParameterTypes() throws Exception {
 		// TODO Auto-generated method stub
 		if(xparameterTypes == null)
 			initializeParameterTypes();

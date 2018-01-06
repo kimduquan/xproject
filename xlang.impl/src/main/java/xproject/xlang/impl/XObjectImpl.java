@@ -18,7 +18,8 @@ public class XObjectImpl implements XObject{
 	
 	
 	
-	public XClass xgetClass() {
+	public XClass xgetClass() throws Exception 
+	{
 		// TODO Auto-generated method stub
 		if(xclass == null)
 		{

@@ -4,9 +4,7 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/xap"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/xap.xui"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/xrmi.impl"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/xrmi"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/xap.xui.impl"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

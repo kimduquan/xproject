@@ -33,7 +33,7 @@ public class XConstructorImpl implements XConstructor {
 		return new XConstructorImpl(c, xfactory);
 	}
 	
-	protected void initializeParameters()
+	protected void initializeParameters() throws Exception
 	{
 		Parameter[] parameters = constructor.getParameters();
 		xparameters = new XParameter[parameters.length];
@@ -43,7 +43,7 @@ public class XConstructorImpl implements XConstructor {
 		}
 	}
 	
-	protected void initializeParameterTypes()
+	protected void initializeParameterTypes() throws Exception
 	{
 		Class<?>[] types = constructor.getParameterTypes();
 		xparameterTypes = new XClass[types.length];
@@ -53,21 +53,21 @@ public class XConstructorImpl implements XConstructor {
 		}
 	}
 
-	public XClass xgetDeclaringClass() {
+	public XClass xgetDeclaringClass() throws Exception {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
 		declaringClass = xfactory.xClass(constructor.getDeclaringClass());
 		return declaringClass;
 	}
 
-	public XModifier xgetModifiers() {
+	public XModifier xgetModifiers() throws Exception {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
 			xfactory.xModifier(constructor.getModifiers());
 		return modifiers;
 	}
 
-	public XParameter[] xgetParameters() {
+	public XParameter[] xgetParameters() throws Exception {
 		// TODO Auto-generated method stub
 		if(xparameters == null)
 			initializeParameters();
@@ -79,7 +79,7 @@ public class XConstructorImpl implements XConstructor {
 		return constructor.getParameterCount();
 	}
 
-	public XClass[] xgetParameterTypes() {
+	public XClass[] xgetParameterTypes() throws Exception {
 		// TODO Auto-generated method stub
 		if(xparameterTypes == null)
 			initializeParameterTypes();

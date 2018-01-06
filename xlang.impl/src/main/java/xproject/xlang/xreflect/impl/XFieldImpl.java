@@ -25,14 +25,14 @@ public class XFieldImpl implements XField {
 		this.xfactory = xfactory;
 	}
 
-	public XModifier xgetModifiers() {
+	public XModifier xgetModifiers() throws Exception {
 		// TODO Auto-generated method stub
 		if(modifiers == null)
 			modifiers = xfactory.xModifier(field.getModifiers());
 		return modifiers;
 	}
 
-	public XClass xgetType() {
+	public XClass xgetType() throws Exception {
 		// TODO Auto-generated method stub
 		if(type == null)
 			type = xfactory.xClass(field.getType());
@@ -51,7 +51,7 @@ public class XFieldImpl implements XField {
 		return field.getName();
 	}
 
-	public XClass xgetDeclaringClass() {
+	public XClass xgetDeclaringClass() throws Exception {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
 			declaringClass = xfactory.xClass(field.getDeclaringClass());

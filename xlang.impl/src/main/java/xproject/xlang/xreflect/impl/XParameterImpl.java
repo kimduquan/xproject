@@ -16,6 +16,7 @@ public class XParameterImpl implements XParameter {
 	{
 		parameter = p;
 		type = null;
+		this.xfactory = xfactory;
 	}
 
 	public String xgetName() {
@@ -23,7 +24,7 @@ public class XParameterImpl implements XParameter {
 		return parameter.getName();
 	}
 
-	public XClass xgetType() {
+	public XClass xgetType() throws Exception {
 		// TODO Auto-generated method stub
 		if(type == null)
 			type = xfactory.xClass(parameter.getType());

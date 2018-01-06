@@ -28,12 +28,12 @@ public class XFactoryImpl implements XFactory {
 		
 	}
 	
-	public XClass xClass(Class<?> cls) {
+	public XClass xClass(Class<?> cls) throws Exception {
 		// TODO Auto-generated method stub
 		return XClassImpl.xnew(cls, this);
 	}
 
-	public XObject xObject(Object object) {
+	public XObject xObject(Object object) throws Exception {
 		// TODO Auto-generated method stub
 		if(object == null)
 			return XObject.xnull;
@@ -44,32 +44,32 @@ public class XFactoryImpl implements XFactory {
 		return XObjectImpl.xnew(object, this);
 	}
 
-	public XPackage xPackage(Package pkg) {
+	public XPackage xPackage(Package pkg) throws Exception {
 		// TODO Auto-generated method stub
 		return XPackageImpl.xnew(pkg);
 	}
 
-	public XConstructor xConstructor(Constructor<?> constructor) {
+	public XConstructor xConstructor(Constructor<?> constructor) throws Exception {
 		// TODO Auto-generated method stub
 		return XConstructorImpl.xnew(constructor, this);
 	}
 
-	public XField xField(Field field) {
+	public XField xField(Field field) throws Exception {
 		// TODO Auto-generated method stub
 		return XFieldImpl.xnew(field, this);
 	}
 
-	public XMethod xMethod(Method method) {
+	public XMethod xMethod(Method method) throws Exception {
 		// TODO Auto-generated method stub
 		return XMethodImpl.xnew(method, this);
 	}
 
-	public XModifier xModifier(int modifier) {
+	public XModifier xModifier(int modifier) throws Exception {
 		// TODO Auto-generated method stub
 		return XModifierImpl.xnew(modifier);
 	}
 
-	public XParameter xParameter(Parameter param) {
+	public XParameter xParameter(Parameter param) throws Exception {
 		// TODO Auto-generated method stub
 		return XParameterImpl.xnew(param, this);
 	}
@@ -79,7 +79,7 @@ public class XFactoryImpl implements XFactory {
 		return new XFactoryImpl();
 	}
 
-	public XException xException(Exception ex) {
+	public XException xException(Exception ex) throws Exception {
 		// TODO Auto-generated method stub
 		return XExceptionImpl.xnew(ex);
 	}

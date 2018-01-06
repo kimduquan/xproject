@@ -17,7 +17,7 @@ public class App
         XRegistry registry = XRegistryImpl.xnew();
         try
         {
-	        XClass cls = (XClass) registry.xlookup("RemoteWebDriver");
+	        XClass cls = (XClass) registry.xlookup("org.openqa.selenium.remote.RemoteWebDriver");
 			System.out.println(cls.xgetName());
 			for(XMethod method : cls.xgetMethods())
 			{

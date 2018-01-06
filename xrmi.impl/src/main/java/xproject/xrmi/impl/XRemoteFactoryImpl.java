@@ -10,6 +10,7 @@ import xproject.xlang.XException;
 import xproject.xlang.XObject;
 import xproject.xlang.XPackage;
 import xproject.xlang.impl.XFactory;
+import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
@@ -29,140 +30,89 @@ import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteMethodImpl;
 import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteModifierImpl;
 import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteParameterImpl;
 
-public class XRemoteFactoryImpl implements XRemoteFactory {
+public class XRemoteFactoryImpl extends XFactoryImpl {
 
-	private XFactory ref;
-	
-	protected XRemoteFactoryImpl(XFactory r)
+	protected XRemoteFactoryImpl()
 	{
-		ref = r;
 	}
 	
-	public XClass xClass(Class<?> cls) {
+	public XClass xClass(Class<?> cls) throws Exception {
 		// TODO Auto-generated method stub
-		XClass xclass = ref.xClass(cls);
-		try {
-			xclass = new XRemoteClassImpl(xclass);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XClass xclass = super.xClass(cls);
+		xclass = new XRemoteClassImpl(xclass);
 		return xclass;
 	}
 
-	public XObject xObject(Object object) {
+	public XObject xObject(Object object) throws Exception {
 		// TODO Auto-generated method stub
-		XObject xobject = ref.xObject(object);
-		try 
+		XObject xobject = super.xObject(object);
+		if(xobject instanceof XArray)
 		{
-			if(xobject instanceof XArray)
-			{
-				xobject = new XRemoteArrayImpl((XArray)xobject);
-			}
-			else
-			{
-				xobject = new XRemoteObjectImpl(xobject);
-			}
-		} 
-		catch (Exception e) 
+			xobject = new XRemoteArrayImpl((XArray)xobject);
+		}
+		else
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			xobject = new XRemoteObjectImpl(xobject);
 		}
 		return xobject;
 	}
 
-	public XPackage xPackage(Package pkg) {
+	public XPackage xPackage(Package pkg) throws Exception {
 		// TODO Auto-generated method stub
-		XPackage xpkg = ref.xPackage(pkg);
-		try {
-			xpkg = new XRemotePackageImpl(xpkg);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XPackage xpkg = super.xPackage(pkg);
+		xpkg = new XRemotePackageImpl(xpkg);
 		return xpkg;
 	}
 
-	public XConstructor xConstructor(Constructor<?> constructor) {
+	public XConstructor xConstructor(Constructor<?> constructor) throws Exception {
 		// TODO Auto-generated method stub
-		XConstructor xconstructor = ref.xConstructor(constructor);
-		try {
-			xconstructor = new XRemoteConstructorImpl(xconstructor);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XConstructor xconstructor = super.xConstructor(constructor);
+		xconstructor = new XRemoteConstructorImpl(xconstructor);
 		return xconstructor;
 	}
 
-	public XField xField(Field field) {
+	public XField xField(Field field) throws Exception {
 		// TODO Auto-generated method stub
-		XField xfield = ref.xField(field);
-		try {
-			xfield = new XRemoteFieldImpl(xfield);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XField xfield = super.xField(field);
+		xfield = new XRemoteFieldImpl(xfield);
 		return xfield;
 	}
 
-	public XMethod xMethod(Method method) {
+	public XMethod xMethod(Method method) throws Exception {
 		// TODO Auto-generated method stub
-		XMethod xmethod = ref.xMethod(method);
-		try {
-			xmethod = new XRemoteMethodImpl(xmethod);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XMethod xmethod = super.xMethod(method);
+		xmethod = new XRemoteMethodImpl(xmethod);
 		return xmethod;
 	}
 
-	public XModifier xModifier(int modifier) {
+	public XModifier xModifier(int modifier) throws Exception {
 		// TODO Auto-generated method stub
-		XModifier xmodifier = ref.xModifier(modifier);
-		try {
-			xmodifier = new XRemoteModifierImpl(xmodifier);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XModifier xmodifier = super.xModifier(modifier);
+		xmodifier = new XRemoteModifierImpl(xmodifier);
 		return xmodifier;
 	}
 
-	public XParameter xParameter(Parameter param) {
+	public XParameter xParameter(Parameter param) throws Exception {
 		// TODO Auto-generated method stub
-		XParameter xparam = ref.xParameter(param);
-		try {
-			xparam = new XRemoteParameterImpl(xparam);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XParameter xparam = super.xParameter(param);
+		xparam = new XRemoteParameterImpl(xparam);
 		return xparam;
 	}
 	
-	public static XRemoteFactory xnew(XFactory ref)
+	public static XFactory xnewRemoteFactory()
 	{
-		return new XRemoteFactoryImpl(ref);
+		return new XRemoteFactoryImpl();
 	}
 
-	public XRegistry xRegistry() {
+	public XRegistry xRegistry() throws Exception {
 		// TODO Auto-generated method stub
 		return XRegistryImpl.xnew();
 	}
 
-	public XException xException(Exception ex) {
+	public XException xException(Exception ex) throws Exception {
 		// TODO Auto-generated method stub
-		XException xexception = ref.xException(ex);
-		try {
-			xexception = new XRemoteExceptionImpl(xexception);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		XException xexception = super.xException(ex);
+		xexception = new XRemoteExceptionImpl(xexception);
 		return xexception;
 	}
 }

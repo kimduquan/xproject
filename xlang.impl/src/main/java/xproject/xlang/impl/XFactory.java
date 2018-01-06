@@ -14,16 +14,17 @@ import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
+import xproject.xrmi.XRemote;
 
-public interface XFactory {
+public interface XFactory extends XRemote {
 
-	XClass xClass(Class<?> cls);
-	XObject xObject(Object obj);
-	XPackage xPackage(Package pck);
-	XConstructor xConstructor(Constructor<?> constructor);
-	XField xField(Field field);
-	XMethod xMethod(Method method);
-	XModifier xModifier(int modifier);
-	XParameter xParameter(Parameter param);
-	XException xException(Exception ex);
+	XClass xClass(Class<?> cls) throws Exception;
+	XObject xObject(Object obj) throws Exception;
+	XPackage xPackage(Package pck) throws Exception;
+	XConstructor xConstructor(Constructor<?> constructor) throws Exception;
+	XField xField(Field field) throws Exception;
+	XMethod xMethod(Method method) throws Exception;
+	XModifier xModifier(int modifier) throws Exception;
+	XParameter xParameter(Parameter param) throws Exception;
+	XException xException(Exception ex) throws Exception;
 }
