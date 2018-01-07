@@ -30,10 +30,8 @@ public class XScriptContextImpl implements XScriptContext {
 		return null;
 	}
 	
-	public static XScriptContext xnew()
+	public static XScriptContext xnew(XBindings e, XBindings g)
 	{
-		XBindings e = XBindingsImpl.xnew();
-		XBindings g = XBindingsImpl.xnew();
 		return new XScriptContextImpl(e, g);
 	}
 }

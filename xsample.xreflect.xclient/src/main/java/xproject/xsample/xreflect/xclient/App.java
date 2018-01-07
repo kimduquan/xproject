@@ -1,10 +1,14 @@
 package xproject.xsample.xreflect.xclient;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XParameter;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
+import xproject.xscript.XBindings;
+import xproject.xscript.XScriptContext;
+import xproject.xscript.XScriptEngine;
 
 /**
  * Hello world!
@@ -27,6 +31,12 @@ public class App
 					System.out.println("\t" + param.xgetName() + " : " + param.xgetType().xgetName());
 				}
 			}
+			
+			XScriptContext xscriptContext = (XScriptContext) registry.xlookup("xproject.xscript.XScriptContext");
+			XScriptEngine xscriptEngine = (XScriptEngine) registry.xlookup("xproject.xscript.XScriptEngine");
+			XBindings xbindings = xscriptContext.xgetBindings(XScriptContext.XGLOBAL_SCOPE);
+			XObject xthis = xbindings.xget("this");
+			System.out.println(xthis.xtoString());
         }
 		catch(Exception ex)
 		{

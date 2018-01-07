@@ -9,6 +9,7 @@ import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XMethod;
+import xproject.xrmi.xregistry.XRegistry;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
@@ -28,11 +29,13 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	private HashMap<String, XClass> importedClasses;
 	
 	private XFactory xfactory;
+	private XRegistry xregistry;
 	
-	protected XScriptEngineImpl(XFactory factory)
+	protected XScriptEngineImpl(XFactory factory, XRegistry registry)
 	{
 		importedClasses = new HashMap<String, XClass>();
 		xfactory = factory;
+		xregistry = registry;
 	}
 	
 	protected String xgetParam(String param, XScanner scanner, String defVal) throws Exception
@@ -162,9 +165,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return xinvoke(method, inLineScanner, context);
 	}
 	
-	public static XScriptEngine xnew(XFactory xfactory)
+	public static XScriptEngine xnew(XFactory xfactory, XRegistry registry)
 	{
-		return new XScriptEngineImpl(xfactory);
+		return new XScriptEngineImpl(xfactory, registry);
 	}
 
 	public void ximport(XScanner scanner, XScriptContext context) throws Exception {
@@ -172,14 +175,15 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		String name = xgetParam(CLASS, scanner, "");
 		if(name.isEmpty() == false)
 		{
-			//XClass xclass = XClassImpl.xforName(name, xfactory);
-			//ximport(xclass);
+			XClass xclass = (XClass) xregistry.xlookup(name);
+			if(xclass != null)
+				ximport(xclass);
 		}
 	}
 	
 	public void ximport(XClass xclass) throws Exception
 	{
-		importedClasses.put(xclass.xgetName(), xclass);
+		importedClasses.put(xclass.xgetSimpleName(), xclass);
 	}
 	
 	public XObject xinvoke(String method, XScanner scanner, XScriptContext context) throws Exception 
