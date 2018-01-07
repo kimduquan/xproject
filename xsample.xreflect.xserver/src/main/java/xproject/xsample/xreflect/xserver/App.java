@@ -8,6 +8,7 @@ import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xrmi.impl.XRemoteFactoryImpl;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
+import xproject.xrmi.xregistry.impl.XRemoteRegistryImpl;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
@@ -50,6 +51,7 @@ public class App
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
 			registry.xbind("xproject.xscript.XScriptEngine", xscriptEngine);
 			
+			registry.xbind("xproject.xrmi.xregistry.XRegistry", XRemoteRegistryImpl.xnew(registry));
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

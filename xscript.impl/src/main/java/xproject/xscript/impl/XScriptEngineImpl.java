@@ -107,7 +107,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	
 	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
-		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(NULL, XObject.xnull);
+		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(NULL, xfactory.xObject(null));
 		
 		XScanner inLineScanner = null;
 		
