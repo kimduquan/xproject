@@ -31,16 +31,9 @@ public class XFactoryImpl implements XFactory {
 		xref = null;
 	}
 	
-	protected XFactory xref()
-	{
-		if(xref == null)
-			return this;
-		return xref;
-	}
-	
 	public XClass xClass(Class<?> cls) throws Exception {
 		// TODO Auto-generated method stub
-		return XClassImpl.xnew(cls, xref());
+		return XClassImpl.xnew(cls, xref);
 	}
 
 	public XObject xObject(Object object) throws Exception {
@@ -49,9 +42,9 @@ public class XFactoryImpl implements XFactory {
 			return XObject.xnull;
 		
 		if(object.getClass().isArray())
-			return XArrayImpl.xnew(object, xref());
+			return XArrayImpl.xnew(object, xref);
 		
-		return XObjectImpl.xnew(object, xref());
+		return XObjectImpl.xnew(object, xref);
 	}
 
 	public XPackage xPackage(Package pkg) throws Exception {
@@ -61,17 +54,17 @@ public class XFactoryImpl implements XFactory {
 
 	public XConstructor xConstructor(Constructor<?> constructor) throws Exception {
 		// TODO Auto-generated method stub
-		return XConstructorImpl.xnew(constructor, xref());
+		return XConstructorImpl.xnew(constructor, xref);
 	}
 
 	public XField xField(Field field) throws Exception {
 		// TODO Auto-generated method stub
-		return XFieldImpl.xnew(field, xref());
+		return XFieldImpl.xnew(field, xref);
 	}
 
 	public XMethod xMethod(Method method) throws Exception {
 		// TODO Auto-generated method stub
-		return XMethodImpl.xnew(method, xref());
+		return XMethodImpl.xnew(method, xref);
 	}
 
 	public XModifier xModifier(int modifier) throws Exception {
@@ -81,7 +74,7 @@ public class XFactoryImpl implements XFactory {
 
 	public XParameter xParameter(Parameter param) throws Exception {
 		// TODO Auto-generated method stub
-		return XParameterImpl.xnew(param, xref());
+		return XParameterImpl.xnew(param, xref);
 	}
 
 	public static XFactory xnew()

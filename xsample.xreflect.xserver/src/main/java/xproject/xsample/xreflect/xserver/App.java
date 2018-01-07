@@ -17,14 +17,14 @@ public class App
 {
     public static void main( String[] args )
     {
-    	XFactory factory = XFactoryImpl.xnew();
-    	XFactory xfactory = XRemoteFactoryImpl.xnew();
+    	XFactory xfactory = XFactoryImpl.xnew();
+    	XFactory xremote = XRemoteFactoryImpl.xnew();
         XRegistry registry = XRegistryImpl.xnew();
         
     	try 
     	{
-        	xfactory.xref(factory);
-            XClass cls = xfactory.xClass(RemoteWebDriver.class);
+    		xremote.xref(xfactory);
+            XClass cls = xremote.xClass(RemoteWebDriver.class);
 			registry.xbind(cls.xgetName(), cls);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

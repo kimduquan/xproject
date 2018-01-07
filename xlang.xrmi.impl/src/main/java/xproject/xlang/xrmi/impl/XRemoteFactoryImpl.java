@@ -113,6 +113,7 @@ public class XRemoteFactoryImpl implements XFactory {
 
 	public void xref(XFactory ref) throws Exception {
 		// TODO Auto-generated method stub
+		ref.xref(this);
 		xref = ref;
 	}
 }
