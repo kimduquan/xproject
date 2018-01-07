@@ -9,9 +9,9 @@ import org.eclipse.e4.ui.di.AboutToHide;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
 
 import xproject.xap.xmenu.XNewObjectDynamicMenu;
-import xproject.xap.xui.impl.xmenu.XMenuFactoryImpl;
 import xproject.xap.xui.xmenu.XMenuElement;
 import xproject.xap.xui.xmenu.XMenuFactory;
+import xproject.xap.xui.xmenu.impl.XMenuFactoryImpl;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
 

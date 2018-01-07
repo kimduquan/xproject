@@ -1,4 +1,4 @@
-package xproject.util;
+package xproject.xutil;
 
 import xproject.xrmi.XRemote;
 

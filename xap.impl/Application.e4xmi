@@ -5,11 +5,14 @@
       <children xsi:type="menu:Menu" xmi:id="_yEN5cPK_Eeejw96iVh85lA" elementId="xap.impl.menu.main.object" label="File">
         <children xsi:type="menu:Menu" xmi:id="_1IwogPK_Eeejw96iVh85lA" elementId="xap.impl.menu.main.object.new" label="New">
           <children xsi:type="menu:DynamicMenuContribution" xmi:id="_4v3SEPK_Eeejw96iVh85lA" elementId="xap.impl.dynamicmenucontribution.main.object.new" contributionURI="bundleclass://xproject.xap.impl/xproject.xap.impl.NewObjectDynamicMenu"/>
+          <children xsi:type="menu:DirectMenuItem" xmi:id="_vF6aMPNMEeezmtHWHOfHQQ" elementId="xap.impl.directmenuitem.temp" label="Temp" contributionURI="bundleclass://xproject.xap.impl/xproject.xap.xhandler.impl.XNewObjectHandlerImpl"/>
         </children>
       </children>
     </mainMenu>
   </children>
-  <descriptors xmi:id="_AudBAPMHEeeok8inPu2T9g" elementId="xap.impl.partdescriptor.object.new" label="New Object" contributionURI="bundleclass://xproject.xap.impl/xproject.xap.xpart.XNewObjectPartImpl"/>
+  <descriptors xmi:id="_AudBAPMHEeeok8inPu2T9g" elementId="xap.impl.partdescriptor.object.new" label="New Object" closeable="true" contributionURI="bundleclass://xproject.xap.impl/xproject.xap.xpart.impl.XNewObjectPartImpl">
+    <toolbar xmi:id="_OkxlsPMJEeeok8inPu2T9g" elementId="xap.impl.toolbar.1"/>
+  </descriptors>
   <addons xmi:id="_XqkCQaknEeObFrG_clJBYA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_XqkCQqknEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_XqkCQ6knEeObFrG_clJBYA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

@@ -38,6 +38,7 @@ public abstract class XNewObjectDynamicMenu implements XDynamicMenu {
 							XDirectMenuItem xmenuItem = xfactory.xcreateDirectMenuItem();
 							xmenuItem.xsetLabel(xclass.xgetSimpleName());
 							xmenuItem.xsetContributionURI(this.xgetContributionURI());
+							xmenuItem.xsetContributorURI(this.xgetContributionURI());
 							items.add(xmenuItem);
 							xmenuItem.xgetTransientData().put("XConstructor", xconstructors[0]);
 						}
@@ -51,6 +52,7 @@ public abstract class XNewObjectDynamicMenu implements XDynamicMenu {
 								XDirectMenuItem xmenuItem = xfactory.xcreateDirectMenuItem();
 								xmenuItem.xsetLabel(xclass.xgetSimpleName());
 								xmenuItem.xsetContributionURI(this.xgetContributionURI());
+								xmenuItem.xsetContributorURI(this.xgetContributionURI());
 								xmenu.xgetChildren().xadd(xmenuItem);
 								xmenuItem.xgetTransientData().put("XConstructor", xconstructor);
 							}

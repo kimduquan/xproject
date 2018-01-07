@@ -23,7 +23,7 @@
     </dependency>
     <dependency>
     	<groupId>xproject</groupId>
-    	<artifactId>util</artifactId>
+    	<artifactId>xutil</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

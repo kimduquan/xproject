@@ -20,4 +20,16 @@ public class XApplicationElementImpl implements XApplicationElement {
 		return melement.getTransientData();
 	}
 
+	@Override
+	public String xgetContributorURI() throws Exception {
+		// TODO Auto-generated method stub
+		return melement.getContributorURI();
+	}
+
+	@Override
+	public void xsetContributorURI(String value) throws Exception {
+		// TODO Auto-generated method stub
+		melement.setContributorURI(value);
+	}
+
 }

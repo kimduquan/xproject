@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>xproject</groupId>
-  <artifactId>util</artifactId>
+  <artifactId>util.impl</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>util</name>
+  <name>xutil.impl</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -22,8 +22,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>org.kdq</groupId>
-    	<artifactId>xlang</artifactId>
+    	<groupId>xproject</groupId>
+    	<artifactId>xutil</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

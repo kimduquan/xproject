@@ -1,4 +1,4 @@
-package xproject.xap.xui.impl.xmenu;
+package xproject.xap.xui.xmenu.impl;
 
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 

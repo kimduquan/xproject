@@ -1,8 +1,8 @@
 package xproject.xscript;
 
-import xproject.util.XScanner;
 import xproject.xlang.XObject;
 import xproject.xrmi.XRemote;
+import xproject.xutil.XScanner;
 
 public interface XScriptEngine extends XRemote {
 

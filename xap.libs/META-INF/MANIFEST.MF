@@ -3,31 +3,23 @@ Bundle-ManifestVersion: 2
 Bundle-Name: xap.libs
 Bundle-SymbolicName: xap.libs
 Bundle-Version: 1.0.0
-Bundle-ClassPath: util-0.0.1-SNAPSHOT.jar,
- util.impl-0.0.1-SNAPSHOT.jar,
+Bundle-ClassPath: xutil-0.0.1-SNAPSHOT.jar,
  xlang-0.0.1-SNAPSHOT.jar,
- xlang.impl-0.0.1-SNAPSHOT.jar,
  xrmi-0.0.1-SNAPSHOT.jar,
  xrmi.impl-0.0.1-SNAPSHOT.jar,
  xscript-0.0.1-SNAPSHOT.jar,
- xscript.impl-0.0.1-SNAPSHOT.jar,
  xap-0.0.1-SNAPSHOT.jar
 Export-Package: xproject.util,
- xproject.util.impl,
+ xproject.xap,
+ xproject.xap.xhandler,
  xproject.xap.xmenu,
+ xproject.xap.xpart,
  xproject.xap.xui,
  xproject.xap.xui.xmenu,
  xproject.xlang,
- xproject.xlang.impl,
  xproject.xlang.xreflect,
- xproject.xlang.xreflect.impl,
  xproject.xrmi,
- xproject.xrmi.impl,
  xproject.xrmi.xregistry,
  xproject.xrmi.xregistry.impl,
- xproject.xrmi.xserver.impl,
- xproject.xrmi.xserver.impl.xlang,
- xproject.xrmi.xserver.impl.xlang.xreflect,
- xproject.xscript,
- xproject.xscript.impl
+ xproject.xscript
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

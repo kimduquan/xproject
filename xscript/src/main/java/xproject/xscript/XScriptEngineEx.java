@@ -1,9 +1,9 @@
 package xproject.xscript;
 
-import xproject.util.XScanner;
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XArray;
+import xproject.xutil.XScanner;
 
 public interface XScriptEngineEx extends XScriptEngine {
 

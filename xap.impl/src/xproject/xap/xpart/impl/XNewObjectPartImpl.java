@@ -1,8 +1,11 @@
 
-package xproject.xap.xpart;
+package xproject.xap.xpart.impl;
 
 import javax.annotation.PostConstruct;
 import org.eclipse.swt.widgets.Composite;
+
+import xproject.xap.xpart.XNewObjectPart;
+
 import javax.annotation.PreDestroy;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.e4.ui.di.Persist;

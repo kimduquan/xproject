@@ -1,11 +1,11 @@
 package xproject.xscript.impl;
 
-import xproject.util.XScanner;
-import xproject.util.impl.XScannerImpl;
 import xproject.xlang.impl.XFactory;
 import xproject.xlang.impl.XFactoryImpl;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
+import xproject.xutil.XScanner;
+import xproject.xutil.impl.XScannerImpl;
 
 /**
  * Hello world!

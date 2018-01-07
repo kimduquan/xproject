@@ -28,7 +28,6 @@ public class XNewObjectHandlerImpl extends XNewObjectHandler {
 	}
 
 
-	@Override
 	protected Map<String, Object> xgetTransientData() {
 		// TODO Auto-generated method stub
 		return data;

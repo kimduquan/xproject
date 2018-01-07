@@ -1,13 +1,13 @@
 /**
  * 
  */
-package xproject.util.impl;
+package xproject.xutil.impl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import xproject.util.XScanner;
+import xproject.xutil.XScanner;
 
 /**
  * @author Admin
@@ -23,7 +23,7 @@ public class XScannerImpl implements XScanner {
 	}
 	
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextLine()
+	 * @see xproject.xutil.XScanner#xhasNextLine()
 	 */
 	public boolean xhasNextLine() throws Exception {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xnextLine()
+	 * @see xproject.xutil.XScanner#xnextLine()
 	 */
 	public String xnextLine() throws Exception {
 		// TODO Auto-generated method stub
@@ -39,7 +39,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xuseDelimiter(java.lang.String)
+	 * @see xproject.xutil.XScanner#xuseDelimiter(java.lang.String)
 	 */
 	public XScanner xuseDelimiter(String pattern) throws Exception {
 		// TODO Auto-generated method stub
@@ -48,7 +48,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#hasNext()
+	 * @see xproject.xutil.XScanner#hasNext()
 	 */
 	public boolean xhasNext() throws Exception {
 		// TODO Auto-generated method stub
@@ -56,7 +56,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xnext()
+	 * @see xproject.xutil.XScanner#xnext()
 	 */
 	public String xnext() throws Exception {
 		// TODO Auto-generated method stub
@@ -64,7 +64,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xclose()
+	 * @see xproject.xutil.XScanner#xclose()
 	 */
 	public void xclose() throws Exception {
 		// TODO Auto-generated method stub
@@ -72,7 +72,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextBoolean()
+	 * @see xproject.xutil.XScanner#xhasNextBoolean()
 	 */
 	public boolean xhasNextBoolean() throws Exception {
 		// TODO Auto-generated method stub
@@ -80,7 +80,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextByte()
+	 * @see xproject.xutil.XScanner#xhasNextByte()
 	 */
 	public boolean xhasNextByte() throws Exception {
 		// TODO Auto-generated method stub
@@ -88,7 +88,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextDouble()
+	 * @see xproject.xutil.XScanner#xhasNextDouble()
 	 */
 	public boolean xhasNextDouble() throws Exception {
 		// TODO Auto-generated method stub
@@ -96,7 +96,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextFloat()
+	 * @see xproject.xutil.XScanner#xhasNextFloat()
 	 */
 	public boolean xhasNextFloat() throws Exception {
 		// TODO Auto-generated method stub
@@ -104,7 +104,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextInt()
+	 * @see xproject.xutil.XScanner#xhasNextInt()
 	 */
 	public boolean xhasNextInt() throws Exception {
 		// TODO Auto-generated method stub
@@ -112,7 +112,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextLong()
+	 * @see xproject.xutil.XScanner#xhasNextLong()
 	 */
 	public boolean xhasNextLong() throws Exception {
 		// TODO Auto-generated method stub
@@ -120,7 +120,7 @@ public class XScannerImpl implements XScanner {
 	}
 
 	/* (non-Javadoc)
-	 * @see xproject.util.XScanner#xhasNextShort()
+	 * @see xproject.xutil.XScanner#xhasNextShort()
 	 */
 	public boolean xhasNextShort() throws Exception {
 		// TODO Auto-generated method stub

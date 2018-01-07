@@ -2,8 +2,7 @@ package xproject.xscript.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import xproject.util.XScanner;
-import xproject.util.impl.XScannerImpl;
+
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
 import xproject.xlang.impl.XClassImpl;
@@ -15,6 +14,8 @@ import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
 import xproject.xscript.XScriptEngineEx;
+import xproject.xutil.XScanner;
+import xproject.xutil.impl.XScannerImpl;
 
 public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 
