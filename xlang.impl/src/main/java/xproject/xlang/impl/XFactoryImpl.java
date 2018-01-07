@@ -7,6 +7,7 @@ import java.lang.reflect.Parameter;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XException;
+import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
 import xproject.xlang.XPackage;
 import xproject.xlang.xreflect.XConstructor;
@@ -23,14 +24,23 @@ import xproject.xlang.xreflect.impl.XParameterImpl;
 
 public class XFactoryImpl implements XFactory {
 
+	private XFactory xref;
+	
 	protected XFactoryImpl()
 	{
-		
+		xref = null;
+	}
+	
+	protected XFactory xref()
+	{
+		if(xref == null)
+			return this;
+		return xref;
 	}
 	
 	public XClass xClass(Class<?> cls) throws Exception {
 		// TODO Auto-generated method stub
-		return XClassImpl.xnew(cls, this);
+		return XClassImpl.xnew(cls, xref());
 	}
 
 	public XObject xObject(Object object) throws Exception {
@@ -39,9 +49,9 @@ public class XFactoryImpl implements XFactory {
 			return XObject.xnull;
 		
 		if(object.getClass().isArray())
-			return XArrayImpl.xnew(object, this);
+			return XArrayImpl.xnew(object, xref());
 		
-		return XObjectImpl.xnew(object, this);
+		return XObjectImpl.xnew(object, xref());
 	}
 
 	public XPackage xPackage(Package pkg) throws Exception {
@@ -51,17 +61,17 @@ public class XFactoryImpl implements XFactory {
 
 	public XConstructor xConstructor(Constructor<?> constructor) throws Exception {
 		// TODO Auto-generated method stub
-		return XConstructorImpl.xnew(constructor, this);
+		return XConstructorImpl.xnew(constructor, xref());
 	}
 
 	public XField xField(Field field) throws Exception {
 		// TODO Auto-generated method stub
-		return XFieldImpl.xnew(field, this);
+		return XFieldImpl.xnew(field, xref());
 	}
 
 	public XMethod xMethod(Method method) throws Exception {
 		// TODO Auto-generated method stub
-		return XMethodImpl.xnew(method, this);
+		return XMethodImpl.xnew(method, xref());
 	}
 
 	public XModifier xModifier(int modifier) throws Exception {
@@ -71,7 +81,7 @@ public class XFactoryImpl implements XFactory {
 
 	public XParameter xParameter(Parameter param) throws Exception {
 		// TODO Auto-generated method stub
-		return XParameterImpl.xnew(param, this);
+		return XParameterImpl.xnew(param, xref());
 	}
 
 	public static XFactory xnew()
@@ -82,5 +92,10 @@ public class XFactoryImpl implements XFactory {
 	public XException xException(Exception ex) throws Exception {
 		// TODO Auto-generated method stub
 		return XExceptionImpl.xnew(ex);
+	}
+
+	public void xref(XFactory ref) throws Exception {
+		// TODO Auto-generated method stub
+		xref = ref;
 	}
 }

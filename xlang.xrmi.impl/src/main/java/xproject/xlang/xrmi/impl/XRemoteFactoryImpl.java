@@ -1,4 +1,4 @@
-package xproject.xrmi.impl;
+package xproject.xlang.xrmi.impl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -7,45 +7,45 @@ import java.lang.reflect.Parameter;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XException;
+import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
 import xproject.xlang.XPackage;
-import xproject.xlang.impl.XFactory;
-import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
-import xproject.xrmi.xregistry.XRegistry;
-import xproject.xrmi.xregistry.impl.XRegistryImpl;
-import xproject.xrmi.xserver.impl.xlang.XRemoteClassImpl;
-import xproject.xrmi.xserver.impl.xlang.XRemoteExceptionImpl;
-import xproject.xrmi.xserver.impl.xlang.XRemoteObjectImpl;
-import xproject.xrmi.xserver.impl.xlang.XRemotePackageImpl;
-import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteArrayImpl;
-import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteConstructorImpl;
-import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteFieldImpl;
-import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteMethodImpl;
-import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteModifierImpl;
-import xproject.xrmi.xserver.impl.xlang.xreflect.XRemoteParameterImpl;
+import xproject.xlang.xreflect.xrmi.impl.XRemoteArrayImpl;
+import xproject.xlang.xreflect.xrmi.impl.XRemoteConstructorImpl;
+import xproject.xlang.xreflect.xrmi.impl.XRemoteFieldImpl;
+import xproject.xlang.xreflect.xrmi.impl.XRemoteMethodImpl;
+import xproject.xlang.xreflect.xrmi.impl.XRemoteModifierImpl;
+import xproject.xlang.xreflect.xrmi.impl.XRemoteParameterImpl;
+import xproject.xlang.xrmi.impl.XRemoteClassImpl;
+import xproject.xlang.xrmi.impl.XRemoteExceptionImpl;
+import xproject.xlang.xrmi.impl.XRemoteObjectImpl;
+import xproject.xlang.xrmi.impl.XRemotePackageImpl;
 
-public class XRemoteFactoryImpl extends XFactoryImpl {
+public class XRemoteFactoryImpl implements XFactory {
 
+	private XFactory xref;
+	
 	protected XRemoteFactoryImpl()
 	{
+		xref = null;
 	}
 	
 	public XClass xClass(Class<?> cls) throws Exception {
 		// TODO Auto-generated method stub
-		XClass xclass = super.xClass(cls);
+		XClass xclass = xref.xClass(cls);
 		xclass = new XRemoteClassImpl(xclass);
 		return xclass;
 	}
 
 	public XObject xObject(Object object) throws Exception {
 		// TODO Auto-generated method stub
-		XObject xobject = super.xObject(object);
+		XObject xobject = xref.xObject(object);
 		if(xobject instanceof XArray)
 		{
 			xobject = new XRemoteArrayImpl((XArray)xobject);
@@ -59,60 +59,60 @@ public class XRemoteFactoryImpl extends XFactoryImpl {
 
 	public XPackage xPackage(Package pkg) throws Exception {
 		// TODO Auto-generated method stub
-		XPackage xpkg = super.xPackage(pkg);
+		XPackage xpkg = xref.xPackage(pkg);
 		xpkg = new XRemotePackageImpl(xpkg);
 		return xpkg;
 	}
 
 	public XConstructor xConstructor(Constructor<?> constructor) throws Exception {
 		// TODO Auto-generated method stub
-		XConstructor xconstructor = super.xConstructor(constructor);
+		XConstructor xconstructor = xref.xConstructor(constructor);
 		xconstructor = new XRemoteConstructorImpl(xconstructor);
 		return xconstructor;
 	}
 
 	public XField xField(Field field) throws Exception {
 		// TODO Auto-generated method stub
-		XField xfield = super.xField(field);
+		XField xfield = xref.xField(field);
 		xfield = new XRemoteFieldImpl(xfield);
 		return xfield;
 	}
 
 	public XMethod xMethod(Method method) throws Exception {
 		// TODO Auto-generated method stub
-		XMethod xmethod = super.xMethod(method);
+		XMethod xmethod = xref.xMethod(method);
 		xmethod = new XRemoteMethodImpl(xmethod);
 		return xmethod;
 	}
 
 	public XModifier xModifier(int modifier) throws Exception {
 		// TODO Auto-generated method stub
-		XModifier xmodifier = super.xModifier(modifier);
+		XModifier xmodifier = xref.xModifier(modifier);
 		xmodifier = new XRemoteModifierImpl(xmodifier);
 		return xmodifier;
 	}
 
 	public XParameter xParameter(Parameter param) throws Exception {
 		// TODO Auto-generated method stub
-		XParameter xparam = super.xParameter(param);
+		XParameter xparam = xref.xParameter(param);
 		xparam = new XRemoteParameterImpl(xparam);
 		return xparam;
 	}
 	
-	public static XFactory xnewRemoteFactory()
+	public static XFactory xnew()
 	{
 		return new XRemoteFactoryImpl();
 	}
 
-	public XRegistry xRegistry() throws Exception {
-		// TODO Auto-generated method stub
-		return XRegistryImpl.xnew();
-	}
-
 	public XException xException(Exception ex) throws Exception {
 		// TODO Auto-generated method stub
-		XException xexception = super.xException(ex);
+		XException xexception = xref.xException(ex);
 		xexception = new XRemoteExceptionImpl(xexception);
 		return xexception;
+	}
+
+	public void xref(XFactory ref) throws Exception {
+		// TODO Auto-generated method stub
+		xref = ref;
 	}
 }

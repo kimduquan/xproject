@@ -8,6 +8,9 @@ cp ..\xrmi\target\*.jar .\target\ -recurse -force
 cp ..\xrmi.impl\target\classes\* .\target\classes\ -recurse -force
 cp ..\xrmi.impl\target\*.jar .\target\ -recurse -force
 
+cp ..\xlang.xrmi.impl\target\classes\* .\target\classes\ -recurse -force
+cp ..\xlang.xrmi.impl\target\*.jar .\target\ -recurse -force
+
 cp ..\xscript\target\classes\* .\target\classes\ -recurse -force
 cp ..\xscript\target\*.jar .\target\ -recurse -force
 cp ..\xscript.impl\target\classes\* .\target\classes\ -recurse -force

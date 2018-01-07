@@ -1,14 +1,10 @@
-package xproject.xlang.impl;
+package xproject.xlang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
-import xproject.xlang.XClass;
-import xproject.xlang.XException;
-import xproject.xlang.XObject;
-import xproject.xlang.XPackage;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
@@ -27,4 +23,5 @@ public interface XFactory extends XRemote {
 	XModifier xModifier(int modifier) throws Exception;
 	XParameter xParameter(Parameter param) throws Exception;
 	XException xException(Exception ex) throws Exception;
+	void xref(XFactory ref) throws Exception;
 }

@@ -1,22 +1,27 @@
-package xproject.xrmi.xserver.impl.xlang.xreflect;
+package xproject.xlang.xreflect.xrmi.impl;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
-import xproject.xlang.xreflect.XConstructor;
+import xproject.xlang.xreflect.XMethod;
 import xproject.xlang.xreflect.XModifier;
 import xproject.xlang.xreflect.XParameter;
 import xproject.xrmi.xserver.impl.XUnicastRemoteObject;
 
-public class XRemoteConstructorImpl extends XUnicastRemoteObject<XConstructor> implements XConstructor {
+public class XRemoteMethodImpl extends XUnicastRemoteObject<XMethod> implements XMethod {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public XRemoteConstructorImpl(XConstructor ref) throws Exception {
+	public XRemoteMethodImpl(XMethod ref) throws Exception {
 		super(ref);
 		// TODO Auto-generated constructor stub
+	}
+
+	public String xgetName() throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xgetName();
 	}
 
 	public XClass xgetDeclaringClass() throws Exception {
@@ -44,9 +49,10 @@ public class XRemoteConstructorImpl extends XUnicastRemoteObject<XConstructor> i
 		return ref().xgetParameterTypes();
 	}
 
-	public XObject xnewInstance(XObject[] xobjects) throws Exception {
+	public XObject xinvoke(XObject xobject, XObject[] xparameters)  throws Exception
+	{
 		// TODO Auto-generated method stub
-		return ref().xnewInstance(xobjects);
+		return ref().xinvoke(xobject, xparameters);
 	}
 
 }

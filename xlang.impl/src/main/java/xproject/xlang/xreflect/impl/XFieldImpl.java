@@ -3,8 +3,8 @@ package xproject.xlang.xreflect.impl;
 import java.lang.reflect.Field;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
-import xproject.xlang.impl.XFactory;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XModifier;
 

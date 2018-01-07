@@ -206,4 +206,11 @@ public class XScannerImpl implements XScanner {
 		// TODO Auto-generated method stub
 		return scanner.nextShort();
 	}
+
+	public XScanner xnextLine(String sep) throws Exception {
+		// TODO Auto-generated method stub
+		XScanner scanner = xnew("String", xnextLine());
+		scanner = scanner.xuseDelimiter(sep);
+		return scanner;
+	}
 }

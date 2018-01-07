@@ -1,6 +1,7 @@
 package xproject.xlang.impl;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
 
 public class XObjectImpl implements XObject{

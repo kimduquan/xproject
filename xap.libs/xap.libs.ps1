@@ -1,4 +1,4 @@
-cp ..\util\target\*.jar .\ -recurse -force
+cp ..\xutil\target\*.jar .\ -recurse -force
 cp ..\xap\target\*.jar .\ -recurse -force
 cp ..\xlang\target\*.jar .\ -recurse -force
 cp ..\xrmi\target\*.jar .\ -recurse -force

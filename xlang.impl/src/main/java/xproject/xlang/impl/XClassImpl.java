@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import xproject.xlang.XClass;
+import xproject.xlang.XFactory;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;

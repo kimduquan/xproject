@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>xproject</groupId>
-  <artifactId>xap</artifactId>
+  <artifactId>xlang.xrmi.impl</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>xap</name>
+  <name>xlang.xrmi.impl</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -20,6 +20,11 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>xproject</groupId>
+    	<artifactId>xrmi.impl</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
     	<groupId>org.kdq</groupId>

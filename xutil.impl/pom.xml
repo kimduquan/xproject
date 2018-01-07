@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>xproject</groupId>
-  <artifactId>util.impl</artifactId>
+  <artifactId>xutil.impl</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 

@@ -1,8 +1,8 @@
-package xproject.xrmi.xserver.impl.xlang.xreflect;
+package xproject.xlang.xreflect.xrmi.impl;
 
 import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XArray;
-import xproject.xrmi.xserver.impl.xlang.XRemoteObjectImpl;
+import xproject.xlang.xrmi.impl.XRemoteObjectImpl;
 
 public class XRemoteArrayImpl extends XRemoteObjectImpl implements XArray {
 

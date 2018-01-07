@@ -1,4 +1,4 @@
-package xproject.xrmi.xserver.impl.xlang;
+package xproject.xlang.xrmi.impl;
 
 import xproject.xlang.XException;
 import xproject.xrmi.xserver.impl.XUnicastRemoteObject;

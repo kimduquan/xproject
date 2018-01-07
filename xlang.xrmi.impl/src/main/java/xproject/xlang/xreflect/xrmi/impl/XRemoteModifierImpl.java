@@ -1,4 +1,4 @@
-package xproject.xrmi.xserver.impl.xlang.xreflect;
+package xproject.xlang.xreflect.xrmi.impl;
 
 import xproject.xlang.xreflect.XModifier;
 import xproject.xrmi.xserver.impl.XUnicastRemoteObject;

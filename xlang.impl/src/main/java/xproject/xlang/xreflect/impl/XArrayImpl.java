@@ -1,8 +1,9 @@
 package xproject.xlang.xreflect.impl;
 
 import java.lang.reflect.Array;
+
+import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
-import xproject.xlang.impl.XFactory;
 import xproject.xlang.impl.XObjectImpl;
 import xproject.xlang.xreflect.XArray;
 

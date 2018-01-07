@@ -3,7 +3,7 @@ package xproject.xlang.xreflect.impl;
 import java.lang.reflect.Parameter;
 
 import xproject.xlang.XClass;
-import xproject.xlang.impl.XFactory;
+import xproject.xlang.XFactory;
 import xproject.xlang.xreflect.XParameter;
 
 public class XParameterImpl implements XParameter {

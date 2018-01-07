@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
-import xproject.xlang.impl.XClassImpl;
-import xproject.xlang.impl.XFactory;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XMethod;
@@ -15,7 +14,6 @@ import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
 import xproject.xscript.XScriptEngineEx;
 import xproject.xutil.XScanner;
-import xproject.xutil.impl.XScannerImpl;
 
 public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 
@@ -112,7 +110,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		
 		for(;scanner.xhasNextLine();)
 		{
-			inLineScanner = XScannerImpl.xnew(scanner, PARAMETER_SEPARATOR);
+			inLineScanner = scanner.xnextLine(PARAMETER_SEPARATOR);
 			
 			xeval(scanner, inLineScanner, context);
 			
@@ -174,8 +172,8 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		String name = xgetParam(CLASS, scanner, "");
 		if(name.isEmpty() == false)
 		{
-			XClass xclass = XClassImpl.xforName(name, xfactory);
-			ximport(xclass);
+			//XClass xclass = XClassImpl.xforName(name, xfactory);
+			//ximport(xclass);
 		}
 	}
 	
@@ -410,7 +408,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		
 		for(;scanner.xhasNextLine();)
 		{
-			inLineScanner = XScannerImpl.xnew(scanner, PARAMETER_SEPARATOR);
+			inLineScanner = scanner.xnextLine(PARAMETER_SEPARATOR);
 			
 			if(inLineScanner.xhasNext())
 			{

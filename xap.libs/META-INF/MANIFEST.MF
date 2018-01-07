@@ -9,8 +9,7 @@ Bundle-ClassPath: xutil-0.0.1-SNAPSHOT.jar,
  xrmi.impl-0.0.1-SNAPSHOT.jar,
  xscript-0.0.1-SNAPSHOT.jar,
  xap-0.0.1-SNAPSHOT.jar
-Export-Package: xproject.util,
- xproject.xap,
+Export-Package: xproject.xap,
  xproject.xap.xhandler,
  xproject.xap.xmenu,
  xproject.xap.xpart,
@@ -21,5 +20,6 @@ Export-Package: xproject.util,
  xproject.xrmi,
  xproject.xrmi.xregistry,
  xproject.xrmi.xregistry.impl,
- xproject.xscript
+ xproject.xscript,
+ xproject.xutil
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

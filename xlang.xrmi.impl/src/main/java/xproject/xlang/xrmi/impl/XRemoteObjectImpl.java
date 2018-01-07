@@ -1,4 +1,4 @@
-package xproject.xrmi.xserver.impl.xlang;
+package xproject.xlang.xrmi.impl;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
