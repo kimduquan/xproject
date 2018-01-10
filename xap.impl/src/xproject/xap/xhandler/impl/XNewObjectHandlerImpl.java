@@ -8,6 +8,7 @@ import xproject.xap.xhandler.XNewObjectHandler;
 
 import java.util.Map;
 
+import org.eclipse.core.commands.CommandManager;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 
 public class XNewObjectHandlerImpl extends XNewObjectHandler {
@@ -15,7 +16,8 @@ public class XNewObjectHandlerImpl extends XNewObjectHandler {
 	protected Map<String, Object> data = null;
 	
 	@Execute
-	public void execute(MMenuElement menu) throws Exception {
+	public void execute(MMenuElement menu, CommandManager cmdMgr) throws Exception {
+		
 		data = menu.getTransientData();
 		xexecute();
 	}

@@ -16,10 +16,14 @@ import xproject.xutil.XScanner;
 public class XScannerImpl implements XScanner {
 
 	private Scanner scanner;
+	private String type;
+	private String input;
 	
-	protected XScannerImpl(Scanner scanner)
+	protected XScannerImpl(Scanner scanner, String type, String input)
 	{
 		this.scanner = scanner;
+		this.type = type;
+		this.input = input;
 	}
 	
 	/* (non-Javadoc)
@@ -28,14 +32,6 @@ public class XScannerImpl implements XScanner {
 	public boolean xhasNextLine() throws Exception {
 		// TODO Auto-generated method stub
 		return scanner.hasNextLine();
-	}
-
-	/* (non-Javadoc)
-	 * @see xproject.xutil.XScanner#xnextLine()
-	 */
-	public String xnextLine() throws Exception {
-		// TODO Auto-generated method stub
-		return scanner.nextLine();
 	}
 
 	/* (non-Javadoc)
@@ -152,23 +148,8 @@ public class XScannerImpl implements XScanner {
 		}
 		
 		if(scanner != null)
-			return new XScannerImpl(scanner);
+			return new XScannerImpl(scanner, type, input);
 		
-		return null;
-	}
-	
-	public static XScanner xnew(XScanner parent, String delimiter)
-	{
-		try 
-		{
-			XScanner scanner = xnew("String", parent.xnextLine());
-			scanner = scanner.xuseDelimiter(delimiter);
-			return scanner;
-		}
-		catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return null;
 	}
 
@@ -207,10 +188,14 @@ public class XScannerImpl implements XScanner {
 		return scanner.nextShort();
 	}
 
-	public XScanner xnextLine(String sep) throws Exception {
+	public XScanner xnextLine() throws Exception {
 		// TODO Auto-generated method stub
-		XScanner scanner = xnew("String", xnextLine());
-		scanner = scanner.xuseDelimiter(sep);
-		return scanner;
+		XScanner xscanner = xnew("String", scanner.nextLine());
+		return xscanner;
+	}
+
+	public XScanner xclone() throws Exception {
+		// TODO Auto-generated method stub
+		return xnew(type, input);
 	}
 }

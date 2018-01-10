@@ -103,40 +103,46 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return defCls;
 	}
 	
-	
-	
-	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
-		// TODO Auto-generated method stub
-		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(NULL, xfactory.xObject(null));
-		
-		XScanner inLineScanner = null;
-		
-		for(;scanner.xhasNextLine();)
-		{
-			inLineScanner = scanner.xnextLine(PARAMETER_SEPARATOR);
-			
-			xeval(scanner, inLineScanner, context);
-			
-			inLineScanner.xclose();
-			inLineScanner = null;
-		}
-		
-		return XObject.xnull;
-	}
-	
-	public XObject xeval(XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception
+	protected String xgetMethodName(XScanner inLineScanner) throws Exception
 	{
 		String methodName = "";
 		while(inLineScanner.xhasNext() && methodName.isEmpty())
 		{
 			methodName = inLineScanner.xnext();
 		}
+		return methodName;
+	}
+	
+	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
+		// TODO Auto-generated method stub
+		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(NULL, xfactory.xObject(null));
 		
-		if(methodName.isEmpty() == false)
+		XScanner inLineScanner = null;
+		XObject xobject = XObject.xnull;
+		boolean isBreak = false;
+		
+		for(;scanner.xhasNextLine() && isBreak == false;)
 		{
-			return xeval(methodName, scanner, inLineScanner, context);
+			inLineScanner = scanner.xnextLine();
+			inLineScanner = inLineScanner.xuseDelimiter(PARAMETER_SEPARATOR);
+			
+			String methodName = xgetMethodName(inLineScanner);
+			
+			if(methodName.isEmpty() == false)
+			{
+				xobject = xeval(methodName, scanner, inLineScanner, context);
+			}
+			
+			if(methodName.equals(RETURN))
+			{
+				isBreak = true;
+			}
+			
+			inLineScanner.xclose();
+			inLineScanner = null;
 		}
-		return XObject.xnull;
+		
+		return xobject;
 	}
 	
 	public XObject xeval(String method, XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception
@@ -155,11 +161,15 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		}
 		else if(method.equals(TRY))
 		{
-			xtry(scanner, context);
+			xtry(scanner, inLineScanner, context);
 		}
 		else if(method.equals(IF))
 		{
-			xif(scanner, context);
+			xif(scanner, inLineScanner, context);
+		}
+		else if(method.equals(DO))
+		{
+			xif(scanner, inLineScanner, context);
 		}
 			
 		return xinvoke(method, inLineScanner, context);
@@ -409,22 +419,20 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	public XScanner xgoto(String line, XScanner scanner, XScriptContext context) throws Exception
 	{
 		XScanner inLineScanner = null;
+		boolean isBreak = false;
 		
-		for(;scanner.xhasNextLine();)
+		for(;scanner.xhasNextLine() && isBreak == false;)
 		{
-			inLineScanner = scanner.xnextLine(PARAMETER_SEPARATOR);
+			inLineScanner = scanner.xnextLine();
+			inLineScanner = inLineScanner.xuseDelimiter(PARAMETER_SEPARATOR);
 			
 			if(inLineScanner.xhasNext())
 			{
-				String methodName = "";
-				while(inLineScanner.xhasNext() && methodName.isEmpty())
-				{
-					methodName = inLineScanner.xnext();
-				}
+				String methodName = xgetMethodName(scanner);
 				
 				if(methodName.equals(line))
 				{
-					break;
+					isBreak = true;
 				}
 			}
 			
@@ -434,7 +442,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return inLineScanner;
 	}
 	
-	public void xtry(XScanner scanner, XScriptContext context) throws Exception {
+	public void xtry(XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		try
 		{
@@ -442,23 +450,22 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		}
 		catch(Exception ex)
 		{
-			XScanner catchLine = null;
-			catchLine = xgoto(CATCH, scanner, context);
+			XScanner catchLine = xgoto(CATCH, scanner, context);
 
 			if(catchLine != null)
 			{
-				xcatch(xfactory.xObject(ex), catchLine, scanner, context);
+				xcatch(xfactory.xObject(ex), scanner, catchLine, context);
 			}
 		}
 	}
 
-	public XObject xcatch(XObject exception, XScanner inLineScanner, XScanner scanner, XScriptContext context) throws Exception {
+	public XObject xcatch(XObject exception, XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		xsetObjectParam(RETURN, inLineScanner, context, exception);
 		return exception;
 	}
 
-	public boolean xif(XScanner scanner, XScriptContext context) throws Exception {
+	public boolean xif(XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -468,7 +475,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return false;
 	}
 
-	public void xwhile(XScanner scanner, XScriptContext context) throws Exception {
+	public void xwhile(XScanner scanner, XScanner inLineScanner, XScanner[] lines, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -486,6 +493,62 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	public XObject xreturn(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public XObject xdo(XScanner scanner, XScriptContext context) throws Exception
+	{
+		XScanner inLineScanner = null;
+		XObject xobject = XObject.xnull;
+		ArrayList<XScanner> cloneLines = new ArrayList<XScanner>();
+		XScanner cloneLine = null;
+		boolean isBreak = false;
+		
+		for(;scanner.xhasNextLine() && isBreak == false;)
+		{
+			inLineScanner = scanner.xnextLine();
+			cloneLine = inLineScanner.xclone();
+			
+			inLineScanner = inLineScanner.xuseDelimiter(PARAMETER_SEPARATOR);
+			cloneLine = cloneLine.xuseDelimiter(PARAMETER_SEPARATOR);
+			
+
+			cloneLines.add(cloneLine);
+			
+			String methodName = xgetMethodName(inLineScanner);
+			
+			if(methodName.equals(WHILE))
+			{
+				XScanner[] lines = new XScanner[cloneLines.size()];
+				lines = cloneLines.toArray(lines);
+				xwhile(scanner, inLineScanner, lines, context);
+				isBreak = true;
+			}
+			else if(methodName.equals(BREAK))
+			{
+				isBreak = true;
+			}
+			else
+			{
+				xobject = xeval(methodName, scanner, inLineScanner, context);
+			}
+			
+
+			if(methodName.equals(RETURN))
+			{
+				isBreak = true;
+			}
+			
+			inLineScanner.xclose();
+			inLineScanner = null;
+		}
+		
+		for(XScanner line : cloneLines)
+		{
+			line.xclose();
+		}
+		cloneLines.clear();
+		
+		return xobject;
 	}
 
 }

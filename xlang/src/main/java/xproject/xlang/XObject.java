@@ -8,6 +8,7 @@ public interface XObject extends XRemote {
 	String xtoString() throws Exception;
 	int xhashCode() throws Exception;
 	Object x() throws Exception;
+	void xfinalize() throws Exception;
 	
 	public static final XObject xnull = new XObject(){
 
@@ -29,5 +30,10 @@ public interface XObject extends XRemote {
 		public Object x() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+
+		public void xfinalize() throws Exception {
+			// TODO Auto-generated method stub
+			
 		}};
 }

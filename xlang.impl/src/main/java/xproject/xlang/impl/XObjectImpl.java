@@ -50,4 +50,16 @@ public class XObjectImpl implements XObject{
 		// TODO Auto-generated method stub
 		return System.identityHashCode(object);
 	}
+
+
+
+	public void xfinalize() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			finalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

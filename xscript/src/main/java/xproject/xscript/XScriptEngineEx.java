@@ -21,14 +21,14 @@ public interface XScriptEngineEx extends XScriptEngine {
 	XObject xnew(XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
-	void xtry(XScanner scanner, XScriptContext context) throws Exception;
+	//void xtry(XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
 	//XObject xcatch(XScanner scanner, XScriptContext context) throws Exception;
 	
-	boolean xif(XScanner scanner, XScriptContext context) throws Exception;
+	//boolean xif(XScanner scanner, XScriptContext context) throws Exception;
 	boolean xelse(XScanner scanner, XScriptContext context) throws Exception;
-	void xwhile(XScanner scanner, XScriptContext context) throws Exception;
+	//void xwhile(XScanner scanner, XScriptContext context) throws Exception;
 	void xbreak(XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
@@ -47,5 +47,5 @@ public interface XScriptEngineEx extends XScriptEngine {
 	public static final String WHILE = "while";
 	public static final String BREAK = "break";
 	public static final String FOR = "for";
-	public static final String RETURN = "return";
+	public static final String DO = "do";
 }

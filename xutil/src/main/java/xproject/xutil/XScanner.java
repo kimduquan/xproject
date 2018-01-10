@@ -4,9 +4,8 @@ import xproject.xrmi.XRemote;
 
 public interface XScanner extends XRemote {
 
-	XScanner xnextLine(String sep) throws Exception;
 	boolean xhasNextLine() throws Exception;
-	String xnextLine() throws Exception;
+	XScanner xnextLine() throws Exception;
 	XScanner xuseDelimiter(String pattern) throws Exception;
 	boolean xhasNext() throws Exception;
 	String xnext() throws Exception;
@@ -25,4 +24,8 @@ public interface XScanner extends XRemote {
 	int xnextInt() throws Exception;
 	long xnextLong() throws Exception;
 	short xnextShort() throws Exception;
+	
+	
+	XScanner xclone() throws Exception;
+	
 }

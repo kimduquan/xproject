@@ -15,19 +15,9 @@ public class XRemoteScannerImpl extends XUnicastRemoteObject<XScanner> implement
 		// TODO Auto-generated constructor stub
 	}
 
-	public XScanner xnextLine(String sep) throws Exception {
-		// TODO Auto-generated method stub
-		return xnew(ref().xnextLine(sep));
-	}
-
 	public boolean xhasNextLine() throws Exception {
 		// TODO Auto-generated method stub
 		return ref().xhasNextLine();
-	}
-
-	public String xnextLine() throws Exception {
-		// TODO Auto-generated method stub
-		return ref().xnextLine();
 	}
 
 	public XScanner xuseDelimiter(String pattern) throws Exception {
@@ -92,36 +82,46 @@ public class XRemoteScannerImpl extends XUnicastRemoteObject<XScanner> implement
 
 	public byte xnextByte() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return ref().xnextByte();
 	}
 
 	public double xnextDouble() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return ref().xnextDouble();
 	}
 
 	public float xnextFloat() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return ref().xnextFloat();
 	}
 
 	public int xnextInt() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return ref().xnextInt();
 	}
 
 	public long xnextLong() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return ref().xnextLong();
 	}
 
 	public short xnextShort() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return ref().xnextShort();
 	}
 
 	public static XScanner xnew(XScanner ref) throws Exception
 	{
 		return new XRemoteScannerImpl(ref);
+	}
+
+	public XScanner xclone() throws Exception {
+		// TODO Auto-generated method stub
+		return xnew(ref().xclone());
+	}
+
+	public XScanner xnextLine() throws Exception {
+		// TODO Auto-generated method stub
+		return xnew(ref().xnextLine());
 	}
 }
