@@ -83,4 +83,9 @@ public class XRemoteClassImpl extends XUnicastRemoteObject<XClass> implements XC
 		return ref().xgetConstructor(parameterTypes);
 	}
 
+	public boolean xisAssignableFrom(XClass xclass) throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xisAssignableFrom(xclass);
+	}
+
 }

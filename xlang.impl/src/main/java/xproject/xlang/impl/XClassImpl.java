@@ -193,4 +193,9 @@ public class XClassImpl implements XClass {
 		
 		return null;
 	}
+
+	public boolean xisAssignableFrom(XClass xclass) throws Exception {
+		// TODO Auto-generated method stub
+		return cls.isAssignableFrom(xclass.x());
+	}
 }

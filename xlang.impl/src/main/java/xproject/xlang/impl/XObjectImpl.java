@@ -62,4 +62,11 @@ public class XObjectImpl implements XObject{
 			e.printStackTrace();
 		}
 	}
+
+
+
+	public boolean xequals(XObject xobject) throws Exception {
+		// TODO Auto-generated method stub
+		return object.equals(xobject.x());
+	}
 }

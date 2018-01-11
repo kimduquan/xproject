@@ -84,7 +84,7 @@ public class XFactoryImpl implements XFactory {
 
 	public XException xException(Exception ex) throws Exception {
 		// TODO Auto-generated method stub
-		return XExceptionImpl.xnew(ex);
+		return XExceptionImpl.xnew(ex, xref);
 	}
 
 	public void xref(XFactory ref) throws Exception {

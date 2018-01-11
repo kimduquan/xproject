@@ -1,6 +1,6 @@
 package xproject.xscript;
 
-import xproject.xlang.XClass;
+import xproject.xlang.XException;
 import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XArray;
 import xproject.xutil.XScanner;
@@ -8,26 +8,27 @@ import xproject.xutil.XScanner;
 public interface XScriptEngineEx extends XScriptEngine {
 
 	//
-	XObject xeval(String method, XScanner scanner, XScanner inLineScanner, XScriptContext context) throws Exception;
+	XObject xeval(String method, XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
-	XObject xinvoke(String method, XScanner inLineScanner, XScriptContext context) throws Exception;
+	XObject xinvoke(String method, XScanner currentLine, XScriptContext context) throws Exception;
 	
 	//
-	void ximport(XClass xclass) throws Exception;
-	void ximport(XScanner inLineScanner, XScriptContext context) throws Exception;
+	void ximport(XScanner currentLine) throws Exception;
 	
 	//
-	XObject xnew(XScanner scanner, XScriptContext context) throws Exception;
+	XObject xnew(XScanner currentLine, XScriptContext context) throws Exception;
 	
 	//
-	//void xtry(XScanner scanner, XScriptContext context) throws Exception;
+	void xtry(XScanner scanner, XScriptContext context) throws Exception;
 	
 	//
-	//XObject xcatch(XScanner scanner, XScriptContext context) throws Exception;
+	XObject xcatch(XException exception, XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception;
 	
-	//boolean xif(XScanner scanner, XScriptContext context) throws Exception;
-	boolean xelse(XScanner scanner, XScriptContext context) throws Exception;
+	XScanner xgoto(XScanner scanner) throws Exception;
+	
+	boolean xif(XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception;
+	void xelse(XScanner scanner, XScriptContext context) throws Exception;
 	//void xwhile(XScanner scanner, XScriptContext context) throws Exception;
 	void xbreak(XScanner scanner, XScriptContext context) throws Exception;
 	

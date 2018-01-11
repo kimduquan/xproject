@@ -1,8 +1,7 @@
 package xproject.xlang;
 
-import xproject.xrmi.XRemote;
-
-public interface XException extends XRemote {
+public interface XException extends XObject {
 
 	String xgetMessage() throws Exception;
+	void xthrow() throws Exception;
 }

@@ -22,4 +22,6 @@ public interface XClass extends XRemote {
 	XMethod xgetMethod(String name, XClass[] parameterTypes) throws Exception;
 	XConstructor xgetConstructor(XClass[] parameterTypes) throws Exception;
 	Class<?> x() throws Exception;
+	
+	boolean xisAssignableFrom(XClass xclass) throws Exception;
 }

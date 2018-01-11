@@ -9,6 +9,7 @@ public interface XObject extends XRemote {
 	int xhashCode() throws Exception;
 	Object x() throws Exception;
 	void xfinalize() throws Exception;
+	boolean xequals(XObject xobject) throws Exception;
 	
 	public static final XObject xnull = new XObject(){
 
@@ -35,5 +36,10 @@ public interface XObject extends XRemote {
 		public void xfinalize() throws Exception {
 			// TODO Auto-generated method stub
 			
+		}
+
+		public boolean xequals(XObject xobject) throws Exception {
+			// TODO Auto-generated method stub
+			return xobject.x() == null;
 		}};
 }

@@ -24,4 +24,5 @@ public interface XFactory extends XRemote {
 	XParameter xParameter(Parameter param) throws Exception;
 	XException xException(Exception ex) throws Exception;
 	void xref(XFactory ref) throws Exception;
+	
 }

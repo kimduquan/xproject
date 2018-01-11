@@ -1,6 +1,7 @@
 package xproject.xscript.impl;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import xproject.xlang.XObject;
 import xproject.xscript.XBindings;
@@ -37,5 +38,10 @@ public class XBindingsImpl implements XBindings {
 	public static XBindings xnew()
 	{
 		return new XBindingsImpl();
+	}
+
+	public Set<String> xkeySet() throws Exception {
+		// TODO Auto-generated method stub
+		return bindings.keySet();
 	}
 }

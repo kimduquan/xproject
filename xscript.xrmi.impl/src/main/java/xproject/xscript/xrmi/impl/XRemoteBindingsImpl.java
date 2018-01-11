@@ -1,5 +1,7 @@
 package xproject.xscript.xrmi.impl;
 
+import java.util.Set;
+
 import xproject.xlang.XObject;
 import xproject.xrmi.xserver.impl.XUnicastRemoteObject;
 import xproject.xscript.XBindings;
@@ -38,5 +40,10 @@ public class XRemoteBindingsImpl extends XUnicastRemoteObject<XBindings> impleme
 	public static XBindings xnew(XBindings ref) throws Exception
 	{
 		return new XRemoteBindingsImpl(ref);
+	}
+
+	public Set<String> xkeySet() throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xkeySet();
 	}
 }
