@@ -720,7 +720,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		xeval(scanner, context);
 	}
 
-	public void xwhile(XScanner scanner, XScanner inLineScanner, XScanner[] lines, XScriptContext context) throws Exception {
+	public void xwhile(XScanner currentLine, XScanner scanner, XScanner[] lines, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -739,61 +739,4 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public XObject xdo(XScanner scanner, XScriptContext context) throws Exception
-	{
-		XScanner inLineScanner = null;
-		XObject xobject = XObject.xnull;
-		ArrayList<XScanner> cloneLines = new ArrayList<XScanner>();
-		XScanner cloneLine = null;
-		boolean isBreak = false;
-		
-		for(;scanner.xhasNextLine() && isBreak == false;)
-		{
-			inLineScanner = scanner.xnextLine();
-			cloneLine = inLineScanner.xclone();
-			
-			inLineScanner = inLineScanner.xuseDelimiter(PARAMETER_SEPARATOR);
-			cloneLine = cloneLine.xuseDelimiter(PARAMETER_SEPARATOR);
-			
-
-			cloneLines.add(cloneLine);
-			
-			String methodName = xgetMethodName(inLineScanner);
-			
-			if(methodName.equals(WHILE))
-			{
-				XScanner[] lines = new XScanner[cloneLines.size()];
-				lines = cloneLines.toArray(lines);
-				xwhile(scanner, inLineScanner, lines, context);
-				isBreak = true;
-			}
-			else if(methodName.equals(BREAK))
-			{
-				isBreak = true;
-			}
-			else
-			{
-				xobject = xeval(methodName, scanner, inLineScanner, context);
-			}
-			
-
-			if(methodName.equals(RETURN))
-			{
-				isBreak = true;
-			}
-			
-			inLineScanner.xclose();
-			inLineScanner = null;
-		}
-		
-		for(XScanner line : cloneLines)
-		{
-			line.xclose();
-		}
-		cloneLines.clear();
-		
-		return xobject;
-	}
-
 }

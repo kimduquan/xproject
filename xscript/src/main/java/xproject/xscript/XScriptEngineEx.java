@@ -7,37 +7,28 @@ import xproject.xutil.XScanner;
 
 public interface XScriptEngineEx extends XScriptEngine {
 
-	//
 	XObject xeval(String method, XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception;
 	
-	//
 	XObject xinvoke(String method, XScanner currentLine, XScriptContext context) throws Exception;
 	
-	//
 	void ximport(XScanner currentLine) throws Exception;
 	
-	//
 	XObject xnew(XScanner currentLine, XScriptContext context) throws Exception;
 	
-	//
 	void xtry(XScanner scanner, XScriptContext context) throws Exception;
 	
-	//
 	XObject xcatch(XException exception, XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception;
 	
-	XScanner xgoto(XScanner scanner) throws Exception;
+	XScanner xgoto(String line, XScanner scanner) throws Exception;
 	
 	boolean xif(XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception;
 	void xelse(XScanner scanner, XScriptContext context) throws Exception;
-	//void xwhile(XScanner scanner, XScriptContext context) throws Exception;
+	void xwhile(XScanner currentLine, XScanner scanner, XScanner[] lines, XScriptContext context) throws Exception;
 	void xbreak(XScanner scanner, XScriptContext context) throws Exception;
 	
-	//
 	void xfor(XArray array, XScanner scanner, XScriptContext context) throws Exception;
 	
-	//
 	XObject xreturn(XScanner scanner, XScriptContext context) throws Exception;
-	//XObject xreturn(String name, XObject xobject, XScriptContext context) throws Exception;
 	
 	public static final String IMPORT = "import";
 	public static final String NEW = "new";
