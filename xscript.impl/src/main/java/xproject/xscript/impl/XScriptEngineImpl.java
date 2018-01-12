@@ -76,24 +76,29 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			{
 				currentLine.xclose();
 			}
+			else
+			{
+				break;
+			}
 		}
-		
 		return xobject;
 	}
 	
 	public XObject xeval(String method, XScanner currentLine, XScanner scanner, XScriptContext context) throws Exception
 	{
+		XObject xobject = null;
+		
 		if(method.equals(IMPORT))
 		{
 			ximport(currentLine);
 		}
 		else if(method.equals(NEW))
 		{
-			return xnew(currentLine, context);
+			xobject = xnew(currentLine, context);
 		}
 		else if(method.equals(RETURN))
 		{
-			return xreturn(currentLine, context);
+			xobject = xreturn(currentLine, context);
 		}
 		else if(method.equals(TRY))
 		{
@@ -103,8 +108,12 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		{
 			xif(currentLine, scanner, context);
 		}
+		else
+		{
+			xobject = xinvoke(method, scanner, context);
+		}
 			
-		return xinvoke(method, scanner, context);
+		return xobject;
 	}
 	
 	public static XScriptEngine xnew(XFactory xfactory, XRegistry registry)
@@ -533,6 +542,10 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			if(isBreak == false)
 			{
 				current.xclose();
+			}
+			else
+			{
+				break;
 			}
 		}
 		return foundLine;

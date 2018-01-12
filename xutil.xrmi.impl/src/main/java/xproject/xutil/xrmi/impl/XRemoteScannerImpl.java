@@ -1,5 +1,6 @@
 package xproject.xutil.xrmi.impl;
 
+import xproject.xrmi.XRemote;
 import xproject.xrmi.xserver.impl.XUnicastRemoteObject;
 import xproject.xutil.XScanner;
 
@@ -123,5 +124,10 @@ public class XRemoteScannerImpl extends XUnicastRemoteObject<XScanner> implement
 	public XScanner xnextLine() throws Exception {
 		// TODO Auto-generated method stub
 		return xnew(ref().xnextLine());
+	}
+	
+	public static boolean xunexportObject(XRemote xremote, boolean force) throws Exception
+	{
+		return XUnicastRemoteObject.unexportObject(xremote, force);
 	}
 }
