@@ -52,7 +52,29 @@ public class XConstructorImpl implements XConstructor {
 			xparameterTypes[i] = xfactory.xClass(types[i]);
 		}
 	}
-
+	protected void uninitializeParameters() throws Exception
+	{
+		if(xparameters != null)
+		{
+			for(int i = 0; i< xparameters.length; i++)
+			{
+				xfactory.xfinalize(xparameters[i]);
+			}
+			xparameters = null;
+		}
+	}
+	
+	protected void uninitializeParameterTypes() throws Exception
+	{
+		if(xparameterTypes != null)
+		{
+			for(int i = 0; i< xparameterTypes.length; i++)
+			{
+				xfactory.xfinalize(xparameterTypes[i]);
+			}
+			xparameterTypes = null;
+		}
+	}
 	public XClass xgetDeclaringClass() throws Exception {
 		// TODO Auto-generated method stub
 		if(declaringClass == null)
@@ -94,5 +116,28 @@ public class XConstructorImpl implements XConstructor {
 			params[i] = xobjects[i].x();
 		}
 		return xfactory.xObject(constructor.newInstance(params));
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		constructor = null;
+		
+		if(modifiers != null)
+		{
+			xfactory.xfinalize(modifiers);
+			modifiers = null;
+		}
+		
+		uninitializeParameters();
+		uninitializeParameterTypes();
+		
+		if(declaringClass != null)
+		{
+			xfactory.xfinalize(declaringClass);
+			declaringClass = null;
+		}
+		
+		xfactory = null;
+		finalize();
 	}
 }

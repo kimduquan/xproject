@@ -52,4 +52,10 @@ public class XRegistryImpl implements XRegistry {
 		// TODO Auto-generated method stub
 		registry.unbind(name);
 	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		registry = null;
+		finalize();
+	}
 }

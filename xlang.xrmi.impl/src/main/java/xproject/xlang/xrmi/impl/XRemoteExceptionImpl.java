@@ -42,11 +42,6 @@ public class XRemoteExceptionImpl extends XUnicastRemoteObject<XException> imple
 		return ref().x();
 	}
 
-	public void xfinalize() throws Exception {
-		// TODO Auto-generated method stub
-		ref().xfinalize();
-	}
-
 	public void xthrow() throws Exception {
 		// TODO Auto-generated method stub
 		ref().xthrow();

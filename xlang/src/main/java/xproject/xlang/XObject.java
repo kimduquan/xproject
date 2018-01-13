@@ -8,7 +8,6 @@ public interface XObject extends XRemote {
 	String xtoString() throws Exception;
 	int xhashCode() throws Exception;
 	Object x() throws Exception;
-	void xfinalize() throws Exception;
 	boolean xequals(XObject xobject) throws Exception;
 	
 	public static final XObject xnull = new XObject(){

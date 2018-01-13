@@ -32,4 +32,9 @@ public class XModifierImpl implements XModifier {
 	{
 		return new XModifierImpl(m);
 	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		finalize();
+	}
 }

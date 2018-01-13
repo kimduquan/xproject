@@ -21,6 +21,7 @@ import xproject.xlang.xreflect.impl.XFieldImpl;
 import xproject.xlang.xreflect.impl.XMethodImpl;
 import xproject.xlang.xreflect.impl.XModifierImpl;
 import xproject.xlang.xreflect.impl.XParameterImpl;
+import xproject.xrmi.XRemote;
 
 public class XFactoryImpl implements XFactory {
 
@@ -90,5 +91,21 @@ public class XFactoryImpl implements XFactory {
 	public void xref(XFactory ref) throws Exception {
 		// TODO Auto-generated method stub
 		xref = ref;
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		xref = null;
+		finalize();
+	}
+
+	public void xfinalize(XRemote xremote) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			xremote.xfinalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

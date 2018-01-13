@@ -19,4 +19,10 @@ public class XPackageImpl implements XPackage {
 	{
 		return new XPackageImpl(pkg);
 	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		xpackage = null;
+		finalize();
+	}
 }

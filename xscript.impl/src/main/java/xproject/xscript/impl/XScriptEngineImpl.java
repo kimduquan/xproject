@@ -43,14 +43,15 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		// TODO Auto-generated method stub
 		context.xgetBindings(XScriptContext.XENGINE_SCOPE).xput(NULL, xfactory.xObject(null));
 		
-		XObject xobject = XObject.xnull;
+		XObject xobject = null;
+		
 		boolean isBreak = false;
 		
 		while(scanner.xhasNextLine() && isBreak == false)
 		{
-			XScanner currentLine = scanner.xnextLine();
-			
-			currentLine = currentLine.xuseDelimiter(PARAMETER_SEPARATOR);
+			XScanner temp = scanner.xnextLine();
+			XScanner currentLine = temp.xuseDelimiter(PARAMETER_SEPARATOR);
+			xfactory.xfinalize(temp);
 			
 			if(currentLine.xhasNext())
 			{
@@ -71,16 +72,16 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 					}
 				}
 			}
+
+			currentLine.xclose();
+			xfactory.xfinalize(currentLine);
 			
-			if(isBreak == false)
-			{
-				currentLine.xclose();
-			}
-			else
+			if(isBreak)
 			{
 				break;
 			}
 		}
+		
 		return xobject;
 	}
 	
@@ -514,9 +515,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		
 		while(scanner.xhasNextLine() && isBreak == false)
 		{
-			XScanner current = scanner.xnextLine();
-			
-			current = current.xuseDelimiter(PARAMETER_SEPARATOR);
+			XScanner temp = scanner.xnextLine();
+			XScanner current = temp.xuseDelimiter(PARAMETER_SEPARATOR);
+			xfactory.xfinalize(temp);
 			
 			if(current.xhasNext())
 			{
@@ -542,6 +543,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			if(isBreak == false)
 			{
 				current.xclose();
+				xfactory.xfinalize(current);
 			}
 			else
 			{
@@ -562,9 +564,12 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			XScanner catchLine = xgoto(CATCH, scanner);
 
 			XException xexception = xfactory.xException(ex);
+			
 			if(catchLine != null)
 			{
 				xcatch( xexception, catchLine, scanner, context);
+				catchLine.xclose();
+				xfactory.xfinalize(catchLine);
 			}
 			else
 			{
@@ -618,7 +623,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 
 				if(nextCatchLine != null)
 				{
-					return xcatch(exception, nextCatchLine, scanner, context);
+					xobject = xcatch(exception, nextCatchLine, scanner, context);
+					nextCatchLine.xclose();
+					xfactory.xfinalize(nextCatchLine);
 				}
 				else
 				{
@@ -723,6 +730,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 			if(elseLine != null)
 			{
 				xelse(scanner, context);
+				
+				elseLine.xclose();
+				xfactory.xfinalize(elseLine);
 			}
 		}
 		return b;
@@ -751,5 +761,14 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	public XObject xreturn(XScanner scanner, XScriptContext context) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		importedClasses.clear();
+		importedClasses = null;
+		xfactory = null;
+		xregistry = null;
+		finalize();
 	}
 }

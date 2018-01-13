@@ -40,4 +40,10 @@ public class XArrayImpl extends XObjectImpl implements XArray {
 	{
 		return new XArrayImpl(object, xfactory);
 	}
+	
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		xfactory = null;
+		super.xfinalize();
+	}
 }

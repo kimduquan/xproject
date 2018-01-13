@@ -22,4 +22,15 @@ public class XUnicastRemoteObject<T> extends UnicastRemoteObject implements XRem
 	{
 		return remote;
 	}
+	
+	public static boolean xunexportObject(XRemote xremote, boolean force) throws Exception
+	{
+		return XUnicastRemoteObject.unexportObject(xremote, force);
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		xunexportObject(this, true);
+		finalize();
+	}
 }

@@ -29,11 +29,13 @@ public class App
 			
 			xscriptEngine.xeval(xscanner, xscriptContext);
 			
-			XRemoteScannerImpl.xunexportObject(xscanner, true);
+			xscanner.xclose();
+
+			xscanner.xfinalize();
         }
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
+		catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
     }
 }

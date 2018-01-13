@@ -26,6 +26,7 @@ import xproject.xlang.xrmi.impl.XRemoteClassImpl;
 import xproject.xlang.xrmi.impl.XRemoteExceptionImpl;
 import xproject.xlang.xrmi.impl.XRemoteObjectImpl;
 import xproject.xlang.xrmi.impl.XRemotePackageImpl;
+import xproject.xrmi.XRemote;
 
 public class XRemoteFactoryImpl implements XFactory {
 
@@ -115,5 +116,21 @@ public class XRemoteFactoryImpl implements XFactory {
 		// TODO Auto-generated method stub
 		ref.xref(this);
 		xref = ref;
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		xref = null;
+		finalize();
+	}
+
+	public void xfinalize(XRemote xremote) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			xremote.xfinalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

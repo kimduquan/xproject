@@ -27,4 +27,10 @@ public class XExceptionImpl extends XObjectImpl implements XException {
 		// TODO Auto-generated method stub
 		throw ex;
 	}
+	
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		ex = null;
+		super.xfinalize();
+	}
 }

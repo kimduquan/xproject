@@ -34,4 +34,11 @@ public class XScriptContextImpl implements XScriptContext {
 	{
 		return new XScriptContextImpl(e, g);
 	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		engine = null;
+		global = null;
+		finalize();
+	}
 }

@@ -68,6 +68,40 @@ public class XClassImpl implements XClass {
 		}
 	}
 	
+	protected void uninitializeFields() throws Exception
+	{
+		if(fields != null)
+		{
+			for(int i = 0; i < fields.length; i++)
+			{
+				xfactory.xfinalize(fields[i]);
+			}
+			fields = null;
+		}
+	}
+	
+	protected void uninitializeMethods() throws Exception
+	{
+		if(methods != null)
+		{
+			for(int i = 0; i < methods.length; i++)
+			{
+				xfactory.xfinalize(methods[i]);
+			}
+			methods = null;
+		}
+	}
+	protected void uninitializeConstructors() throws Exception
+	{
+		if(constructors != null)
+		{
+			for(int i = 0; i < constructors.length; i++)
+			{
+				xfactory.xfinalize(constructors[i]);
+			}
+			constructors = null;
+		}
+	}
 	public static XClass xforName(String name, XFactory xfactory) throws Exception
 	{
 		if(xclasses.containsKey(name))
@@ -197,5 +231,35 @@ public class XClassImpl implements XClass {
 	public boolean xisAssignableFrom(XClass xclass) throws Exception {
 		// TODO Auto-generated method stub
 		return cls.isAssignableFrom(xclass.x());
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		cls = null;
+		
+		uninitializeFields();
+		uninitializeMethods();
+		uninitializeConstructors();
+		
+		if(modifiers != null)
+		{
+			xfactory.xfinalize(modifiers);
+			modifiers = null;
+		}
+		
+		if(superClass != null)
+		{
+			xfactory.xfinalize(superClass);
+			superClass = null;
+		}
+		
+		if(componentType != null)
+		{
+			xfactory.xfinalize(componentType);
+			componentType = null;
+		}
+		
+		xfactory = null;
+		finalize();
 	}
 }

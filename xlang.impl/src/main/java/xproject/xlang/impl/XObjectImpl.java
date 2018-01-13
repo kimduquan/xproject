@@ -53,14 +53,18 @@ public class XObjectImpl implements XObject{
 
 
 
-	public void xfinalize() throws Exception {
+	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		try {
-			finalize();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(xclass != null)
+		{
+			xfactory.xfinalize(xclass);
+			xclass = null;
 		}
+		
+		object = null;
+		
+		xfactory = null;
+		finalize();
 	}
 
 

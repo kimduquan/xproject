@@ -44,4 +44,11 @@ public class XBindingsImpl implements XBindings {
 		// TODO Auto-generated method stub
 		return bindings.keySet();
 	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		bindings.clear();
+		bindings = null;
+		finalize();
+	}
 }

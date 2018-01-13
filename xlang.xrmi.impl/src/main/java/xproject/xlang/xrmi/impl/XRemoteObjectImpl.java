@@ -37,11 +37,6 @@ public class XRemoteObjectImpl extends XUnicastRemoteObject<XObject> implements 
 		return ref().x();
 	}
 
-	public void xfinalize() throws Exception {
-		// TODO Auto-generated method stub
-		ref().xfinalize();
-	}
-
 	public boolean xequals(XObject xobject) throws Exception {
 		// TODO Auto-generated method stub
 		return ref().xequals(xobject);

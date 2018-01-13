@@ -51,6 +51,30 @@ public class XMethodImpl implements XMethod {
 			xparameterTypes[i] = xfactory.xClass(types[i]);
 		}
 	}
+	
+	protected void uninitializeParameters() throws Exception
+	{
+		if(xparameters != null)
+		{
+			for(int i = 0; i < xparameters.length; i++)
+			{
+				xfactory.xfinalize(xparameters[i]);
+			}
+			xparameters = null;
+		}
+	}
+	
+	protected void uninitializeParameterTypes() throws Exception
+	{
+		if(xparameterTypes != null)
+		{
+			for(int i = 0; i < xparameterTypes.length; i++)
+			{
+				xfactory.xfinalize(xparameterTypes[i]);
+			}
+			xparameterTypes = null;
+		}
+	}
 
 	public String xgetName() {
 		// TODO Auto-generated method stub
@@ -119,5 +143,28 @@ public class XMethodImpl implements XMethod {
 			params[i] = xparameters[i].x();
 		}
 		return xfactory.xObject(method.invoke(xobject.x(), params));
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		method = null;
+		
+		if(modifiers != null)
+		{
+			xfactory.xfinalize(modifiers);
+			modifiers = null;
+		}
+		
+		uninitializeParameters();
+		uninitializeParameterTypes();
+
+		if(declaringClass != null)
+		{
+			xfactory.xfinalize(declaringClass);
+			declaringClass = null;
+		}
+		
+		xfactory = null;
+		finalize();
 	}
 }

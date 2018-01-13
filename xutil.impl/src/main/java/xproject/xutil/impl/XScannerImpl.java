@@ -198,4 +198,9 @@ public class XScannerImpl implements XScanner {
 		// TODO Auto-generated method stub
 		return xnew(type, input);
 	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		
+	}
 }
