@@ -148,22 +148,10 @@ public class XMethodImpl implements XMethod {
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
 		method = null;
-		
-		if(modifiers != null)
-		{
-			xfactory.xfinalize(modifiers);
-			modifiers = null;
-		}
-		
-		uninitializeParameters();
-		uninitializeParameterTypes();
-
-		if(declaringClass != null)
-		{
-			xfactory.xfinalize(declaringClass);
-			declaringClass = null;
-		}
-		
+		modifiers = null;
+		xparameters = null;
+		xparameterTypes = null;
+		declaringClass = null;
 		xfactory = null;
 		finalize();
 	}

@@ -55,14 +55,8 @@ public class XObjectImpl implements XObject{
 
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		if(xclass != null)
-		{
-			xfactory.xfinalize(xclass);
-			xclass = null;
-		}
-		
+		xclass = null;
 		object = null;
-		
 		xfactory = null;
 		finalize();
 	}

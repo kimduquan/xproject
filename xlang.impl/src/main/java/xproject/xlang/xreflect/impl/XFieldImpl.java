@@ -66,25 +66,9 @@ public class XFieldImpl implements XField {
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
 		field = null;
-		
-		if(modifiers != null)
-		{
-			xfactory.xfinalize(modifiers);
-			modifiers = null;
-		}
-		
-		if(type != null)
-		{
-			xfactory.xfinalize(type);
-			type = null;
-		}
-		
-		if(declaringClass != null)
-		{
-			xfactory.xfinalize(declaringClass);
-			declaringClass = null;
-		}
-		
+		modifiers = null;
+		type = null;
+		declaringClass = null;
 		xfactory = null;
 		finalize();
 	}

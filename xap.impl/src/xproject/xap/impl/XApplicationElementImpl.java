@@ -32,4 +32,11 @@ public class XApplicationElementImpl implements XApplicationElement {
 		melement.setContributorURI(value);
 	}
 
+	@Override
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		melement = null;
+		finalize();
+	}
+
 }

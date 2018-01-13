@@ -39,13 +39,8 @@ public class XParameterImpl implements XParameter {
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
 		parameter = null;
-		
-		if(type != null)
-		{
-			xfactory.xfinalize(type);
-			type = null;
-		}
-		
+		type = null;
 		xfactory = null;
+		finalize();
 	}
 }

@@ -34,5 +34,12 @@ public class XNewObjectHandlerImpl extends XNewObjectHandler {
 		// TODO Auto-generated method stub
 		return data;
 	}
+
+
+	@Override
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		finalize();
+	}
 		
 }

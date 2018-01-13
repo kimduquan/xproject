@@ -48,4 +48,11 @@ public class NewObjectDynamicMenu extends XNewObjectDynamicMenu {
 	{
 		return "bundleclass://xproject.xap.impl/xproject.xap.xhandler.impl.XNewObjectHandlerImpl";
 	}
+
+
+	@Override
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		finalize();
+	}
 }

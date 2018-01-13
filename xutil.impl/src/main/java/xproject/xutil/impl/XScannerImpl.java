@@ -201,6 +201,7 @@ public class XScannerImpl implements XScanner {
 
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		
+		scanner = null;
+		finalize();
 	}
 }

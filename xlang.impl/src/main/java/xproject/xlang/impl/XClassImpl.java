@@ -72,10 +72,10 @@ public class XClassImpl implements XClass {
 	{
 		if(fields != null)
 		{
-			for(int i = 0; i < fields.length; i++)
-			{
-				xfactory.xfinalize(fields[i]);
-			}
+			//for(int i = 0; i < fields.length; i++)
+			//{
+			//	xfactory.xfinalize(fields[i]);
+			//}
 			fields = null;
 		}
 	}
@@ -236,29 +236,12 @@ public class XClassImpl implements XClass {
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
 		cls = null;
-		
-		uninitializeFields();
-		uninitializeMethods();
-		uninitializeConstructors();
-		
-		if(modifiers != null)
-		{
-			xfactory.xfinalize(modifiers);
-			modifiers = null;
-		}
-		
-		if(superClass != null)
-		{
-			xfactory.xfinalize(superClass);
-			superClass = null;
-		}
-		
-		if(componentType != null)
-		{
-			xfactory.xfinalize(componentType);
-			componentType = null;
-		}
-		
+		fields = null;
+		methods = null;
+		constructors = null;
+		modifiers = null;
+		superClass = null;
+		componentType = null;
 		xfactory = null;
 		finalize();
 	}
