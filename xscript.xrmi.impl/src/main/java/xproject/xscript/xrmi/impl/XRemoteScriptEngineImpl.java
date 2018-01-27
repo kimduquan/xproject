@@ -27,4 +27,9 @@ public class XRemoteScriptEngineImpl extends XUnicastRemoteObject<XScriptEngine>
 	{
 		return new XRemoteScriptEngineImpl(ref);
 	}
+
+	public XObject xeval(XScanner xscanner) throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xeval(xscanner);
+	}
 }

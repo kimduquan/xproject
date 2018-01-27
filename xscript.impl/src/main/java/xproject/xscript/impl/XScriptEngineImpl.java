@@ -11,7 +11,6 @@ import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XMethod;
-import xproject.xrmi.xregistry.XRegistry;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
@@ -32,12 +31,14 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	
 	private XFactory xfactory;
 	private XClassLoader xclassLoader;
+	private XScriptContext xdefaultContext;
 	
-	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader)
+	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext)
 	{
 		importedClasses = new HashMap<String, XClass>();
 		xfactory = factory;
 		xclassLoader = classLoader;
+		xdefaultContext = defaultContext;
 	}
 	
 	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
@@ -118,9 +119,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return xobject;
 	}
 	
-	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader)
+	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader, XScriptContext xdefaultContext)
 	{
-		return new XScriptEngineImpl(xfactory, xclassLoader);
+		return new XScriptEngineImpl(xfactory, xclassLoader, xdefaultContext);
 	}
 
 	public void ximport(XScanner currentLine) throws Exception {
@@ -769,7 +770,11 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		importedClasses.clear();
 		importedClasses = null;
 		xfactory = null;
-		xregistry = null;
 		finalize();
+	}
+
+	public XObject xeval(XScanner xscanner) throws Exception {
+		// TODO Auto-generated method stub
+		return xeval(xscanner, xdefaultContext);
 	}
 }

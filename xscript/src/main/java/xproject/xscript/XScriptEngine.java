@@ -6,5 +6,7 @@ import xproject.xutil.XScanner;
 
 public interface XScriptEngine extends XRemote {
 
-	XObject xeval(XScanner reader, XScriptContext context) throws Exception;
+	XObject xeval(XScanner xscanner, XScriptContext xcontext) throws Exception;
+	
+	XObject xeval(XScanner xscanner) throws Exception;
 }

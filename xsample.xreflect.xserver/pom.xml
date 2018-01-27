@@ -59,5 +59,20 @@
   		<artifactId>xagent.impl</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>xproject</groupId>
+  		<artifactId>xrmi.impl</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>xproject</groupId>
+  		<artifactId>xutil.xrmi.impl</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>xproject</groupId>
+  		<artifactId>xutil.impl</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>

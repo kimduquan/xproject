@@ -2,14 +2,15 @@ package xproject.xsample.xreflect.xserver;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import xproject.xagent.XAgent;
+import xproject.xagent.impl.XAgentImpl;
+import xproject.xagent.xrmi.impl.XRemoteAgentImpl;
 import xproject.xlang.XClass;
 import xproject.xlang.XFactory;
-import xproject.xlang.impl.XClassLoaderImpl;
 import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xrmi.impl.XRemoteFactoryImpl;
 import xproject.xrmi.xregistry.XRegistry;
 import xproject.xrmi.xregistry.impl.XRegistryImpl;
-import xproject.xrmi.xregistry.impl.XRemoteRegistryImpl;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
@@ -19,6 +20,9 @@ import xproject.xscript.impl.XScriptEngineImpl;
 import xproject.xscript.xrmi.impl.XRemoteBindingsImpl;
 import xproject.xscript.xrmi.impl.XRemoteScriptContextImpl;
 import xproject.xscript.xrmi.impl.XRemoteScriptEngineImpl;
+import xproject.xutil.XScanner;
+import xproject.xutil.impl.XScannerImpl;
+import xproject.xutil.xrmi.impl.XRemoteScannerImpl;
 
 /**
  * Hello world!
@@ -45,10 +49,16 @@ public class App
 	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal);
 			xscriptContext = XRemoteScriptContextImpl.xnew(xscriptContext);
 			
-			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader());
+			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext);
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
 			
-			XAgent xagent = null;
+			XScanner xscanner = XScannerImpl.xnew("InputStream", "System.in");
+			xscanner = XRemoteScannerImpl.xnew(xscanner);
+			
+			XAgent xagent = XAgentImpl.xnew("RemoteWebDriver", xscriptEngine, xscriptContext, xscanner);
+			xagent = XRemoteAgentImpl.xnew(xagent);
+			
+			registry.xbind(xagent.xgetName(), xagent);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

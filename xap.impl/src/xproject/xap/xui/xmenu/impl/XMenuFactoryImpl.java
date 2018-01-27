@@ -33,4 +33,10 @@ public class XMenuFactoryImpl implements XMenuFactory {
 		// TODO Auto-generated method stub
 		return XMenuImpl.xnew(MMenuFactory.INSTANCE.createMenu());
 	}
+
+	@Override
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		finalize();
+	}
 }

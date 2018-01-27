@@ -22,4 +22,9 @@ public class XNewObjectPart implements XPart {
 
 	}
 
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		finalize();
+	}
+
 }
