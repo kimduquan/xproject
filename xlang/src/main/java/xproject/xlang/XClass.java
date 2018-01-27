@@ -24,4 +24,6 @@ public interface XClass extends XRemote {
 	Class<?> x() throws Exception;
 	
 	boolean xisAssignableFrom(XClass xclass) throws Exception;
+	
+	XClassLoader xgetClassLoader() throws Exception;
 }

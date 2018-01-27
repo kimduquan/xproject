@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XClassLoader;
 import xproject.xlang.XException;
 import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
@@ -30,13 +31,13 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 	private HashMap<String, XClass> importedClasses;
 	
 	private XFactory xfactory;
-	private XRegistry xregistry;
+	private XClassLoader xclassLoader;
 	
-	protected XScriptEngineImpl(XFactory factory, XRegistry registry)
+	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader)
 	{
 		importedClasses = new HashMap<String, XClass>();
 		xfactory = factory;
-		xregistry = registry;
+		xclassLoader = classLoader;
 	}
 	
 	public XObject xeval(XScanner scanner, XScriptContext context) throws Exception {
@@ -117,9 +118,9 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 		return xobject;
 	}
 	
-	public static XScriptEngine xnew(XFactory xfactory, XRegistry registry)
+	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader)
 	{
-		return new XScriptEngineImpl(xfactory, registry);
+		return new XScriptEngineImpl(xfactory, xclassLoader);
 	}
 
 	public void ximport(XScanner currentLine) throws Exception {
@@ -142,7 +143,7 @@ public class XScriptEngineImpl implements XScriptEngine, XScriptEngineEx {
 						{
 							if(importedClasses.containsKey(paramValue) == false)
 							{
-								XClass xclass = (XClass) xregistry.xlookup(paramValue);
+								XClass xclass = xclassLoader.xloadClass(paramValue);
 								
 								if(xclass != null)
 								{

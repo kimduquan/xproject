@@ -1,6 +1,7 @@
 package xproject.xlang.xrmi.impl;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XClassLoader;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
@@ -86,6 +87,11 @@ public class XRemoteClassImpl extends XUnicastRemoteObject<XClass> implements XC
 	public boolean xisAssignableFrom(XClass xclass) throws Exception {
 		// TODO Auto-generated method stub
 		return ref().xisAssignableFrom(xclass);
+	}
+
+	public XClassLoader xgetClassLoader() throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xgetClassLoader();
 	}
 
 }

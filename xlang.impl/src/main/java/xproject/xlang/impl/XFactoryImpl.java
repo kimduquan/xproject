@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 import xproject.xlang.XClass;
+import xproject.xlang.XClassLoader;
 import xproject.xlang.XException;
 import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
@@ -107,5 +108,10 @@ public class XFactoryImpl implements XFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public XClassLoader xClassLoader(ClassLoader clsLoader) throws Exception {
+		// TODO Auto-generated method stub
+		return XClassLoaderImpl.xnew(clsLoader, xref);
 	}
 }

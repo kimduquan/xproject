@@ -14,6 +14,7 @@ import xproject.xrmi.XRemote;
 
 public interface XFactory extends XRemote {
 
+	XClassLoader xClassLoader(ClassLoader clsLoader) throws Exception;
 	XClass xClass(Class<?> cls) throws Exception;
 	XObject xObject(Object obj) throws Exception;
 	XPackage xPackage(Package pck) throws Exception;

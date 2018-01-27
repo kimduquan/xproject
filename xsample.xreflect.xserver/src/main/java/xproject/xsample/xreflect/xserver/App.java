@@ -4,6 +4,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XFactory;
+import xproject.xlang.impl.XClassLoaderImpl;
 import xproject.xlang.impl.XFactoryImpl;
 import xproject.xlang.xrmi.impl.XRemoteFactoryImpl;
 import xproject.xrmi.xregistry.XRegistry;
@@ -37,21 +38,17 @@ public class App
     	try 
     	{
     		xremote.xref(xfactory);
-            XClass cls = xremote.xClass(RemoteWebDriver.class);
-			registry.xbind(cls.xgetName(), cls);
-			
+    		XClass xclass = xremote.xClass(RemoteWebDriver.class);
 
 	        xglobal = XRemoteBindingsImpl.xnew(xglobal);
 	        xengine = XRemoteBindingsImpl.xnew(xengine);
 	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal);
 			xscriptContext = XRemoteScriptContextImpl.xnew(xscriptContext);
-			registry.xbind("xproject.xscript.XScriptContext", xscriptContext);
 			
-			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, registry);
+			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader());
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
-			registry.xbind("xproject.xscript.XScriptEngine", xscriptEngine);
 			
-			registry.xbind("xproject.xrmi.xregistry.XRegistry", XRemoteRegistryImpl.xnew(registry));
+			XAgent xagent = null;
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -40,13 +40,18 @@
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.kdq</groupId>
+  		<groupId>xproject</groupId>
   		<artifactId>xlang.impl</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>xproject</groupId>
   		<artifactId>xscript.xrmi.impl</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>xproject</groupId>
+  		<artifactId>xagent.xrmi.impl</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>

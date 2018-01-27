@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>xproject</groupId>
-  <artifactId>xutil</artifactId>
+  <artifactId>xagent.impl</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>xutil</name>
+  <name>xagent.impl</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -23,7 +23,7 @@
     </dependency>
     <dependency>
     	<groupId>xproject</groupId>
-    	<artifactId>xlang</artifactId>
+    	<artifactId>xagent</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
