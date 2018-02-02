@@ -1,4 +1,4 @@
-package xproject.xcr;
+package xproject.xcr.xnodetype;
 
 import xproject.xrmi.XRemote;
 
