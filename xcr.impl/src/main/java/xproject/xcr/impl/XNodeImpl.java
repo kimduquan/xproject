@@ -3,292 +3,309 @@ package xproject.xcr.impl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.jcr.Binary;
 import javax.jcr.Node;
+import javax.jcr.Value;
 import javax.jcr.nodetype.NodeType;
 
 import xproject.xcr.XBinary;
+import xproject.xcr.XItem;
 import xproject.xcr.XNode;
 import xproject.xcr.XNodeIterator;
 import xproject.xcr.XProperty;
 import xproject.xcr.XPropertyIterator;
 import xproject.xcr.XValue;
+import xproject.xcr.xnodetype.XNodeDefinition;
 import xproject.xcr.xnodetype.XNodeType;
 
-public class XNodeImpl implements XNode {
+public class XNodeImpl extends XItemImpl<XNode, Node> implements XNode {
 
-	private Node node;
-	private XFactory xfactory;
-	
-	public void xfinalize() throws Throwable {
-		// TODO Auto-generated method stub
-		node = null;
-		finalize();
+	protected XNodeImpl(Node node, XFactory factory) {
+		super(node, factory);
+		// TODO Auto-generated constructor stub
 	}
 
 	public void xaddMixin(String mixinName) throws Exception {
 		// TODO Auto-generated method stub
-		node.addMixin(mixinName);
+		x().addMixin(mixinName);
 	}
 
 	public XNode xaddNode(String relPath) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNode(node.addNode(relPath));
+		return xfactory().xNode(x().addNode(relPath));
 	}
 
 	public XNode xaddNode(String relPath, String primaryNodeTypeName) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNode(node.addNode(relPath, primaryNodeTypeName));
+		return xfactory().xNode(x().addNode(relPath, primaryNodeTypeName));
 	}
 
 	public boolean xcanAddMixin(String mixinName) throws Exception {
 		// TODO Auto-generated method stub
-		return node.canAddMixin(mixinName);
+		return x().canAddMixin(mixinName);
 	}
 
 	public void xfollowLifecycleTransition(String transition) throws Exception {
 		// TODO Auto-generated method stub
-		node.followLifecycleTransition(transition);
+		x().followLifecycleTransition(transition);
 	}
 
 	public String[] xgetAllowedLifecycleTransistions() throws Exception {
 		// TODO Auto-generated method stub
-		return node.getAllowedLifecycleTransistions();
+		return x().getAllowedLifecycleTransistions();
 	}
 
 	public String xgetCorrespondingNodePath(String workspaceName) throws Exception {
 		// TODO Auto-generated method stub
-		return node.getCorrespondingNodePath(workspaceName);
+		return x().getCorrespondingNodePath(workspaceName);
 	}
 
 	public String xgetIdentifier() throws Exception {
 		// TODO Auto-generated method stub
-		return node.getIdentifier();
+		return x().getIdentifier();
 	}
 
 	public int xgetIndex() throws Exception {
 		// TODO Auto-generated method stub
-		return node.getIndex();
+		return x().getIndex();
 	}
 
 	public XNode xgetNode(String relPath) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNode(node.getNode(relPath));
+		return xfactory().xNode(x().getNode(relPath));
 	}
 
 	public boolean xhasNode(String relPath) throws Exception {
 		// TODO Auto-generated method stub
-		return node.hasNode(relPath);
+		return x().hasNode(relPath);
 	}
 
 	public boolean xhasNodes() throws Exception {
 		// TODO Auto-generated method stub
-		return node.hasNodes();
+		return x().hasNodes();
 	}
 
 	public boolean xhasProperties() throws Exception {
 		// TODO Auto-generated method stub
-		return node.hasProperties();
+		return x().hasProperties();
 	}
 
 	public boolean xhasProperty(String relPath) throws Exception {
 		// TODO Auto-generated method stub
-		return node.hasProperty(relPath);
+		return x().hasProperty(relPath);
 	}
 
 	public boolean xisCheckedOut() throws Exception {
 		// TODO Auto-generated method stub
-		return node.isCheckedOut();
+		return x().isCheckedOut();
 	}
 
 	public boolean xisLocked() throws Exception {
 		// TODO Auto-generated method stub
-		return node.isLocked();
+		return x().isLocked();
 	}
 
 	public boolean xisNodeType(String nodeTypeName) throws Exception {
 		// TODO Auto-generated method stub
-		return node.isNodeType(nodeTypeName);
+		return x().isNodeType(nodeTypeName);
 	}
 
 	public void xorderBefore(String srcChildRelPath, String destChildRelPath) throws Exception {
 		// TODO Auto-generated method stub
-		node.orderBefore(srcChildRelPath, destChildRelPath);
+		x().orderBefore(srcChildRelPath, destChildRelPath);
 	}
 
 	public void xremoveMixin(String mixinName) throws Exception {
 		// TODO Auto-generated method stub
-		node.removeMixin(mixinName);
+		x().removeMixin(mixinName);
 	}
 
 	public void xremoveSharedSet() throws Exception {
 		// TODO Auto-generated method stub
-		node.removeSharedSet();
+		x().removeSharedSet();
 	}
 
 	public void xsetPrimaryType(String nodeTypeName) throws Exception {
 		// TODO Auto-generated method stub
-		node.setPrimaryType(nodeTypeName);
+		x().setPrimaryType(nodeTypeName);
 	}
 
 	public void xupdate(String srcWorkspace) throws Exception {
 		// TODO Auto-generated method stub
-		node.update(srcWorkspace);
+		x().update(srcWorkspace);
 	}
 
 	public XNodeType[] xgetMixinNodeTypes() throws Exception {
 		// TODO Auto-generated method stub
-		NodeType[] nodes = node.getMixinNodeTypes();
+		NodeType[] nodes = x().getMixinNodeTypes();
 		XNodeType[] types = new XNodeType[nodes.length];
 		for(int i = 0; i < types.length; i++)
 		{
-			types[i] = xfactory.xNodeType(nodes[i]);
+			types[i] = xfactory().xNodeType(nodes[i]);
 		}
 		return types;
 	}
 
 	public XNodeIterator xgetNodes() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNodeIterator(node.getNodes());
+		return xfactory().xNodeIterator(x().getNodes());
 	}
 
 	public XNodeIterator xgetNodes(String namePattern) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNodeIterator(node.getNodes(namePattern));
+		return xfactory().xNodeIterator(x().getNodes(namePattern));
 	}
 
 	public XNodeIterator xgetNodes(String[] nameGlobs) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNodeIterator(node.getNodes(nameGlobs));
+		return xfactory().xNodeIterator(x().getNodes(nameGlobs));
 	}
 
 	public XNodeType xgetPrimaryNodeType() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNodeType(node.getPrimaryNodeType());
+		return xfactory().xNodeType(x().getPrimaryNodeType());
 	}
 
 	public XPropertyIterator xgetProperties() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getProperties());
+		return xfactory().xPropertyIterator(x().getProperties());
 	}
 
 	public XPropertyIterator xgetProperties(String namePattern) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getProperties(namePattern));
+		return xfactory().xPropertyIterator(x().getProperties(namePattern));
 	}
 
 	public XPropertyIterator xgetProperties(String[] nameGlobs) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getProperties(nameGlobs));
+		return xfactory().xPropertyIterator(x().getProperties(nameGlobs));
 	}
 
 	public XProperty xgetProperty(String relPath) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.getProperty(relPath));
+		return xfactory().xProperty(x().getProperty(relPath));
 	}
 
 	public XPropertyIterator xgetReferences() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getReferences());
+		return xfactory().xPropertyIterator(x().getReferences());
 	}
 
 	public XPropertyIterator xgetReferences(String name) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getReferences(name));
+		return xfactory().xPropertyIterator(x().getReferences(name));
 	}
 
 	public XNodeIterator xgetSharedSet() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNodeIterator(node.getSharedSet());
+		return xfactory().xNodeIterator(x().getSharedSet());
 	}
 
 	public XPropertyIterator xgetWeakReferences() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getWeakReferences());
+		return xfactory().xPropertyIterator(x().getWeakReferences());
 	}
 
 	public XPropertyIterator xgetWeakReferences(String name) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xPropertyIterator(node.getWeakReferences(name));
+		return xfactory().xPropertyIterator(x().getWeakReferences(name));
 	}
 
 	public void xremoveShare() throws Exception {
 		// TODO Auto-generated method stub
-		node.removeShare();
+		x().removeShare();
 	}
 
 	public XProperty xsetProperty(String name, BigDecimal value) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value));
-	}
-
-	public XProperty xsetProperty(String name, XBinary value) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return xfactory().xProperty(x().setProperty(name, value));
 	}
 
 	public XProperty xsetProperty(String name, boolean value) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value));
+		return xfactory().xProperty(x().setProperty(name, value));
 	}
 
 	public XProperty xsetProperty(String name, Calendar value) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value));
+		return xfactory().xProperty(x().setProperty(name, value));
 	}
 
 	public XProperty xsetProperty(String name, double value) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value));
+		return xfactory().xProperty(x().setProperty(name, value));
 	}
 
 	public XProperty xsetProperty(String name, long value) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value));
-	}
-
-	public XProperty xsetProperty(String name, XNode value) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return xfactory().xProperty(x().setProperty(name, value));
 	}
 
 	public XProperty xsetProperty(String name, String value) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value));
+		return xfactory().xProperty(x().setProperty(name, value));
 	}
 
 	public XProperty xsetProperty(String name, String[] values) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, values));
+		return xfactory().xProperty(x().setProperty(name, values));
 	}
 
 	public XProperty xsetProperty(String name, String[] values, int type) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, values, type));
+		return xfactory().xProperty(x().setProperty(name, values, type));
 	}
 
 	public XProperty xsetProperty(String name, String value, int type) throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xProperty(node.setProperty(name, value, type));
+		return xfactory().xProperty(x().setProperty(name, value, type));
+	}
+
+	public XProperty xsetProperty(String name, XNode value) throws Exception {
+		// TODO Auto-generated method stub
+		Node node = x(value);
+		return xfactory().xProperty(x().setProperty(name, node));
+	}
+
+	public XProperty xsetProperty(String name, XBinary value) throws Exception {
+		// TODO Auto-generated method stub
+		Binary binary = x(value);
+		return xfactory().xProperty(x().setProperty(name, binary));
 	}
 
 	public XProperty xsetProperty(String name, XValue value) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		Value v = x(value);
+		return xfactory().xProperty(x().setProperty(name, v));
 	}
 
-	public XProperty xsetProperty(String name, XValue[] values) throws Exception {
+	public XProperty xsetProperty(String name, XValue[] xvalues) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		Value[] values = new Value[xvalues.length];
+		x(values, xvalues);
+		return xfactory().xProperty(x().setProperty(name, values));
 	}
 
-	public XProperty xsetProperty(String name, XValue[] values, int type) throws Exception {
+	public XProperty xsetProperty(String name, XValue[] xvalues, int type) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		Value[] values = new Value[xvalues.length];
+		x(values, xvalues);
+		return xfactory().xProperty(x().setProperty(name, values, type));
 	}
 
 	public XProperty xsetProperty(String name, XValue value, int type) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		Value v = x(value);
+		return xfactory().xProperty(x().setProperty(name, v, type));
 	}
 
+	public XNodeDefinition xgetDefinition() throws Exception {
+		// TODO Auto-generated method stub
+		return xfactory().xNodeDefinition(x().getDefinition());
+	}
+
+	public XItem xgetPrimaryItem() throws Exception {
+		// TODO Auto-generated method stub
+		return xfactory().xItem(x().getPrimaryItem());
+	}
 }

@@ -3,18 +3,13 @@ package xproject.xcr.impl;
 import javax.jcr.NodeIterator;
 
 import xproject.xcr.XNode;
+import xproject.xcr.XNodeIterator;
 import xproject.xrmi.XRemote;
 
-public class XNodeIteratorImpl extends XRangeIteratorImpl {
+public class XNodeIteratorImpl extends XRangeIteratorImpl<XNodeIterator, NodeIterator> implements XNodeIterator {
 
-	private NodeIterator iterator;
-	private XFactory xfactory;
-	
-	protected XNodeIteratorImpl(NodeIterator it, XFactory factory) {
-		super(it);
-		// TODO Auto-generated constructor stub
-		iterator = it;
-		xfactory = factory;
+	protected XNodeIteratorImpl(NodeIterator iterator, XFactory factory) {
+		super(iterator, factory);
 	}
 
 	public XRemote xnext() throws Exception {
@@ -24,6 +19,6 @@ public class XNodeIteratorImpl extends XRangeIteratorImpl {
 
 	public XNode xnextNode() throws Exception {
 		// TODO Auto-generated method stub
-		return xfactory.xNode(iterator.nextNode());
+		return xfactory().xNode(x().nextNode());
 	}
 }

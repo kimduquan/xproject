@@ -4,43 +4,40 @@ import javax.jcr.RangeIterator;
 
 import xproject.xcr.XRangeIterator;
 
-public abstract class XRangeIteratorImpl implements XRangeIterator{
+public abstract class XRangeIteratorImpl<R extends XRangeIterator, V extends RangeIterator> extends XCRImpl<R, V> implements XRangeIterator{
 
-	private RangeIterator iterator;
-	
-	protected XRangeIteratorImpl(RangeIterator it)
+	protected XRangeIteratorImpl(V iterator)
 	{
-		iterator = it;
+		super(iterator);
 	}
 	
-	public void xfinalize() throws Throwable {
-		// TODO Auto-generated method stub
-		iterator = null;
-		finalize();
+	protected XRangeIteratorImpl(V iterator, XFactory factory)
+	{
+		super(iterator, factory);
 	}
 
 	public long xgetPosition() throws Exception {
 		// TODO Auto-generated method stub
-		return iterator.getPosition();
+		return x().getPosition();
 	}
 
 	public long xgetSize() throws Exception {
 		// TODO Auto-generated method stub
-		return iterator.getSize();
+		return x().getSize();
 	}
 
 	public void xskip(long skipNum) throws Exception {
 		// TODO Auto-generated method stub
-		iterator.skip(skipNum);
+		x().skip(skipNum);
 	}
 
 	public boolean xhasNext() throws Exception {
 		// TODO Auto-generated method stub
-		return iterator.hasNext();
+		return x().hasNext();
 	}
 
 	public void xremove() throws Exception {
 		// TODO Auto-generated method stub
-		iterator.remove();
+		x().remove();
 	}
 }

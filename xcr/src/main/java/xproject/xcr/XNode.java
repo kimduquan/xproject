@@ -3,10 +3,11 @@ package xproject.xcr;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import xproject.xcr.xnodetype.XNodeDefinition;
 import xproject.xcr.xnodetype.XNodeType;
 import xproject.xrmi.XRemote;
 
-public interface XNode extends XRemote {
+public interface XNode extends XItem, XRemote {
 
 	void xaddMixin(String mixinName) throws Exception;
 	XNode xaddNode(String relPath) throws Exception;
@@ -15,6 +16,7 @@ public interface XNode extends XRemote {
 	void xfollowLifecycleTransition(String transition) throws Exception;
 	String[] xgetAllowedLifecycleTransistions() throws Exception;
 	String xgetCorrespondingNodePath(String workspaceName) throws Exception;
+	XNodeDefinition xgetDefinition() throws Exception;
 	String xgetIdentifier() throws Exception;
 	int xgetIndex() throws Exception;
 	XNodeType[] xgetMixinNodeTypes() throws Exception;
@@ -22,6 +24,7 @@ public interface XNode extends XRemote {
 	XNodeIterator xgetNodes() throws Exception;
 	XNodeIterator xgetNodes(String namePattern) throws Exception;
 	XNodeIterator xgetNodes(String[] nameGlobs) throws Exception;
+	XItem xgetPrimaryItem() throws Exception;
 	XNodeType xgetPrimaryNodeType() throws Exception;
 	XPropertyIterator xgetProperties() throws Exception;
 	XPropertyIterator xgetProperties(String namePattern) throws Exception;
@@ -60,4 +63,5 @@ public interface XNode extends XRemote {
 	XProperty xsetProperty(String name, XValue[] values, int type) throws Exception;
 	XProperty xsetProperty(String name, XValue value, int type) throws Exception;
 	void xupdate(String srcWorkspace) throws Exception;
+	
 }
