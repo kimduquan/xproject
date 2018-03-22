@@ -1,8 +1,8 @@
 package xproject.xcr;
 
-import xproject.xcr.observation.XObservationManager;
 import xproject.xcr.xlock.XLockManager;
 import xproject.xcr.xnodetype.XNodeTypeManager;
+import xproject.xcr.xobservation.XObservationManager;
 import xproject.xcr.xquery.XQueryManager;
 import xproject.xcr.xversion.XVersionManager;
 import xproject.xrmi.XRemote;

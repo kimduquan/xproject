@@ -14,6 +14,10 @@ import javax.jcr.lock.Lock;
 import javax.jcr.lock.LockManager;
 import javax.jcr.nodetype.NodeDefinition;
 import javax.jcr.nodetype.NodeType;
+import javax.jcr.observation.Event;
+import javax.jcr.observation.EventJournal;
+import javax.jcr.observation.EventListener;
+import javax.jcr.observation.EventListenerIterator;
 
 import xproject.xcr.XBinary;
 import xproject.xcr.XItem;
@@ -29,6 +33,10 @@ import xproject.xcr.xlock.XLock;
 import xproject.xcr.xlock.XLockManager;
 import xproject.xcr.xnodetype.XNodeDefinition;
 import xproject.xcr.xnodetype.XNodeType;
+import xproject.xcr.xobservation.XEvent;
+import xproject.xcr.xobservation.XEventJournal;
+import xproject.xcr.xobservation.XEventListener;
+import xproject.xcr.xobservation.XEventListenerIterator;
 import xproject.xrmi.XRemote;
 
 public interface XFactory extends XRemote {
@@ -47,4 +55,8 @@ public interface XFactory extends XRemote {
 	XNodeDefinition xNodeDefinition(NodeDefinition nodeDefinition) throws Exception;
 	XLockManager xLockManager(LockManager lockManager) throws Exception;
 	XLock xLock(Lock lock) throws Exception;
+	XEvent xEvent(Event event) throws Exception;
+	XEventListener xEventListener(EventListener eventListener) throws Exception;
+	XEventJournal xEventJournal(EventJournal eventJournal) throws Exception;
+	XEventListenerIterator xEventListenerIterator(EventListenerIterator eventListenerIterator) throws Exception;
 }

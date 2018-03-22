@@ -1,4 +1,4 @@
-package xproject.xcr.observation;
+package xproject.xcr.xobservation;
 
 import xproject.xcr.XRangeIterator;
 import xproject.xrmi.XRemote;
