@@ -3,6 +3,8 @@ package xproject.xscript.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XClassLoader;
@@ -16,6 +18,10 @@ import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
 import xproject.xutil.XScanner;
+import xproject.xutil.xconcurrent.XConcurrentFactory;
+import xproject.xutil.xconcurrent.XExecutorService;
+import xproject.xutil.xconcurrent.XFuture;
+import xproject.xutil.xconcurrent.XRunnable;
 
 public class XScriptEngineImpl implements XScriptEngine {
 
@@ -41,11 +47,23 @@ public class XScriptEngineImpl implements XScriptEngine {
 	//private static final String FOR = "for";
 	//private static final String GOTO = "goto";
 	
+	private static final String EXECUTOR = "executor";
+	private static final String AWAIT_TERMINATION = "awaitTermination";
+	private static final String SHUTDOWN = "shutdown";
+	private static final String SUBMIT = "submit";
+	private static final String IS_TERMINATED = "isTerminated";
+	private static final String EXECUTE = "execute";
+	private static final String SHUTDOWN_NOW = "shutdownNow";
+	private static final String INVOKE_ALL = "invokeAll";
+	private static final String INVOKE_ANY = "invokeAny";
+	
 	private HashMap<String, XClass> importedClasses;
 	
 	private XFactory xfactory;
 	private XClassLoader xclassLoader;
 	private XScriptContext xdefaultContext;
+	private XExecutorService xexecutorService;
+	private XConcurrentFactory xconcurrentFactory;
 	
 	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext)
 	{
@@ -117,7 +135,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(method.equals(SUPER))
 		{
-			return xsuper(currentLine, bindings);
+			return xsuper(currentLine, scanner, bindings);
 		}
 		else if(method.equals(DO))
 		{
@@ -204,6 +222,18 @@ public class XScriptEngineImpl implements XScriptEngine {
 	
 	protected XObject xreturn(XObject xreturn, XScanner currentLine, XBindings bindings) throws Exception
 	{
+		String name = xreturn(currentLine);
+		
+		if(name.isEmpty() == false)
+		{
+			return bindings.xput(name, xreturn);
+		}
+		
+		return null;
+	}
+	
+	protected String xreturn(XScanner currentLine) throws Exception
+	{
 		if(currentLine.xhasNext())
 		{
 			String paramName = currentLine.xnext();
@@ -224,9 +254,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 							{
 								paramValue = paramValue.substring(OBJECT_REF_PREFIX.length());
 								
-								bindings.xput(paramValue, xreturn);
-								
-								return xreturn;
+								return paramValue;
 							}
 						}
 					}
@@ -234,7 +262,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 			}
 		}
 		
-		return null;
+		return "";
 	}
 	
 	protected XObject[] xparameter(XScanner currentLine, XBindings bindings) throws Exception
@@ -371,11 +399,6 @@ public class XScriptEngineImpl implements XScriptEngine {
 	{
 		XObject xthis = xthis(currentLine, bindings);
 		
-		return xinvoke(method, xthis, currentLine, bindings);
-	}
-
-	protected XObject xinvoke(String method, XObject xthis, XScanner currentLine, XBindings bindings) throws Exception
-	{
 		XClass xclass = null;
 		
 		if(xthis == null) 
@@ -387,10 +410,21 @@ public class XScriptEngineImpl implements XScriptEngine {
 			xclass = xthis.xgetClass();
 		}
 		
-		return xinvoke(method, xthis, xclass, currentLine, bindings);
+		XObject[] xparameters = xparameter(currentLine, bindings);
+		
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings);
+		
+		if(xmethod != null)
+		{
+			XObject xreturn = xmethod.xinvoke(xthis, xparameters);
+			
+			return xreturn(xreturn, currentLine, bindings);
+		}
+		
+		return null;
 	}
 	
-	protected XObject xinvoke(String method, XObject xthis, XClass xclass, XScanner currentLine, XBindings bindings) throws Exception
+	protected XMethod xmethod(String method, XObject[] xparameters, XObject xthis, XClass xclass, XScanner currentLine, XBindings bindings) throws Exception
 	{
 		ArrayList<XClass> xclasses = new ArrayList<XClass>();
 		if(xclass != null)
@@ -401,9 +435,6 @@ public class XScriptEngineImpl implements XScriptEngine {
 		{
 			xclasses.addAll(importedClasses.values());
 		}
-		
-		
-		XObject[] xparameters = xparameter(currentLine, bindings);
 		
 		XClass[] xparameterTypes = new XClass[xparameters.length];
 		for(int i = 0; i < xparameterTypes.length; i++)
@@ -422,6 +453,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 			}
 		}
 		
+		return xmethod;
+	}
+	
+	protected XObject xinvoke(String method, XObject xthis, XClass xclass, XScanner currentLine, XBindings bindings) throws Exception
+	{
+		XObject[] xparameters = xparameter(currentLine, bindings);
+		
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings);
 		
 		if(xmethod != null)
 		{
@@ -743,7 +782,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected XObject xsuper(XScanner currentLine, XBindings bindings) throws Exception
+	protected XObject xsuper(XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
@@ -751,20 +790,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 			
 			if(methodName.isEmpty() == false)
 			{
-				if(methodName.startsWith(X_METHOD_NAME_PREFIX) == false)
-				{
-					XObject xthis = xfactory.xObject(this);
-					XClass xclass = xfactory.xClass(this.getClass());
-					try
-					{
-						return xinvoke(methodName, xthis, xclass, currentLine, bindings);
-					}
-					finally
-					{
-						xfactory.xfinalize(xthis);
-						xfactory.xfinalize(xclass);
-					}
-				}
+				return xsuper(methodName, currentLine, scanner, bindings);
 			}
 		}
 		
@@ -809,5 +835,407 @@ public class XScriptEngineImpl implements XScriptEngine {
 	public XObject xeval(String script) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected XObject xsuper(String methodName, XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	{
+		if(methodName.equals(EXECUTOR))
+		{
+			return xexecutor(currentLine, scanner, bindings);
+		}
+		else if(methodName.startsWith(X_METHOD_NAME_PREFIX) == false)
+		{
+			XObject xthis = xfactory.xObject(this);
+			XClass xclass = xfactory.xClass(this.getClass());
+			try
+			{
+				return xinvoke(methodName, xthis, xclass, currentLine, bindings);
+			}
+			finally
+			{
+				xfactory.xfinalize(xthis);
+				xfactory.xfinalize(xclass);
+			}
+		}
+		
+		return null;
+	}
+	
+	protected XObject xexecutor(XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	{
+		if(currentLine.xhasNext())
+		{
+			String methodName = currentLine.xnext();
+			
+			if(methodName.isEmpty() == false)
+			{
+				return xexecutor(methodName, currentLine, scanner, bindings);
+			}
+		}
+		
+		return null;
+	}
+	
+	protected XObject xexecutor(String methodName, XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	{
+		if(methodName.equals(AWAIT_TERMINATION))
+		{
+			return xawaitTermination(currentLine, bindings);
+		}
+		else if(methodName.equals(SHUTDOWN))
+		{
+			xexecutorService.xshutdown();
+		}
+		else if(methodName.equals(SUBMIT))
+		{
+			return xsubmit(currentLine, scanner, bindings);
+		}
+		else if(methodName.equals(IS_TERMINATED))
+		{
+			return xisTerminated(currentLine, bindings);
+		}
+		else if(methodName.equals(EXECUTE))
+		{
+			return xexecute(currentLine, bindings);
+		}
+		else if(methodName.equals(SHUTDOWN_NOW))
+		{
+			return xshutdownNow(currentLine, scanner, bindings);
+		}
+		else if(methodName.equals(INVOKE_ALL))
+		{
+			xinvokeAll(scanner, bindings);
+		}
+		else if(methodName.equals(INVOKE_ANY))
+		{
+			return xinvokeAny(currentLine, scanner, bindings);
+		}
+		return null;
+	}
+	
+	protected XObject xawaitTermination(XScanner currentLine, XBindings bindings) throws Exception
+	{
+		if(currentLine.xhasNextLong())
+		{
+			long timeOut = currentLine.xnextLong();
+			
+			if(currentLine.xhasNext())
+			{
+				String timeUnit = currentLine.xnext();
+				boolean b = xexecutorService.xawaitTermination(timeOut, TimeUnit.valueOf(timeUnit));
+				XObject xobject = xfactory.xObject(b);
+				return xreturn(xobject, currentLine, bindings);
+			}
+		}
+		return null;
+	}
+	
+	protected XObject xsubmit(String method, XScanner currentLine, XBindings bindings) throws Exception 
+	{
+		XObject xthis = xthis(currentLine, bindings);
+		
+		XClass xclass = null;
+		
+		if(xthis == null) 
+		{
+			xclass = xclass(currentLine);
+		}
+		else
+		{
+			xclass = xthis.xgetClass();
+		}
+		
+		XObject[] xparameters = xparameter(currentLine, bindings);
+		
+		String xreturn = xreturn(currentLine);
+		
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings);
+		
+		if(xmethod != null)
+		{
+			XInvokeCallable task = XInvokeMethodCallable.xnew(xmethod, xthis, xparameters, xreturn);
+			
+			XFuture xfuture = xexecutorService.xsubmit(task);
+			
+			if(xreturn.isEmpty() == false)
+			{
+				XObject xobject = xconcurrentFactory.xobject(xfuture);
+				
+				return bindings.xput(xreturn, xobject);
+			}
+		}
+		
+		return null;
+	}
+	
+	protected XObject xsubmit(XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	{
+		if(currentLine.xhasNext())
+		{
+			String methodName = currentLine.xnext();
+			
+			if(methodName.isEmpty() == false)
+			{
+				return xsubmit(methodName, currentLine, bindings);
+			}
+		}
+		return null;
+	}
+	
+	protected XObject xisTerminated(XScanner currentLine, XBindings bindings) throws Exception
+	{
+		boolean b = xexecutorService.xisTerminated();
+		XObject xobject = xfactory.xObject(b);
+		return xreturn(xobject, currentLine, bindings);
+	}
+	
+	protected XObject xexecute(XScanner currentLine, XBindings bindings) throws Exception
+	{
+		if(currentLine.xhasNext())
+		{
+			String methodName = currentLine.xnext();
+			
+			if(methodName.isEmpty() == false)
+			{
+				return xexecute(methodName, currentLine, bindings);
+			}
+		}
+		return null;
+	}
+	
+	protected XObject xexecute(String method, XScanner currentLine, XBindings bindings) throws Exception
+	{
+		XObject xthis = xthis(currentLine, bindings);
+		
+		XClass xclass = null;
+		
+		if(xthis == null) 
+		{
+			xclass = xclass(currentLine);
+		}
+		else
+		{
+			xclass = xthis.xgetClass();
+		}
+		
+		XObject[] xparameters = xparameter(currentLine, bindings);
+		
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings);
+		
+		if(xmethod != null)
+		{
+			XRunnable task = XInvokeMethodRunnable.xnew(xmethod, xthis, xparameters);
+			
+			xexecutorService.xexecute(task);
+		}
+		
+		return null;
+	}
+	
+	protected XObject xshutdownNow(XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	{
+		xexecutorService.xshutdownNow();
+		return null;
+	}
+	
+	protected boolean xisCallable(String method)
+	{
+		switch(method)
+		{
+			case IMPORT:
+			case NEW:
+			case RETURN:
+			case TRY:
+			case IF:
+			case SUPER:
+			case DO:
+				return false;
+			default:
+				break;
+		}
+		return true;
+	}
+	protected XInvokeCallable xcallable(String method, XScanner currentLine, XBindings bindings) throws Exception
+	{	
+		XObject xthis = xthis(currentLine, bindings);
+		
+		XClass xclass = null;
+		
+		if(xthis == null) 
+		{
+			xclass = xclass(currentLine);
+		}
+		else
+		{
+			xclass = xthis.xgetClass();
+		}
+		
+		XObject[] xparameters = xparameter(currentLine, bindings);
+		
+		String xreturn = xreturn(currentLine);
+		
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings);
+		
+		if(xmethod != null)
+		{
+			return XInvokeMethodCallable.xnew(xmethod, xthis, xparameters, xreturn);
+		}
+		
+		return null;
+	}
+	
+	protected void xinvokeAll(XScanner scanner, XBindings bindings) throws Exception
+	{
+		ArrayList<XInvokeCallable> tasks = new ArrayList<XInvokeCallable>();
+		boolean isBreak = false;
+		XScanner endLine = null;
+		String endLineMethod = "";
+		
+		while(scanner.xhasNextLine())
+		{
+			XScanner temp = scanner.xnextLine();
+			XScanner currentLine = temp.xuseDelimiter(PARAMETER_SEPARATOR);
+			xfactory.xfinalize(temp);
+			
+			if(currentLine.xhasNext())
+			{
+				String methodName = xmethod(currentLine);
+				
+				if(methodName.isEmpty() == false)
+				{
+					if(xisCallable(methodName))
+					{
+						XInvokeCallable task = xcallable(methodName, currentLine, bindings);
+						
+						if(task != null)
+							tasks.add(task);
+						else
+						{
+							isBreak = true;
+						}
+					}
+					else
+					{
+						endLine = currentLine;
+						endLineMethod = methodName;
+						break;
+					}
+				}
+			}
+
+			currentLine.xclose();
+			xfactory.xfinalize(currentLine);
+			
+			if(isBreak)
+				break;
+		}
+		
+		xinvokeAll(tasks, bindings);
+		
+		if(endLine != null)
+		{
+			xeval(endLineMethod, endLine, scanner, bindings);
+			
+			endLine.xclose();
+			xfactory.xfinalize(endLine);
+		}
+	}
+	
+	protected void xinvokeAll(List<XInvokeCallable> tasks, XBindings bindings) throws Exception
+	{
+		if(tasks.isEmpty() == false)
+		{
+			XInvokeCallable[] calls = new XInvokeCallable[tasks.size()];
+			calls = tasks.toArray(calls);
+			String[] returns = new String[calls.length];
+			for(int i = 0; i < returns.length; i++)
+			{
+				returns[i] = calls[i].xreturn();
+			}
+			
+			XFuture[] xfutures = xexecutorService.xinvokeAll(calls);
+			
+			for(int i = 0; i < xfutures.length; i++)
+			{
+				if(returns[i].isEmpty() == false)
+				{
+					XObject xobject = xconcurrentFactory.xobject(xfutures[i]);
+					
+					bindings.xput(returns[i], xobject);
+				}
+			}
+		}
+	}
+	
+	protected XObject xinvokeAny(XScanner current, XScanner scanner, XBindings bindings) throws Exception
+	{
+		String xreturn = xreturn(current);
+		ArrayList<XInvokeCallable> tasks = new ArrayList<XInvokeCallable>();
+		boolean isBreak = false;
+		XScanner endLine = null;
+		String endLineMethod = "";
+		
+		while(scanner.xhasNextLine())
+		{
+			XScanner temp = scanner.xnextLine();
+			XScanner currentLine = temp.xuseDelimiter(PARAMETER_SEPARATOR);
+			xfactory.xfinalize(temp);
+			
+			if(currentLine.xhasNext())
+			{
+				String methodName = xmethod(currentLine);
+				
+				if(methodName.isEmpty() == false)
+				{
+					if(xisCallable(methodName))
+					{
+						XInvokeCallable task = xcallable(methodName, currentLine, bindings);
+						
+						if(task != null)
+							tasks.add(task);
+						else
+						{
+							isBreak = true;
+						}
+					}
+					else
+					{
+						endLine = currentLine;
+						endLineMethod = methodName;
+						break;
+					}
+				}
+			}
+
+			currentLine.xclose();
+			xfactory.xfinalize(currentLine);
+			
+			if(isBreak)
+				break;
+		}
+		
+		
+		
+		XObject xobject = null;
+		
+		if(tasks.isEmpty() == false)
+		{
+			XInvokeCallable[] calls = new XInvokeCallable[tasks.size()];
+			calls = tasks.toArray(calls);
+			xobject = xexecutorService.xinvokeAny(calls);
+			
+			if(xreturn.isEmpty() == false)
+				xobject = bindings.xput(xreturn, xobject);
+		}
+		
+		if(endLine != null)
+		{
+			xeval(endLineMethod, endLine, scanner, bindings);
+			
+			endLine.xclose();
+			xfactory.xfinalize(endLine);
+		}
+		
+		return xobject;
 	}
 }
