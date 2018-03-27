@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XClassLoader;
@@ -13,6 +14,7 @@ import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
+import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
@@ -64,6 +66,8 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private XScriptContext xdefaultContext;
 	private XExecutorService xexecutorService;
 	private XConcurrentFactory xconcurrentFactory;
+	private XClass xclass;
+	private XObject xthis;
 	
 	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext)
 	{
@@ -71,6 +75,8 @@ public class XScriptEngineImpl implements XScriptEngine {
 		xfactory = factory;
 		xclassLoader = classLoader;
 		xdefaultContext = defaultContext;
+		xclass = null;
+		xthis = null;
 	}
 	
 	public XObject xeval(XScanner scanner, XBindings bindings) throws Exception {
@@ -143,10 +149,18 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else
 		{
-			return xinvoke(method, currentLine, bindings);
+			if(xclass == null)
+			{
+				xclass = xfactory.xClass(XScriptEngineImpl.class);
+			}
+			XField xfield = xclass.xgetField(method);
+			if(xfield != null)
+			{
+				return xextension(method, xfield, currentLine, scanner, bindings);
+			}
 		}
 		
-		return null;
+		return xinvoke(method, currentLine, bindings);
 	}
 	
 	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader, XScriptContext xdefaultContext)
@@ -424,6 +438,16 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
+	protected XClass[] xparameterTypes(XObject[] xparameters) throws Exception
+	{
+		XClass[] xparameterTypes = new XClass[xparameters.length];
+		for(int i = 0; i < xparameterTypes.length; i++)
+		{
+			xparameterTypes[i] = xparameters[i].xgetClass();
+		}
+		return xparameterTypes;
+	}
+	
 	protected XMethod xmethod(String method, XObject[] xparameters, XObject xthis, XClass xclass, XScanner currentLine, XBindings bindings) throws Exception
 	{
 		ArrayList<XClass> xclasses = new ArrayList<XClass>();
@@ -436,11 +460,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 			xclasses.addAll(importedClasses.values());
 		}
 		
-		XClass[] xparameterTypes = new XClass[xparameters.length];
-		for(int i = 0; i < xparameterTypes.length; i++)
-		{
-			xparameterTypes[i] = xparameters[i].xgetClass();
-		}
+		XClass[] xparameterTypes = xparameterTypes(xparameters);
 		
 		XMethod xmethod = null;
 		for(XClass xcls : xclasses)
@@ -481,11 +501,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		{
 			XObject[] xparameters = xparameter(currentLine, bindings);
 			
-			XClass[] xparameterTypes = new XClass[xparameters.length];
-			for(int i = 0; i < xparameterTypes.length; i++)
-			{
-				xparameterTypes[i] = xparameters[i].xgetClass();
-			}
+			XClass[] xparameterTypes = xparameterTypes(xparameters);
 			
 			XConstructor xconstructor = xclass.xgetConstructor(xparameterTypes);
 			
@@ -802,6 +818,20 @@ public class XScriptEngineImpl implements XScriptEngine {
 		importedClasses.clear();
 		importedClasses = null;
 		xfactory = null;
+		xclassLoader = null;
+		if(xclass != null)
+		{
+			xclass.xfinalize();
+			xclass = null;
+		}
+		if(xthis != null)
+		{
+			xthis.xfinalize();
+			xthis = null;
+		}
+		xconcurrentFactory = null;
+		xdefaultContext = null;
+		xexecutorService = null;
 		finalize();
 	}
 
@@ -1238,4 +1268,46 @@ public class XScriptEngineImpl implements XScriptEngine {
 		
 		return xobject;
 	}
+	
+	protected XObject xextension(String methodName, XField xfield, XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	{
+		if(currentLine.xhasNext())
+		{
+			String method = currentLine.xnext();
+			if(method.isEmpty() == false)
+			{
+				XClass xtype = xfield.xgetType();
+				XObject[] xparameters = xparameter(currentLine, bindings);
+				XClass[] xparameterTypes = xparameterTypes(xparameters);
+				XMethod xmethod = xtype.xgetMethod(methodName, xparameterTypes);
+				
+				if(xmethod != null)
+				{
+					if(xmethod.xgetModifiers().xisStatic())
+					{
+						return xmethod.xinvoke(XObject.xnull, xparameters);
+					}
+					else
+					{
+						XObject xobject = null;
+						if(xfield.xgetModifiers().xisStatic())
+						{
+							xobject = xfield.xget(XObject.xnull);
+						}
+						else
+						{
+							if(xthis == null)
+								xthis = xfactory.xObject(this);
+							xobject = xfield.xget(xthis);
+						}
+						
+						return xmethod.xinvoke(xobject, xparameters);
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static Logger log = Logger.getLogger(XScriptEngineImpl.class.getName());;
 }

@@ -24,6 +24,7 @@ public class XClassImpl implements XClass {
 	private XClass superClass;
 	private XClass componentType;
 	private XFactory xfactory;
+	private HashMap<String, XField> fieldNames;
 	
 	protected XClassImpl(Class<?> cls, XFactory factory)
 	{
@@ -35,16 +36,19 @@ public class XClassImpl implements XClass {
 		superClass = null;
 		componentType = null;
 		xfactory = factory;
+		fieldNames = null;
 	}
 	
 	protected void initializeFields() throws Exception
 	{
+		fieldNames = new HashMap<String, XField>();
 		Field[] fs = cls.getFields();
 		fields = new XField[fs.length];
 		
 		for(int i = 0; i < fs.length; i++)
 		{
 			fields[i] = xfactory.xField(fs[i]);
+			fieldNames.put(fields[i].xgetName(), fields[i]);
 		}
 	}
 	
@@ -250,5 +254,14 @@ public class XClassImpl implements XClass {
 	public XClassLoader xgetClassLoader() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public XField xgetField(String name) throws Exception {
+		// TODO Auto-generated method stub
+		if(fields == null)
+			initializeFields();
+		
+		return fieldNames.getOrDefault(name, null);
 	}
 }

@@ -94,4 +94,10 @@ public class XRemoteClassImpl extends XUnicastRemoteObject<XClass> implements XC
 		return ref().xgetClassLoader();
 	}
 
+	@Override
+	public XField xgetField(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xgetField(name);
+	}
+
 }

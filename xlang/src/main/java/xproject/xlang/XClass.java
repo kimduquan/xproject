@@ -9,6 +9,7 @@ import xproject.xrmi.XRemote;
 public interface XClass extends XRemote {
 
 	XField[] xgetFields() throws Exception;
+	XField xgetField(String name) throws Exception;
 	boolean xisPrimitive() throws Exception;
 	XMethod[] xgetMethods() throws Exception;
 	String xgetSimpleName() throws Exception;
