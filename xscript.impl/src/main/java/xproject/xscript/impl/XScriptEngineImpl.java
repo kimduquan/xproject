@@ -148,15 +148,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 			xdo(scanner, bindings);
 		}
 		else
-		{
-			if(xclass == null)
+		{	
+			if(method.startsWith(X_METHOD_NAME_PREFIX) == false)
 			{
-				xclass = xfactory.xClass(XScriptEngineImpl.class);
-			}
-			XField xfield = xclass.xgetField(method);
-			if(xfield != null)
-			{
-				return xextension(method, xfield, currentLine, scanner, bindings);
+				XField xfield = xclass().xgetField(method);
+				if(xfield != null)
+				{
+					return xextension(method, xfield, currentLine, scanner, bindings);
+				}
 			}
 		}
 		
@@ -501,9 +500,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		{
 			XObject[] xparameters = xparameter(currentLine, bindings);
 			
-			XClass[] xparameterTypes = xparameterTypes(xparameters);
-			
-			XConstructor xconstructor = xclass.xgetConstructor(xparameterTypes);
+			XConstructor xconstructor = xconstructor(xclass, xparameters);
 			
 			if(xconstructor != null)
 			{
@@ -875,17 +872,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(methodName.startsWith(X_METHOD_NAME_PREFIX) == false)
 		{
-			XObject xthis = xfactory.xObject(this);
-			XClass xclass = xfactory.xClass(this.getClass());
-			try
-			{
-				return xinvoke(methodName, xthis, xclass, currentLine, bindings);
-			}
-			finally
-			{
-				xfactory.xfinalize(xthis);
-				xfactory.xfinalize(xclass);
-			}
+			return xinvoke(methodName, xthis(), xclass(), currentLine, bindings);
 		}
 		
 		return null;
@@ -1269,7 +1256,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return xobject;
 	}
 	
-	protected XObject xextension(String methodName, XField xfield, XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	protected XObject xextension(String fieldName, XField xfield, XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
@@ -1278,8 +1265,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 			{
 				XClass xtype = xfield.xgetType();
 				XObject[] xparameters = xparameter(currentLine, bindings);
-				XClass[] xparameterTypes = xparameterTypes(xparameters);
-				XMethod xmethod = xtype.xgetMethod(methodName, xparameterTypes);
+				XMethod xmethod = xmethod(method, xtype, xparameters);
 				
 				if(xmethod != null)
 				{
@@ -1296,9 +1282,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 						}
 						else
 						{
-							if(xthis == null)
-								xthis = xfactory.xObject(this);
-							xobject = xfield.xget(xthis);
+							xobject = xfield.xget(xthis());
 						}
 						
 						return xmethod.xinvoke(xobject, xparameters);
@@ -1309,5 +1293,31 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	public static Logger log = Logger.getLogger(XScriptEngineImpl.class.getName());;
+	public static Logger log = Logger.getLogger(XScriptEngineImpl.class.getName());
+
+	protected XClass xclass() throws Exception
+	{
+		if(xclass == null)
+			xclass = xfactory.xClass(this.getClass());
+		return xclass;
+	}
+	
+	protected XObject xthis() throws Exception
+	{
+		if(xthis == null)
+			xthis = xfactory.xObject(this);
+		return xthis;
+	}
+	
+	protected XMethod xmethod(String method, XClass xtype, XObject[] xparameters) throws Exception
+	{
+		XClass[] xparameterTypes = xparameterTypes(xparameters);
+		return xtype.xgetMethod(method, xparameterTypes);
+	}
+	
+	protected XConstructor xconstructor(XClass xtype, XObject[] xparameters) throws Exception
+	{
+		XClass[] xparameterTypes = xparameterTypes(xparameters);
+		return xtype.xgetConstructor(xparameterTypes);
+	}
 }
