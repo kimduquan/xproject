@@ -9,7 +9,6 @@ import xproject.xutil.xconcurrent.XExecutorService;
 import xproject.xutil.xconcurrent.XFuture;
 import xproject.xutil.xconcurrent.XRunnable;
 import xproject.xutil.xconcurrent.XCallable;
-import xproject.xutil.xconcurrent.XConcurrentFactory;
 
 public class XExecutorServiceImpl extends XImpl<XExecutorService, ExecutorService, XConcurrentFactory> implements XExecutorService {
 
