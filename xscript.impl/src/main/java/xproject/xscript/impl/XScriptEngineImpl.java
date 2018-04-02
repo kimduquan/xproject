@@ -1,9 +1,9 @@
 package xproject.xscript.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -12,6 +12,7 @@ import xproject.xlang.XClassLoader;
 import xproject.xlang.XException;
 import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
+import xproject.xlang.XRunnable;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
@@ -22,10 +23,9 @@ import xproject.xscript.XScriptEngine;
 import xproject.xutil.XScanner;
 import xproject.xutil.xconcurrent.XExecutorService;
 import xproject.xutil.xconcurrent.XFuture;
-import xproject.xutil.xconcurrent.XRunnable;
-import xproject.xutil.xconcurrent.xscript.XConcurrentFactory;
 import xproject.xutil.xconcurrent.xscript.XEvalCallable;
 import xproject.xutil.xconcurrent.xscript.impl.XEvalCallableImpl;
+import xproject.xutil.xconcurrent.xscript.impl.XFutureObjectImpl;
 import xproject.xutil.xscript.impl.XScannerImpl;
 
 public class XScriptEngineImpl implements XScriptEngine {
@@ -55,6 +55,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String CONTINUE = "continue";
 	private static final String FINAL = "final";
 	private static final String FINALLY = "finally";
+	private static final String SYNCHRONIZED = "synchronized";
 	
 	private static final String EXECUTOR = "executor";
 	private static final String AWAIT_TERMINATION = "awaitTermination";
@@ -73,22 +74,22 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String TRUE = "true";
 	private static final String FALSE = "false";
 	
-	private HashMap<String, XClass> importedClasses;
+	private ConcurrentHashMap<String, XClass> xclasses;
 	
 	private XFactory xfactory;
 	private XClassLoader xclassLoader;
 	private XScriptContext xdefaultContext;
 	private XExecutorService xexecutorService;
-	private XConcurrentFactory xconcurrentFactory;
-	private XClass xclass;
-	private XObject xthis;
+	private volatile XClass xclass;
+	private volatile XObject xthis;
 	
-	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext)
+	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext, XExecutorService executorService)
 	{
-		importedClasses = new HashMap<String, XClass>();
+		xclasses = new ConcurrentHashMap<String, XClass>();
 		xfactory = factory;
 		xclassLoader = classLoader;
 		xdefaultContext = defaultContext;
+		xexecutorService = executorService;
 		xclass = null;
 		xthis = null;
 	}
@@ -143,13 +144,17 @@ public class XScriptEngineImpl implements XScriptEngine {
 		{
 			xthrow(currentLine, bindings);
 		}
+		else if(method.equals(SYNCHRONIZED))
+		{
+			xsynchronized(currentLine, scanner, bindings, lines);
+		}
 		
 		return xinvoke(method, currentLine, bindings);
 	}
 	
-	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader, XScriptContext xdefaultContext)
+	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader, XScriptContext xdefaultContext, XExecutorService executorService)
 	{
-		return new XScriptEngineImpl(xfactory, xclassLoader, xdefaultContext);
+		return new XScriptEngineImpl(xfactory, xclassLoader, xdefaultContext, executorService);
 	}
 
 	protected XObject xthis(XScanner currentLine, XBindings bindings) throws Exception
@@ -205,9 +210,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 						
 						if(paramValue.isEmpty() == false)
 						{
-							if(importedClasses.containsKey(paramValue))
+							if(xclasses.containsKey(paramValue))
 							{
-								return importedClasses.get(paramValue);
+								return xclasses.get(paramValue);
 							}
 						}
 					}
@@ -364,13 +369,13 @@ public class XScriptEngineImpl implements XScriptEngine {
 						
 						if(paramValue.isEmpty() == false)
 						{
-							if(importedClasses.containsKey(paramValue) == false)
+							if(xclasses.containsKey(paramValue) == false)
 							{
 								XClass xclass = xclassLoader.xloadClass(paramValue);
 								
 								if(xclass != null)
 								{
-									importedClasses.put(xclass.xgetSimpleName(), xclass);
+									xclasses.put(xclass.xgetSimpleName(), xclass);
 								}
 							}
 						}
@@ -428,7 +433,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else
 		{
-			xclasses.addAll(importedClasses.values());
+			xclasses.addAll(this.xclasses.values());
 		}
 		
 		XClass[] xparameterTypes = xparameterTypes(xparameters);
@@ -866,8 +871,8 @@ public class XScriptEngineImpl implements XScriptEngine {
 
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		importedClasses.clear();
-		importedClasses = null;
+		xclasses.clear();
+		xclasses = null;
 		xfactory = null;
 		xclassLoader = null;
 		if(xclass != null)
@@ -877,10 +882,8 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		if(xthis != null)
 		{
-			xthis.xfinalize();
 			xthis = null;
 		}
-		xconcurrentFactory = null;
 		xdefaultContext = null;
 		xexecutorService = null;
 		finalize();
@@ -945,7 +948,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(methodName.equals(SUBMIT))
 		{
-			return xsubmit(currentLine, scanner, bindings, lines);
+			xsubmit(currentLine, scanner, bindings, lines);
 		}
 		else if(methodName.equals(IS_TERMINATED))
 		{
@@ -996,7 +999,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		
 		if(xreturn.isEmpty() == false)
 		{
-			XObject xobject = xconcurrentFactory.xobject(xfuture);
+			XObject xobject = XFutureObjectImpl.xnew(xfuture);
 			bindings.xput(xreturn, xobject);
 			return xobject;
 		}
@@ -1158,7 +1161,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 			{
 				if(returns[i].isEmpty() == false)
 				{
-					XObject xobject = xconcurrentFactory.xobject(xfutures[i]);
+					XObject xobject = XFutureObjectImpl.xnew(xfutures[i]);
 					
 					bindings.xput(returns[i], xobject);
 				}
@@ -1618,6 +1621,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		case INVOKE_ALL:
 		case INVOKE_ANY:
 		case SUPER:
+		case SYNCHRONIZED:
 		case TRY:
 		case WHILE:
 			return true;
@@ -1675,5 +1679,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 			}
 		}
 		return task;
+	}
+	
+	protected void xsynchronized(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	{
+		XObject xobject = xthis(currentLine, bindings);
+		synchronized(xobject)
+		{
+			xeval("", scanner, bindings, lines);
+		}
 	}
 }

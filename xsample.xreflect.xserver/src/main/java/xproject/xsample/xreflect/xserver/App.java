@@ -22,6 +22,9 @@ import xproject.xscript.xrmi.impl.XRemoteScriptContextImpl;
 import xproject.xscript.xrmi.impl.XRemoteScriptEngineImpl;
 import xproject.xutil.XScanner;
 import xproject.xutil.impl.XScannerImpl;
+import xproject.xutil.xconcurrent.XExecutorService;
+import xproject.xutil.xconcurrent.XExecutors;
+import xproject.xutil.xconcurrent.impl.XExecutorsImpl;
 import xproject.xutil.xrmi.impl.XRemoteScannerImpl;
 
 /**
@@ -49,7 +52,9 @@ public class App
 	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal);
 			xscriptContext = XRemoteScriptContextImpl.xnew(xscriptContext);
 			
-			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext);
+			XExecutors executors = XExecutorsImpl.xnew();
+			XExecutorService executor = executors.xnewCachedThreadPool();
+			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext, executor);
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
 			
 			XScanner xscanner = XScannerImpl.xnew("InputStream", "System.in");

@@ -16,4 +16,6 @@ public interface XFuture extends XRemote {
 	boolean xisCancelled() throws Exception;
 	
 	XObject xget(long timeout, TimeUnit unit) throws Exception;
+	
+	Object x() throws Exception;
 }

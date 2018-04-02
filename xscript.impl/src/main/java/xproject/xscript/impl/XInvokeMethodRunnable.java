@@ -1,8 +1,8 @@
 package xproject.xscript.impl;
 
 import xproject.xlang.XObject;
+import xproject.xlang.XRunnable;
 import xproject.xlang.xreflect.XMethod;
-import xproject.xutil.xconcurrent.XRunnable;
 
 public class XInvokeMethodRunnable implements XRunnable {
 

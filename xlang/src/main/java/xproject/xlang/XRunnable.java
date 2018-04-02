@@ -1,4 +1,4 @@
-package xproject.xutil.xconcurrent;
+package xproject.xlang;
 
 import xproject.xrmi.XRemote;
 
