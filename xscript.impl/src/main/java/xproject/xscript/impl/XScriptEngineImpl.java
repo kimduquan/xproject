@@ -56,6 +56,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String FINAL = "final";
 	private static final String FINALLY = "finally";
 	private static final String SYNCHRONIZED = "synchronized";
+	private static final String COMMENT_LINE = "//";
+	private static final String COMMENT_BLOCK = "/*";
+	private static final String COMMENT_BLOCK_END = "*/";
 	
 	private static final String EXECUTOR = "executor";
 	private static final String AWAIT_TERMINATION = "awaitTermination";
@@ -147,6 +150,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 		else if(method.equals(SYNCHRONIZED))
 		{
 			xsynchronized(currentLine, scanner, bindings, lines);
+		}
+		else if(method.equals(COMMENT_LINE))
+		{
+			
+		}
+		else if(method.equals(COMMENT_BLOCK))
+		{
+			xcomment(scanner, bindings);
 		}
 		
 		return xinvoke(method, currentLine, bindings);
@@ -1687,6 +1698,27 @@ public class XScriptEngineImpl implements XScriptEngine {
 		synchronized(xobject)
 		{
 			xeval("", scanner, bindings, lines);
+		}
+	}
+	
+	protected void xcomment(XScanner scanner, XBindings bindings) throws Exception
+	{
+		for(XScanner currentLine = null; scanner.xhasNextLine(); currentLine = scanner.xnextLine())
+		{
+			if(currentLine.xhasNext())
+			{
+				String methodName = xmethod(currentLine);
+				
+				if(methodName.isEmpty() == false)
+				{
+					if(methodName.equals(COMMENT_BLOCK_END))
+					{
+						xclose(currentLine);
+						break;
+					}
+				}
+			}
+			xclose(currentLine);
 		}
 	}
 }
