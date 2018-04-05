@@ -1,5 +1,6 @@
 package xproject.xscript.xrmi.impl;
 
+import xproject.xio.XWriter;
 import xproject.xlang.XObject;
 import xproject.xrmi.xserver.impl.XUnicastRemoteObject;
 import xproject.xscript.XBindings;
@@ -30,5 +31,11 @@ public class XRemoteScriptContextImpl extends XUnicastRemoteObject<XScriptContex
 	public static XScriptContext xnew(XScriptContext ref) throws Exception
 	{
 		return new XRemoteScriptContextImpl(ref);
+	}
+
+	@Override
+	public XWriter xgetWriter() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

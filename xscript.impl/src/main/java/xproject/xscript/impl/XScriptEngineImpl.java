@@ -21,10 +21,11 @@ import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
 import xproject.xutil.XScanner;
+import xproject.xutil.xconcurrent.XCallable;
 import xproject.xutil.xconcurrent.XExecutorService;
 import xproject.xutil.xconcurrent.XFuture;
-import xproject.xutil.xconcurrent.xscript.XEvalCallable;
-import xproject.xutil.xconcurrent.xscript.impl.XEvalCallableImpl;
+import xproject.xutil.xconcurrent.xscript.XEval;
+import xproject.xutil.xconcurrent.xscript.impl.XEvalImpl;
 import xproject.xutil.xconcurrent.xscript.impl.XFutureObjectImpl;
 import xproject.xutil.xscript.impl.XScannerImpl;
 
@@ -77,6 +78,18 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String TRUE = "true";
 	private static final String FALSE = "false";
 	
+	private static final String DEBUG = "xdb";
+	private static final String DEBUG_RUN = "run";
+	private static final String DEBUG_CONT = "cont";
+	private static final String DEBUG_PRINT = "print";
+	private static final String DEBUG_DUMP = "dump";
+	private static final String DEBUG_STOP = "stop";
+	private static final String DEBUG_CLEAR = "clear";
+	private static final String DEBUG_STEPP = "step";
+	private static final String DEBUG_NEXT = "next";
+	private static final String DEBUG_CATCH = "catch";
+	private static final String DEBUG_IGNORE = "ignore";
+	
 	private ConcurrentHashMap<String, XClass> xclasses;
 	
 	private XFactory xfactory;
@@ -97,15 +110,15 @@ public class XScriptEngineImpl implements XScriptEngine {
 		xthis = null;
 	}
 	
-	protected XObject xeval(XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected XObject xeval(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
-		XScanner xreturn = xeval(RETURN, scanner, bindings, lines);
+		XScanner xreturn = xeval(RETURN, scanner, bindings, lines, lineNumber);
 		if(xreturn != null)
 			return xreturn(xreturn, bindings);
 		return null;
 	}
 	
-	protected XObject xeval(String method, XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XObject xeval(String method, XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		if(method.equals(IMPORT))
 		{
@@ -117,31 +130,31 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(method.equals(TRY))
 		{
-			xtry(scanner, bindings, lines);
+			xtry(scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(IF))
 		{
-			xif(currentLine, scanner, bindings, lines);
+			xif(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(SUPER))
 		{
-			return xsuper(currentLine, scanner, bindings, lines);
+			return xsuper(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(DO))
 		{
-			xdo(scanner, bindings, lines);
+			xdo(scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(FOR))
 		{
-			xfor(currentLine, scanner, bindings, lines);
+			xfor(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(GOTO))
 		{
-			xgoto(currentLine, scanner, bindings, lines);
+			xgoto(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(WHILE))
 		{
-			xwhile(currentLine, scanner, bindings, lines);
+			xwhile(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(THROW))
 		{
@@ -149,7 +162,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(method.equals(SYNCHRONIZED))
 		{
-			xsynchronized(currentLine, scanner, bindings, lines);
+			xsynchronized(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(method.equals(COMMENT_LINE))
 		{
@@ -157,7 +170,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(method.equals(COMMENT_BLOCK))
 		{
-			xcomment(scanner, bindings);
+			xcomment(scanner, bindings, lineNumber);
+		}
+		else if(method.equals(DEBUG))
+		{
+			xdebug(currentLine, scanner, bindings, lines);
 		}
 		
 		return xinvoke(method, currentLine, bindings);
@@ -501,10 +518,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 
-	protected XScanner xgoto(String line, XScanner scanner, List<XScanner> lines) throws Exception
+	protected XScanner xgoto(String line, XScanner scanner, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		for(XScanner currentLine = null; scanner.xhasNextLine(); currentLine = xnextLine(scanner, lines))
 		{
+			lineNumber++;
 			if(currentLine.xhasNext())
 			{
 				String methodName = xmethod(currentLine);
@@ -523,7 +541,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 					
 					if(xisBlock(methodName))
 					{
-						xgoto("", scanner, lines);
+						xgoto("", scanner, lines, lineNumber);
 					}
 				}
 			}
@@ -533,7 +551,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected void xtry(XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected void xtry(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
 		try
 		{
@@ -541,11 +559,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		catch(Exception ex)
 		{
-			xcatch(ex, scanner, bindings, lines);
+			xcatch(ex, scanner, bindings, lines, lineNumber);
 		}
 		finally
 		{
-			xfinally(scanner, bindings, lines);
+			xfinally(scanner, bindings, lines, lineNumber);
 		}
 	}
 
@@ -570,13 +588,13 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected void xcatch(Exception exception, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected void xcatch(Exception exception, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
 		XObject xexception = null;
 		XScanner xcatch = null;
 		do
 		{
-			xcatch = xgoto(CATCH, scanner, lines);
+			xcatch = xgoto(CATCH, scanner, lines, lineNumber);
 			
 			if(xexception == null)
 			{
@@ -589,17 +607,17 @@ public class XScriptEngineImpl implements XScriptEngine {
 			throw exception;
 	}
 	
-	protected boolean xif(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected boolean xif(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
 		if(xif(currentLine, bindings))
 		{
-			XScanner xelse = xeval(ELSE, scanner, bindings, lines);
+			XScanner xelse = xeval(ELSE, scanner, bindings, lines, lineNumber);
 			if(xelse != null)
 			{
 				do
 				{
 					xclose(xelse);
-					xelse = xgoto(ELSE, scanner, lines);
+					xelse = xgoto(ELSE, scanner, lines, lineNumber);
 				}
 				while(xelse != null);
 			}
@@ -607,14 +625,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else
 		{
-			XScanner xelse = xgoto(ELSE, scanner, lines);
+			XScanner xelse = xgoto(ELSE, scanner, lines, lineNumber);
 			if(xelse != null)
 			{
-				xelse = xeval(ELSE, scanner, bindings, lines);
+				xelse = xeval(ELSE, scanner, bindings, lines, lineNumber);
 				do
 				{
 					xclose(xelse);
-					xelse = xgoto(ELSE, scanner, lines);
+					xelse = xgoto(ELSE, scanner, lines, lineNumber);
 				}
 				while(xelse != null);
 			}
@@ -628,11 +646,12 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return xboolean(currentLine, bindings, false);
 	}
 	
-	protected void xdo(XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected void xdo(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
 		Iterator<XScanner> iterator = null;
 		List<XScanner> recent =  new ArrayList<XScanner>();
 		boolean bool = true;
+		long tempLineNumber = lineNumber;
 		do
 		{
 			XScanner currentLine = null;
@@ -640,12 +659,16 @@ public class XScriptEngineImpl implements XScriptEngine {
 			if(iterator != null)
 			{
 				currentLine = xnextLine(iterator);
+				tempLineNumber++;
 			}
 			
 			if(currentLine == null)
 			{
 				if(scanner.xhasNextLine())
+				{
 					currentLine = xnextLine(scanner, recent);
+					tempLineNumber++;
+				}
 			}
 			
 			if(currentLine == null)
@@ -667,6 +690,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 					else if(methodName.equals(CONTINUE))
 					{
 						iterator = lines.iterator();
+						tempLineNumber = lineNumber;
 						xclose(currentLine);
 						continue;
 					}
@@ -674,7 +698,10 @@ public class XScriptEngineImpl implements XScriptEngine {
 					{
 						bool = xif(currentLine, bindings);
 						if(bool)
+						{
 							iterator = lines.iterator();
+							tempLineNumber = lineNumber;
+						}
 					}
 					else if(methodName.equals(RETURN))
 					{
@@ -691,7 +718,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 						return;
 					}
 					else
-						xeval(methodName, currentLine, scanner, bindings, recent);
+						xeval(methodName, currentLine, scanner, bindings, recent, tempLineNumber);
 				}
 			}
 			xclose(currentLine);
@@ -708,7 +735,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 	}
 	
-	protected void xfor(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected void xfor(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
 		XObject xthis = xthis(currentLine, bindings);
 		
@@ -720,17 +747,18 @@ public class XScriptEngineImpl implements XScriptEngine {
 			{
 				XArray xarray = (XArray) xthis;
 				
-				xfor(xarray, xreturn, scanner, bindings, lines);
+				xfor(xarray, xreturn, scanner, bindings, lines, lineNumber);
 			}
 		}
 	}
 	
-	protected void xfor(XArray xarray, String xreturn, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xfor(XArray xarray, String xreturn, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		Iterator<XScanner> iterator = null;
 		List<XScanner> recent =  new ArrayList<XScanner>();
 		int length = xarray.xgetLength();
 		int index = 0;
+		long tempLineNumber = lineNumber;
 		while(index < length)
 		{
 			XScanner currentLine = null;
@@ -740,13 +768,17 @@ public class XScriptEngineImpl implements XScriptEngine {
 				if(iterator.hasNext())
 				{
 					currentLine = xnextLine(iterator);
+					tempLineNumber++;
 				}
 			}
 			
 			if(currentLine == null)
 			{
 				if(scanner.xhasNextLine())
+				{
 					currentLine = xnextLine(scanner, recent);
+					tempLineNumber++;
+				}
 			}
 			
 			if(currentLine == null)
@@ -768,6 +800,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 					else if(methodName.equals(CONTINUE))
 					{
 						iterator = lines.iterator();
+						tempLineNumber = lineNumber;
 						xclose(currentLine);
 						continue;
 					}
@@ -778,6 +811,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 							bindings.xput(xreturn, xarray.xget(index));
 						}
 						iterator = lines.iterator();
+						tempLineNumber = lineNumber;
 					}
 					else if(methodName.equals(RETURN))
 					{
@@ -794,7 +828,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 						return;
 					}
 					else
-						xeval(methodName, currentLine, scanner, bindings, recent);
+						xeval(methodName, currentLine, scanner, bindings, recent, tempLineNumber);
 				}
 			}
 			xclose(currentLine);
@@ -848,7 +882,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected XObject xsuper(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XObject xsuper(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
@@ -858,11 +892,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 			{
 				if(methodName.equals(EXECUTOR))
 				{
-					return xexecutor(currentLine, scanner, bindings, lines);
+					return xexecutor(currentLine, scanner, bindings, lines, lineNumber);
 				}
 				else if(methodName.equals(EVAL))
 				{
-					return xeval(scanner, bindings, lines);
+					return xeval(scanner, bindings, lines, lineNumber);
 				}
 				else if(methodName.startsWith(X_METHOD_NAME_PREFIX) == false)
 				{
@@ -932,7 +966,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected XObject xexecutor(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XObject xexecutor(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
@@ -940,14 +974,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 			
 			if(methodName.isEmpty() == false)
 			{
-				return xexecutor(methodName, currentLine, scanner, bindings, lines);
+				return xexecutor(methodName, currentLine, scanner, bindings, lines, lineNumber);
 			}
 		}
 		
 		return null;
 	}
 	
-	protected XObject xexecutor(String methodName, XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XObject xexecutor(String methodName, XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		if(methodName.equals(AWAIT_TERMINATION))
 		{
@@ -959,7 +993,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(methodName.equals(SUBMIT))
 		{
-			xsubmit(currentLine, scanner, bindings, lines);
+			xsubmit(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(methodName.equals(IS_TERMINATED))
 		{
@@ -967,19 +1001,19 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(methodName.equals(EXECUTE))
 		{
-			return xexecute(currentLine, bindings);
+			xexecute(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		else if(methodName.equals(SHUTDOWN_NOW))
 		{
-			return xshutdownNow(currentLine, scanner, bindings);
+			xshutdownNow(currentLine, scanner, bindings);
 		}
 		else if(methodName.equals(INVOKE_ALL))
 		{
-			xinvokeAll(scanner, bindings, lines);
+			xinvokeAll(scanner, bindings, lines, lineNumber);
 		}
 		else if(methodName.equals(INVOKE_ANY))
 		{
-			return xinvokeAny(currentLine, scanner, bindings, lines);
+			return xinvokeAny(currentLine, scanner, bindings, lines, lineNumber);
 		}
 		return null;
 	}
@@ -1001,12 +1035,12 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected XObject xsubmit(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XObject xsubmit(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		XEvalCallable task = xcallable(currentLine, scanner, bindings, lines);
+		XEval task = xevalTask(currentLine, scanner, bindings, lines, lineNumber);
 		
 		String xreturn = task.xreturn();
-		XFuture xfuture = xexecutorService.xsubmit(task);
+		XFuture xfuture = xexecutorService.xsubmit((XCallable)task);
 		
 		if(xreturn.isEmpty() == false)
 		{
@@ -1024,61 +1058,24 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return xreturn(xobject, currentLine, bindings);
 	}
 	
-	protected XObject xexecute(XScanner currentLine, XBindings bindings) throws Exception
+	protected void xexecute(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		if(currentLine.xhasNext())
-		{
-			String methodName = currentLine.xnext();
-			
-			if(methodName.isEmpty() == false)
-			{
-				return xexecute(methodName, currentLine, bindings);
-			}
-		}
-		return null;
+		XEval task = xevalTask(currentLine, scanner, bindings, lines, lineNumber);
+		xexecutorService.xexecute(task);
 	}
 	
-	protected XObject xexecute(String method, XScanner currentLine, XBindings bindings) throws Exception
-	{
-		XObject xthis = xthis(currentLine, bindings);
-		
-		XClass xclass = null;
-		
-		if(xthis == null) 
-		{
-			xclass = xclass(currentLine);
-		}
-		else
-		{
-			xclass = xthis.xgetClass();
-		}
-		
-		XObject[] xparameters = xparameter(currentLine, bindings);
-		
-		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings);
-		
-		if(xmethod != null)
-		{
-			XRunnable task = XInvokeMethodRunnable.xnew(xmethod, xthis, xparameters);
-			
-			xexecutorService.xexecute(task);
-		}
-		
-		return null;
-	}
-	
-	protected XObject xshutdownNow(XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
+	protected void xshutdownNow(XScanner currentLine, XScanner scanner, XBindings bindings) throws Exception
 	{
 		xexecutorService.xshutdownNow();
-		return null;
 	}
 
-	protected List<XEvalCallable> xcallable(String line, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected List<XEval> xevalTask(String line, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		List<XEvalCallable> tasks = new ArrayList<XEvalCallable>();
+		List<XEval> tasks = new ArrayList<XEval>();
 		List<XScanner> current = new ArrayList<XScanner>();
 		for(XScanner currentLine = null; scanner.xhasNextLine(); currentLine = xnextLine(scanner, current))
 		{
+			lineNumber++;
 			if(currentLine.xhasNext())
 			{
 				String methodName = xmethod(currentLine);
@@ -1098,9 +1095,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 					else if(xisBlock(methodName))
 					{
 						List<XScanner> recent = new ArrayList<XScanner>();
-						xgoto("", scanner, recent);
+						xgoto("", scanner, recent, lineNumber);
 						XScanner cachedLines = XScannerImpl.xnew(recent);
-						XEvalCallable task = XEvalCallableImpl.xnew(this, cachedLines, bindings, "");
+						XEval task = XEvalImpl.xnew(this, cachedLines, bindings, "");
 						tasks.add(task);
 						
 						if(lines != null)
@@ -1119,7 +1116,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 					{
 						String xreturn = xreturn(currentLine);
 						XScanner cachedLines = XScannerImpl.xnew(current);
-						XEvalCallable task = XEvalCallableImpl.xnew(this, cachedLines, bindings, xreturn);
+						XEval task = XEvalImpl.xnew(this, cachedLines, bindings, xreturn);
 						tasks.add(task);
 						
 						if(lines != null)
@@ -1140,13 +1137,13 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return tasks;
 	}
 	
-	protected void xinvokeAll(XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xinvokeAll(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		List<XEvalCallable> tasks = xcallable("", scanner, bindings, lines);
+		List<XEval> tasks = xevalTask("", scanner, bindings, lines, lineNumber);
 		
 		xinvokeAll(tasks, bindings);
 		
-		for(XEvalCallable task : tasks)
+		for(XEval task : tasks)
 		{
 			task.xscanner().xclose();
 		}
@@ -1154,11 +1151,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		tasks.clear();
 	}
 	
-	protected void xinvokeAll(List<XEvalCallable> tasks, XBindings bindings) throws Exception
+	protected void xinvokeAll(List<XEval> tasks, XBindings bindings) throws Exception
 	{
 		if(tasks.isEmpty() == false)
 		{
-			XEvalCallable[] calls = new XEvalCallable[tasks.size()];
+			XEval[] calls = new XEval[tasks.size()];
 			calls = tasks.toArray(calls);
 			String[] returns = new String[calls.length];
 			for(int i = 0; i < returns.length; i++)
@@ -1180,11 +1177,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 	}
 	
-	protected XObject xinvokeAny(List<XEvalCallable> tasks, String xreturn, XBindings bindings) throws Exception
+	protected XObject xinvokeAny(List<XEval> tasks, String xreturn, XBindings bindings) throws Exception
 	{
 		if(tasks.isEmpty() == false)
 		{
-			XEvalCallable[] calls = new XEvalCallable[tasks.size()];
+			XEval[] calls = new XEval[tasks.size()];
 			calls = tasks.toArray(calls);
 			XObject xobject = xexecutorService.xinvokeAny(calls);
 			
@@ -1197,14 +1194,14 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return null;
 	}
 	
-	protected XObject xinvokeAny(XScanner current, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XObject xinvokeAny(XScanner current, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		String xreturn = xreturn(current);
-		List<XEvalCallable> tasks = xcallable("", scanner, bindings, lines);
+		List<XEval> tasks = xevalTask("", scanner, bindings, lines, lineNumber);
 		
 		XObject xobject = xinvokeAny(tasks, xreturn, bindings);
 		
-		for(XEvalCallable task : tasks)
+		for(XEval task : tasks)
 		{
 			task.xscanner().xclose();
 		}
@@ -1279,17 +1276,17 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return xtype.xgetConstructor(xparameterTypes);
 	}
 	
-	protected XScanner xgoto(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XScanner xgoto(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
 			String line = currentLine.xnext();
 			if(line.isEmpty() == false)
 			{
-				XScanner xgoto = xgoto(line, scanner, lines);
+				XScanner xgoto = xgoto(line, scanner, lines, lineNumber);
 				if(xgoto != null)
 				{
-					xeval(line, xgoto, scanner, bindings, lines);
+					xeval(line, xgoto, scanner, bindings, lines, lineNumber);
 					xclose(xgoto);
 				}
 			}
@@ -1345,10 +1342,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		lines.clear();
 	}
 	
-	protected XScanner xeval(String endLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception {
+	protected XScanner xeval(String endLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
 		// TODO Auto-generated method stub
 		for(XScanner currentLine = null; scanner.xhasNextLine(); currentLine = xnextLine(scanner, lines))
 		{
+			lineNumber++;
 			if(currentLine.xhasNext())
 			{
 				String methodName = xmethod(currentLine);
@@ -1370,7 +1368,8 @@ public class XScriptEngineImpl implements XScriptEngine {
 						return null;
 					}
 					
-					xeval(methodName, currentLine, scanner, bindings, lines);
+					xeval(methodName, currentLine, scanner, bindings, lines, lineNumber);
+					
 				}
 			}
 			
@@ -1384,9 +1383,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 		xclose(currentLine);
 	}
 	
-	protected void xfinally(XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xfinally(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		XScanner xfinally = xgoto(FINALLY, scanner, lines);
+		XScanner xfinally = xgoto(FINALLY, scanner, lines, lineNumber);
 		if(xfinally != null)
 		{
 			xclose(xfinally);
@@ -1394,9 +1393,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 	}
 	
-	protected void xelse(XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xelse(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		XScanner xelse = xgoto(ELSE, scanner, lines);
+		XScanner xelse = xgoto(ELSE, scanner, lines, lineNumber);
 		if(xelse != null)
 		{
 			xclose(xelse);
@@ -1404,12 +1403,13 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 	}
 	
-	protected void xwhile(XScanner xline, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xwhile(XScanner xline, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		Iterator<XScanner> iterator = null;
 		List<XScanner> recent =  new ArrayList<XScanner>();
 		boolean bool = true;
 		XScanner xwhile = xline.xclone(); 
+		long tempLineNumber = lineNumber;
 		do
 		{
 			XScanner currentLine = null;
@@ -1419,13 +1419,17 @@ public class XScriptEngineImpl implements XScriptEngine {
 				if(iterator.hasNext())
 				{
 					currentLine = xnextLine(iterator);
+					tempLineNumber++;
 				}
 			}
 			
 			if(currentLine == null)
 			{
 				if(scanner.xhasNextLine())
+				{
 					currentLine = xnextLine(scanner, recent);
+					tempLineNumber++;
+				}
 			}
 			
 			if(currentLine == null)
@@ -1447,6 +1451,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 					else if(methodName.equals(CONTINUE))
 					{
 						iterator = lines.iterator();
+						tempLineNumber = lineNumber;
 						xclose(currentLine);
 						continue;
 					}
@@ -1456,6 +1461,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 						if(bool)
 						{
 							iterator = lines.iterator();
+							tempLineNumber = lineNumber;
 							xline = xwhile.xclone();
 						}
 					}
@@ -1474,7 +1480,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 						return;
 					}
 					else
-						xeval(methodName, currentLine, scanner, bindings, recent);
+						xeval(methodName, currentLine, scanner, bindings, recent, tempLineNumber);
 				}
 			}
 			xclose(currentLine);
@@ -1531,7 +1537,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 
 	public XObject xeval(XScanner xscanner, XBindings xbindings) throws Exception {
 		// TODO Auto-generated method stub
-		return xeval(xscanner, xbindings, null);
+		return xeval(xscanner, xbindings, null, 0);
 	}
 	
 	protected boolean xfalse(XScanner currentLine, XBindings bindings) throws Exception
@@ -1641,9 +1647,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return false;
 	}
 	
-	protected XEvalCallable xcallable(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected XEval xevalTask(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		XEvalCallable task = null;
+		XEval task = null;
 		List<XScanner> current = new ArrayList<XScanner>();
 		current.add(currentLine.xclone());
 		if(currentLine.xhasNext())
@@ -1655,9 +1661,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 				if(xisBlock(methodName))
 				{
 					List<XScanner> recent = new ArrayList<XScanner>();
-					xgoto("", scanner, recent);
+					xgoto("", scanner, recent, lineNumber);
 					XScanner cachedLines = XScannerImpl.xnew(recent);
-					task = XEvalCallableImpl.xnew(this, cachedLines, bindings, "");
+					task = XEvalImpl.xnew(this, cachedLines, bindings, "");
 					
 					if(lines != null)
 					{
@@ -1675,7 +1681,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 				{
 					String xreturn = xreturn(currentLine);
 					XScanner cachedLines = XScannerImpl.xnew(current);
-					task = XEvalCallableImpl.xnew(this, cachedLines, bindings, xreturn);
+					task = XEvalImpl.xnew(this, cachedLines, bindings, xreturn);
 					
 					if(lines != null)
 					{
@@ -1692,33 +1698,25 @@ public class XScriptEngineImpl implements XScriptEngine {
 		return task;
 	}
 	
-	protected void xsynchronized(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xsynchronized(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		XObject xobject = xthis(currentLine, bindings);
 		synchronized(xobject)
 		{
-			xeval("", scanner, bindings, lines);
+			xeval("", scanner, bindings, lines, lineNumber);
 		}
 	}
 	
-	protected void xcomment(XScanner scanner, XBindings bindings) throws Exception
+	protected void xcomment(XScanner scanner, XBindings bindings, long lineNumber) throws Exception
 	{
-		for(XScanner currentLine = null; scanner.xhasNextLine(); currentLine = scanner.xnextLine())
-		{
-			if(currentLine.xhasNext())
-			{
-				String methodName = xmethod(currentLine);
-				
-				if(methodName.isEmpty() == false)
-				{
-					if(methodName.equals(COMMENT_BLOCK_END))
-					{
-						xclose(currentLine);
-						break;
-					}
-				}
-			}
-			xclose(currentLine);
-		}
+		XScanner end = xgoto(COMMENT_BLOCK_END, scanner, null, lineNumber);
+		if(end != null)
+			xclose(end);
 	}
+	
+	protected void xdebug(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	{
+		
+	}
+	
 }

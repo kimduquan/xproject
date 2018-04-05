@@ -4,16 +4,16 @@ import xproject.xlang.XObject;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptEngine;
 import xproject.xutil.XScanner;
-import xproject.xutil.xconcurrent.xscript.XEvalCallable;
+import xproject.xutil.xconcurrent.xscript.XEval;
 
-public class XEvalCallableImpl implements XEvalCallable {
+public class XEvalImpl implements XEval {
 
 	private XScriptEngine xengine;
 	private XScanner xscanner;
 	private XBindings xbindings;
 	private String xreturn;
 	
-	protected XEvalCallableImpl(XScriptEngine engine, XScanner scanner, XBindings bindings, String xreturn)
+	protected XEvalImpl(XScriptEngine engine, XScanner scanner, XBindings bindings, String xreturn)
 	{
 		xengine = engine;
 		xscanner = scanner;
@@ -40,13 +40,18 @@ public class XEvalCallableImpl implements XEvalCallable {
 		return xreturn;
 	}
 
-	public static XEvalCallable xnew(XScriptEngine engine, XScanner scanner, XBindings bindings, String xreturn) throws Exception
+	public static XEval xnew(XScriptEngine engine, XScanner scanner, XBindings bindings, String xreturn) throws Exception
 	{
-		return new XEvalCallableImpl(engine, scanner, bindings, xreturn);
+		return new XEvalImpl(engine, scanner, bindings, xreturn);
 	}
 
 	public XScanner xscanner() throws Exception {
 		// TODO Auto-generated method stub
 		return xscanner;
+	}
+
+	public void xrun() throws Exception {
+		// TODO Auto-generated method stub
+		xengine.xeval(xscanner, xbindings);
 	}
 }

@@ -1,5 +1,6 @@
 package xproject.xscript.impl;
 
+import xproject.xio.XWriter;
 import xproject.xlang.XObject;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
@@ -40,5 +41,10 @@ public class XScriptContextImpl implements XScriptContext {
 		engine = null;
 		global = null;
 		finalize();
+	}
+
+	public XWriter xgetWriter() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
