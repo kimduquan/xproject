@@ -49,7 +49,7 @@ public class App
 
 	        xglobal = XRemoteBindingsImpl.xnew(xglobal);
 	        xengine = XRemoteBindingsImpl.xnew(xengine);
-	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal);
+	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal, null, null);
 			xscriptContext = XRemoteScriptContextImpl.xnew(xscriptContext);
 			
 			XExecutors executors = XExecutorsImpl.xnew();

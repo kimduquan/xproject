@@ -7,16 +7,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import xproject.xio.XWriter;
 import xproject.xlang.XClass;
 import xproject.xlang.XClassLoader;
 import xproject.xlang.XException;
 import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
-import xproject.xlang.XRunnable;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
 import xproject.xlang.xreflect.XMethod;
+import xproject.xlang.xreflect.XParameter;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
@@ -39,6 +40,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String OBJECT_REF_PREFIX = "#";
 	private static final String X_METHOD_NAME_PREFIX = "x";
 	private static final String PARAMETER_SEPARATOR = "\t";
+	private static final String CLASS_REF_PREFIX = "@";
 	
 	private static final String IMPORT = "import";
 	private static final String NEW = "new";
@@ -70,7 +72,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String SHUTDOWN_NOW = "shutdownNow";
 	private static final String INVOKE_ALL = "invokeAll";
 	private static final String INVOKE_ANY = "invokeAny";
+	
 	private static final String EVAL = "eval";
+	private static final String HELP = "help";
 	
 	private static final String AND = "and";
 	private static final String OR = "or";
@@ -78,17 +82,19 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private static final String TRUE = "true";
 	private static final String FALSE = "false";
 	
-	private static final String DEBUG = "xdb";
-	private static final String DEBUG_RUN = "run";
-	private static final String DEBUG_CONT = "cont";
-	private static final String DEBUG_PRINT = "print";
-	private static final String DEBUG_DUMP = "dump";
-	private static final String DEBUG_STOP = "stop";
-	private static final String DEBUG_CLEAR = "clear";
-	private static final String DEBUG_STEPP = "step";
-	private static final String DEBUG_NEXT = "next";
-	private static final String DEBUG_CATCH = "catch";
-	private static final String DEBUG_IGNORE = "ignore";
+	private static final String DEBUG = "debug";
+	//private static final String DEBUG_RUN = "run";
+	//private static final String DEBUG_CONT = "cont";
+	//private static final String DEBUG_PRINT = "print";
+	//private static final String DEBUG_DUMP = "dump";
+	//private static final String DEBUG_STOP = "stop";
+	//private static final String DEBUG_CLEAR = "clear";
+	//private static final String DEBUG_STEPP = "step";
+	//private static final String DEBUG_NEXT = "next";
+	//private static final String DEBUG_CATCH = "catch";
+	//private static final String DEBUG_IGNORE = "ignore";
+	
+	private static final String HELP_METHOD = "method";
 	
 	private ConcurrentHashMap<String, XClass> xclasses;
 	
@@ -98,6 +104,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private XExecutorService xexecutorService;
 	private volatile XClass xclass;
 	private volatile XObject xthis;
+	private volatile XWriter xwriter;
 	
 	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext, XExecutorService executorService)
 	{
@@ -108,6 +115,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		xexecutorService = executorService;
 		xclass = null;
 		xthis = null;
+		xwriter = null;
 	}
 	
 	protected XObject xeval(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
@@ -174,7 +182,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 		else if(method.equals(DEBUG))
 		{
-			xdebug(currentLine, scanner, bindings, lines);
+			xdebug(scanner, bindings, lines, lineNumber);
+		}
+		else if(method.equals(HELP))
+		{
+			xhelp(currentLine, bindings);
 		}
 		
 		return xinvoke(method, currentLine, bindings);
@@ -947,6 +959,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 
 	public XObject xeval(XScanner xscanner, XScriptContext xcontext) throws Exception {
 		// TODO Auto-generated method stub
+		xwriter = xcontext.xgetWriter();
 		return xeval(xscanner, xcontext.xgetBindings(XScriptContext.XGLOBAL_SCOPE));
 	}
 
@@ -1714,9 +1727,150 @@ public class XScriptEngineImpl implements XScriptEngine {
 			xclose(end);
 	}
 	
-	protected void xdebug(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines) throws Exception
+	protected void xdebug(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
-		
+		// TODO Auto-generated method stub
 	}
 	
+	protected void xhelp(XScanner currentLine, XBindings bindings) throws Exception
+	{
+		XClass xcls = null;
+		
+		if(currentLine.xhasNext())
+		{
+			String paramName = currentLine.xnext();
+			
+			if(paramName.startsWith(PARAMETER_NAME_PREFIX));
+			{
+				paramName = paramName.substring(PARAMETER_NAME_PREFIX.length());
+				
+				if(paramName.equals(CLASS))
+				{
+					if(currentLine.xhasNext())
+					{
+						String paramValue = currentLine.xnext();
+						
+						if(paramValue.isEmpty() == false)
+						{
+							if(xclasses.containsKey(paramValue))
+							{
+								xcls = xclasses.get(paramValue);
+							}
+						}
+					}
+				}
+				else if(paramName.equals(THIS))
+				{
+					if(currentLine.xhasNext())
+					{
+						String paramValue = currentLine.xnext();
+						
+						if(paramValue.isEmpty() == false)
+						{
+							if(paramValue.startsWith(OBJECT_REF_PREFIX))
+							{
+								paramValue = paramValue.substring(OBJECT_REF_PREFIX.length());
+								
+								if(bindings.xcontainsKey(paramValue))
+								{
+									xcls = bindings.xget(paramValue).xgetClass();
+								}
+							}
+						}
+					}
+				}
+				
+			}
+		}
+		
+		if(xcls != null)
+		{
+			String method = "";
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.startsWith(PARAMETER_NAME_PREFIX))
+				{
+					paramName = paramName.substring(PARAMETER_NAME_PREFIX.length());
+					
+					if(paramName.equals(HELP_METHOD))
+					{
+						if(currentLine.xhasNext())
+						{
+							method = currentLine.xnext();
+						}
+					}
+				}
+			}
+
+			xhelp(xcls, method);
+		}
+		else
+		{
+			for(XClass cls : xclasses.values())
+			{
+				xhelp(cls, "");
+			}
+		}
+	}
+
+	protected void xhelp(XClass xcls, String method) throws Exception
+	{
+		if(method.isEmpty())
+		{
+			xwriter.xwrite(CLASS + PARAMETER_SEPARATOR + xcls.xgetSimpleName());
+			for(XMethod xmethod : xcls.xgetMethods())
+			{
+				xhelp(xmethod, xcls);
+			}
+			xwriter.xwrite(FINAL);
+		}
+		else
+		{
+			xwriter.xwrite(CLASS + PARAMETER_SEPARATOR + xcls.xgetSimpleName());
+			for(XMethod xmethod : xcls.xgetMethods())
+			{
+				if(xmethod.xgetName().equals(method))
+					xhelp(xmethod, xcls);
+			}
+			xwriter.xwrite(FINAL);
+		}
+	}
+	
+	protected void xhelp(XMethod xmethod, XClass xcls) throws Exception
+	{
+		StringBuilder text = new StringBuilder();
+		
+		text.append(xmethod.xgetName());
+		
+		if(xmethod.xgetModifiers().xisStatic())
+		{
+			text.append(PARAMETER_SEPARATOR);
+			text.append(PARAMETER_NAME_PREFIX);
+			text.append(CLASS);
+			text.append(PARAMETER_SEPARATOR);
+			text.append(CLASS_REF_PREFIX);
+			text.append(xcls.xgetSimpleName());
+		}
+		else
+		{
+			text.append(PARAMETER_SEPARATOR);
+			text.append(PARAMETER_NAME_PREFIX);
+			text.append(THIS);
+			text.append(PARAMETER_SEPARATOR);
+			text.append(OBJECT_REF_PREFIX);
+			text.append(xcls.xgetSimpleName().toLowerCase());
+		}
+		
+		for(XParameter xparameter : xmethod.xgetParameters())
+		{
+			text.append(PARAMETER_SEPARATOR);
+			text.append(PARAMETER_NAME_PREFIX);
+			text.append(xparameter.xgetName());
+			text.append(PARAMETER_SEPARATOR);
+			text.append(CLASS_REF_PREFIX);
+			text.append(xparameter.xgetType());
+		}
+	}
 }
