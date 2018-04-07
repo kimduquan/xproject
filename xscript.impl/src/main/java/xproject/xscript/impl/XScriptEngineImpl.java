@@ -192,18 +192,6 @@ public class XScriptEngineImpl implements XScriptEngine {
 		{
 			xcomment(scanner, bindings, lineNumber);
 		}
-		else if(method.equals(DEBUG))
-		{
-			xdebug(scanner, bindings, lines, lineNumber);
-		}
-		else if(method.equals(HELP))
-		{
-			xhelp(currentLine, bindings);
-		}
-		else if(method.equals(LOG))
-		{
-			xlog(currentLine, bindings);
-		}
 		
 		return xinvoke(method, currentLine, bindings);
 	}
@@ -931,6 +919,18 @@ public class XScriptEngineImpl implements XScriptEngine {
 				else if(methodName.equals(EVAL))
 				{
 					return xeval(scanner, bindings, lines, lineNumber);
+				}
+				else if(methodName.equals(DEBUG))
+				{
+					xsuper_debug(scanner, bindings, lines, lineNumber);
+				}
+				else if(methodName.equals(HELP))
+				{
+					xsuper_help(currentLine, bindings);
+				}
+				else if(methodName.equals(LOG))
+				{
+					xsuper_log(currentLine, bindings);
 				}
 				else if(methodName.startsWith(X_METHOD_NAME_PREFIX) == false)
 				{
@@ -1749,12 +1749,12 @@ public class XScriptEngineImpl implements XScriptEngine {
 			xclose(end);
 	}
 	
-	protected void xdebug(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
+	protected void xsuper_debug(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception
 	{
 		// TODO Auto-generated method stub
 	}
 	
-	protected void xhelp(XScanner currentLine, XBindings bindings) throws Exception
+	protected void xsuper_help(XScanner currentLine, XBindings bindings) throws Exception
 	{
 		XClass xcls = null;
 		
@@ -1896,7 +1896,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		}
 	}
 	
-	protected void xlog(XScanner currentLine, XBindings bindings) throws Exception
+	protected void xsuper_log(XScanner currentLine, XBindings bindings) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
