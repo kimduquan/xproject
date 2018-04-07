@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>xproject</groupId>
-  <artifactId>xscript.impl</artifactId>
+  <artifactId>xutil.xlogging</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>xscript.impl</name>
+  <name>xutil.xlogging</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -23,17 +23,7 @@
     </dependency>
     <dependency>
     	<groupId>xproject</groupId>
-    	<artifactId>xutil.xscript.impl</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>xproject</groupId>
-    	<artifactId>xutil.xconcurrent.xscript.impl</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>xproject</groupId>
-    	<artifactId>xutil.xlogging</artifactId>
+    	<artifactId>xlang</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

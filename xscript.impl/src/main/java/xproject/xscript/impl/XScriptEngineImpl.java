@@ -28,6 +28,7 @@ import xproject.xutil.xconcurrent.XFuture;
 import xproject.xutil.xconcurrent.xscript.XEval;
 import xproject.xutil.xconcurrent.xscript.impl.XEvalImpl;
 import xproject.xutil.xconcurrent.xscript.impl.XFutureObjectImpl;
+import xproject.xutil.xlogging.XLogger;
 import xproject.xutil.xscript.impl.XScannerImpl;
 
 public class XScriptEngineImpl implements XScriptEngine {
@@ -96,6 +97,15 @@ public class XScriptEngineImpl implements XScriptEngine {
 	
 	private static final String HELP_METHOD = "method";
 	
+	private static final String LOG = "log";
+	private static final String LOG_CONFIG = "config";
+	private static final String LOG_FINE = "fine";
+	private static final String LOG_FINER = "finer";
+	private static final String LOG_FINEST = "finest";
+	private static final String LOG_INFO = "info";
+	private static final String LOG_SEVERE = "severe";
+	private static final String LOG_WARNING = "warning";
+	
 	private ConcurrentHashMap<String, XClass> xclasses;
 	
 	private XFactory xfactory;
@@ -105,8 +115,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 	private volatile XClass xclass;
 	private volatile XObject xthis;
 	private volatile XWriter xwriter;
+	private XLogger xlogger;
 	
-	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext, XExecutorService executorService)
+	protected XScriptEngineImpl(XFactory factory, XClassLoader classLoader, XScriptContext defaultContext, XExecutorService executorService, XLogger logger)
 	{
 		xclasses = new ConcurrentHashMap<String, XClass>();
 		xfactory = factory;
@@ -116,6 +127,7 @@ public class XScriptEngineImpl implements XScriptEngine {
 		xclass = null;
 		xthis = null;
 		xwriter = null;
+		xlogger = logger;
 	}
 	
 	protected XObject xeval(XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
@@ -188,13 +200,17 @@ public class XScriptEngineImpl implements XScriptEngine {
 		{
 			xhelp(currentLine, bindings);
 		}
+		else if(method.equals(LOG))
+		{
+			xlog(currentLine, bindings);
+		}
 		
 		return xinvoke(method, currentLine, bindings);
 	}
 	
-	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader, XScriptContext xdefaultContext, XExecutorService executorService)
+	public static XScriptEngine xnew(XFactory xfactory, XClassLoader xclassLoader, XScriptContext xdefaultContext, XExecutorService executorService, XLogger logger)
 	{
-		return new XScriptEngineImpl(xfactory, xclassLoader, xdefaultContext, executorService);
+		return new XScriptEngineImpl(xfactory, xclassLoader, xdefaultContext, executorService, logger);
 	}
 
 	protected XObject xthis(XScanner currentLine, XBindings bindings) throws Exception
@@ -500,7 +516,11 @@ public class XScriptEngineImpl implements XScriptEngine {
 		
 		if(xmethod != null)
 		{
+			xlogger.xentering(xclass.xgetSimpleName(), xmethod.xgetName(), xparameters);
+			
 			XObject xreturn = xmethod.xinvoke(xthis, xparameters);
+			
+			xlogger.xexiting(xclass.xgetSimpleName(), xmethod.xgetName(), xreturn);
 			
 			return xreturn(xreturn, currentLine, bindings);
 		}
@@ -616,7 +636,9 @@ public class XScriptEngineImpl implements XScriptEngine {
 		while(xcatch != null);
 		
 		if(xexception == null)
+		{
 			throw exception;
+		}
 	}
 	
 	protected boolean xif(XScanner currentLine, XScanner scanner, XBindings bindings, List<XScanner> lines, long lineNumber) throws Exception {
@@ -1871,6 +1893,142 @@ public class XScriptEngineImpl implements XScriptEngine {
 			text.append(PARAMETER_SEPARATOR);
 			text.append(CLASS_REF_PREFIX);
 			text.append(xparameter.xgetType());
+		}
+	}
+	
+	protected void xlog(XScanner currentLine, XBindings bindings) throws Exception
+	{
+		if(currentLine.xhasNext())
+		{
+			String method = currentLine.xnext();
+			
+			if(method.isEmpty() == false)
+			{
+				xlog(method, currentLine, bindings);
+			}
+		}
+	}
+	
+	protected void xlog(String method, XScanner currentLine, XBindings bindings) throws Exception
+	{
+		if(method.equals(LOG_CONFIG))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xconfig(msg);
+					}
+				}
+			}
+		}
+		else if(method.equals(LOG_FINE))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xfine(msg);
+					}
+				}
+			}
+		}
+		else if(method.equals(LOG_FINER))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xfiner(msg);
+					}
+				}
+			}
+		}
+		else if(method.equals(LOG_FINEST))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xfinest(msg);
+					}
+				}
+			}
+		}
+		else if(method.equals(LOG_INFO))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xinfo(msg);
+					}
+				}
+			}
+		}
+		else if(method.equals(LOG_SEVERE))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xsevere(msg);
+					}
+				}
+			}
+		}
+		else if(method.equals(LOG_WARNING))
+		{
+			if(currentLine.xhasNext())
+			{
+				String paramName = currentLine.xnext();
+				
+				if(paramName.isEmpty() == false)
+				{
+					if(currentLine.xhasNext())
+					{
+						String msg = currentLine.xnext();
+						
+						xlogger.xwarning(msg);
+					}
+				}
+			}
 		}
 	}
 }
