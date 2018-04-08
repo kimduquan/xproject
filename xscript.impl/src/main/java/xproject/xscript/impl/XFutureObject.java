@@ -1,4 +1,4 @@
-package xproject.xutil.xconcurrent.xscript;
+package xproject.xscript.impl;
 
 import xproject.xlang.XObject;
 import xproject.xutil.xconcurrent.XFuture;

@@ -1,9 +1,8 @@
-package xproject.xutil.xconcurrent.xscript.impl;
+package xproject.xscript.impl;
 
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
 import xproject.xutil.xconcurrent.XFuture;
-import xproject.xutil.xconcurrent.xscript.XFutureObject;
 
 public class XFutureObjectImpl implements XFutureObject {
 

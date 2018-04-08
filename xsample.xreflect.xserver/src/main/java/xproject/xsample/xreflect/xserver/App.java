@@ -54,7 +54,8 @@ public class App
 			
 			XExecutors executors = XExecutorsImpl.xnew();
 			XExecutorService executor = executors.xnewCachedThreadPool();
-			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext, executor, null);
+			//XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext, executor, null);
+			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(null);
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
 			
 			XScanner xscanner = XScannerImpl.xnew("InputStream", "System.in");
