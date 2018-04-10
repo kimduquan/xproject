@@ -126,7 +126,7 @@ public class XLineImpl implements XLine
 		return null;
 	}
 
-	public XClass xnextClassParam(XContext context) throws Exception {
+	public XClass xnextClassParam(XBinding binding) throws Exception {
 		// TODO Auto-generated method stub
 		String value = (String)xnextParam();
 		if(value != null)
@@ -134,7 +134,10 @@ public class XLineImpl implements XLine
 			if(value.startsWith(XConstants.CLASS_REF_PREFIX))
 			{
 				value = value.substring(XConstants.CLASS_REF_PREFIX.length());
-				return context.xgetClass(value);
+				if(binding.xhasClass(value))
+				{
+					return binding.xgetClass(value);
+				}
 			}
 		}
 		return null;
@@ -216,6 +219,12 @@ public class XLineImpl implements XLine
 
 	@Override
 	public XLine xclone() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public XClass xnextClassParam(XContext context) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

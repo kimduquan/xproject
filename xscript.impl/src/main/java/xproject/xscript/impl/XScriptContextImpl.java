@@ -6,19 +6,21 @@ import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xutil.XScanner;
 
-public class XScriptContextImpl implements XScriptContext {
-
+public class XScriptContextImpl implements XScriptContext 
+{
 	private XBindings engine;
 	private XBindings global;
 	private XWriter xwriter;
 	private XScanner xreader;
+	private XWriter xerrorWriter;
 	
-	protected XScriptContextImpl(XBindings e, XBindings g, XWriter writer, XScanner reader)
+	protected XScriptContextImpl(XBindings e, XBindings g, XWriter writer, XScanner reader, XWriter errorWriter)
 	{
 		engine = e;
 		global = g;
 		xwriter = writer;
 		xreader = reader;
+		xerrorWriter = errorWriter;
 	}
 	
 	public XObject xgetAttribute(String name) throws Exception {
@@ -36,9 +38,9 @@ public class XScriptContextImpl implements XScriptContext {
 		return null;
 	}
 	
-	public static XScriptContext xnew(XBindings e, XBindings g, XWriter writer, XScanner reader)
+	public static XScriptContext xnew(XBindings e, XBindings g, XWriter writer, XScanner reader, XWriter errorWriter)
 	{
-		return new XScriptContextImpl(e, g, writer, reader);
+		return new XScriptContextImpl(e, g, writer, reader, errorWriter);
 	}
 
 	public void xfinalize() throws Throwable {
@@ -56,5 +58,11 @@ public class XScriptContextImpl implements XScriptContext {
 	public XScanner xgetReader() throws Exception {
 		// TODO Auto-generated method stub
 		return xreader;
+	}
+
+	@Override
+	public XWriter xgetErrorWriter() throws Exception {
+		// TODO Auto-generated method stub
+		return xerrorWriter;
 	}
 }

@@ -1,21 +1,20 @@
 package xproject.xscript.impl;
 
 import xproject.xlang.XObject;
-import xproject.xscript.XBindings;
 
 public class XEvalTaskImpl implements XEvalTask {
 
 	private XEngine xengine;
 	private XScript xscript;
-	private XBindings xbindings;
+	private XBinding xbinding;
 	private XContext xcontext;
 	private XObject xobject;
 	
-	protected XEvalTaskImpl(XEngine engine, XScript script, XBindings bindings, XContext context)
+	protected XEvalTaskImpl(XEngine engine, XScript script, XBinding binding, XContext context)
 	{
 		xobject = null;
 		xengine = engine;
-		xbindings = bindings;
+		xbinding = binding;
 		xcontext = context;
 	}
 	
@@ -31,7 +30,7 @@ public class XEvalTaskImpl implements XEvalTask {
 		// TODO Auto-generated method stub
 		xengine = null;
 		xscript = null;
-		xbindings = null;
+		xbinding = null;
 		xcontext = null;
 		xobject = null;
 		finalize();
@@ -45,11 +44,11 @@ public class XEvalTaskImpl implements XEvalTask {
 
 	protected void xeval() throws Exception
 	{
-		xobject = xengine.xeval(xscript, xbindings, xcontext);
+		xobject = xengine.xeval(xscript, xbinding, xcontext);
 	}
 	
-	public static XEvalTask xnew(XEngine engine, XScript script, XBindings bindings, XContext context)
+	public static XEvalTask xnew(XEngine engine, XScript script, XBinding binding, XContext context)
 	{
-		return new XEvalTaskImpl(engine, script, bindings, context);
+		return new XEvalTaskImpl(engine, script, binding, context);
 	}
 }

@@ -8,6 +8,7 @@ import xproject.xlang.XClass;
 import xproject.xlang.XException;
 import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
+import xproject.xlang.XRunnable;
 import xproject.xlang.xreflect.XArray;
 import xproject.xlang.xreflect.XConstructor;
 import xproject.xlang.xreflect.XField;
@@ -23,70 +24,72 @@ import xproject.xutil.xlogging.XLogger;
 
 public class XScriptEngineImpl implements XScriptEngine, XEngine 
 {
-	private XContext xcontext;
+	private XContext xdefaultContext;
+	private XBinding xdefaultBinding;
 	private volatile XClass xclass;
 	private volatile XObject xthis;
 	
-	protected XScriptEngineImpl(XContext context)
+	protected XScriptEngineImpl(XScriptContext scriptContext, XBindings bindings)
 	{
 		xclass = null;
 		xthis = null;
-		xcontext = context;
+		xdefaultContext = null;
+		xdefaultBinding = null;
 	}
 	
-	public XObject xeval(XScript script, XBindings bindings, XContext context) throws Exception {
+	public XObject xeval(XScript script, XBinding binding, XContext context) throws Exception {
 		// TODO Auto-generated method stub
-		XLine xreturn = xeval(XConstants.RETURN, script, bindings, context);
+		XLine xreturn = xeval(XConstants.RETURN, script, binding, context);
 		if(xreturn != null)
-			return xreturn(xreturn.xscanner(), bindings, context.xfactory());
+			return xreturn(xreturn.xscanner(), binding.xbindings(), binding.xfactory());
 		return null;
 	}
 	
-	protected XObject xeval(String method, XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XObject xeval(String method, XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
 		if(method.equals(XConstants.IMPORT))
 		{
-			ximport(currentLine.xscanner(), context);
+			ximport(currentLine.xscanner(), binding, context);
 		}
 		else if(method.equals(XConstants.NEW))
 		{
-			return xnew(currentLine.xscanner(), bindings, context);
+			return xnew(currentLine.xscanner(), binding);
 		}
 		else if(method.equals(XConstants.TRY))
 		{
-			xtry(script, bindings, context);
+			xtry(script, binding, context);
 		}
 		else if(method.equals(XConstants.IF))
 		{
-			xif(currentLine, script, bindings, context);
+			xif(currentLine, script, binding, context);
 		}
 		else if(method.equals(XConstants.SUPER))
 		{
-			return xsuper(currentLine, script, bindings, context);
+			return xsuper(currentLine, script, binding, context);
 		}
 		else if(method.equals(XConstants.DO))
 		{
-			xdo(script, bindings, context);
+			xdo(script, binding, context);
 		}
 		else if(method.equals(XConstants.FOR))
 		{
-			xfor(currentLine, script, bindings, context);
+			xfor(currentLine, script, binding, context);
 		}
 		else if(method.equals(XConstants.GOTO))
 		{
-			xgoto(currentLine, script, bindings, context);
+			xgoto(currentLine, script, binding, context);
 		}
 		else if(method.equals(XConstants.WHILE))
 		{
-			xwhile(currentLine, script, bindings, context);
+			xwhile(currentLine, script, binding, context);
 		}
 		else if(method.equals(XConstants.THROW))
 		{
-			xthrow(currentLine.xscanner(), bindings);
+			xthrow(currentLine.xscanner(), binding.xbindings());
 		}
 		else if(method.equals(XConstants.SYNCHRONIZED))
 		{
-			xsynchronized(currentLine, script, bindings, context);
+			xsynchronized(currentLine, script, binding, context);
 		}
 		else if(method.equals(XConstants.COMMENT_LINE))
 		{
@@ -95,12 +98,18 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		{
 			xcomment(script);
 		}
-		return xinvoke(method, currentLine, bindings, context);
+		else if(method.equals(XConstants.LAMBDA))
+		{
+			return xlambda(currentLine.xscanner(), script, binding, context);
+		}
+		else
+			return xinvoke(method, currentLine, binding, context);
+		return null;
 	}
 	
-	public static XScriptEngine xnew(XContext context)
+	public static XScriptEngine xnew(XScriptContext scriptContext, XBindings bindings)
 	{
-		return new XScriptEngineImpl(context);
+		return new XScriptEngineImpl(scriptContext, bindings);
 	}
 
 	protected XObject xthis(XScanner currentLine, XBindings bindings) throws Exception
@@ -123,7 +132,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
 								if(bindings.xcontainsKey(paramValue))
 								{
-									return bindings.xget(paramValue);
+									return xget(paramValue, bindings);
 								}
 							}
 						}
@@ -134,7 +143,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	protected XClass xclass(XScanner currentLine, XContext context) throws Exception
+	protected XClass xclass(XScanner currentLine, XBinding binding) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
@@ -149,7 +158,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						String paramValue = currentLine.xnext();
 						if(paramValue.isEmpty() == false)
 						{
-							return context.xgetClass(paramValue);
+							if(binding.xhasClass(paramValue))
+								return binding.xgetClass(paramValue);
 						}
 					}
 				}
@@ -241,7 +251,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						value = value.substring(XConstants.OBJECT_REF_PREFIX.length());
 						if(bindings.xcontainsKey(value))
 						{
-							paramValues.add(bindings.xget(value));
+							paramValues.add(xget(value, bindings));
 						}
 					}
 					else
@@ -270,7 +280,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return methodName;
 	}
 	
-	protected void ximport(XScanner currentLine, XContext context) throws Exception 
+	protected void ximport(XScanner currentLine, XBinding binding, XContext context) throws Exception 
 	{
 		if(currentLine.xhasNext())
 		{
@@ -285,12 +295,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						String paramValue = currentLine.xnext();
 						if(paramValue.isEmpty() == false)
 						{
-							if(context.xhasClass(paramValue) == false)
+							if(binding.xhasClass(paramValue) == false)
 							{
 								XClass xclass = context.xclassLoader().xloadClass(paramValue);
 								if(xclass != null)
 								{
-									context.ximport(xclass.xgetSimpleName(), xclass);
+									binding.ximport(xclass.xgetSimpleName(), xclass);
 								}
 							}
 						}
@@ -300,21 +310,22 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 	
-	protected XObject xinvoke(String method, XLine currentLine, XBindings bindings, XContext context) throws Exception 
+	protected XObject xinvoke(String method, XLine currentLine, XBinding binding, XContext context) throws Exception 
 	{
 		XScanner scanner = currentLine.xscanner();
+		XBindings bindings = binding.xbindings();
 		XObject xthis = xthis(scanner, bindings);
 		XClass xclass = null;
 		if(xthis == null) 
 		{
-			xclass = xclass(scanner, context);
+			xclass = xclass(scanner, binding);
 		}
 		else
 		{
 			xclass = xthis.xgetClass();
 		}
-		XObject[] xparameters = xparameter(scanner, bindings, context.xfactory());
-		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, scanner, bindings, context);
+		XObject[] xparameters = xparameter(scanner, bindings, binding.xfactory());
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, scanner, binding);
 		if(xmethod != null)
 		{
 			XObject xreturn = xmethod.xinvoke(xthis, xparameters);
@@ -333,7 +344,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return xparameterTypes;
 	}
 	
-	protected XMethod xmethod(String method, XObject[] xparameters, XObject xthis, XClass xclass, XScanner currentLine, XBindings bindings, XContext context) throws Exception
+	protected XMethod xmethod(String method, XObject[] xparameters, XObject xthis, XClass xclass, XScanner currentLine, XBinding binding) throws Exception
 	{
 		ArrayList<XClass> xclasses = new ArrayList<XClass>();
 		if(xclass != null)
@@ -342,7 +353,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 		else
 		{
-			for(XClass c : context.xgetClasses())
+			for(XClass c : binding.xgetClasses())
 			{
 				xclasses.add(c);
 			}
@@ -360,10 +371,11 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return xmethod;
 	}
 	
-	protected XObject xinvoke(String method, XObject xthis, XClass xclass, XScanner currentLine, XBindings bindings, XContext context) throws Exception
+	protected XObject xinvoke(String method, XObject xthis, XClass xclass, XScanner currentLine, XBinding binding, XContext context) throws Exception
 	{
-		XObject[] xparameters = xparameter(currentLine, bindings, context.xfactory());
-		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, bindings, context);
+		XBindings bindings = binding.xbindings();
+		XObject[] xparameters = xparameter(currentLine, bindings, binding.xfactory());
+		XMethod xmethod = xmethod(method, xparameters, xthis, xclass, currentLine, binding);
 		if(xmethod != null)
 		{
 			XLogger logger = context.xlogger();
@@ -375,12 +387,13 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 
-	protected XObject xnew(XScanner currentLine, XBindings bindings, XContext context) throws Exception {
+	protected XObject xnew(XScanner currentLine, XBinding binding) throws Exception {
 		// TODO Auto-generated method stub
-		XClass xclass = xclass(currentLine, context);
+		XClass xclass = xclass(currentLine, binding);
 		if(xclass != null)
 		{
-			XObject[] xparameters = xparameter(currentLine, bindings, context.xfactory());
+			XBindings bindings = binding.xbindings();
+			XObject[] xparameters = xparameter(currentLine, bindings, binding.xfactory());
 			XConstructor xconstructor = xconstructor(xclass, xparameters);
 			if(xconstructor != null)
 			{
@@ -421,7 +434,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	protected void xtry(XScript script, XBindings bindings, XContext context) throws Exception {
+	protected void xtry(XScript script, XBinding bindings, XContext context) throws Exception {
 		// TODO Auto-generated method stub
 		try
 		{
@@ -437,27 +450,27 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 
-	protected XObject xcatch(Exception exception, XLine catchLine, XBindings bindings, XContext context) throws Exception {
+	protected XObject xcatch(Exception exception, XLine catchLine, XBinding binding) throws Exception {
 		// TODO Auto-generated method stub
-		XClass xclass = xclass(catchLine.xscanner(), context);
-		XFactory factory = context.xfactory();
+		XClass xclass = xclass(catchLine.xscanner(), binding);
+		XFactory factory = binding.xfactory();
 		if(xclass != null)
 		{
 			XException xexception = factory.xException(exception);
 			if(xclass.xisAssignableFrom(xexception.xgetClass()))
 			{
-				return xreturn(xexception, catchLine.xscanner(), bindings);
+				return xreturn(xexception, catchLine.xscanner(), binding.xbindings());
 			}
 			factory.xfinalize(xexception);
 		}
 		else
 		{
-			return xreturn(factory.xException(exception), catchLine.xscanner(), bindings);
+			return xreturn(factory.xException(exception), catchLine.xscanner(), binding.xbindings());
 		}
 		return null;
 	}
 	
-	protected void xcatch(Exception exception, XScript script, XBindings bindings, XContext context) throws Exception {
+	protected void xcatch(Exception exception, XScript script, XBinding binding, XContext context) throws Exception {
 		// TODO Auto-generated method stub
 		XObject xexception = null;
 		XLine xcatch = null;
@@ -466,7 +479,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			xcatch = xgoto(XConstants.CATCH, script);
 			if(xexception == null)
 			{
-				xexception = xcatch(exception, xcatch, bindings, context);
+				xexception = xcatch(exception, xcatch, binding);
 			}
 		}
 		while(xcatch != null);
@@ -476,11 +489,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 	
-	protected boolean xif(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception {
-		// TODO Auto-generated method stub
+	protected boolean xif(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception 
+	{
+		XBindings bindings = binding.xbindings();
 		if(xif(currentLine.xscanner(), bindings))
 		{
-			XLine xelse = xeval(XConstants.ELSE, script, bindings, context);
+			XLine xelse = xeval(XConstants.ELSE, script, binding, context);
 			if(xelse != null)
 			{
 				do
@@ -497,7 +511,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			XLine xelse = xgoto(XConstants.ELSE, script);
 			if(xelse != null)
 			{
-				xelse = xeval(XConstants.ELSE, script, bindings, context);
+				xelse = xeval(XConstants.ELSE, script, binding, context);
 				do
 				{
 					xelse.xclose();
@@ -514,8 +528,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return xboolean(currentLine, bindings, false);
 	}
 	
-	protected void xdo(XScript script, XBindings bindings, XContext context) throws Exception {
-		// TODO Auto-generated method stub
+	protected void xdo(XScript script, XBinding binding, XContext context) throws Exception 
+	{
+		XBindings bindings = binding.xbindings();
 		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
 		boolean bool = true;
 		do
@@ -553,7 +568,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						return;
 					}
 					else
-						xeval(methodName, currentLine, script, bindings, context);
+						xeval(methodName, currentLine, script, binding, context);
 				}
 				currentLine.xclose();
 			}
@@ -562,8 +577,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		cachedScript.xclose();
 	}
 	
-	protected void xfor(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception {
+	protected void xfor(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception {
 		// TODO Auto-generated method stub
+		XBindings bindings = binding.xbindings();
 		XObject xthis = xthis(currentLine.xscanner(), bindings);
 		if(xthis != null)
 		{
@@ -571,13 +587,14 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			if(xthis.xgetClass().xisArray())
 			{
 				XArray xarray = (XArray) xthis;
-				xfor(xarray, xreturn, script, bindings, context);
+				xfor(xarray, xreturn, script, binding, context);
 			}
 		}
 	}
 	
-	protected void xfor(XArray xarray, String xreturn, XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xfor(XArray xarray, String xreturn, XScript script, XBinding binding, XContext context) throws Exception
 	{
+		XBindings bindings = binding.xbindings();
 		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
 		for(int length = xarray.xgetLength(), index = 0;index < length && cachedScript.xhasNextLine();)
 		{
@@ -603,7 +620,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					}
 					else if(methodName.equals(XConstants.RETURN))
 					{
-						xreturn(scanner, bindings, context.xfactory());
+						xreturn(scanner, bindings, binding.xfactory());
 						cachedScript.xclose();
 						return;
 					}
@@ -626,7 +643,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						continue;
 					}
 					else
-						xeval(methodName, currentLine, script, bindings, context);
+						xeval(methodName, currentLine, script, binding, context);
 				}
 			}
 			currentLine.xclose();
@@ -654,7 +671,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
 								if(bindings.xcontainsKey(paramValue))
 								{
-									return bindings.xget(paramValue);
+									return xget(paramValue, bindings);
 								}
 							}
 							else if(paramValue.equals(XConstants.NULL))
@@ -669,7 +686,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	protected XObject xsuper(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XObject xsuper(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
 		XScanner scanner = currentLine.xscanner();
 		if(scanner.xhasNext())
@@ -677,35 +694,36 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			String methodName = scanner.xnext();
 			if(methodName.isEmpty() == false)
 			{
+				XBindings bindings = binding.xbindings();
 				if(methodName.equals(XConstants.EXECUTOR))
 				{
-					return xexecutor(currentLine, script, bindings, context);
+					return xexecutor(currentLine, script, binding, context);
 				}
 				else if(methodName.equals(XConstants.EVAL))
 				{
-					return xeval(script, bindings, context);
+					return xeval(script, binding, context);
 				}
 				else if(methodName.equals(XConstants.DEBUG))
 				{
-					xsuper_debug(script, bindings, context);
+					xsuper_debug(script, binding, context);
 				}
 				else if(methodName.equals(XConstants.HELP))
 				{
-					xsuper_help(currentLine.xscanner(), bindings, context);
+					xsuper_help(currentLine.xscanner(), binding, context);
 				}
 				else if(methodName.equals(XConstants.LOG))
 				{
-					xsuper_log(currentLine.xscanner(), bindings, context);
+					xsuper_log(currentLine.xscanner(), binding, context);
 				}
 				else if(methodName.startsWith(XConstants.X_METHOD_NAME_PREFIX) == false)
 				{
-					XFactory factory = context.xfactory();
+					XFactory factory = binding.xfactory();
 					XField xfield = xclass(factory).xgetField(methodName);
 					if(xfield != null)
 					{
 						return xextension(methodName, xfield, currentLine.xscanner(), bindings, factory);
 					}
-					return xinvoke(methodName, xthis(factory), xclass(factory), currentLine.xscanner(), bindings, context);
+					return xinvoke(methodName, xthis(factory), xclass(factory), currentLine.xscanner(), binding, context);
 				}
 			}
 		}
@@ -729,8 +747,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	public XObject xeval(XScanner xscanner) throws Exception {
 		// TODO Auto-generated method stub
 		XScript script = null;
-		XBindings bindings = xcreateBindings();
-		return xeval(script, bindings, xcontext);
+		XBinding binding = null;
+		XContext context = null;
+		return xeval(script, binding, context);
 	}
 
 
@@ -744,7 +763,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return xeval(xscanner, xcontext.xgetBindings(XScriptContext.XGLOBAL_SCOPE));
 	}
 
-	public XObject xeval(String script, XBindings xbindings) throws Exception {
+	public XObject xeval(String script, XBindings bindings) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -754,12 +773,13 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 
-	public XObject xeval(String script) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public XObject xeval(String script) throws Exception 
+	{
+		XScript xscript = null;
+		return xeval(xscript, xdefaultBinding, xdefaultContext);
 	}
 	
-	protected XObject xexecutor(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XObject xexecutor(XLine currentLine, XScript script, XBinding bindings, XContext context) throws Exception
 	{
 		XScanner scanner = currentLine.xscanner();
 		if(scanner.xhasNext())
@@ -773,11 +793,11 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	protected XObject xexecutor(String methodName, XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XObject xexecutor(String methodName, XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
 		if(methodName.equals(XConstants.AWAIT_TERMINATION))
 		{
-			return xawaitTermination(currentLine.xscanner(), bindings, context.xexecutorService(), context.xfactory());
+			return xexecutor_xawaitTermination(currentLine.xscanner(), binding.xbindings(), context.xexecutorService(), binding.xfactory());
 		}
 		else if(methodName.equals(XConstants.SHUTDOWN))
 		{
@@ -785,15 +805,15 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 		else if(methodName.equals(XConstants.SUBMIT))
 		{
-			xsubmit(currentLine, script, bindings, context);
+			xexecutor_xsubmit(currentLine, script, binding, context);
 		}
 		else if(methodName.equals(XConstants.IS_TERMINATED))
 		{
-			return xisTerminated(currentLine.xscanner(), bindings, context);
+			return xexecutor_xisTerminated(currentLine.xscanner(), binding, context);
 		}
 		else if(methodName.equals(XConstants.EXECUTE))
 		{
-			xexecute(currentLine, script, bindings, context);
+			xexecutor_xexecute(currentLine, script, binding, context);
 		}
 		else if(methodName.equals(XConstants.SHUTDOWN_NOW))
 		{
@@ -801,16 +821,16 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 		else if(methodName.equals(XConstants.INVOKE_ALL))
 		{
-			xinvokeAll(script, bindings, context);
+			xexecutor_xinvokeAll(script, binding, context);
 		}
 		else if(methodName.equals(XConstants.INVOKE_ANY))
 		{
-			return xinvokeAny(currentLine, script, bindings, context);
+			return xexecutor_xinvokeAny(currentLine, script, binding, context);
 		}
 		return null;
 	}
 	
-	protected XObject xawaitTermination(XScanner currentLine, XBindings bindings, XExecutorService service, XFactory factory) throws Exception
+	protected XObject xexecutor_xawaitTermination(XScanner currentLine, XBindings bindings, XExecutorService service, XFactory factory) throws Exception
 	{
 		if(currentLine.xhasNextLong())
 		{
@@ -826,28 +846,27 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	protected XObject xsubmit(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XObject xexecutor_xsubmit(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
+		XEvalTask task = xevalTask(script, binding, context);
+		context.xexecutorService().xsubmit((XRunnable)task);
 		return null;
 	}
 	
-	protected XObject xisTerminated(XScanner currentLine, XBindings bindings, XContext context) throws Exception
+	protected XObject xexecutor_xisTerminated(XScanner currentLine, XBinding binding, XContext context) throws Exception
 	{
 		boolean b = context.xexecutorService().xisTerminated();
-		XObject xobject = context.xfactory().xObject(b);
-		return xreturn(xobject, currentLine, bindings);
+		XObject xobject = binding.xfactory().xObject(b);
+		return xreturn(xobject, currentLine, binding.xbindings());
 	}
 	
-	protected void xexecute(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xexecutor_xexecute(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
-		List<XEvalTask> tasks = xevalTask(script, bindings, context);
-		if(tasks.isEmpty() == false)
-		{
-			context.xexecutorService().xexecute(tasks.get(0));
-		}
+		XEvalTask task = xevalTask(script, binding, context);
+		context.xexecutorService().xexecute(task);
 	}
 
-	protected List<XEvalTask> xevalTask(XScript script, XBindings bindings, XContext context) throws Exception
+	protected List<XEvalTask> xevalTasks(XScript script, XBinding binding, XContext context) throws Exception
 	{
 		ArrayList<XEvalTask> tasks = new ArrayList<XEvalTask>();
 		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
@@ -869,7 +888,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						xgoto("", cachedScript);
 					}
 					cachedScript.xstopCaching();
-					tasks.add(XEvalTaskImpl.xnew(this, cachedScript, bindings, context));
+					cachedScript.xrefresh();
+					tasks.add(XEvalTaskImpl.xnew(this, cachedScript, binding, context));
 					cachedScript = XCachedScriptImpl.xnew(script);
 				}
 			}
@@ -878,9 +898,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return tasks;
 	}
 	
-	protected void xinvokeAll(XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xexecutor_xinvokeAll(XScript script, XBinding binding, XContext context) throws Exception
 	{
-		List<XEvalTask> tasks = xevalTask(script, bindings, context);
+		List<XEvalTask> tasks = xevalTasks(script, binding, context);
 		XCallable[] calls = new XCallable[tasks.size()];
 		int i = 0;
 		for(XEvalTask task : tasks)
@@ -903,9 +923,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 	
-	protected XObject xinvokeAny(XLine current, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XObject xexecutor_xinvokeAny(XLine current, XScript script, XBinding binding, XContext context) throws Exception
 	{
-		List<XEvalTask> tasks = xevalTask(script, bindings, context);
+		List<XEvalTask> tasks = xevalTasks(script, binding, context);
 		XCallable[] calls = new XCallable[tasks.size()];
 		int i = 0;
 		for(XEvalTask task : tasks)
@@ -989,7 +1009,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return xtype.xgetConstructor(xparameterTypes);
 	}
 	
-	protected XLine xgoto(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected XLine xgoto(XLine currentLine, XScript script, XBinding bindings, XContext context) throws Exception
 	{
 		XScanner scanner = currentLine.xscanner();
 		if(scanner.xhasNext())
@@ -1036,7 +1056,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return "";
 	}
 
-	protected XLine xeval(String endLine, XScript script, XBindings bindings, XContext context) throws Exception 
+	protected XLine xeval(String endLine, XScript script, XBinding binding, XContext context) throws Exception 
 	{
 		// TODO Auto-generated method stub
 		for(XLine currentLine = null; script.xhasNextLine(); currentLine = script.xnextLine())
@@ -1058,10 +1078,10 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					}
 					else if(methodName.equals(XConstants.RETURN))
 					{
-						xreturn(scanner, bindings, context.xfactory());
+						xreturn(scanner, binding.xbindings(), binding.xfactory());
 						return null;
 					}
-					xeval(methodName, currentLine, script, bindings, context);
+					xeval(methodName, currentLine, script, binding, context);
 				}
 			}
 			currentLine.xclose();
@@ -1069,7 +1089,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	protected void xfinally(XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xfinally(XScript script, XBinding bindings, XContext context) throws Exception
 	{
 		XLine xfinally = xgoto(XConstants.FINALLY, script);
 		if(xfinally != null)
@@ -1079,7 +1099,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 	
-	protected void xelse(XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xelse(XScript script, XBinding bindings, XContext context) throws Exception
 	{
 		XLine xelse = xgoto(XConstants.ELSE, script);
 		if(xelse != null)
@@ -1089,8 +1109,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 	
-	protected void xwhile(XLine xline, XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xwhile(XLine xline, XScript script, XBinding binding, XContext context) throws Exception
 	{
+		XBindings bindings = binding.xbindings();
 		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
 		XLine xwhile = xline.xclone();
 		boolean bool = xif(xwhile.xscanner(), bindings);
@@ -1115,7 +1136,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					}
 					else if(methodName.equals(XConstants.RETURN))
 					{
-						xreturn(scanner, bindings, context.xfactory());
+						xreturn(scanner, bindings, binding.xfactory());
 						cachedScript.xclose();
 						return;
 					}
@@ -1134,7 +1155,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						continue;
 					}
 					else
-						xeval(methodName, currentLine, script, bindings, context);
+						xeval(methodName, currentLine, script, binding, context);
 				}
 			}
 			currentLine.xclose();
@@ -1155,7 +1176,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		// TODO Auto-generated method stub
 		XScript script = null;
 		XContext context = null;
-		return xeval(script, xbindings, context);
+		XBinding binding = null;
+		return xeval(script, binding, context);
 	}
 	
 	protected boolean xfalse(XScanner currentLine, XBindings bindings) throws Exception
@@ -1217,7 +1239,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					{
 						if(bindings.xcontainsKey(name))
 						{
-							XObject xobject = bindings.xget(name);
+							XObject xobject = xget(name, bindings);
 							if(xobject.xequals(XObject.xnull) == false)
 							{
 								if(xobject.xgetClass().xgetName().equals("java.lang.Boolean"))
@@ -1247,6 +1269,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		case XConstants.IF:
 		case XConstants.INVOKE_ALL:
 		case XConstants.INVOKE_ANY:
+		case XConstants.LAMBDA:
 		case XConstants.SUPER:
 		case XConstants.SYNCHRONIZED:
 		case XConstants.TRY:
@@ -1256,12 +1279,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return false;
 	}
 	
-	protected void xsynchronized(XLine currentLine, XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xsynchronized(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
-		XObject xobject = xthis(currentLine.xscanner(), bindings);
+		XObject xobject = xthis(currentLine.xscanner(), binding.xbindings());
 		synchronized(xobject)
 		{
-			xeval(script, bindings, context);
+			xeval(script, binding, context);
 		}
 	}
 	
@@ -1272,12 +1295,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			end.xclose();
 	}
 	
-	protected void xsuper_debug(XScript script, XBindings bindings, XContext context) throws Exception
+	protected void xsuper_debug(XScript script, XBinding bindings, XContext context) throws Exception
 	{
 		// TODO Auto-generated method stub
 	}
 	
-	protected void xsuper_help(XScanner currentLine, XBindings bindings, XContext context) throws Exception
+	protected void xsuper_help(XScanner currentLine, XBinding binding, XContext context) throws Exception
 	{
 		XClass xcls = null;
 		if(currentLine.xhasNext())
@@ -1293,7 +1316,10 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						String paramValue = currentLine.xnext();
 						if(paramValue.isEmpty() == false)
 						{
-							xcls = context.xgetClass(paramValue);
+							if(binding.xhasClass(paramValue))
+							{
+								xcls = binding.xgetClass(paramValue);
+							}
 						}
 					}
 				}
@@ -1307,9 +1333,10 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 							if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
 							{
 								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
+								XBindings bindings = binding.xbindings();
 								if(bindings.xcontainsKey(paramValue))
 								{
-									xcls = bindings.xget(paramValue).xgetClass();
+									xcls = xget(paramValue, bindings).xgetClass();
 								}
 							}
 						}
@@ -1335,25 +1362,27 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					}
 				}
 			}
-			xhelp(xcls, method, context.xwriter());
+			XWriter writer = context.xscriptContext().xgetWriter();
+			xsuper_xhelp(xcls, method, writer);
 		}
 		else
 		{
-			for(XClass cls : context.xgetClasses())
+			XWriter writer = context.xscriptContext().xgetWriter();
+			for(XClass cls : binding.xgetClasses())
 			{
-				xhelp(cls, "", context.xwriter());
+				xsuper_xhelp(cls, "", writer);
 			}
 		}
 	}
 
-	protected void xhelp(XClass xcls, String method, XWriter writer) throws Exception
+	protected void xsuper_xhelp(XClass xcls, String method, XWriter writer) throws Exception
 	{
 		if(method.isEmpty())
 		{
 			writer.xwrite(XConstants.CLASS + XConstants.PARAMETER_SEPARATOR + xcls.xgetSimpleName());
 			for(XMethod xmethod : xcls.xgetMethods())
 			{
-				xhelp(xmethod, xcls);
+				xexecutor_xhelp(xmethod, xcls);
 			}
 			writer.xwrite(XConstants.FINAL);
 		}
@@ -1363,13 +1392,13 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			for(XMethod xmethod : xcls.xgetMethods())
 			{
 				if(xmethod.xgetName().equals(method))
-					xhelp(xmethod, xcls);
+					xexecutor_xhelp(xmethod, xcls);
 			}
 			writer.xwrite(XConstants.FINAL);
 		}
 	}
 	
-	protected void xhelp(XMethod xmethod, XClass xcls) throws Exception
+	protected void xexecutor_xhelp(XMethod xmethod, XClass xcls) throws Exception
 	{
 		StringBuilder text = new StringBuilder();
 		text.append(xmethod.xgetName());
@@ -1403,19 +1432,19 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 	}
 	
-	protected void xsuper_log(XScanner currentLine, XBindings bindings, XContext context) throws Exception
+	protected void xsuper_log(XScanner currentLine, XBinding bindings, XContext context) throws Exception
 	{
 		if(currentLine.xhasNext())
 		{
 			String method = currentLine.xnext();
 			if(method.isEmpty() == false)
 			{
-				xlog(method, currentLine, bindings, context);
+				xexecutor_xlog(method, currentLine, bindings, context);
 			}
 		}
 	}
 	
-	protected void xlog(String method, XScanner currentLine, XBindings bindings, XContext context) throws Exception
+	protected void xexecutor_xlog(String method, XScanner currentLine, XBinding bindings, XContext context) throws Exception
 	{
 		XLogger logger = context.xlogger();
 		if(method.equals(XConstants.LOG_CONFIG))
@@ -1523,5 +1552,62 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				}
 			}
 		}
+	}
+	
+	protected XObject xlambda(XScanner scanner, XScript script, XBinding binding, XContext context) throws Exception
+	{
+		if(scanner.xhasNext())
+		{
+			String paramName = scanner.xnext();
+			if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
+			{
+				paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
+				if(paramName.equals(XConstants.THIS))
+				{
+					if(scanner.xhasNext())
+					{
+						String paramValue = scanner.xnext();
+						if(paramValue.isEmpty() == false)
+						{
+							if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
+							{
+								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
+								if(!paramValue.isEmpty())
+								{
+									XEvalTask task = xevalTask(script, binding, context);
+									XObject object = binding.xfactory().xObject(new Eval(task));
+									binding.xbindings().xput(paramValue, object);
+									return object;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	protected XEvalTask xevalTask(XScript script, XBinding binding, XContext context) throws Exception
+	{
+		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
+		xgoto("", cachedScript);
+		cachedScript.xstopCaching();
+		cachedScript.xrefresh();
+		XEvalTask task = XEvalTaskImpl.xnew(this, cachedScript, binding, context);
+		return task;
+	}
+	
+	protected XObject xget(String name, XBindings bindings) throws Exception
+	{
+		XObject xobject = bindings.xget(name);
+		if(xobject != null)
+		{
+			if(xobject instanceof XFutureObject)
+			{
+				xobject = ((XFutureObject)xobject).xfuture().xget();
+			}
+		}
+		return xobject;
 	}
 }

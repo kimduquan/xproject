@@ -43,4 +43,10 @@ public class XRemoteScriptContextImpl extends XUnicastRemoteObject<XScriptContex
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public XWriter xgetErrorWriter() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

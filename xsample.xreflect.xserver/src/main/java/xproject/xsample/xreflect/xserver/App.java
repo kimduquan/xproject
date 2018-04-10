@@ -49,13 +49,13 @@ public class App
 
 	        xglobal = XRemoteBindingsImpl.xnew(xglobal);
 	        xengine = XRemoteBindingsImpl.xnew(xengine);
-	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal, null, null);
+	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal, null, null, null);
 			xscriptContext = XRemoteScriptContextImpl.xnew(xscriptContext);
 			
 			XExecutors executors = XExecutorsImpl.xnew();
 			XExecutorService executor = executors.xnewCachedThreadPool();
 			//XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext, executor, null);
-			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(null);
+			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(null, null);
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
 			
 			XScanner xscanner = XScannerImpl.xnew("InputStream", "System.in");

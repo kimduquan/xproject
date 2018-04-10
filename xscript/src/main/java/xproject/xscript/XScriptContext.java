@@ -11,6 +11,7 @@ public interface XScriptContext extends XRemote {
 	XBindings xgetBindings(int scope) throws Exception;
 	XWriter xgetWriter() throws Exception;
 	XScanner xgetReader() throws Exception;
+	XWriter xgetErrorWriter() throws Exception;
 	
 	public static final int XENGINE_SCOPE = 100;
 	public static final int XGLOBAL_SCOPE = 200;

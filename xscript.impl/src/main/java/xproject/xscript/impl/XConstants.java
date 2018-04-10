@@ -74,4 +74,6 @@ public interface XConstants
 	static final String LOG_INFO = "info";
 	static final String LOG_SEVERE = "severe";
 	static final String LOG_WARNING = "warning";
+	
+	static final String LAMBDA = "->";
 }
