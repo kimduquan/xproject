@@ -28,13 +28,15 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	private XBinding xdefaultBinding;
 	private volatile XClass xclass;
 	private volatile XObject xthis;
+	private XScriptFactory xfactory;
 	
-	protected XScriptEngineImpl(XScriptContext scriptContext, XBindings bindings)
+	protected XScriptEngineImpl(XScriptContext scriptContext, XBindings bindings, XScriptFactory factory)
 	{
 		xclass = null;
 		xthis = null;
 		xdefaultContext = null;
 		xdefaultBinding = null;
+		xfactory = factory;
 	}
 	
 	public XObject xeval(XScript script, XBinding binding, XContext context) throws Exception {
@@ -107,9 +109,9 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return null;
 	}
 	
-	public static XScriptEngine xnew(XScriptContext scriptContext, XBindings bindings)
+	public static XScriptEngine xnew(XScriptContext scriptContext, XBindings bindings, XScriptFactory factory)
 	{
-		return new XScriptEngineImpl(scriptContext, bindings);
+		return new XScriptEngineImpl(scriptContext, bindings, factory);
 	}
 
 	protected XObject xthis(XScanner currentLine, XBindings bindings) throws Exception
@@ -531,7 +533,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	protected void xdo(XScript script, XBinding binding, XContext context) throws Exception 
 	{
 		XBindings bindings = binding.xbindings();
-		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
+		XCachedScript cachedScript = xfactory.xCachedScript(script);
 		boolean bool = true;
 		do
 		{
@@ -564,7 +566,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					else if(methodName.equals(XConstants.RETURN))
 					{
 						currentLine.xclose();
-						cachedScript.xclose();
 						return;
 					}
 					else
@@ -574,7 +575,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			}
 		}
 		while(bool);
-		cachedScript.xclose();
 	}
 	
 	protected void xfor(XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception {
@@ -595,7 +595,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	protected void xfor(XArray xarray, String xreturn, XScript script, XBinding binding, XContext context) throws Exception
 	{
 		XBindings bindings = binding.xbindings();
-		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
+		XCachedScript cachedScript = xfactory.xCachedScript(script);
 		for(int length = xarray.xgetLength(), index = 0;index < length && cachedScript.xhasNextLine();)
 		{
 			XLine currentLine = cachedScript.xnextLine();
@@ -621,7 +621,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					else if(methodName.equals(XConstants.RETURN))
 					{
 						xreturn(scanner, bindings, binding.xfactory());
-						cachedScript.xclose();
 						return;
 					}
 					else if(methodName.equals(XConstants.BREAK))
@@ -648,7 +647,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			}
 			currentLine.xclose();
 		}
-		cachedScript.xclose();
 	}
 
 	protected XObject xreturn(XScanner currentLine, XBindings bindings, XFactory factory) throws Exception {
@@ -750,12 +748,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		XBinding binding = null;
 		XContext context = null;
 		return xeval(script, binding, context);
-	}
-
-
-	public XBindings xcreateBindings() throws Exception {
-		// TODO Auto-generated method stub
-		return XBindingsImpl.xnew();
 	}
 
 	public XObject xeval(XScanner xscanner, XScriptContext xcontext) throws Exception {
@@ -869,7 +861,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	protected List<XEvalTask> xevalTasks(XScript script, XBinding binding, XContext context) throws Exception
 	{
 		ArrayList<XEvalTask> tasks = new ArrayList<XEvalTask>();
-		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
+		XCachedScript cachedScript = xfactory.xCachedScript(script);
 		for(XLine currentLine = null; cachedScript.xhasNextLine(); currentLine = cachedScript.xnextLine())
 		{
 			XScanner scanner = currentLine.xscanner();
@@ -889,8 +881,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					}
 					cachedScript.xstopCaching();
 					cachedScript.xrefresh();
-					tasks.add(XEvalTaskImpl.xnew(this, cachedScript, binding, context));
-					cachedScript = XCachedScriptImpl.xnew(script);
+					tasks.add(xfactory.xEvalTask(this, cachedScript, binding, context));
+					cachedScript = xfactory.xCachedScript(script);
 				}
 			}
 			currentLine.xclose();
@@ -1112,7 +1104,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	protected void xwhile(XLine xline, XScript script, XBinding binding, XContext context) throws Exception
 	{
 		XBindings bindings = binding.xbindings();
-		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
+		XCachedScript cachedScript = xfactory.xCachedScript(script);
 		XLine xwhile = xline.xclone();
 		boolean bool = xif(xwhile.xscanner(), bindings);
 		xwhile.xclose();
@@ -1137,7 +1129,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					else if(methodName.equals(XConstants.RETURN))
 					{
 						xreturn(scanner, bindings, binding.xfactory());
-						cachedScript.xclose();
 						return;
 					}
 					else if(methodName.equals(XConstants.BREAK))
@@ -1160,7 +1151,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			}
 			currentLine.xclose();
 		}
-		cachedScript.xclose();
 	}
 	
 	protected void xthrow(XScanner currentLine, XBindings bindings) throws Exception
@@ -1590,11 +1580,11 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	
 	protected XEvalTask xevalTask(XScript script, XBinding binding, XContext context) throws Exception
 	{
-		XCachedScript cachedScript = XCachedScriptImpl.xnew(script);
+		XCachedScript cachedScript = xfactory.xCachedScript(script);
 		xgoto("", cachedScript);
 		cachedScript.xstopCaching();
 		cachedScript.xrefresh();
-		XEvalTask task = XEvalTaskImpl.xnew(this, cachedScript, binding, context);
+		XEvalTask task = xfactory.xEvalTask(this, cachedScript, binding, context);
 		return task;
 	}
 	
@@ -1609,5 +1599,11 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			}
 		}
 		return xobject;
+	}
+
+	@Override
+	public XBindings xcreateBindings() throws Exception {
+		// TODO Auto-generated method stub
+		return xfactory.xBindings();
 	}
 }

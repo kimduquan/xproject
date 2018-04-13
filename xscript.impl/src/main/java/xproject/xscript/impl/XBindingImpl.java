@@ -12,7 +12,7 @@ public class XBindingImpl implements XBinding
 	private HashMap<String, XClass> xclasses;
 	private XFactory xfactory;
 	
-	public XBindingImpl(XBindings bindings, XFactory factory)
+	protected XBindingImpl(XBindings bindings, XFactory factory)
 	{
 		xbindings = bindings;
 		xclasses = new HashMap<String, XClass>();
@@ -22,6 +22,7 @@ public class XBindingImpl implements XBinding
 	public void xfinalize() throws Throwable 
 	{
 		xclasses.clear();
+		xclasses = null;
 		xbindings = null;
 		finalize();
 	}
@@ -56,5 +57,10 @@ public class XBindingImpl implements XBinding
 	public XFactory xfactory() throws Exception {
 		// TODO Auto-generated method stub
 		return xfactory;
+	}
+	
+	public static XBinding xnew(XBindings bindings, XFactory factory)
+	{
+		return new XBindingImpl(bindings, factory);
 	}
 }

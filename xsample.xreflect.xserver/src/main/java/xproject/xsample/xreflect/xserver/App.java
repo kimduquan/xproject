@@ -17,6 +17,8 @@ import xproject.xscript.XScriptEngine;
 import xproject.xscript.impl.XBindingsImpl;
 import xproject.xscript.impl.XScriptContextImpl;
 import xproject.xscript.impl.XScriptEngineImpl;
+import xproject.xscript.impl.XScriptFactory;
+import xproject.xscript.impl.XScriptFactoryImpl;
 import xproject.xscript.xrmi.impl.XRemoteBindingsImpl;
 import xproject.xscript.xrmi.impl.XRemoteScriptContextImpl;
 import xproject.xscript.xrmi.impl.XRemoteScriptEngineImpl;
@@ -37,25 +39,27 @@ public class App
     {
     	XFactory xfactory = XFactoryImpl.xnew();
     	XFactory xremote = XRemoteFactoryImpl.xnew();
+    	XScriptFactory xscriptFactory = XScriptFactoryImpl.xnew();
+    	
         XRegistry registry = XRegistryImpl.xnew();
-        
-        XBindings xglobal = XBindingsImpl.xnew();
-        XBindings xengine = XBindingsImpl.xnew();
         
     	try 
     	{
+            XBindings xglobal = xscriptFactory.xBindings();
+            XBindings xengine = xscriptFactory.xBindings();
+            
     		xremote.xref(xfactory);
     		XClass xclass = xremote.xClass(RemoteWebDriver.class);
 
 	        xglobal = XRemoteBindingsImpl.xnew(xglobal);
 	        xengine = XRemoteBindingsImpl.xnew(xengine);
-	        XScriptContext xscriptContext = XScriptContextImpl.xnew(xengine, xglobal, null, null, null);
+	        XScriptContext xscriptContext = xscriptFactory.xScriptContext(xengine, xglobal, null, null, null);
 			xscriptContext = XRemoteScriptContextImpl.xnew(xscriptContext);
 			
 			XExecutors executors = XExecutorsImpl.xnew();
 			XExecutorService executor = executors.xnewCachedThreadPool();
 			//XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(xremote, xclass.xgetClassLoader(), xscriptContext, executor, null);
-			XScriptEngine xscriptEngine = XScriptEngineImpl.xnew(null, null);
+			XScriptEngine xscriptEngine = xscriptFactory.xScriptEngine(null, null, null);
 			xscriptEngine = XRemoteScriptEngineImpl.xnew(xscriptEngine);
 			
 			XScanner xscanner = XScannerImpl.xnew("InputStream", "System.in");
