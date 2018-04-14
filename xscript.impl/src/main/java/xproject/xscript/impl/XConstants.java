@@ -33,15 +33,15 @@ public interface XConstants
 	static final String COMMENT_BLOCK = "/*";
 	static final String COMMENT_BLOCK_END = "*/";
 	
-	static final String EXECUTOR = "executor";
-	static final String AWAIT_TERMINATION = "awaitTermination";
-	static final String SHUTDOWN = "shutdown";
-	static final String SUBMIT = "submit";
-	static final String IS_TERMINATED = "isTerminated";
-	static final String EXECUTE = "execute";
-	static final String SHUTDOWN_NOW = "shutdownNow";
-	static final String INVOKE_ALL = "invokeAll";
-	static final String INVOKE_ANY = "invokeAny";
+	static final String EXECUTOR = "exec";
+	static final String EXECUTOR_AWAIT_TERMINATION = "awaitTermination";
+	static final String EXECUTOR_SHUTDOWN = "shutdown";
+	static final String EXECUTOR_SUBMIT = "submit";
+	static final String EXECUTOR_IS_TERMINATED = "isTerminated";
+	static final String EXECUTOR_EXECUTE = "execute";
+	static final String EXECUTOR_SHUTDOWN_NOW = "shutdownNow";
+	static final String EXECUTOR_INVOKE_ALL = "invokeAll";
+	static final String EXECUTOR_INVOKE_ANY = "invokeAny";
 	
 	static final String EVAL = "eval";
 	static final String HELP = "help";
@@ -76,4 +76,7 @@ public interface XConstants
 	static final String LOG_WARNING = "warning";
 	
 	static final String LAMBDA = "->";
+	static final String ASSERT = "assert";
+	
+	static final String TEST = "test";
 }

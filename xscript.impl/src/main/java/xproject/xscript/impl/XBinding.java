@@ -4,6 +4,7 @@ import xproject.xlang.XClass;
 import xproject.xlang.XFactory;
 import xproject.xrmi.XRemote;
 import xproject.xscript.XBindings;
+import xproject.xunit.xrunner.XRunnerFactory;
 
 public interface XBinding extends XRemote 
 {
@@ -13,4 +14,5 @@ public interface XBinding extends XRemote
 	XClass[] xgetClasses() throws Exception;
 	boolean xhasClass(String key) throws Exception;
 	XFactory xfactory() throws Exception;
+	XRunnerFactory xrunnerFactory() throws Exception;
 }

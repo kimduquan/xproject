@@ -17,6 +17,8 @@ import xproject.xlang.xreflect.XParameter;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
 import xproject.xscript.XScriptEngine;
+import xproject.xunit.xrunner.XRunNotifier;
+import xproject.xunit.xrunner.XRunnerFactory;
 import xproject.xutil.XScanner;
 import xproject.xutil.xconcurrent.XCallable;
 import xproject.xutil.xconcurrent.XExecutorService;
@@ -101,6 +103,10 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			xcomment(script);
 		}
 		else if(method.equals(XConstants.LAMBDA))
+		{
+			return xlambda(currentLine.xscanner(), script, binding, context);
+		}
+		else if(method.equals(XConstants.ASSERT))
 		{
 			return xlambda(currentLine.xscanner(), script, binding, context);
 		}
@@ -425,7 +431,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						currentLine.xclose();
 						return null;
 					}
-					if(xisBlock(methodName))
+					if(xisBlock(methodName, scanner))
 					{
 						xgoto("", script);
 					}
@@ -713,6 +719,10 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				{
 					xsuper_log(currentLine.xscanner(), binding, context);
 				}
+				else if(methodName.equals(XConstants.TEST))
+				{
+					xsuper_test(script, binding, context);
+				}
 				else if(methodName.startsWith(XConstants.X_METHOD_NAME_PREFIX) == false)
 				{
 					XFactory factory = binding.xfactory();
@@ -787,35 +797,35 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	
 	protected XObject xexecutor(String methodName, XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
 	{
-		if(methodName.equals(XConstants.AWAIT_TERMINATION))
+		if(methodName.equals(XConstants.EXECUTOR_AWAIT_TERMINATION))
 		{
 			return xexecutor_xawaitTermination(currentLine.xscanner(), binding.xbindings(), context.xexecutorService(), binding.xfactory());
 		}
-		else if(methodName.equals(XConstants.SHUTDOWN))
+		else if(methodName.equals(XConstants.EXECUTOR_SHUTDOWN))
 		{
 			context.xexecutorService().xshutdown();
 		}
-		else if(methodName.equals(XConstants.SUBMIT))
+		else if(methodName.equals(XConstants.EXECUTOR_SUBMIT))
 		{
 			xexecutor_xsubmit(currentLine, script, binding, context);
 		}
-		else if(methodName.equals(XConstants.IS_TERMINATED))
+		else if(methodName.equals(XConstants.EXECUTOR_IS_TERMINATED))
 		{
 			return xexecutor_xisTerminated(currentLine.xscanner(), binding, context);
 		}
-		else if(methodName.equals(XConstants.EXECUTE))
+		else if(methodName.equals(XConstants.EXECUTOR_EXECUTE))
 		{
 			xexecutor_xexecute(currentLine, script, binding, context);
 		}
-		else if(methodName.equals(XConstants.SHUTDOWN_NOW))
+		else if(methodName.equals(XConstants.EXECUTOR_SHUTDOWN_NOW))
 		{
 			context.xexecutorService().xshutdownNow();
 		}
-		else if(methodName.equals(XConstants.INVOKE_ALL))
+		else if(methodName.equals(XConstants.EXECUTOR_INVOKE_ALL))
 		{
 			xexecutor_xinvokeAll(script, binding, context);
 		}
-		else if(methodName.equals(XConstants.INVOKE_ANY))
+		else if(methodName.equals(XConstants.EXECUTOR_INVOKE_ANY))
 		{
 			return xexecutor_xinvokeAny(currentLine, script, binding, context);
 		}
@@ -875,7 +885,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						currentLine.xclose();
 						break;
 					}
-					if(xisBlock(methodName))
+					if(xisBlock(methodName, scanner))
 					{
 						xgoto("", cachedScript);
 					}
@@ -1246,7 +1256,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return defaultValue;
 	}
 	
-	protected boolean xisBlock(String method) throws Exception
+	protected boolean xisBlock(String method, XScanner scanner) throws Exception
 	{
 		switch(method)
 		{
@@ -1257,8 +1267,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		case XConstants.FINALLY:
 		case XConstants.FOR:
 		case XConstants.IF:
-		case XConstants.INVOKE_ALL:
-		case XConstants.INVOKE_ANY:
+		case XConstants.EXECUTOR_INVOKE_ALL:
+		case XConstants.EXECUTOR_INVOKE_ANY:
 		case XConstants.LAMBDA:
 		case XConstants.SUPER:
 		case XConstants.SYNCHRONIZED:
@@ -1287,7 +1297,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	
 	protected void xsuper_debug(XScript script, XBinding bindings, XContext context) throws Exception
 	{
-		// TODO Auto-generated method stub
+		xsuper_debug("", script, bindings, context);
 	}
 	
 	protected void xsuper_help(XScanner currentLine, XBinding binding, XContext context) throws Exception
@@ -1353,19 +1363,19 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				}
 			}
 			XWriter writer = context.xscriptContext().xgetWriter();
-			xsuper_xhelp(xcls, method, writer);
+			xsuper_help(xcls, method, writer);
 		}
 		else
 		{
 			XWriter writer = context.xscriptContext().xgetWriter();
 			for(XClass cls : binding.xgetClasses())
 			{
-				xsuper_xhelp(cls, "", writer);
+				xsuper_help(cls, "", writer);
 			}
 		}
 	}
 
-	protected void xsuper_xhelp(XClass xcls, String method, XWriter writer) throws Exception
+	protected void xsuper_help(XClass xcls, String method, XWriter writer) throws Exception
 	{
 		if(method.isEmpty())
 		{
@@ -1605,5 +1615,128 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	public XBindings xcreateBindings() throws Exception {
 		// TODO Auto-generated method stub
 		return xfactory.xBindings();
+	}
+	
+	protected XLine xsuper_debug(String endLine, XScript script, XBinding binding, XContext context) throws Exception 
+	{
+		for(XLine currentLine = null; script.xhasNextLine(); currentLine = script.xnextLine())
+		{
+			XScanner scanner = currentLine.xscanner();
+			if(scanner.xhasNext())
+			{
+				String methodName = xmethod(scanner);
+				if(methodName.isEmpty() == false)
+				{
+					if(endLine.isEmpty() == false && methodName.equals(endLine))
+					{
+						return currentLine;
+					}
+					else if(methodName.equals(XConstants.FINAL))
+					{
+						currentLine.xclose();
+						break;
+					}
+					else if(methodName.equals(XConstants.RETURN))
+					{
+						xreturn(scanner, binding.xbindings(), binding.xfactory());
+						return null;
+					}
+					else if(methodName.equals(XConstants.SUPER))
+					{
+						if(scanner.xhasNext())
+						{
+							methodName = scanner.xnext();
+							if(methodName.isEmpty() == false)
+							{
+								
+							}
+						}
+					}
+					else 
+					{
+						xeval(methodName, currentLine, script, binding, context);
+					}
+				}
+			}
+			currentLine.xclose();
+		}
+		return null;
+	}
+	
+	protected void xsuper_debug(String method, XLine currentLine, XScript script, XBinding binding, XContext context) throws Exception
+	{
+		
+	}
+	
+	protected void xassert(XScanner scanner, XScript script, XBinding binding, XContext context) throws Exception
+	{
+		assert(xif(scanner, binding.xbindings()));
+	}
+	
+	public void xsuper_test(XScript script, XBinding binding, XContext context) throws Exception {
+		context.xnotifier().xpleaseStop();
+		context.xnotifier().xfireTestStarted(null);
+		xsuper_test("", script, binding, context);
+		context.xnotifier().xfireTestFinished(null);
+	}
+	
+	protected boolean xsuper_test(String endLine, XScript script, XBinding binding, XContext context) throws Exception 
+	{
+		boolean bool = false;
+		for(XLine currentLine = null; script.xhasNextLine(); currentLine = script.xnextLine())
+		{
+			XScanner scanner = currentLine.xscanner();
+			if(scanner.xhasNext())
+			{
+				String methodName = xmethod(scanner);
+				if(methodName.isEmpty() == false)
+				{
+					if(methodName.equals(XConstants.FINAL))
+					{
+						currentLine.xclose();
+						break;
+					}
+					else if(methodName.equals(XConstants.RETURN))
+					{
+						xreturn(scanner, binding.xbindings(), binding.xfactory());
+						return bool;
+					}
+					else if(methodName.equals(XConstants.ASSERT))
+					{
+						bool = xtest_assert(scanner, binding.xbindings(), context.xnotifier(), binding.xrunnerFactory());
+					}
+					else
+					{
+						try
+						{
+							xeval(methodName, currentLine, script, binding, context);
+						}
+						catch(Exception ex)
+						{
+							bool = false;
+							XException exception = binding.xfactory().xException(ex);
+							context.xnotifier().xfireTestFailure(binding.xrunnerFactory().xFailure("", exception));
+						}
+					}
+				}
+			}
+			currentLine.xclose();
+			if(!bool)
+			{
+				xgoto("", script);
+				break;
+			}
+		}
+		return bool;
+	}
+	
+	protected boolean xtest_assert(XScanner scanner, XBindings bindings, XRunNotifier notifier, XRunnerFactory factory) throws Exception
+	{
+		boolean bool = xif(scanner, bindings);
+		if(!bool)
+		{
+			notifier.xfireTestFailure(factory.xFailure("", null));
+		}
+		return bool;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import xproject.xlang.XClass;
 import xproject.xlang.XFactory;
 import xproject.xscript.XBindings;
+import xproject.xunit.xrunner.XRunnerFactory;
 
 public class XBindingImpl implements XBinding 
 {
@@ -62,5 +63,11 @@ public class XBindingImpl implements XBinding
 	public static XBinding xnew(XBindings bindings, XFactory factory)
 	{
 		return new XBindingImpl(bindings, factory);
+	}
+
+	@Override
+	public XRunnerFactory xrunnerFactory() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

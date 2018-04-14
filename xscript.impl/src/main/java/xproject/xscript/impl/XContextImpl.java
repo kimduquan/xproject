@@ -2,6 +2,7 @@ package xproject.xscript.impl;
 
 import xproject.xlang.XClassLoader;
 import xproject.xscript.XScriptContext;
+import xproject.xunit.xrunner.XRunNotifier;
 import xproject.xutil.xconcurrent.XExecutorService;
 import xproject.xutil.xlogging.XLogger;
 
@@ -57,5 +58,17 @@ public class XContextImpl implements XContext {
 	public static XContext xnew(XScriptContext scriptContext, XClassLoader classLoader, XLogger logger, XExecutorService executorService)
 	{
 		return new XContextImpl(scriptContext, classLoader, logger, executorService);
+	}
+
+	@Override
+	public XDebugger xdebugger() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public XRunNotifier xnotifier() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
