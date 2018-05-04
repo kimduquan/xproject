@@ -50,7 +50,7 @@ public class XCachedScriptImpl implements XCachedScript {
 		finalize();
 	}
 
-	public void xrefresh() throws Exception 
+	public void xcontinue() throws Exception 
 	{
 		// TODO Auto-generated method stub
 		if(iterator != null)
@@ -62,7 +62,7 @@ public class XCachedScriptImpl implements XCachedScript {
 		return new XCachedScriptImpl(script);
 	}
 
-	public void xstopCaching() throws Exception 
+	public void xfinal() throws Exception 
 	{
 		// TODO Auto-generated method stub
 		if(iterator == null)

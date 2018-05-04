@@ -558,7 +558,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					else if(methodName.equals(XConstants.CONTINUE))
 					{
 						currentLine.xclose();
-						cachedScript.xrefresh();
+						cachedScript.xcontinue();
 						continue;
 					}
 					else if(methodName.equals(XConstants.WHILE))
@@ -566,7 +566,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						bool = xif(currentLine.xscanner(), bindings);
 						if(bool)
 						{
-							cachedScript.xrefresh();
+							cachedScript.xcontinue();
 						}
 					}
 					else if(methodName.equals(XConstants.RETURN))
@@ -613,11 +613,11 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				{
 					if(methodName.equals(XConstants.FINAL))
 					{
-						cachedScript.xstopCaching();
+						cachedScript.xfinal();
 						index++;
 						if(index < length)
 						{
-							cachedScript.xrefresh();
+							cachedScript.xcontinue();
 							if(!xreturn.isEmpty())
 							{
 								bindings.xput(xreturn, xarray.xget(index));
@@ -639,7 +639,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						index++;
 						if(index < length)
 						{
-							cachedScript.xrefresh();
+							cachedScript.xcontinue();
 							if(!xreturn.isEmpty())
 							{
 								bindings.xput(xreturn, xarray.xget(index));
@@ -889,8 +889,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 					{
 						xgoto("", cachedScript);
 					}
-					cachedScript.xstopCaching();
-					cachedScript.xrefresh();
+					cachedScript.xfinal();
+					cachedScript.xcontinue();
 					tasks.add(xfactory.xEvalTask(this, cachedScript, binding, context));
 					cachedScript = xfactory.xCachedScript(script);
 				}
@@ -1129,12 +1129,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				{
 					if(methodName.equals(XConstants.FINAL))
 					{
-						cachedScript.xstopCaching();
+						cachedScript.xfinal();
 						xwhile = xline.xclone();
 						bool = xif(xwhile.xscanner(), bindings);
 						xwhile.xclose();
 						if(bool)
-							cachedScript.xrefresh();
+							cachedScript.xcontinue();
 					}
 					else if(methodName.equals(XConstants.RETURN))
 					{
@@ -1152,7 +1152,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						bool = xif(xwhile.xscanner(), bindings);
 						xwhile.xclose();
 						if(bool)
-							cachedScript.xrefresh();
+							cachedScript.xcontinue();
 						continue;
 					}
 					else
@@ -1382,7 +1382,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			writer.xwrite(XConstants.CLASS + XConstants.PARAMETER_SEPARATOR + xcls.xgetSimpleName());
 			for(XMethod xmethod : xcls.xgetMethods())
 			{
-				xexecutor_xhelp(xmethod, xcls);
+				xsuper_xhelp(xmethod, xcls);
 			}
 			writer.xwrite(XConstants.FINAL);
 		}
@@ -1392,13 +1392,13 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			for(XMethod xmethod : xcls.xgetMethods())
 			{
 				if(xmethod.xgetName().equals(method))
-					xexecutor_xhelp(xmethod, xcls);
+					xsuper_xhelp(xmethod, xcls);
 			}
 			writer.xwrite(XConstants.FINAL);
 		}
 	}
 	
-	protected void xexecutor_xhelp(XMethod xmethod, XClass xcls) throws Exception
+	protected void xsuper_xhelp(XMethod xmethod, XClass xcls) throws Exception
 	{
 		StringBuilder text = new StringBuilder();
 		text.append(xmethod.xgetName());
@@ -1592,8 +1592,8 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	{
 		XCachedScript cachedScript = xfactory.xCachedScript(script);
 		xgoto("", cachedScript);
-		cachedScript.xstopCaching();
-		cachedScript.xrefresh();
+		cachedScript.xfinal();
+		cachedScript.xcontinue();
 		XEvalTask task = xfactory.xEvalTask(this, cachedScript, binding, context);
 		return task;
 	}
@@ -1682,7 +1682,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	
 	protected boolean xsuper_test(String endLine, XScript script, XBinding binding, XContext context) throws Exception 
 	{
-		boolean bool = false;
+		boolean bool = true;
 		for(XLine currentLine = null; script.xhasNextLine(); currentLine = script.xnextLine())
 		{
 			XScanner scanner = currentLine.xscanner();
@@ -1721,11 +1721,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				}
 			}
 			currentLine.xclose();
-			if(!bool)
-			{
-				xgoto("", script);
-				break;
-			}
 		}
 		return bool;
 	}

@@ -2,6 +2,6 @@ package xproject.xscript.impl;
 
 public interface XCachedScript extends XScript 
 {
-	void xrefresh() throws Exception;
-	void xstopCaching() throws Exception;
+	void xcontinue() throws Exception;
+	void xfinal() throws Exception;
 }
