@@ -1,7 +1,9 @@
 package xproject.xscript.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import xproject.xio.XWriter;
 import xproject.xlang.XClass;
@@ -30,10 +32,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 	private XBinding xdefaultBinding;
 	private volatile XClass xclass;
 	private volatile XObject xthis;
+	private volatile Map<String, XField> xfields;
 	private XScriptFactory xfactory;
 	
 	protected XScriptEngineImpl(XScriptContext scriptContext, XBindings bindings, XScriptFactory factory)
 	{
+		xfields = null;
 		xclass = null;
 		xthis = null;
 		xdefaultContext = null;
@@ -111,7 +115,20 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			return xlambda(currentLine.xscanner(), script, binding, context);
 		}
 		else
+		{
+			XFactory factory = binding.xfactory();
+			Map<String, XField> fields = xfields(factory);
+			if(fields.containsKey(method))
+			{
+				XField xfield = fields.get(method);
+				XClass xtype = xfield.xgetType();
+				if(xtype.xgetName().equals(XObject.class.getName()))
+				{
+					return xextension(xfield, xtype, currentLine.xscanner(), binding.xbindings(), factory);
+				}
+			}
 			return xinvoke(method, currentLine, binding, context);
+		}
 		return null;
 	}
 	
@@ -698,7 +715,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 			String methodName = scanner.xnext();
 			if(methodName.isEmpty() == false)
 			{
-				XBindings bindings = binding.xbindings();
 				if(methodName.equals(XConstants.EXECUTOR))
 				{
 					return xexecutor(currentLine, script, binding, context);
@@ -723,16 +739,6 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 				{
 					xsuper_test(script, binding, context);
 				}
-				else if(methodName.startsWith(XConstants.X_METHOD_NAME_PREFIX) == false)
-				{
-					XFactory factory = binding.xfactory();
-					XField xfield = xclass(factory).xgetField(methodName);
-					if(xfield != null)
-					{
-						return xextension(methodName, xfield, currentLine.xscanner(), bindings, factory);
-					}
-					return xinvoke(methodName, xthis(factory), xclass(factory), currentLine.xscanner(), binding, context);
-				}
 			}
 		}
 		return null;
@@ -740,6 +746,15 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 
 	public void xfinalize() throws Throwable 
 	{
+		if(xfields != null)
+		{
+			for(XField field : xfields.values())
+			{
+				field.xfinalize();
+			}
+			xfields.clear();
+			xfields = null;
+		}
 		if(xclass != null)
 		{
 			xclass.xfinalize();
@@ -747,6 +762,7 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		}
 		if(xthis != null)
 		{
+			xthis.xfinalize();
 			xthis = null;
 		}
 		finalize();
@@ -950,25 +966,24 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		return xobject;
 	}
 	
-	protected XObject xextension(String fieldName, XField xfield, XScanner currentLine, XBindings bindings, XFactory factory) throws Exception
+	protected XObject xextension(XField xfield, XClass xtype, XScanner currentLine, XBindings bindings, XFactory factory) throws Exception
 	{
+		XObject xobject = null;
 		if(currentLine.xhasNext())
 		{
 			String method = currentLine.xnext();
 			if(method.isEmpty() == false)
 			{
-				XClass xtype = xfield.xgetType();
 				XObject[] xparameters = xparameter(currentLine, bindings, factory);
 				XMethod xmethod = xmethod(method, xtype, xparameters);
 				if(xmethod != null)
 				{
 					if(xmethod.xgetModifiers().xisStatic())
 					{
-						return xmethod.xinvoke(XObject.xnull, xparameters);
+						xobject = xmethod.xinvoke(XObject.xnull, xparameters);
 					}
 					else
 					{
-						XObject xobject = null;
 						if(xfield.xgetModifiers().xisStatic())
 						{
 							xobject = xfield.xget(XObject.xnull);
@@ -977,12 +992,12 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 						{
 							xobject = xfield.xget(xthis(factory));
 						}
-						return xmethod.xinvoke(xobject, xparameters);
+						xobject = xmethod.xinvoke(xobject, xparameters);
 					}
 				}
 			}
 		}
-		return null;
+		return xobject;
 	}
 
 	protected XClass xclass(XFactory factory) throws Exception
@@ -997,6 +1012,21 @@ public class XScriptEngineImpl implements XScriptEngine, XEngine
 		if(xthis == null)
 			xthis = factory.xObject(this);
 		return xthis;
+	}
+	
+	protected Map<String, XField> xfields(XFactory factory) throws Exception
+	{
+		if(xfields == null)
+		{
+			xfields = new HashMap<String, XField>();
+			XField[] fields = xclass(factory).xgetFields();
+			for(XField field : fields)
+			{
+				xfields.put(field.xgetName(), field);
+			}
+			fields = null;
+		}
+		return xfields;
 	}
 	
 	protected XMethod xmethod(String method, XClass xtype, XObject[] xparameters) throws Exception
