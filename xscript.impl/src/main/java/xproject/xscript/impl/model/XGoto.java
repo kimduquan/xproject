@@ -1,8 +1,8 @@
 package xproject.xscript.impl.model;
 
-public class XImport extends XCommand {
+public class XGoto extends XCommand {
 
-	public XImport(XParameters parameters) {
+	public XGoto(XParameters parameters) {
 		super(parameters);
 		// TODO Auto-generated constructor stub
 	}
@@ -10,6 +10,7 @@ public class XImport extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		xparameters().xclassLoader().xloadClass(xparameters().xclass());
+
 	}
+
 }

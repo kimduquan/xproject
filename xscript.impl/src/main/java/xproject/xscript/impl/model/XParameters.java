@@ -12,7 +12,7 @@ import xproject.xscript.impl.XConstants;
 import xproject.xscript.impl.XFutureObject;
 import xproject.xutil.XScanner;
 
-public class XParameters implements XRemote {
+public class XParameters implements XRemote, AutoCloseable {
 
 	private XScanner xscanner;
 	private XScanner current;
@@ -266,5 +266,16 @@ public class XParameters implements XRemote {
 			}
 		}
 		return xparameterTypes;
+	}
+
+	@Override
+	public void close() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			xfinalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

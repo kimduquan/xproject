@@ -1,13 +1,12 @@
 package xproject.xscript.impl.model;
 
-import xproject.xlang.XFactory;
 import xproject.xrmi.XRemote;
 
-public class XAutoCloseableImpl<T extends XRemote> implements AutoCloseable {
+public class XAutoCloseable<T extends XRemote> implements AutoCloseable {
 
 	private T xremote;
 	
-	public XAutoCloseableImpl(T remote)
+	public XAutoCloseable(T remote)
 	{
 		xremote = remote;
 	}

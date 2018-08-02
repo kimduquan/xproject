@@ -5,7 +5,7 @@ import xproject.xrmi.XRemote;
 import xproject.xscript.XBindings;
 import xproject.xscript.impl.XFutureObject;
 
-public class XThisParameter implements XRemote {
+public class XThisParameter implements XRemote, AutoCloseable {
 
 	private XParameters xparameters;
 	private XObject xthis;
@@ -24,25 +24,35 @@ public class XThisParameter implements XRemote {
 		finalize();
 	}
 
-	public XObject xthis()
+	public XObject xthis() throws Exception
 	{
-		return xthis;
-	}
-	
-	public void xparse() throws Exception
-	{
-		String name = xparameters.xthis();
-		XBindings xbindings = xparameters.xbindings();
-		if(name.isEmpty() == false && xbindings.xcontainsKey(name))
+		if(xthis == null)
 		{
-			xthis = xbindings.xget(name);
-			if(xthis != null)
+			String name = xparameters.xthis();
+			XBindings xbindings = xparameters.xbindings();
+			if(name.isEmpty() == false && xbindings.xcontainsKey(name))
 			{
-				if(xthis instanceof XFutureObject)
+				xthis = xbindings.xget(name);
+				if(xthis != null)
 				{
-					xthis = ((XFutureObject)xthis).xfuture().xget();
+					if(xthis instanceof XFutureObject)
+					{
+						xthis = ((XFutureObject)xthis).xfuture().xget();
+					}
 				}
 			}
+		}
+		return xthis;
+	}
+
+	@Override
+	public void close() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			xfinalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

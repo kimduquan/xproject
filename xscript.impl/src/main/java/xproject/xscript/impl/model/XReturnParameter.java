@@ -4,7 +4,7 @@ import xproject.xlang.XObject;
 import xproject.xrmi.XRemote;
 import xproject.xscript.XBindings;
 
-public class XReturnParameter implements XRemote {
+public class XReturnParameter implements XRemote, AutoCloseable {
 
 	private XParameters xparameters;
 	
@@ -27,6 +27,17 @@ public class XReturnParameter implements XRemote {
 		if(name.isEmpty() == false)
 		{
 			xbindings.xput(name, xreturn);
+		}
+	}
+
+	@Override
+	public void close() throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			xfinalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
