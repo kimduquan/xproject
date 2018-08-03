@@ -1,8 +1,8 @@
 package xproject.xscript.impl.model;
 
-public class XSynchronized extends XCommand {
+public class XFinally extends XCommand {
 
-	protected XSynchronized(XParameters parameters, XEval eval) {
+	protected XFinally(XParameters parameters, XEval eval) {
 		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
@@ -10,7 +10,7 @@ public class XSynchronized extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-
+		xeval().xrun();
 	}
-
+	
 }

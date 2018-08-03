@@ -4,8 +4,8 @@ import xproject.xlang.XObject;
 
 public class XInvoke extends XCommand {
 
-	public XInvoke(XParameters parameters) {
-		super(parameters);
+	protected XInvoke(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

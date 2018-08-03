@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XSuper extends XCommand {
 
-	public XSuper(XParameters parameters) {
-		super(parameters);
+	protected XSuper(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

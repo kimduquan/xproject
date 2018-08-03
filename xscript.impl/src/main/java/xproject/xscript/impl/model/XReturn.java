@@ -4,13 +4,12 @@ import xproject.xlang.XObject;
 
 public class XReturn extends XCommand {
 	
-	private XObject xreturn;
-
-	public XReturn(XParameters parameters) {
-		super(parameters);
+	protected XReturn(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
-		xreturn = null;
 	}
+
+	private XObject xreturn;
 
 	public XObject xreturn()
 	{
@@ -21,9 +20,9 @@ public class XReturn extends XCommand {
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
 		String xthis = xparameters().xthis();
-		if(xparameters().xbindings().xcontainsKey(xthis))
+		if(xparameters().xeval().xbindings().xcontainsKey(xthis))
 		{
-			xreturn = xparameters().xbindings().xget(xthis);
+			xreturn = xparameters().xeval().xbindings().xget(xthis);
 		}
 	}
 }

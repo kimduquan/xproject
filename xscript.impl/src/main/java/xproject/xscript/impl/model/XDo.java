@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XDo extends XCommand {
 
-	public XDo(XParameters parameters) {
-		super(parameters);
+	protected XDo(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

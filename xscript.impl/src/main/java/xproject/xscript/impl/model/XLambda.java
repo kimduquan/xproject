@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XLambda extends XCommand {
 
-	public XLambda(XParameters parameters) {
-		super(parameters);
+	protected XLambda(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

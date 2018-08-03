@@ -26,7 +26,7 @@ public class XClassParameter implements XRemote, AutoCloseable {
 	{
 		if(xclass == null)
 		{
-			xclass = xparameters.xclassLoader().xloadClass(xparameters.xclass());
+			xclass = xparameters.xeval().xclassLoader().xloadClass(xparameters.xclass());
 		}
 		return xclass;
 	}

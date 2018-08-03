@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XCommentBlock extends XCommand {
 
-	public XCommentBlock(XParameters parameters) {
-		super(parameters);
+	protected XCommentBlock(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

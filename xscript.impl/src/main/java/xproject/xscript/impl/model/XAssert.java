@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XAssert extends XCommand {
 
-	public XAssert(XParameters parameters) {
-		super(parameters);
+	protected XAssert(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

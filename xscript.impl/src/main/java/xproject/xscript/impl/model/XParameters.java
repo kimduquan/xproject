@@ -3,70 +3,58 @@ package xproject.xscript.impl.model;
 import java.util.ArrayList;
 
 import xproject.xlang.XClass;
-import xproject.xlang.XClassLoader;
-import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
 import xproject.xrmi.XRemote;
-import xproject.xscript.XBindings;
 import xproject.xscript.impl.XConstants;
 import xproject.xscript.impl.XFutureObject;
 import xproject.xutil.XScanner;
 
 public class XParameters implements XRemote, AutoCloseable {
 
+	private XEval xeval;
 	private XScanner xscanner;
-	private XScanner current;
-	private XFactory xfactory;
-	private XBindings xbindings;
-	private String method;
+	private String xmethod;
 	private String xthis;
 	private String xclass;
 	private String xreturn;
 	private XObject[] xparameters;
 	private XClass[] xparameterTypes;
-	private XClassLoader xclassLoader;
 	
-	public XParameters(XScanner scanner, XFactory factory, XBindings bindings, XClassLoader classLoader)
+	public XParameters(XScanner scanner, XEval eval, String method)
 	{
+		xeval = eval;
 		xscanner = scanner;
-		current = null;
-		xfactory = factory;
-		xbindings = bindings;
-		method = null;
+		xmethod = method;
 		xthis = null;
 		xclass = null;
 		xreturn = null;
 		xparameters = null;
 		xparameterTypes = null;
-		xclassLoader = classLoader;
 	}
 	
 	@Override
 	public void xfinalize() throws Throwable {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated xmethod stub
 		xscanner = null;
-		current = null;
-		xfactory = null;
-		xbindings = null;
-		method = null;
+		xeval = null;
+		xmethod = null;
 		xthis = null;
 		xclass = null;
 		xreturn = null;
 		xparameters = null;
 		xparameterTypes = null;
-		xclassLoader = null;
 		finalize();
 	}
 
 	public String xmethod() throws Exception
 	{
-		if(method == null)
+		if(xmethod == null)
 		{
-			for(method = ""; method.isEmpty() && xscanner.xhasNext(); method = xscanner.xnext())
+			for(xmethod = ""; xmethod.isEmpty() && xscanner.xhasNext(); xmethod = xscanner.xnext())
 			{
 			}
 		}
-		return method;
+		return xmethod;
 	}
 	
 	public String xclass() throws Exception
@@ -163,26 +151,6 @@ public class XParameters implements XRemote, AutoCloseable {
 		return xscanner;
 	}
 	
-	public XScanner xcurrent()
-	{
-		return current;
-	}
-	
-	public XFactory xfactory()
-	{
-		return xfactory;
-	}
-	
-	public XBindings xbindings()
-	{
-		return xbindings;
-	}
-	
-	public XClassLoader xclassLoader()
-	{
-		return xclassLoader;
-	}
-	
 	public XObject[] xparameters() throws Exception
 	{
 		if(xparameters == null)
@@ -196,31 +164,31 @@ public class XParameters implements XRemote, AutoCloseable {
 					paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
 					if(xscanner.xhasNextBoolean())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextBoolean()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextBoolean()));
 					}
 					else if(xscanner.xhasNextByte())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextByte()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextByte()));
 					}
 					else if(xscanner.xhasNextDouble())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextDouble()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextDouble()));
 					}
 					else if(xscanner.xhasNextFloat())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextFloat()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextFloat()));
 					}
 					else if(xscanner.xhasNextInt())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextInt()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextInt()));
 					}
 					else if(xscanner.xhasNextLong())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextLong()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextLong()));
 					}
 					else if(xscanner.xhasNextShort())
 					{
-						paramValues.add(xfactory.xObject(xscanner.xnextShort()));
+						paramValues.add(xeval.xfactory().xObject(xscanner.xnextShort()));
 					}
 					else if(xscanner.xhasNext())
 					{
@@ -228,9 +196,9 @@ public class XParameters implements XRemote, AutoCloseable {
 						if(value.startsWith(XConstants.OBJECT_REF_PREFIX))
 						{
 							value = value.substring(XConstants.OBJECT_REF_PREFIX.length());
-							if(xbindings.xcontainsKey(value))
+							if(xeval.xbindings().xcontainsKey(value))
 							{
-								XObject xobject = xbindings.xget(paramName);
+								XObject xobject = xeval.xbindings().xget(paramName);
 								if(xobject != null)
 								{
 									if(xobject instanceof XFutureObject)
@@ -243,7 +211,7 @@ public class XParameters implements XRemote, AutoCloseable {
 						}
 						else
 						{
-							paramValues.add(xfactory.xObject(value));
+							paramValues.add(xeval.xfactory().xObject(value));
 						}
 					}
 				}
@@ -270,12 +238,17 @@ public class XParameters implements XRemote, AutoCloseable {
 
 	@Override
 	public void close() throws Exception {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated xmethod stub
 		try {
 			xfinalize();
 		} catch (Throwable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public XEval xeval()
+	{
+		return xeval;
 	}
 }

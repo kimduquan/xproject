@@ -25,7 +25,7 @@ public class XEval extends XCommand {
 	
 	public XEval(XFactory factory, XClassLoader classLoader, String endLine)
 	{
-		super(null);
+		super(null, null);
 		xfactory = factory;
 		end = endLine;
 		xclassLoader = classLoader;
@@ -47,66 +47,66 @@ public class XEval extends XCommand {
 		XCommand xcommand = null;
 		if(method.equals(XConstants.IMPORT))
 		{
-			xcommand = new XImport(xparameters);
+			xcommand = new XImport(xparameters, this);
 		}
 		else if(method.equals(XConstants.NEW))
 		{
-			xcommand = new XNew(xparameters);
+			xcommand = new XNew(xparameters, this);
 		}
 		else if(method.equals(XConstants.TRY))
 		{
-			xcommand = new XTry(xparameters);
+			xcommand = new XTry(xparameters, this);
 		}
 		else if(method.equals(XConstants.IF))
 		{
-			xcommand = new XIf(xparameters);
+			xcommand = new XIf(xparameters, this);
 		}
 		else if(method.equals(XConstants.SUPER))
 		{
-			xcommand = new XSuper(xparameters);
+			xcommand = new XSuper(xparameters, this);
 		}
 		else if(method.equals(XConstants.DO))
 		{
-			xcommand = new XDo(xparameters);
+			xcommand = new XDo(xparameters, this);
 		}
 		else if(method.equals(XConstants.FOR))
 		{
-			xcommand = new XFor(xparameters);
+			xcommand = new XFor(xparameters, this);
 		}
 		else if(method.equals(XConstants.GOTO))
 		{
-			xcommand = new XGoto(xparameters);
+			xcommand = new XGoto(xparameters, this, XConstants.FINAL);
 		}
 		else if(method.equals(XConstants.WHILE))
 		{
-			xcommand = new XWhile(xparameters);
+			xcommand = new XWhile(xparameters, this);
 		}
 		else if(method.equals(XConstants.THROW))
 		{
-			xcommand = new XThrow(xparameters);
+			xcommand = new XThrow(xparameters, this);
 		}
 		else if(method.equals(XConstants.SYNCHRONIZED))
 		{
-			xcommand = new XSynchronized(xparameters);
+			xcommand = new XSynchronized(xparameters, this);
 		}
 		else if(method.equals(XConstants.COMMENT_LINE))
 		{
-			xcommand = new XComment(xparameters);
+			xcommand = new XComment(xparameters, this);
 		}
 		else if(method.equals(XConstants.COMMENT_BLOCK))
 		{
-			xcommand = new XCommentBlock(xparameters);
+			xcommand = new XCommentBlock(xparameters, this);
 		}
 		else if(method.equals(XConstants.LAMBDA))
 		{
-			xcommand = new XLambda(xparameters);
+			xcommand = new XLambda(xparameters, this);
 		}
 		else if(method.equals(XConstants.ASSERT))
 		{
-			xcommand = new XAssert(xparameters);
+			xcommand = new XAssert(xparameters, this);
 		}
 		else
-			xcommand = new XInvoke(xparameters);
+			xcommand = new XInvoke(xparameters, this);
 		return xcommand;
 	}
 
@@ -119,7 +119,7 @@ public class XEval extends XCommand {
 		{
 			try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xscanner.xnextLine()))
 			{
-				try(XParameters parameters = new XParameters(current.x(), xfactory, xbindings, xclassLoader))
+				try(XParameters parameters = new XParameters(current.x(), this, null))
 				{
 					String method = parameters.xmethod();
 					if(method.isEmpty() == false)
@@ -142,6 +142,11 @@ public class XEval extends XCommand {
 		}
 	}
 	
+	public String xscript()
+	{
+		return xscript;
+	}
+	
 	public void xscript(String script)
 	{
 		xscript = script;
@@ -152,9 +157,19 @@ public class XEval extends XCommand {
 		xscriptContext = scriptContext;
 	}
 	
+	public XScriptContext xscriptContext()
+	{
+		return xscriptContext;
+	}
+	
 	public void xbindings(XBindings bindings)
 	{
 		xbindings = bindings;
+	}
+	
+	public XBindings xbindings()
+	{
+		return xbindings;
 	}
 	
 	public void xscanner(XScanner scanner)
@@ -162,8 +177,23 @@ public class XEval extends XCommand {
 		xscanner = scanner;
 	}
 	
+	public XScanner xscanner()
+	{
+		return xscanner;
+	}
+	
 	public XObject xreturn()
 	{
 		return xreturn;
+	}
+	
+	public XFactory xfactory()
+	{
+		return xfactory;
+	}
+	
+	public XClassLoader xclassLoader()
+	{
+		return xclassLoader;
 	}
 }

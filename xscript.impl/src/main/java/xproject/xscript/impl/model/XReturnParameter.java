@@ -23,7 +23,7 @@ public class XReturnParameter implements XRemote, AutoCloseable {
 	public void xreturn(XObject xreturn) throws Exception
 	{
 		String name = xparameters.xreturn();
-		XBindings xbindings = xparameters.xbindings();
+		XBindings xbindings = xparameters.xeval().xbindings();
 		if(name.isEmpty() == false)
 		{
 			xbindings.xput(name, xreturn);

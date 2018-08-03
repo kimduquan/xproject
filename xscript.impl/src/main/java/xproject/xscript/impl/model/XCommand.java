@@ -14,15 +14,22 @@ import xproject.xrmi.XRemote;
 public abstract class XCommand implements XRemote, XRunnable, XAutoCloseable, Runnable, AutoCloseable {
 
 	private XParameters xparameters;
+	private XEval xeval;
 	
-	protected XCommand(XParameters parameters)
+	protected XCommand(XParameters parameters, XEval eval)
 	{
 		xparameters = parameters;
+		xeval = eval;
 	}
 	
 	protected XParameters xparameters()
 	{
 		return xparameters;
+	}
+	
+	protected XEval xeval()
+	{
+		return xeval;
 	}
 
 	@Override
@@ -57,6 +64,7 @@ public abstract class XCommand implements XRemote, XRunnable, XAutoCloseable, Ru
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
 		xparameters = null;
+		xeval = null;
 		finalize();
 	}
 }

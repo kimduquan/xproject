@@ -6,8 +6,8 @@ import xproject.xlang.xreflect.XConstructor;
 
 public class XNew extends XCommand {
 
-	public XNew(XParameters parameters) {
-		super(parameters);
+	protected XNew(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

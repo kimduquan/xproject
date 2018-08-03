@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XIf extends XCommand {
 
-	public XIf(XParameters parameters) {
-		super(parameters);
+	protected XIf(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

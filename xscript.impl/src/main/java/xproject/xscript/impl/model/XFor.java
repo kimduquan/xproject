@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XFor extends XCommand {
 
-	public XFor(XParameters parameters) {
-		super(parameters);
+	protected XFor(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 

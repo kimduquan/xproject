@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XThrow extends XCommand {
 
-	public XThrow(XParameters parameters) {
-		super(parameters);
+	protected XThrow(XParameters parameters, XEval eval) {
+		super(parameters, eval);
 		// TODO Auto-generated constructor stub
 	}
 
