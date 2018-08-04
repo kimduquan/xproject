@@ -23,13 +23,22 @@ public class XEval extends XCommand {
 	
 	private XParameters xparameters;
 	
-	public XEval(XFactory factory, XClassLoader classLoader, String endLine)
+	private boolean isReturn;
+	private boolean isFinal;
+	private boolean isEnd;
+	
+	private XCommand xend;
+	
+	protected XEval(XFactory factory, XClassLoader classLoader, String end)
 	{
 		super(null, null);
 		xfactory = factory;
-		end = endLine;
+		this.end = end;
 		xclassLoader = classLoader;
 		xparameters = null;
+		isReturn = false;
+		isFinal = false;
+		isEnd = false;
 	}
 	
 	@Override
@@ -75,7 +84,7 @@ public class XEval extends XCommand {
 		}
 		else if(method.equals(XConstants.GOTO))
 		{
-			xcommand = new XGoto(xparameters, this, XConstants.FINAL);
+			xcommand = new XGoto(xparameters, this);
 		}
 		else if(method.equals(XConstants.WHILE))
 		{
@@ -109,13 +118,30 @@ public class XEval extends XCommand {
 			xcommand = new XInvoke(xparameters, this);
 		return xcommand;
 	}
+	
+	private void setFinal()
+	{
+		isFinal = true;
+	}
+	
+	private void setReturn()
+	{
+		isReturn = true;
+		if(xeval() != null)
+		{
+			xeval().setReturn();
+		}
+	}
+	
+	private void setEnd()
+	{
+		isEnd = true;
+	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		boolean bEnd = false;
-		boolean bReturn = false;
-		while(xscanner.xhasNextLine() && bEnd == false && bReturn == false)
+		while(xscanner.xhasNextLine() && isFinal == false && isReturn == false && isEnd == false)
 		{
 			try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xscanner.xnextLine()))
 			{
@@ -124,17 +150,32 @@ public class XEval extends XCommand {
 					String method = parameters.xmethod();
 					if(method.isEmpty() == false)
 					{
-						try(XCommand xcommand = xcommand(method))
-						{
-							xcommand.xrun();
-						}
 						if(method.equals(end))
 						{
-							bEnd = true;
+							setEnd();
 						}
 						else if(method.equals(XConstants.RETURN))
 						{
-							bReturn = true;
+							try(XCommand xcommand = xcommand(method))
+							{
+								xcommand.xrun();
+							}
+							setReturn();
+						}
+						else if(method.equals(XConstants.FINAL))
+						{
+							try(XCommand xcommand = xcommand(method))
+							{
+								xcommand.xrun();
+							}
+							setFinal();
+						}
+						else
+						{
+							try(XCommand xcommand = xcommand(method))
+							{
+								xcommand.xrun();
+							}
 						}
 					}
 				}
@@ -147,34 +188,14 @@ public class XEval extends XCommand {
 		return xscript;
 	}
 	
-	public void xscript(String script)
-	{
-		xscript = script;
-	}
-	
-	public void xscriptContext(XScriptContext scriptContext)
-	{
-		xscriptContext = scriptContext;
-	}
-	
 	public XScriptContext xscriptContext()
 	{
 		return xscriptContext;
 	}
 	
-	public void xbindings(XBindings bindings)
-	{
-		xbindings = bindings;
-	}
-	
 	public XBindings xbindings()
 	{
 		return xbindings;
-	}
-	
-	public void xscanner(XScanner scanner)
-	{
-		xscanner = scanner;
 	}
 	
 	public XScanner xscanner()
@@ -195,5 +216,25 @@ public class XEval extends XCommand {
 	public XClassLoader xclassLoader()
 	{
 		return xclassLoader;
+	}
+	
+	public XParameters xgoto(String end) throws Exception
+	{
+		return null;
+	}
+	
+	public static XEval xnew(XEval eval, String end) throws Exception
+	{
+		XEval xeval = new XEval(eval.xfactory, eval.xclassLoader, end);
+		xeval.xbindings = eval.xbindings;
+		xeval.xscanner = eval.xscanner;
+		xeval.xscript = eval.xscript;
+		xeval.xscriptContext = eval.xscriptContext;
+		return xeval;
+	}
+	
+	public XCommand xend()
+	{
+		return xend;
 	}
 }

@@ -251,4 +251,25 @@ public class XParameters implements XRemote, AutoCloseable {
 	{
 		return xeval;
 	}
+	
+	public String xstring(String name) throws Exception
+	{
+		String value = null;
+		if(xscanner.xhasNext())
+		{
+			String paramName = xscanner.xnext();
+			if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
+			{
+				paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
+				if(name != null)
+				{
+					if(name.equals(paramName))
+					{
+						value = xscanner.xnext();
+					}
+				}
+			}
+		}
+		return value;
+	}
 }

@@ -42,9 +42,4 @@ public class XCatch extends XCommand {
 		}
 		xexception = null;
 	}
-	
-	public XException xexception()
-	{
-		return xexception;
-	}
 }

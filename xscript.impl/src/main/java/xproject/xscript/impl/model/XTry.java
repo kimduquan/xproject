@@ -5,69 +5,68 @@ import xproject.xscript.impl.XConstants;
 
 public class XTry extends XCommand {
 
+	private XException xexception;
+	
 	protected XTry(XParameters parameters, XEval eval) {
 		super(parameters, eval);
 		// TODO Auto-generated constructor stub
+		xexception = null;
 	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
+		boolean hasCatched = false;
 		try
 		{
 			xeval().xrun();
 		}
 		catch(Exception ex)
 		{
-			XException xexception = xeval().xfactory().xException(ex);
-			xcatch(xexception);
+			xexception = xeval().xfactory().xException(ex);
+			hasCatched = xcatch();
 		}
 		finally
 		{
-			try(XGoto xgoto = new XGoto(xparameters(), xeval(), XConstants.FINALLY))
-			{
-				xgoto.xrun();
-				try(XParameters parameters = xgoto.xgoto())
-				{
-					try(XFinally xfinally = new XFinally(parameters, xeval()))
-					{
-						xfinally.xrun();
-					}
-				}
-			}
+			xfinally();
+		}
+		if(hasCatched == false && xexception == null)
+		{
+			xexception.xthrow();
 		}
 	}
 	
-	protected void xcatch(XException xexception) throws Exception
+	protected boolean xcatch() throws Exception
 	{
 		boolean hasCatched = false;
+		XParameters xnextCatch = null;
 		do
 		{
-			try(XGoto xgoto = new XGoto(xparameters(), xeval(), XConstants.CATCH))
+			xnextCatch = xeval().xgoto(XConstants.CATCH);
+			if(xnextCatch != null)
 			{
-				xgoto.xrun();
-				if(xgoto.xgoto() != null)
+				try(XParameters parameters = xnextCatch)
 				{
-					try(XParameters parameters = xgoto.xgoto())
+					try(XCatch xcatch = new XCatch(parameters, xeval(), xexception))
 					{
-						try(XCatch xcatch = new XCatch(parameters, xeval(), xexception))
-						{
-							xcatch.xrun();
-							if(xcatch.xexception() != null)
-							{
-								hasCatched = true;
-							}
-						}
+						xcatch.xrun();
 					}
 				}
-				else
-					break;
 			}
 		}
-		while(!hasCatched);
-		if(!hasCatched)
+		while(!hasCatched && xnextCatch != null);
+		return hasCatched;
+	}
+	
+	protected void xfinally() throws Exception
+	{
+		XParameters parameters = xeval().xgoto(XConstants.FINALLY);
+		if(parameters != null)
 		{
-			xexception.xthrow();
+			try(XFinally xfinally = new XFinally(parameters, xeval()))
+			{
+				xfinally.xrun();
+			}
 		}
 	}
 }
