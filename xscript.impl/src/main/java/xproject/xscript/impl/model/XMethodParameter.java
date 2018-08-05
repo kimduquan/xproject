@@ -1,5 +1,8 @@
 package xproject.xscript.impl.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import xproject.xlang.XClass;
 import xproject.xlang.xreflect.XMethod;
 import xproject.xrmi.XRemote;
@@ -42,8 +45,15 @@ public class XMethodParameter implements XRemote, AutoCloseable {
 			{
 				xtype = xthis.xthis().xgetClass();
 			}
-			
-			xmethod = xtype.xgetMethod(xparameters.xmethod(), xparameters.xparameterTypes());
+			ArrayList<XClass> temp = new ArrayList<XClass>();
+			Iterator<XClass> it = xparameters.xparameterTypes();
+			while(it.hasNext())
+			{
+				temp.add(it.next());
+			}
+			XClass[] array = new XClass[temp.size()];
+			array = temp.toArray(array);
+			xmethod = xtype.xgetMethod(xparameters.xmethod(), array);
 		}
 		return xmethod;
 	}

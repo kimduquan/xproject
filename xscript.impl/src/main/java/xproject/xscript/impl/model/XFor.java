@@ -6,7 +6,7 @@ import xproject.xlang.xreflect.XArray;
 public class XFor extends XIterator {
 
 	protected XFor(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+		super(parameters, eval, "");
 		// TODO Auto-generated constructor stub
 	}
 

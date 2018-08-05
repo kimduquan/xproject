@@ -10,7 +10,12 @@ public class XAssert extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		assert(XIf.xif(xparameters()));
+		boolean b = false;
+		try(XBooleanParameter xboolean = new XBooleanParameter(xparameters()))
+		{
+			b = xboolean.xboolean(false);
+		}
+		assert(b);
 	}
 
 	@Override

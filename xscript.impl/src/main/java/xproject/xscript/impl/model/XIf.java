@@ -12,33 +12,31 @@ public class XIf extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		if(xif(xparameters()))
+		try(XBooleanParameter xboolean = new XBooleanParameter(xparameters()))
 		{
-			XParameters parameters = xeval(xeval(), XConstants.ELSE);
-			if(parameters != null)
+			if(xboolean.xboolean(false))
 			{
-				try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
+				XParameters parameters = xeval(xeval(), XConstants.ELSE);
+				if(parameters != null)
 				{
-					xelse.xgoto(xeval(), "");
+					try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
+					{
+						xelse.xgoto(xeval(), "");
+					}
+				}
+			}
+			else
+			{
+				XParameters parameters = xgoto(xeval(), XConstants.ELSE);
+				if(parameters != null)
+				{
+					try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
+					{
+						xelse.xeval(xeval(), "");
+					}
 				}
 			}
 		}
-		else
-		{
-			XParameters parameters = xgoto(xeval(), XConstants.ELSE);
-			if(parameters != null)
-			{
-				try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
-				{
-					xelse.xeval(xeval(), "");
-				}
-			}
-		}
-	}
-
-	public static boolean xif(XParameters xparameters) throws Exception
-	{
-		return false;
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package xproject.xscript.impl.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import xproject.xlang.XClass;
 import xproject.xlang.XObject;
 import xproject.xlang.xreflect.XConstructor;
@@ -22,8 +25,25 @@ public class XNew extends XCommand {
 			try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 			{
 				XClass cls = xclass.xclass();
-				XConstructor xconstructor = cls.xgetConstructor(xparameters().xparameterTypes());
-				XObject xnew = xconstructor.xnewInstance(xparameters().xparameters());
+				ArrayList<XClass> temp = new ArrayList<XClass>();
+				Iterator<XClass> it = xparameters().xparameterTypes();
+				while(it.hasNext())
+				{
+					temp.add(it.next());
+				}
+				XClass[] array = new XClass[temp.size()];
+				array = temp.toArray(array);
+				XConstructor xconstructor = cls.xgetConstructor(array);
+				
+				ArrayList<XObject> temp2 = new ArrayList<XObject>();
+				Iterator<XObject> it2 = xparameters().xparameters();
+				while(it2.hasNext())
+				{
+					temp2.add(it2.next());
+				}
+				XObject[] array2 = new XObject[temp2.size()];
+				array2 = temp2.toArray(array2);
+				XObject xnew = xconstructor.xnewInstance(array2);
 				xreturn.xreturn(xnew);
 			}
 		}

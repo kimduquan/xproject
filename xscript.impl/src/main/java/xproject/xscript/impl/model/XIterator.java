@@ -9,19 +9,15 @@ import xproject.xutil.XScanner;
 
 public abstract class XIterator extends XCommand {
 
-	protected XIterator(XParameters parameters, XEval eval) {
+	protected XIterator(XParameters parameters, XEval eval, String stopLine) {
 		super(parameters, eval);
 		// TODO Auto-generated constructor stub
-		isFinal = false;
-		isBreak = false;
-		isContinue = false;
 		xcache = new ArrayList<XParameters>();
+		xstopLine = stopLine;
 	}
 
-	private boolean isFinal;
-	private boolean isBreak;
-	private boolean isContinue;
 	private List<XParameters> xcache;
+	private String xstopLine;
 
 	@Override
 	protected boolean xisBlock() {
@@ -35,17 +31,8 @@ public abstract class XIterator extends XCommand {
 		if(method.isEmpty() == false)
 		{
 			
-			if(method.equals(XConstants.FINAL))
+			if(method.equals(XConstants.FINAL) || method.equals(XConstants.CONTINUE) || method.equals(XConstants.BREAK) || method.equals(xstopLine))
 			{
-				isFinal = true;
-			}
-			else if(method.equals(XConstants.CONTINUE))
-			{
-				isContinue = true;
-			}
-			else if(method.equals(XConstants.BREAK))
-			{
-				isBreak = true;
 			}
 			else
 			{
@@ -53,22 +40,23 @@ public abstract class XIterator extends XCommand {
 				{
 					xcommand.xrun();
 				}
+				return null;
 			}
 		}
-		return null;
+		return parameters;
 	}
 	
 	protected XParameters xdo() throws Exception
 	{
 		Iterator<XParameters> it = xcache.iterator();
 		ArrayList<XParameters> temp = new ArrayList<XParameters>();
-		XParameters xwhile = null;
-		while(xeval().xscanner().xhasNextLine() && xwhile == null && isBreak == false && isFinal == false && isContinue == false && xeval().xisReturn() == false && xeval().xisFinal() == false);
+		XParameters xstopLine = null;
+		while(xeval().xscanner().xhasNextLine() && xstopLine == null && xeval().xisReturn() == false && xeval().xisFinal() == false);
 		{
 			if(it.hasNext())
 			{
 				XParameters parameters = it.next();
-				xwhile = xdo(parameters);
+				xstopLine = xdo(parameters);
 			}
 			else
 			{
@@ -76,14 +64,13 @@ public abstract class XIterator extends XCommand {
 				{
 					try(XParameters parameters = new XParameters(current.x(), xeval(), null))
 					{
-						xwhile = xdo(parameters);
+						xstopLine = xdo(parameters);
 						temp.add(parameters.xclone());
 					}
 				}
 			}
 		}
 		xcache.addAll(temp);
-		return xwhile;
+		return xstopLine;
 	}
-
 }

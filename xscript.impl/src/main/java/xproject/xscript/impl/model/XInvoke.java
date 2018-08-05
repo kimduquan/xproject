@@ -1,5 +1,8 @@
 package xproject.xscript.impl.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import xproject.xlang.XObject;
 
 public class XInvoke extends XCommand {
@@ -20,7 +23,15 @@ public class XInvoke extends XCommand {
 				{
 					if(xmethod.xmethod() != null)
 					{
-						XObject xobject = xmethod.xmethod().xinvoke(xthis.xthis(), xparameters().xparameters());
+						ArrayList<XObject> temp2 = new ArrayList<XObject>();
+						Iterator<XObject> it2 = xparameters().xparameters();
+						while(it2.hasNext())
+						{
+							temp2.add(it2.next());
+						}
+						XObject[] array2 = new XObject[temp2.size()];
+						array2 = temp2.toArray(array2);
+						XObject xobject = xmethod.xmethod().xinvoke(xthis.xthis(), array2);
 						try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 						{
 							xreturn.xreturn(xobject);
