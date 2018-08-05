@@ -14,52 +14,23 @@ public class XIf extends XCommand {
 		// TODO Auto-generated method stub
 		if(xif(xparameters()))
 		{
-			xif();
-		}
-		else
-		{
-			xelse();
-		}
-	}
-	
-	protected void xif() throws Exception
-	{
-		try(XEval xeval = XEval.xnew(xeval(), XConstants.ELSE))
-		{
-			xeval.xrun();
-			if(xeval.xend() != null)
+			XParameters parameters = xeval(xeval(), XConstants.ELSE);
+			if(parameters != null)
 			{
-				try(XCommand xelse = xeval.xend())
+				try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
 				{
-					try(XGoto xgoto = XGoto.xnew(xeval(), XConstants.FINAL))
-					{
-						xgoto.xrun();
-						if(xgoto.xline() != null)
-						{
-							try(XParameters p = xgoto.xline())
-							{
-								
-							}
-						}
-					}
+					xelse.xgoto(xeval(), "");
 				}
 			}
 		}
-	}
-	
-	protected void xelse() throws Exception
-	{
-		try(XGoto xgoto = XGoto.xnew(xeval(), XConstants.ELSE))
+		else
 		{
-			xgoto.xrun();
-			if(xgoto.xline() != null)
+			XParameters parameters = xgoto(xeval(), XConstants.ELSE);
+			if(parameters != null)
 			{
-				try(XParameters parameters = xgoto.xline())
+				try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
 				{
-					try(XElse xelse = new XElse(parameters, xeval()))
-					{
-						xelse.xrun();
-					}
+					xelse.xeval(xeval(), "");
 				}
 			}
 		}
@@ -68,5 +39,11 @@ public class XIf extends XCommand {
 	public static boolean xif(XParameters xparameters) throws Exception
 	{
 		return false;
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

@@ -10,7 +10,12 @@ public class XComment extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
+	}
 
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

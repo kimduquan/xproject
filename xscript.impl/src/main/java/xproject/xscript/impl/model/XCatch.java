@@ -25,7 +25,7 @@ public class XCatch extends XCommand {
 					try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 					{
 						xreturn.xreturn(xexception);
-						xeval().xrun();
+						xeval(xeval(), "");
 						return;
 					}
 				}
@@ -35,11 +35,22 @@ public class XCatch extends XCommand {
 				try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 				{
 					xreturn.xreturn(xexception);
-					xeval().xrun();
+					xeval(xeval(), "");
 					return;
 				}
 			}
 		}
 		xexception = null;
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	public XException xexception()
+	{
+		return xexception;
 	}
 }

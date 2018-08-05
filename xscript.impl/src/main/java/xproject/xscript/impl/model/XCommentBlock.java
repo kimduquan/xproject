@@ -12,17 +12,13 @@ public class XCommentBlock extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		try(XGoto xgoto = XGoto.xnew(xeval(), XConstants.COMMENT_BLOCK_END))
-		{
-			xgoto.xrun();
-			if(xgoto.xline() != null)
-			{
-				try(XParameters parameters = xgoto.xline())
-				{
-					
-				}
-			}
-		}
+		xgoto(xeval(), XConstants.COMMENT_BLOCK_END);
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

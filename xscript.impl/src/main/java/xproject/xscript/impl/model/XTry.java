@@ -16,57 +16,46 @@ public class XTry extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		boolean hasCatched = false;
 		try
 		{
-			xeval().xrun();
+			xeval(xeval(), "");
 		}
 		catch(Exception ex)
 		{
 			xexception = xeval().xfactory().xException(ex);
-			hasCatched = xcatch();
-		}
-		finally
-		{
-			xfinally();
-		}
-		if(hasCatched == false && xexception == null)
-		{
-			xexception.xthrow();
-		}
-	}
-	
-	protected boolean xcatch() throws Exception
-	{
-		boolean hasCatched = false;
-		XParameters xnextCatch = null;
-		do
-		{
-			xnextCatch = xeval().xgoto(XConstants.CATCH);
-			if(xnextCatch != null)
+			do
 			{
-				try(XParameters parameters = xnextCatch)
+				try(XParameters parameters = xgoto(xeval(), XConstants.CATCH))
 				{
 					try(XCatch xcatch = new XCatch(parameters, xeval(), xexception))
 					{
 						xcatch.xrun();
+						xexception = xcatch.xexception();
 					}
 				}
 			}
+			while(xexception != null);
 		}
-		while(!hasCatched && xnextCatch != null);
-		return hasCatched;
-	}
-	
-	protected void xfinally() throws Exception
-	{
-		XParameters parameters = xeval().xgoto(XConstants.FINALLY);
-		if(parameters != null)
+		finally
 		{
-			try(XFinally xfinally = new XFinally(parameters, xeval()))
+			try(XParameters parameters = xgoto(xeval(), XConstants.FINALLY))
 			{
-				xfinally.xrun();
+				try(XFinally xfinally = new XFinally(parameters, xeval()))
+				{
+					xfinally.xrun();
+				}
 			}
 		}
+		
+		if(xexception != null)
+		{
+			xexception.xthrow();
+		}
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

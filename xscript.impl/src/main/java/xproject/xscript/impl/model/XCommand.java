@@ -3,15 +3,16 @@
  */
 package xproject.xscript.impl.model;
 
-import xproject.xlang.XAutoCloseable;
 import xproject.xlang.XRunnable;
 import xproject.xrmi.XRemote;
+import xproject.xscript.impl.XConstants;
+import xproject.xutil.XScanner;
 
 /**
  * @author Admin
  *
  */
-public abstract class XCommand implements XRemote, XRunnable, XAutoCloseable, Runnable, AutoCloseable {
+public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAutoCloseable, Runnable, AutoCloseable {
 
 	private XParameters xparameters;
 	private XEval xeval;
@@ -66,5 +67,84 @@ public abstract class XCommand implements XRemote, XRunnable, XAutoCloseable, Ru
 		xparameters = null;
 		xeval = null;
 		finalize();
+	}
+	
+	protected abstract boolean xisBlock();
+	
+	protected XParameters xgoto(XEval xeval, String line) throws Exception
+	{
+		XParameters xline = null;
+		if(xisBlock())
+		{
+			boolean isFinal = false;
+			while(xeval.xscanner().xhasNextLine() && isFinal == false && xline == null && xeval.xisFinal() == false)
+			{
+				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval.xscanner().xnextLine()))
+				{
+					try(XParameters parameters = new XParameters(current.x(), xeval, null))
+					{
+						String method = parameters.xmethod();
+						if(method.isEmpty() == false)
+						{
+							if(method.equals(line))
+							{
+								xline = parameters.xclone();
+							}
+							else if(method.equals(XConstants.FINAL))
+							{
+								isFinal = true;
+							}
+							else
+							{
+								try(XCommand xcommand = xeval.xcommandFactory().xcommand(method, xeval, parameters))
+								{
+									xcommand.xgoto(xeval, "");
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return xline;
+	}
+	
+	protected XParameters xeval(XEval xeval, String line) throws Exception
+	{
+		XParameters xline = null;
+		if(xisBlock())
+		{
+			boolean isFinal = false;
+			while(xeval.xscanner().xhasNextLine() && xline == null && isFinal == false && xeval.xisReturn() == false && xeval.xisFinal() == false)
+			{
+				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval.xscanner().xnextLine()))
+				{
+					try(XParameters parameters = new XParameters(current.x(), xeval, null))
+					{
+						String method = parameters.xmethod();
+						if(method.isEmpty() == false)
+						{
+							
+							if(method.equals(line))
+							{
+								xline = parameters.xclone();
+							}
+							else if(method.equals(XConstants.FINAL))
+							{
+								isFinal = true;
+							}
+							else
+							{
+								try(XCommand xcommand = xeval.xcommandFactory().xcommand(method, xeval, parameters))
+								{
+									xcommand.xrun();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return xline;
 	}
 }

@@ -1,6 +1,8 @@
 package xproject.xscript.impl.model;
 
-public class XDo extends XCommand {
+import xproject.xscript.impl.XConstants;
+
+public class XDo extends XIterator {
 
 	protected XDo(XParameters parameters, XEval eval) {
 		super(parameters, eval);
@@ -10,7 +12,16 @@ public class XDo extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-
+		xdo();
+		try(XParameters xwhile = xgoto(xeval(), XConstants.WHILE))
+		{
+			boolean xif = XIf.xif(xwhile);
+			while(xif)
+			{
+				xdo();
+				xif = XIf.xif(xwhile.xclone());
+			}
+		}
+		
 	}
-
 }

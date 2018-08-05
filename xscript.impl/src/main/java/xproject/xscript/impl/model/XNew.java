@@ -28,4 +28,10 @@ public class XNew extends XCommand {
 			}
 		}
 	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

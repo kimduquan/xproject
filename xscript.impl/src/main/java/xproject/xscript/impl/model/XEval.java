@@ -1,11 +1,14 @@
 package xproject.xscript.impl.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import xproject.xlang.XClass;
 import xproject.xlang.XClassLoader;
 import xproject.xlang.XFactory;
 import xproject.xlang.XObject;
 import xproject.xscript.XBindings;
 import xproject.xscript.XScriptContext;
-import xproject.xscript.impl.XConstants;
 import xproject.xutil.XScanner;
 
 public class XEval extends XCommand {
@@ -21,24 +24,25 @@ public class XEval extends XCommand {
 	
 	private XObject xreturn;
 	
-	private XParameters xparameters;
-	
 	private boolean isReturn;
 	private boolean isFinal;
-	private boolean isEnd;
 	
-	private XCommand xend;
+	private XParameters xend;
+	private XCommandFactory xcommandFactory;
+	private int xbindingsScope;
+	private Map<String, XClass> xclasses;
 	
-	protected XEval(XFactory factory, XClassLoader classLoader, String end)
+	protected XEval(XCommandFactory commandFactory, XFactory factory, XClassLoader classLoader, String end, int bindingsScope)
 	{
 		super(null, null);
 		xfactory = factory;
 		this.end = end;
 		xclassLoader = classLoader;
-		xparameters = null;
 		isReturn = false;
 		isFinal = false;
-		isEnd = false;
+		xcommandFactory = commandFactory;
+		xbindingsScope = bindingsScope;
+		xclasses = new HashMap<String, XClass>();
 	}
 	
 	@Override
@@ -47,140 +51,16 @@ public class XEval extends XCommand {
 		xfactory = null;
 		end = null;
 		xclassLoader = null;
-		xparameters = null;
+		xcommandFactory = null;
+		xclasses.clear();
+		xclasses = null;
 		super.xfinalize();
-	}
-	
-	protected XCommand xcommand(String method)
-	{
-		XCommand xcommand = null;
-		if(method.equals(XConstants.IMPORT))
-		{
-			xcommand = new XImport(xparameters, this);
-		}
-		else if(method.equals(XConstants.NEW))
-		{
-			xcommand = new XNew(xparameters, this);
-		}
-		else if(method.equals(XConstants.TRY))
-		{
-			xcommand = new XTry(xparameters, this);
-		}
-		else if(method.equals(XConstants.IF))
-		{
-			xcommand = new XIf(xparameters, this);
-		}
-		else if(method.equals(XConstants.SUPER))
-		{
-			xcommand = new XSuper(xparameters, this);
-		}
-		else if(method.equals(XConstants.DO))
-		{
-			xcommand = new XDo(xparameters, this);
-		}
-		else if(method.equals(XConstants.FOR))
-		{
-			xcommand = new XFor(xparameters, this);
-		}
-		else if(method.equals(XConstants.GOTO))
-		{
-			xcommand = new XGoto(xparameters, this);
-		}
-		else if(method.equals(XConstants.WHILE))
-		{
-			xcommand = new XWhile(xparameters, this);
-		}
-		else if(method.equals(XConstants.THROW))
-		{
-			xcommand = new XThrow(xparameters, this);
-		}
-		else if(method.equals(XConstants.SYNCHRONIZED))
-		{
-			xcommand = new XSynchronized(xparameters, this);
-		}
-		else if(method.equals(XConstants.COMMENT_LINE))
-		{
-			xcommand = new XComment(xparameters, this);
-		}
-		else if(method.equals(XConstants.COMMENT_BLOCK))
-		{
-			xcommand = new XCommentBlock(xparameters, this);
-		}
-		else if(method.equals(XConstants.LAMBDA))
-		{
-			xcommand = new XLambda(xparameters, this);
-		}
-		else if(method.equals(XConstants.ASSERT))
-		{
-			xcommand = new XAssert(xparameters, this);
-		}
-		else
-			xcommand = new XInvoke(xparameters, this);
-		return xcommand;
-	}
-	
-	private void setFinal()
-	{
-		isFinal = true;
-	}
-	
-	private void setReturn()
-	{
-		isReturn = true;
-		if(xeval() != null)
-		{
-			xeval().setReturn();
-		}
-	}
-	
-	private void setEnd()
-	{
-		isEnd = true;
 	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		while(xscanner.xhasNextLine() && isFinal == false && isReturn == false && isEnd == false)
-		{
-			try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xscanner.xnextLine()))
-			{
-				try(XParameters parameters = new XParameters(current.x(), this, null))
-				{
-					String method = parameters.xmethod();
-					if(method.isEmpty() == false)
-					{
-						if(method.equals(end))
-						{
-							setEnd();
-						}
-						else if(method.equals(XConstants.RETURN))
-						{
-							try(XCommand xcommand = xcommand(method))
-							{
-								xcommand.xrun();
-							}
-							setReturn();
-						}
-						else if(method.equals(XConstants.FINAL))
-						{
-							try(XCommand xcommand = xcommand(method))
-							{
-								xcommand.xrun();
-							}
-							setFinal();
-						}
-						else
-						{
-							try(XCommand xcommand = xcommand(method))
-							{
-								xcommand.xrun();
-							}
-						}
-					}
-				}
-			}
-		}
+		xeval(this, end);
 	}
 	
 	public String xscript()
@@ -193,8 +73,12 @@ public class XEval extends XCommand {
 		return xscriptContext;
 	}
 	
-	public XBindings xbindings()
+	public XBindings xbindings() throws Exception
 	{
+		if(xbindings == null)
+		{
+			xbindings = xscriptContext.xgetBindings(xbindingsScope);
+		}
 		return xbindings;
 	}
 	
@@ -218,23 +102,61 @@ public class XEval extends XCommand {
 		return xclassLoader;
 	}
 	
-	public XParameters xgoto(String end) throws Exception
+	public XCommandFactory xcommandFactory()
 	{
-		return null;
+		return xcommandFactory;
 	}
 	
 	public static XEval xnew(XEval eval, String end) throws Exception
 	{
-		XEval xeval = new XEval(eval.xfactory, eval.xclassLoader, end);
+		XEval xeval = new XEval(eval.xcommandFactory, eval.xfactory, eval.xclassLoader, end, eval.xbindingsScope + 1);
 		xeval.xbindings = eval.xbindings;
 		xeval.xscanner = eval.xscanner;
 		xeval.xscript = eval.xscript;
 		xeval.xscriptContext = eval.xscriptContext;
+		xeval.xclasses = eval.xclasses;
 		return xeval;
 	}
 	
-	public XCommand xend()
+	public XParameters xend()
 	{
 		return xend;
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	public boolean xisReturn()
+	{
+		return isReturn;
+	}
+	
+	public void xreturn(XObject xobject) throws Exception
+	{
+		isReturn = true;
+		xreturn = xobject;
+	}
+	
+	public boolean xisFinal()
+	{
+		return isFinal;
+	}
+	
+	public void xfinal() throws Exception
+	{
+		isFinal = true;
+	}
+	
+	protected XEval xeval()
+	{
+		return this;
+	}
+	
+	public Map<String, XClass> xclasses()
+	{
+		return xclasses;
 	}
 }

@@ -17,7 +17,7 @@ public class XParameters implements XRemote, AutoCloseable {
 	private String xthis;
 	private String xclass;
 	private String xreturn;
-	private XObject[] xparameters;
+	private ArrayList<XObject> xparameters;
 	private XClass[] xparameterTypes;
 	
 	public XParameters(XScanner scanner, XEval eval, String method)
@@ -155,7 +155,7 @@ public class XParameters implements XRemote, AutoCloseable {
 	{
 		if(xparameters == null)
 		{
-			ArrayList<XObject> paramValues = new ArrayList<XObject>();
+			xparameters = new ArrayList<XObject>();
 			if(xscanner.xhasNext())
 			{
 				String paramName = xscanner.xnext();
@@ -164,31 +164,31 @@ public class XParameters implements XRemote, AutoCloseable {
 					paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
 					if(xscanner.xhasNextBoolean())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextBoolean()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextBoolean()));
 					}
 					else if(xscanner.xhasNextByte())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextByte()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextByte()));
 					}
 					else if(xscanner.xhasNextDouble())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextDouble()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextDouble()));
 					}
 					else if(xscanner.xhasNextFloat())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextFloat()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextFloat()));
 					}
 					else if(xscanner.xhasNextInt())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextInt()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextInt()));
 					}
 					else if(xscanner.xhasNextLong())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextLong()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextLong()));
 					}
 					else if(xscanner.xhasNextShort())
 					{
-						paramValues.add(xeval.xfactory().xObject(xscanner.xnextShort()));
+						xparameters.add(xeval.xfactory().xObject(xscanner.xnextShort()));
 					}
 					else if(xscanner.xhasNext())
 					{
@@ -206,31 +206,35 @@ public class XParameters implements XRemote, AutoCloseable {
 										xobject = ((XFutureObject)xobject).xfuture().xget();
 									}
 								}
-								paramValues.add(xobject);
+								xparameters.add(xobject);
 							}
 						}
 						else
 						{
-							paramValues.add(xeval.xfactory().xObject(value));
+							xparameters.add(xeval.xfactory().xObject(value));
 						}
 					}
 				}
 			}
-			xparameters = new XObject[paramValues.size()];
-			xparameters = paramValues.toArray(xparameters);
+			XObject[] parameters = new XObject[xparameters.size()];
+			parameters = xparameters.toArray(parameters);
+			return parameters;
 		}
-		return xparameters;
+		return null;
 	}
 	
 	public XClass[] xparameterTypes() throws Exception
 	{
 		if(xparameterTypes == null && xparameters != null)
 		{
-			xparameterTypes = new XClass[xparameters.length];
+			xparameterTypes = new XClass[xparameters.size()];
 			for(int i = 0; i < xparameterTypes.length; i++)
 			{
-				if(xparameters[i] != null)
-					xparameterTypes[i] = xparameters[i].xgetClass();
+				XObject object = xparameters.get(i);
+				if(object != null)
+					xparameterTypes[i] = object.xgetClass();
+				else
+					xparameterTypes[i] = null;
 			}
 		}
 		return xparameterTypes;
@@ -271,5 +275,123 @@ public class XParameters implements XRemote, AutoCloseable {
 			}
 		}
 		return value;
+	}
+	
+	public boolean xnext() throws Exception
+	{
+		if(xscanner.xhasNext())
+		{
+			String paramName = xscanner.xnext();
+			if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
+			{
+				paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
+				if(paramName.equals(XConstants.RETURN))
+				{
+					if(xscanner.xhasNext())
+					{
+						String paramValue = xscanner.xnext();
+						if(paramValue.isEmpty() == false)
+						{
+							if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
+							{
+								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
+								xreturn = paramValue;
+							}
+						}
+					}
+				}
+				else if(paramName.equals(XConstants.CLASS))
+				{
+					if(xscanner.xhasNext())
+					{
+						String paramValue = xscanner.xnext();
+						xclass = paramValue;
+					}
+				}
+				else if(paramName.equals(XConstants.THIS))
+				{
+					if(xscanner.xhasNext())
+					{
+						String paramValue = xscanner.xnext();
+						if(paramValue.isEmpty() == false)
+						{
+							if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
+							{
+								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
+								xthis = paramValue;
+							}
+						}
+					}
+				}
+				else if(xscanner.xhasNextBoolean())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextBoolean()));
+				}
+				else if(xscanner.xhasNextByte())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextByte()));
+				}
+				else if(xscanner.xhasNextDouble())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextDouble()));
+				}
+				else if(xscanner.xhasNextFloat())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextFloat()));
+				}
+				else if(xscanner.xhasNextInt())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextInt()));
+				}
+				else if(xscanner.xhasNextLong())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextLong()));
+				}
+				else if(xscanner.xhasNextShort())
+				{
+					xparameters.add(xeval.xfactory().xObject(xscanner.xnextShort()));
+				}
+				else if(xscanner.xhasNext())
+				{
+					String value = xscanner.xnext();
+					if(value.startsWith(XConstants.OBJECT_REF_PREFIX))
+					{
+						value = value.substring(XConstants.OBJECT_REF_PREFIX.length());
+						if(xeval.xbindings().xcontainsKey(value))
+						{
+							XObject xobject = xeval.xbindings().xget(paramName);
+							if(xobject != null)
+							{
+								if(xobject instanceof XFutureObject)
+								{
+									xobject = ((XFutureObject)xobject).xfuture().xget();
+								}
+							}
+							xparameters.add(xobject);
+						}
+					}
+					else
+					{
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	public XParameters xclone() throws Exception
+	{
+		XParameters other = new XParameters(xscanner, xeval, xmethod);
+		other.xeval = xeval;
+		other.xscanner = xscanner;
+		other.xmethod = xmethod;
+		other.xthis = xthis;
+		other.xclass = xclass;
+		other.xreturn = xreturn;
+		other.xparameters = xparameters;
+		other.xparameterTypes = xparameterTypes;
+		return other;
 	}
 }

@@ -13,4 +13,10 @@ public class XLambda extends XCommand {
 
 	}
 
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

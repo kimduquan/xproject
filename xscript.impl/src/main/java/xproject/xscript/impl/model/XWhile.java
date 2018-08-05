@@ -1,6 +1,6 @@
 package xproject.xscript.impl.model;
 
-public class XWhile extends XCommand {
+public class XWhile extends XIterator {
 
 	protected XWhile(XParameters parameters, XEval eval) {
 		super(parameters, eval);
@@ -10,7 +10,11 @@ public class XWhile extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		
+		boolean xif = XIf.xif(xparameters());
+		while(xif)
+		{
+			xdo();
+			xif = XIf.xif(xparameters().xclone());
+		}
 	}
-
 }

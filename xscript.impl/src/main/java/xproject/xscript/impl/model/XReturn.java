@@ -1,19 +1,10 @@
 package xproject.xscript.impl.model;
 
-import xproject.xlang.XObject;
-
 public class XReturn extends XCommand {
 	
 	protected XReturn(XParameters parameters, XEval eval) {
 		super(parameters, eval);
 		// TODO Auto-generated constructor stub
-	}
-
-	private XObject xreturn;
-
-	public XObject xreturn()
-	{
-		return xreturn;
 	}
 
 	@Override
@@ -22,7 +13,13 @@ public class XReturn extends XCommand {
 		String xthis = xparameters().xthis();
 		if(xparameters().xeval().xbindings().xcontainsKey(xthis))
 		{
-			xreturn = xparameters().xeval().xbindings().xget(xthis);
+			xeval().xreturn(xparameters().xeval().xbindings().xget(xthis));
 		}
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

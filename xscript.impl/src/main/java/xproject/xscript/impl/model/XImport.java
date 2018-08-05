@@ -1,5 +1,8 @@
 package xproject.xscript.impl.model;
 
+import xproject.xlang.XClass;
+import xproject.xscript.impl.XConstants;
+
 public class XImport extends XCommand {
 
 	protected XImport(XParameters parameters, XEval eval) {
@@ -10,6 +13,13 @@ public class XImport extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		xeval().xclassLoader().xloadClass(xparameters().xclass());
+		XClass xclass = xeval().xclassLoader().xloadClass(xparameters().xstring(XConstants.CLASS));
+		xeval().xclasses().put(xclass.xgetSimpleName(), xclass);
+	}
+
+	@Override
+	protected boolean xisBlock() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
