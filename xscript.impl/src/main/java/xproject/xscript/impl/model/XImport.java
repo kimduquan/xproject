@@ -1,7 +1,6 @@
 package xproject.xscript.impl.model;
 
 import xproject.xlang.XClass;
-import xproject.xscript.impl.XConstants;
 
 public class XImport extends XCommand {
 
@@ -13,7 +12,7 @@ public class XImport extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		XClass xclass = xeval().xclassLoader().xloadClass(xparameters().xstring(XConstants.CLASS));
+		XClass xclass = xeval().xclassLoader().xloadClass(xparameters().xclass());
 		xeval().xclasses().put(xclass.xgetSimpleName(), xclass);
 	}
 

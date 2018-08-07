@@ -31,7 +31,7 @@ public class XInvoke extends XCommand {
 						}
 						XObject[] array2 = new XObject[temp2.size()];
 						array2 = temp2.toArray(array2);
-						XObject xobject = xmethod.xmethod().xinvoke(xthis.xthis(), array2);
+						XObject xobject = xmethod.xmethod().xinvoke(xthis.xthis() != null ? xthis.xthis() : XObject.xnull, array2);
 						try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 						{
 							xreturn.xreturn(xobject);

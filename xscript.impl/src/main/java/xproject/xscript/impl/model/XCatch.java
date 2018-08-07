@@ -15,7 +15,7 @@ public class XCatch extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		xeval().xscriptContext().xgetErrorWriter().xwrite(xexception.xgetMessage());
+		//xeval().xscriptContext().xgetErrorWriter().xwrite(xexception.xgetMessage());
 		try(XClassParameter xclass = new XClassParameter(xparameters()))
 		{
 			if(xclass.xclass() != null)
@@ -25,6 +25,7 @@ public class XCatch extends XCommand {
 					try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 					{
 						xreturn.xreturn(xexception);
+						xexception = null;
 						xeval(xeval(), "");
 						return;
 					}
@@ -35,12 +36,13 @@ public class XCatch extends XCommand {
 				try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
 				{
 					xreturn.xreturn(xexception);
+					xexception = null;
 					xeval(xeval(), "");
 					return;
 				}
 			}
 		}
-		xexception = null;
+		xgoto(xeval(), "");
 	}
 
 	@Override

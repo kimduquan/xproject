@@ -28,11 +28,10 @@ public class XThisParameter implements XRemote, AutoCloseable {
 	{
 		if(xthis == null)
 		{
-			String name = xparameters.xthis();
 			XBindings xbindings = xparameters.xeval().xbindings();
-			if(name.isEmpty() == false && xbindings.xcontainsKey(name))
+			if(xparameters.xthis() != null && xbindings.xcontainsKey(xparameters.xthis()))
 			{
-				xthis = xbindings.xget(name);
+				xthis = xbindings.xget(xparameters.xthis());
 				if(xthis != null)
 				{
 					if(xthis instanceof XFutureObject)

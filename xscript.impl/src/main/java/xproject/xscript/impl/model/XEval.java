@@ -68,23 +68,43 @@ public class XEval extends XCommand {
 		return xscript;
 	}
 	
+	public void xscript(String script)
+	{
+		xscript = script;
+	}
+	
 	public XScriptContext xscriptContext()
 	{
 		return xscriptContext;
 	}
 	
+	public void xscriptContext(XScriptContext scriptContext)
+	{
+		xscriptContext = scriptContext;
+	}
+	
 	public XBindings xbindings() throws Exception
 	{
-		if(xbindings == null)
+		if(xbindings == null && xscriptContext != null)
 		{
-			xbindings = xscriptContext.xgetBindings(xbindingsScope);
+			return xscriptContext.xgetBindings(xbindingsScope);
 		}
 		return xbindings;
+	}
+	
+	public void xbindings(XBindings bindings)
+	{
+		xbindings = bindings;
 	}
 	
 	public XScanner xscanner()
 	{
 		return xscanner;
+	}
+	
+	public void xscanner(XScanner scanner)
+	{
+		xscanner = scanner;
 	}
 	
 	public XObject xreturn()

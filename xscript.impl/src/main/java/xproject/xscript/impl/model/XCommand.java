@@ -3,6 +3,8 @@
  */
 package xproject.xscript.impl.model;
 
+import java.util.List;
+
 import xproject.xlang.XRunnable;
 import xproject.xrmi.XRemote;
 import xproject.xscript.impl.XConstants;
@@ -139,6 +141,42 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 								{
 									xcommand.xrun();
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return xline;
+	}
+	
+	protected XParameters xclone(XEval xeval, String line, List<XScanner> xscanners) throws Exception
+	{
+		XParameters xline = null;
+		if(xisBlock())
+		{
+			boolean isFinal = false;
+			while(xeval.xscanner().xhasNextLine() && isFinal == false)
+			{
+				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval.xscanner().xnextLine()))
+				{
+					try(XParameters parameters = new XParameters(current.x(), xeval, null))
+					{
+						String method = parameters.xmethod();
+						if(method.isEmpty() == false)
+						{
+							if(method.equals(line))
+							{
+								xline = parameters.xclone();
+							}
+							else if(method.equals(XConstants.FINAL))
+							{
+								isFinal = true;
+								xscanners.add(current.x().xclone());
+							}
+							else
+							{
+								xscanners.add(current.x().xclone());
 							}
 						}
 					}

@@ -51,6 +51,7 @@ public interface XConstants
 	static final String NOT = "not";
 	static final String TRUE = "true";
 	static final String FALSE = "false";
+	static final String EQUALS = "equals";
 	
 	static final String DEBUG = "debug";
 	static final String DEBUG_RUN = "run";

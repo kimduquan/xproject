@@ -1,5 +1,7 @@
 package xproject.xscript.impl.model;
 
+import xproject.xlang.XException;
+
 public class XThrow extends XCommand {
 
 	protected XThrow(XParameters parameters, XEval eval) {
@@ -10,7 +12,13 @@ public class XThrow extends XCommand {
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		
+		try(XThisParameter xthis = new XThisParameter(xparameters()))
+		{
+			if(xthis.xthis() != null && xthis.xthis() instanceof XException)
+			{
+				((XException)xthis.xthis()).xthrow();
+			}
+		}
 	}
 
 	@Override

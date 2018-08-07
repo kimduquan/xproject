@@ -35,10 +35,11 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 	
 	public boolean xboolean(boolean defaultValue) throws Exception
 	{
+		xboolean = defaultValue;
 		xparameters.xscanner();
 		if(xparameters.xscanner().xhasNextBoolean())
 		{
-			return xparameters.xscanner().xnextBoolean();
+			xboolean = xparameters.xscanner().xnextBoolean();
 		}
 		else if(xparameters.xscanner().xhasNext())
 		{
@@ -51,15 +52,19 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 					if(name.isEmpty() == false)
 					{
 						if(name.equals(XConstants.TRUE))
-							return xtrue();
+							xboolean = xtrue();
 						else if(name.equals(XConstants.FALSE))
-							return xfalse();
+							xboolean = xfalse();
 						else if(name.equals(XConstants.AND))
-							return xand();
+							xboolean = xand();
 						else if(name.equals(XConstants.OR))
-							return xor();
+							xboolean = xor();
 						else if(name.equals(XConstants.NOT))
-							return xnot();
+							xboolean = xnot();
+						else if(name.equals(XConstants.NULL))
+							xboolean = xnull();
+						else if(name.equals(XConstants.EQUALS))
+							xboolean = xnull();
 					}
 				}
 				else if(name.startsWith(XConstants.OBJECT_REF_PREFIX))
@@ -74,8 +79,7 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 							{
 								if(xobject.xgetClass().xgetName().equals("java.lang.Boolean"))
 								{
-									Boolean value = (Boolean) xobject.x();
-									return value;
+									xboolean = (Boolean) xobject.x();
 								}
 							}
 						}
@@ -83,7 +87,7 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 				}
 			}
 		}
-		return defaultValue;
+		return xboolean;
 	}
 	
 	protected boolean xtrue() throws Exception
@@ -113,5 +117,34 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 	protected boolean xnot() throws Exception
 	{
 		return !xboolean(true);
+	}
+	
+	protected boolean xnull() throws Exception
+	{
+		if(xparameters.xscanner().xhasNext())
+		{
+			String name = xparameters.xscanner().xnext();
+			if(!name.isEmpty())
+			{
+				if(name.startsWith(XConstants.OBJECT_REF_PREFIX))
+				{
+					name = name.substring(XConstants.OBJECT_REF_PREFIX.length());
+					if(!name.isEmpty())
+					{
+						if(xparameters.xeval().xbindings().xcontainsKey(name))
+						{
+							XObject xobject = xparameters.xeval().xbindings().xget(name);
+							return xobject.xequals(XObject.xnull);
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean xboolean()
+	{
+		return xboolean;
 	}
 }

@@ -53,7 +53,21 @@ public class XMethodParameter implements XRemote, AutoCloseable {
 			}
 			XClass[] array = new XClass[temp.size()];
 			array = temp.toArray(array);
-			xmethod = xtype.xgetMethod(xparameters.xmethod(), array);
+			try
+			{
+				xmethod = xtype.xgetMethod(xparameters.xmethod(), array);
+			}
+			catch(Exception ex)
+			{
+				for(XMethod method : xtype.xgetMethods())
+				{
+					if(method.xgetName().equals(xparameters.xmethod()) && method.xgetParameterCount() == array.length)
+					{
+						xmethod = method;
+						break;
+					}
+				}
+			}
 		}
 		return xmethod;
 	}

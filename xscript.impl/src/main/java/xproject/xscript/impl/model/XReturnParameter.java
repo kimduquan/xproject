@@ -3,6 +3,7 @@ package xproject.xscript.impl.model;
 import xproject.xlang.XObject;
 import xproject.xrmi.XRemote;
 import xproject.xscript.XBindings;
+import xproject.xscript.impl.XConstants;
 
 public class XReturnParameter implements XRemote, AutoCloseable {
 
@@ -22,11 +23,13 @@ public class XReturnParameter implements XRemote, AutoCloseable {
 	
 	public void xreturn(XObject xreturn) throws Exception
 	{
-		String name = xparameters.xreturn();
 		XBindings xbindings = xparameters.xeval().xbindings();
-		if(name.isEmpty() == false)
+		if(xparameters.xreturn() != null)
 		{
-			xbindings.xput(name, xreturn);
+			if(xparameters.xreturn().equals(XConstants.NULL) == false)
+			{
+				xbindings.xput(xparameters.xreturn(), xreturn);
+			}
 		}
 	}
 

@@ -11,6 +11,13 @@ public class XSynchronized extends XCommand {
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
 
+		try(XThisParameter xthis = new XThisParameter(xparameters()))
+		{
+			synchronized(xthis)
+			{
+				xeval(xeval(), "");
+			}
+		}
 	}
 
 	@Override

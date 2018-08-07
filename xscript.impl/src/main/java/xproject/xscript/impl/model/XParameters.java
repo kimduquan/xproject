@@ -82,96 +82,19 @@ public class XParameters implements XRemote, AutoCloseable {
 	
 	public String xclass() throws Exception
 	{
-		if(xclass == null)
-		{
-			xclass = "";
-			if(xscanner.xhasNext())
-			{
-				String paramName = xscanner.xnext();
-				if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
-				{
-					paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
-					xparameterNames.add(paramName);
-					if(paramName.equals(XConstants.CLASS))
-					{
-						if(xscanner.xhasNext())
-						{
-							String paramValue = xscanner.xnext();
-							xparameterValues.add(paramValue);
-							xclass = paramValue;
-						}
-					}
-				}
-			}
-		}
+		xparameters();
 		return xclass;
 	}
 	
 	public String xthis() throws Exception
 	{
-		if(xthis == null)
-		{
-			xthis = "";
-			if(xscanner.xhasNext())
-			{
-				String paramName = xscanner.xnext();
-				if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
-				{
-					paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
-					xparameterNames.add(paramName);
-					if(paramName.equals(XConstants.THIS))
-					{
-						if(xscanner.xhasNext())
-						{
-							String paramValue = xscanner.xnext();
-							xparameterValues.add(paramValue);
-							if(paramValue.isEmpty() == false)
-							{
-								if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
-								{
-									paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
-									xthis = paramValue;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		xparameters();
 		return xthis;
 	}
 	
 	public String xreturn() throws Exception
 	{
-		if(xreturn == null)
-		{
-			xreturn = "";
-			if(xscanner.xhasNext())
-			{
-				String paramName = xscanner.xnext();
-				if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
-				{
-					paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
-					xparameterNames.add(paramName);
-					if(paramName.equals(XConstants.RETURN))
-					{
-						if(xscanner.xhasNext())
-						{
-							String paramValue = xscanner.xnext();
-							xparameterValues.add(paramValue);
-							if(paramValue.isEmpty() == false)
-							{
-								if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
-								{
-									paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
-									xreturn = paramValue;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		xparameters();
 		return xreturn;
 	}
 	
@@ -238,29 +161,11 @@ public class XParameters implements XRemote, AutoCloseable {
 		return xeval;
 	}
 	
-	public String xstring(String name) throws Exception
-	{
-		String value = null;
-		if(xscanner.xhasNext())
-		{
-			String paramName = xscanner.xnext();
-			if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
-			{
-				paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
-				if(name != null)
-				{
-					if(name.equals(paramName))
-					{
-						value = xscanner.xnext();
-					}
-				}
-			}
-		}
-		return value;
-	}
-	
 	public boolean xnext() throws Exception
 	{
+		if(xscanner == null)
+			return false;
+		
 		if(xscanner.xhasNext())
 		{
 			if(xparameterNames == null)
@@ -275,72 +180,113 @@ public class XParameters implements XRemote, AutoCloseable {
 			if(paramName.startsWith(XConstants.PARAMETER_NAME_PREFIX))
 			{
 				paramName = paramName.substring(XConstants.PARAMETER_NAME_PREFIX.length());
-				xparameterNames.add(paramName);
-				if(xscanner.xhasNextBoolean())
+				if(paramName.equals(XConstants.CLASS))
 				{
-					boolean value = xscanner.xnextBoolean();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNextByte())
-				{
-					byte value = xscanner.xnextByte();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNextDouble())
-				{
-					double value = xscanner.xnextDouble();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNextFloat())
-				{
-					float value = xscanner.xnextFloat();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNextInt())
-				{
-					int value = xscanner.xnextInt();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNextLong())
-				{
-					long value = xscanner.xnextLong();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNextShort())
-				{
-					short value = xscanner.xnextShort();
-					xparameterValues.add(String.valueOf(value));
-					xparameters.add(xeval.xfactory().xObject(value));
-				}
-				else if(xscanner.xhasNext())
-				{
-					String value = xscanner.xnext();
-					xparameterValues.add(String.valueOf(value));
-					if(value.startsWith(XConstants.OBJECT_REF_PREFIX))
+					if(xscanner.xhasNext())
 					{
-						value = value.substring(XConstants.OBJECT_REF_PREFIX.length());
-						if(xeval.xbindings().xcontainsKey(value))
+						String paramValue = xscanner.xnext();
+						xclass = paramValue;
+					}
+				}
+				else if(paramName.equals(XConstants.THIS))
+				{
+					if(xscanner.xhasNext())
+					{
+						String paramValue = xscanner.xnext();
+						if(paramValue.isEmpty() == false)
 						{
-							XObject xobject = xeval.xbindings().xget(paramName);
-							if(xobject != null)
+							if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
 							{
-								if(xobject instanceof XFutureObject)
-								{
-									xobject = ((XFutureObject)xobject).xfuture().xget();
-								}
+								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
+								xthis = paramValue;
 							}
-							xparameters.add(xobject);
 						}
 					}
-					else
+				}
+				else if(paramName.equals(XConstants.RETURN))
+				{
+					if(xscanner.xhasNext())
 					{
+						String paramValue = xscanner.xnext();
+						if(paramValue.isEmpty() == false)
+						{
+							if(paramValue.startsWith(XConstants.OBJECT_REF_PREFIX))
+							{
+								paramValue = paramValue.substring(XConstants.OBJECT_REF_PREFIX.length());
+								xreturn = paramValue;
+							}
+						}
+					}
+				}
+				else
+				{
+					xparameterNames.add(paramName);
+					if(xscanner.xhasNextBoolean())
+					{
+						boolean value = xscanner.xnextBoolean();
+						xparameterValues.add(String.valueOf(value));
 						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNextByte())
+					{
+						byte value = xscanner.xnextByte();
+						xparameterValues.add(String.valueOf(value));
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNextDouble())
+					{
+						double value = xscanner.xnextDouble();
+						xparameterValues.add(String.valueOf(value));
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNextFloat())
+					{
+						float value = xscanner.xnextFloat();
+						xparameterValues.add(String.valueOf(value));
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNextInt())
+					{
+						int value = xscanner.xnextInt();
+						xparameterValues.add(String.valueOf(value));
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNextLong())
+					{
+						long value = xscanner.xnextLong();
+						xparameterValues.add(String.valueOf(value));
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNextShort())
+					{
+						short value = xscanner.xnextShort();
+						xparameterValues.add(String.valueOf(value));
+						xparameters.add(xeval.xfactory().xObject(value));
+					}
+					else if(xscanner.xhasNext())
+					{
+						String value = xscanner.xnext();
+						xparameterValues.add(value);
+						if(value.startsWith(XConstants.OBJECT_REF_PREFIX))
+						{
+							value = value.substring(XConstants.OBJECT_REF_PREFIX.length());
+							if(xeval.xbindings().xcontainsKey(value))
+							{
+								XObject xobject = xeval.xbindings().xget(value);
+								if(xobject != null)
+								{
+									if(xobject instanceof XFutureObject)
+									{
+										xobject = ((XFutureObject)xobject).xfuture().xget();
+									}
+									xparameters.add(xobject);
+								}
+							}
+						}
+						else
+						{
+							xparameters.add(xeval.xfactory().xObject(value));
+						}
 					}
 				}
 			}
@@ -351,8 +297,9 @@ public class XParameters implements XRemote, AutoCloseable {
 	
 	public XParameters xclone() throws Exception
 	{
-		XParameters other = new XParameters(xscanner, xeval, xmethod);
-		other.xeval = xeval;
+		XParameters other = new XParameters(xscanner.xclone(), xeval, null);
+		other.xmethod();
+		/*other.xeval = xeval;
 		other.xscanner = xscanner;
 		other.xmethod = xmethod;
 		other.xthis = xthis;
@@ -361,7 +308,7 @@ public class XParameters implements XRemote, AutoCloseable {
 		other.xparameters = xparameters;
 		other.xparameterTypes = xparameterTypes;
 		other.xparameterNames = xparameterNames;
-		other.xparameterValues = xparameterValues;
+		other.xparameterValues = xparameterValues;*/
 		return other;
 	}
 }
