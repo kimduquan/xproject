@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XSynchronized extends XCommand {
 
-	protected XSynchronized(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XSynchronized(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -11,7 +11,7 @@ public class XSynchronized extends XCommand {
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
 
-		try(XThisParameter xthis = new XThisParameter(xparameters()))
+		try(XThisParameter xthis = new XThisParameter(xLine()))
 		{
 			synchronized(xthis)
 			{

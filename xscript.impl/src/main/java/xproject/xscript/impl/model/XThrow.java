@@ -4,15 +4,15 @@ import xproject.xlang.XException;
 
 public class XThrow extends XCommand {
 
-	protected XThrow(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XThrow(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		try(XThisParameter xthis = new XThisParameter(xparameters()))
+		try(XThisParameter xthis = new XThisParameter(xLine()))
 		{
 			if(xthis.xthis() != null && xthis.xthis() instanceof XException)
 			{

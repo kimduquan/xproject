@@ -9,14 +9,14 @@ import xproject.xrmi.XRemote;
 
 public class XMethodParameter implements XRemote, AutoCloseable {
 
-	private XParameters xparameters;
+	private XLine xline;
 	private XClassParameter xclass;
 	private XThisParameter xthis;
 	private XMethod xmethod;
 	
-	public XMethodParameter(XParameters parameters, XClassParameter cls, XThisParameter ths)
+	public XMethodParameter(XLine line, XClassParameter cls, XThisParameter ths)
 	{
-		xparameters = parameters;
+		xline = line;
 		xclass = cls;
 		xthis = ths;
 		xmethod = null;
@@ -25,7 +25,7 @@ public class XMethodParameter implements XRemote, AutoCloseable {
 	@Override
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		xparameters = null;
+		xline = null;
 		xclass = null;
 		xthis = null;
 		xmethod = null;
@@ -46,7 +46,7 @@ public class XMethodParameter implements XRemote, AutoCloseable {
 				xtype = xthis.xthis().xgetClass();
 			}
 			ArrayList<XClass> temp = new ArrayList<XClass>();
-			Iterator<XClass> it = xparameters.xparameterTypes();
+			Iterator<XClass> it = xline.xparameterTypes();
 			while(it.hasNext())
 			{
 				temp.add(it.next());
@@ -55,13 +55,13 @@ public class XMethodParameter implements XRemote, AutoCloseable {
 			array = temp.toArray(array);
 			try
 			{
-				xmethod = xtype.xgetMethod(xparameters.xmethod(), array);
+				xmethod = xtype.xgetMethod(xline.xmethod(), array);
 			}
 			catch(Exception ex)
 			{
 				for(XMethod method : xtype.xgetMethods())
 				{
-					if(method.xgetName().equals(xparameters.xmethod()) && method.xgetParameterCount() == array.length)
+					if(method.xgetName().equals(xline.xmethod()) && method.xgetParameterCount() == array.length)
 					{
 						xmethod = method;
 						break;

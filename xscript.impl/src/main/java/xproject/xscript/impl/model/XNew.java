@@ -9,24 +9,24 @@ import xproject.xlang.xreflect.XConstructor;
 
 public class XNew extends XCommand {
 
-	protected XNew(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XNew(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		xparameters().xclass();
-		xparameters().xreturn();
-		xparameters().xparameters();
-		try(XClassParameter xclass = new XClassParameter(xparameters()))
+		xLine().xclass();
+		xLine().xreturn();
+		xLine().xparameters();
+		try(XClassParameter xclass = new XClassParameter(xLine()))
 		{
-			try(XReturnParameter xreturn = new XReturnParameter(xparameters()))
+			try(XReturnParameter xreturn = new XReturnParameter(xLine()))
 			{
 				XClass cls = xclass.xclass();
 				ArrayList<XClass> temp = new ArrayList<XClass>();
-				Iterator<XClass> it = xparameters().xparameterTypes();
+				Iterator<XClass> it = xLine().xparameterTypes();
 				while(it.hasNext())
 				{
 					temp.add(it.next());
@@ -36,7 +36,7 @@ public class XNew extends XCommand {
 				XConstructor xconstructor = cls.xgetConstructor(array);
 				
 				ArrayList<XObject> temp2 = new ArrayList<XObject>();
-				Iterator<XObject> it2 = xparameters().xparameters();
+				Iterator<XObject> it2 = xLine().xparameters();
 				while(it2.hasNext())
 				{
 					temp2.add(it2.next());

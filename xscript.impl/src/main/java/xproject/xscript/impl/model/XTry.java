@@ -5,8 +5,8 @@ import xproject.xscript.impl.XConstants;
 
 public class XTry extends XCommand {
 	
-	protected XTry(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XTry(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,15 +21,15 @@ public class XTry extends XCommand {
 		catch(Exception ex)
 		{
 			xexception = xeval().xfactory().xException(ex);
-			XParameters xnextCatch = null;
+			XLine xnextCatch = null;
 			do
 			{
 				xnextCatch = xgoto(xeval(), XConstants.CATCH);
 				if(xnextCatch != null)
 				{
-					try(XParameters parameters = xnextCatch)
+					try(XLine line = xnextCatch)
 					{
-						try(XCatch xcatch = new XCatch(parameters, xeval(), xexception))
+						try(XCatch xcatch = new XCatch(line, xeval(), xexception))
 						{
 							xcatch.xrun();
 							xexception = xcatch.xexception();
@@ -42,9 +42,9 @@ public class XTry extends XCommand {
 			while(xexception != null);
 			if(xexception != null)
 			{
-				try(XParameters parameters = xgoto(xeval(), XConstants.FINALLY))
+				try(XLine line = xgoto(xeval(), XConstants.FINALLY))
 				{
-					try(XFinally xfinally = new XFinally(parameters, xeval()))
+					try(XFinally xfinally = new XFinally(line, xeval()))
 					{
 						xfinally.xrun();
 					}

@@ -5,19 +5,19 @@ import xproject.xrmi.XRemote;
 
 public class XClassParameter implements XRemote, AutoCloseable {
 
-	private XParameters xparameters;
+	private XLine xline;
 	private XClass xclass;
 	
-	public XClassParameter(XParameters parameters)
+	public XClassParameter(XLine line)
 	{
-		xparameters = parameters;
+		xline = line;
 		xclass = null;
 	}
 	
 	@Override
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		xparameters = null;
+		xline = null;
 		xclass = null;
 		finalize();
 	}
@@ -26,15 +26,15 @@ public class XClassParameter implements XRemote, AutoCloseable {
 	{
 		if(xclass == null)
 		{
-			if(xparameters.xclass() != null)
+			if(xline.xclass() != null)
 			{
-				if(xparameters.xeval().xclasses().containsKey(xparameters.xclass()))
+				if(xline.xeval().xclasses().containsKey(xline.xclass()))
 				{
-					xclass = xparameters.xeval().xclasses().get(xparameters.xclass());
+					xclass = xline.xeval().xclasses().get(xline.xclass());
 				}
 				else
 				{
-					xclass = xparameters.xeval().xclassLoader().xloadClass(xparameters.xclass());
+					xclass = xline.xeval().xclassLoader().xloadClass(xline.xclass());
 				}
 			}
 		}

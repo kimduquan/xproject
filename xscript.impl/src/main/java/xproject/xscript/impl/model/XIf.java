@@ -4,22 +4,22 @@ import xproject.xscript.impl.XConstants;
 
 public class XIf extends XCommand {
 
-	protected XIf(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XIf(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		try(XBooleanParameter xboolean = new XBooleanParameter(xparameters()))
+		try(XBooleanParameter xboolean = new XBooleanParameter(xLine()))
 		{
 			if(xboolean.xboolean(false))
 			{
-				XParameters parameters = xeval(xeval(), XConstants.ELSE);
-				if(parameters != null)
+				XLine line = xeval(xeval(), XConstants.ELSE);
+				if(line != null)
 				{
-					try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
+					try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), line))
 					{
 						xelse.xgoto(xeval(), "");
 					}
@@ -27,10 +27,10 @@ public class XIf extends XCommand {
 			}
 			else
 			{
-				XParameters parameters = xgoto(xeval(), XConstants.ELSE);
-				if(parameters != null)
+				XLine line = xgoto(xeval(), XConstants.ELSE);
+				if(line != null)
 				{
-					try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), parameters))
+					try(XCommand xelse = xeval().xcommandFactory().xcommand(XConstants.ELSE, xeval(), line))
 					{
 						xelse.xeval(xeval(), "");
 					}

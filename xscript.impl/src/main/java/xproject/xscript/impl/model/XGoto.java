@@ -2,25 +2,25 @@ package xproject.xscript.impl.model;
 
 public class XGoto extends XCommand {
 
-	private XParameters xline;
+	private XLine xgoto;
 	private String line;
 	
-	protected XGoto(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XGoto(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
-		xline = null;
+		xgoto = null;
 		this.line = null;
 	}
 
 	@Override
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
-		xline = xgoto(xeval(), line);
+		xgoto = xgoto(xeval(), line);
 	}
 
-	public XParameters xline()
+	public XLine xgoto()
 	{
-		return xline;
+		return xgoto;
 	}
 
 	@Override

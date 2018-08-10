@@ -4,8 +4,8 @@ import xproject.xscript.impl.XConstants;
 
 public class XCommentBlock extends XCommand {
 
-	protected XCommentBlock(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XCommentBlock(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 

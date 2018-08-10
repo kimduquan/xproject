@@ -7,28 +7,28 @@ import xproject.xscript.impl.XConstants;
 
 public class XReturnParameter implements XRemote, AutoCloseable {
 
-	private XParameters xparameters;
+	private XLine xline;
 	
-	public XReturnParameter(XParameters parameters)
+	public XReturnParameter(XLine line)
 	{
-		xparameters = parameters;
+		xline = line;
 	}
 	
 	@Override
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		xparameters = null;
+		xline = null;
 		finalize();
 	}
 	
 	public void xreturn(XObject xreturn) throws Exception
 	{
-		XBindings xbindings = xparameters.xeval().xbindings();
-		if(xparameters.xreturn() != null)
+		XBindings xbindings = xline.xeval().xbindings();
+		if(xline.xreturn() != null)
 		{
-			if(xparameters.xreturn().equals(XConstants.NULL) == false)
+			if(xline.xreturn().equals(XConstants.NULL) == false)
 			{
-				xbindings.xput(xparameters.xreturn(), xreturn);
+				xbindings.xput(xline.xreturn(), xreturn);
 			}
 		}
 	}

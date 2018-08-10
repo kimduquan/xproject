@@ -7,8 +7,8 @@ import xproject.xutil.XScanner;
 public class XLambda extends XCommand {
 
 	private ArrayList<XScanner> xscanners;
-	protected XLambda(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XLambda(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 		xscanners = null;
 	}

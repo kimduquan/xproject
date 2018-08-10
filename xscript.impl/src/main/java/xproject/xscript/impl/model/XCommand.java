@@ -16,18 +16,18 @@ import xproject.xutil.XScanner;
  */
 public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAutoCloseable, Runnable, AutoCloseable {
 
-	private XParameters xparameters;
+	private XLine xline;
 	private XEval xeval;
 	
-	protected XCommand(XParameters parameters, XEval eval)
+	protected XCommand(XLine line, XEval eval)
 	{
-		xparameters = parameters;
+		xline = line;
 		xeval = eval;
 	}
 	
-	protected XParameters xparameters()
+	protected XLine xLine()
 	{
-		return xparameters;
+		return xline;
 	}
 	
 	protected XEval xeval()
@@ -66,31 +66,31 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 	@Override
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		xparameters = null;
+		xline = null;
 		xeval = null;
 		finalize();
 	}
 	
 	protected abstract boolean xisBlock();
 	
-	protected XParameters xgoto(XEval xeval, String line) throws Exception
+	protected XLine xgoto(XEval xeval, String line) throws Exception
 	{
-		XParameters xline = null;
+		XLine xgoto = null;
 		if(xisBlock())
 		{
 			boolean isFinal = false;
-			while(xeval.xscanner().xhasNextLine() && isFinal == false && xline == null && xeval.xisFinal() == false)
+			while(xeval.xscanner().xhasNextLine() && isFinal == false && xgoto == null && xeval.xisFinal() == false)
 			{
 				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval.xscanner().xnextLine()))
 				{
-					try(XParameters parameters = new XParameters(current.x(), xeval, null))
+					try(XLine parameters = new XLine(current.x(), xeval, null))
 					{
 						String method = parameters.xmethod();
 						if(method.isEmpty() == false)
 						{
 							if(method.equals(line))
 							{
-								xline = parameters.xclone();
+								xgoto = parameters.xclone();
 							}
 							else if(method.equals(XConstants.FINAL))
 							{
@@ -108,20 +108,20 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 				}
 			}
 		}
-		return xline;
+		return xgoto;
 	}
 	
-	protected XParameters xeval(XEval xeval, String line) throws Exception
+	protected XLine xeval(XEval xeval, String line) throws Exception
 	{
-		XParameters xline = null;
+		XLine xgoto = null;
 		if(xisBlock())
 		{
 			boolean isFinal = false;
-			while(xeval.xscanner().xhasNextLine() && xline == null && isFinal == false && xeval.xisReturn() == false && xeval.xisFinal() == false)
+			while(xeval.xscanner().xhasNextLine() && xgoto == null && isFinal == false && xeval.xisReturn() == false && xeval.xisFinal() == false)
 			{
 				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval.xscanner().xnextLine()))
 				{
-					try(XParameters parameters = new XParameters(current.x(), xeval, null))
+					try(XLine parameters = new XLine(current.x(), xeval, null))
 					{
 						String method = parameters.xmethod();
 						if(method.isEmpty() == false)
@@ -129,7 +129,7 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 							
 							if(method.equals(line))
 							{
-								xline = parameters.xclone();
+								xgoto = parameters.xclone();
 							}
 							else if(method.equals(XConstants.FINAL))
 							{
@@ -147,12 +147,12 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 				}
 			}
 		}
-		return xline;
+		return xgoto;
 	}
 	
-	protected XParameters xclone(XEval xeval, String line, List<XScanner> xscanners) throws Exception
+	protected XLine xclone(XEval xeval, String line, List<XScanner> xscanners) throws Exception
 	{
-		XParameters xline = null;
+		XLine xgoto = null;
 		if(xisBlock())
 		{
 			boolean isFinal = false;
@@ -160,14 +160,14 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 			{
 				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval.xscanner().xnextLine()))
 				{
-					try(XParameters parameters = new XParameters(current.x(), xeval, null))
+					try(XLine parameters = new XLine(current.x(), xeval, null))
 					{
 						String method = parameters.xmethod();
 						if(method.isEmpty() == false)
 						{
 							if(method.equals(line))
 							{
-								xline = parameters.xclone();
+								xgoto = parameters.xclone();
 							}
 							else if(method.equals(XConstants.FINAL))
 							{
@@ -183,6 +183,6 @@ public abstract class XCommand implements XRemote, XRunnable, xproject.xlang.XAu
 				}
 			}
 		}
-		return xline;
+		return xgoto;
 	}
 }

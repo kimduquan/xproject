@@ -27,7 +27,7 @@ public class XEval extends XCommand {
 	private boolean isReturn;
 	private boolean isFinal;
 	
-	private XParameters xend;
+	private XLine xend;
 	private XCommandFactory xcommandFactory;
 	private int xbindingsScope;
 	private Map<String, XClass> xclasses;
@@ -138,7 +138,7 @@ public class XEval extends XCommand {
 		return xeval;
 	}
 	
-	public XParameters xend()
+	public XLine xend()
 	{
 		return xend;
 	}

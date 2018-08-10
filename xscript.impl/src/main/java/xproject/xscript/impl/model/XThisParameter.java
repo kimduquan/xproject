@@ -7,19 +7,19 @@ import xproject.xscript.impl.XFutureObject;
 
 public class XThisParameter implements XRemote, AutoCloseable {
 
-	private XParameters xparameters;
+	private XLine xline;
 	private XObject xthis;
 	
-	public XThisParameter(XParameters parameters)
+	public XThisParameter(XLine line)
 	{
-		xparameters = parameters;
+		xline = line;
 		xthis = null;
 	}
 	
 	@Override
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		xparameters = null;
+		xline = null;
 		xthis = null;
 		finalize();
 	}
@@ -28,10 +28,10 @@ public class XThisParameter implements XRemote, AutoCloseable {
 	{
 		if(xthis == null)
 		{
-			XBindings xbindings = xparameters.xeval().xbindings();
-			if(xparameters.xthis() != null && xbindings.xcontainsKey(xparameters.xthis()))
+			XBindings xbindings = xline.xeval().xbindings();
+			if(xline.xthis() != null && xbindings.xcontainsKey(xline.xthis()))
 			{
-				xthis = xbindings.xget(xparameters.xthis());
+				xthis = xbindings.xget(xline.xthis());
 				if(xthis != null)
 				{
 					if(xthis instanceof XFutureObject)

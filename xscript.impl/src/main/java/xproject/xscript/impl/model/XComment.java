@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XComment extends XCommand {
 
-	public XComment(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	public XComment(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 

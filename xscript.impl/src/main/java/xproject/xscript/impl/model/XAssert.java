@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XAssert extends XCommand {
 
-	protected XAssert(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XAssert(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -11,7 +11,7 @@ public class XAssert extends XCommand {
 	public void xrun() throws Exception {
 		// TODO Auto-generated method stub
 		boolean b = false;
-		try(XBooleanParameter xboolean = new XBooleanParameter(xparameters()))
+		try(XBooleanParameter xboolean = new XBooleanParameter(xLine()))
 		{
 			b = xboolean.xboolean(false);
 		}

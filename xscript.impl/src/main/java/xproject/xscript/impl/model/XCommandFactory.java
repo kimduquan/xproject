@@ -11,71 +11,71 @@ public class XCommandFactory implements XRemote {
 		finalize();
 	}
 
-	public XCommand xcommand(String method, XEval xeval, XParameters xparameters) throws Exception
+	public XCommand xcommand(String method, XEval xeval, XLine xline) throws Exception
 	{
 		XCommand xcommand = null;
 		if(method.equals(XConstants.IMPORT))
 		{
-			xcommand = new XImport(xparameters, xeval);
+			xcommand = new XImport(xline, xeval);
 		}
 		else if(method.equals(XConstants.NEW))
 		{
-			xcommand = new XNew(xparameters, xeval);
+			xcommand = new XNew(xline, xeval);
 		}
 		else if(method.equals(XConstants.TRY))
 		{
-			xcommand = new XTry(xparameters, xeval);
+			xcommand = new XTry(xline, xeval);
 		}
 		else if(method.equals(XConstants.IF))
 		{
-			xcommand = new XIf(xparameters, xeval);
+			xcommand = new XIf(xline, xeval);
 		}
 		else if(method.equals(XConstants.SUPER))
 		{
-			xcommand = new XSuper(xparameters, xeval);
+			xcommand = new XSuper(xline, xeval);
 		}
 		else if(method.equals(XConstants.DO))
 		{
-			xcommand = new XDo(xparameters, xeval);
+			xcommand = new XDo(xline, xeval);
 		}
 		else if(method.equals(XConstants.FOR))
 		{
-			xcommand = new XFor(xparameters, xeval);
+			xcommand = new XFor(xline, xeval);
 		}
 		else if(method.equals(XConstants.GOTO))
 		{
-			xcommand = new XGoto(xparameters, xeval);
+			xcommand = new XGoto(xline, xeval);
 		}
 		else if(method.equals(XConstants.WHILE))
 		{
-			xcommand = new XWhile(xparameters, xeval);
+			xcommand = new XWhile(xline, xeval);
 		}
 		else if(method.equals(XConstants.THROW))
 		{
-			xcommand = new XThrow(xparameters, xeval);
+			xcommand = new XThrow(xline, xeval);
 		}
 		else if(method.equals(XConstants.SYNCHRONIZED))
 		{
-			xcommand = new XSynchronized(xparameters, xeval);
+			xcommand = new XSynchronized(xline, xeval);
 		}
 		else if(method.equals(XConstants.COMMENT_LINE))
 		{
-			xcommand = new XComment(xparameters, xeval);
+			xcommand = new XComment(xline, xeval);
 		}
 		else if(method.equals(XConstants.COMMENT_BLOCK))
 		{
-			xcommand = new XCommentBlock(xparameters, xeval);
+			xcommand = new XCommentBlock(xline, xeval);
 		}
 		else if(method.equals(XConstants.LAMBDA))
 		{
-			xcommand = new XLambda(xparameters, xeval);
+			xcommand = new XLambda(xline, xeval);
 		}
 		else if(method.equals(XConstants.ASSERT))
 		{
-			xcommand = new XAssert(xparameters, xeval);
+			xcommand = new XAssert(xline, xeval);
 		}
 		else
-			xcommand = new XInvoke(xparameters, xeval);
+			xcommand = new XInvoke(xline, xeval);
 		return xcommand;
 	}
 }

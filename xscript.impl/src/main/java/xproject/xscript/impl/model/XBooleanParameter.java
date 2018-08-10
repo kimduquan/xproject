@@ -6,19 +6,19 @@ import xproject.xscript.impl.XConstants;
 
 public class XBooleanParameter implements XRemote, AutoCloseable {
 
-	private XParameters xparameters;
+	private XLine xline;
 	private boolean xboolean;
 	
-	public XBooleanParameter(XParameters parameters)
+	public XBooleanParameter(XLine line)
 	{
-		xparameters = parameters;
+		xline = line;
 		xboolean = false;
 	}
 	
 	@Override
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
-		xparameters = null;
+		xline = null;
 		finalize();
 	}
 
@@ -36,14 +36,14 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 	public boolean xboolean(boolean defaultValue) throws Exception
 	{
 		xboolean = defaultValue;
-		xparameters.xscanner();
-		if(xparameters.xscanner().xhasNextBoolean())
+		xline.xscanner();
+		if(xline.xscanner().xhasNextBoolean())
 		{
-			xboolean = xparameters.xscanner().xnextBoolean();
+			xboolean = xline.xscanner().xnextBoolean();
 		}
-		else if(xparameters.xscanner().xhasNext())
+		else if(xline.xscanner().xhasNext())
 		{
-			String name = xparameters.xscanner().xnext();
+			String name = xline.xscanner().xnext();
 			if(!name.isEmpty())
 			{
 				if(name.startsWith(XConstants.PARAMETER_NAME_PREFIX))
@@ -72,9 +72,9 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 					name = name.substring(XConstants.OBJECT_REF_PREFIX.length());
 					if(!name.isEmpty())
 					{
-						if(xparameters.xeval().xbindings().xcontainsKey(name))
+						if(xline.xeval().xbindings().xcontainsKey(name))
 						{
-							XObject xobject = xparameters.xeval().xbindings().xget(name);
+							XObject xobject = xline.xeval().xbindings().xget(name);
 							if(xobject.xequals(XObject.xnull) == false)
 							{
 								if(xobject.xgetClass().xgetName().equals("java.lang.Boolean"))
@@ -121,9 +121,9 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 	
 	protected boolean xnull() throws Exception
 	{
-		if(xparameters.xscanner().xhasNext())
+		if(xline.xscanner().xhasNext())
 		{
-			String name = xparameters.xscanner().xnext();
+			String name = xline.xscanner().xnext();
 			if(!name.isEmpty())
 			{
 				if(name.startsWith(XConstants.OBJECT_REF_PREFIX))
@@ -131,9 +131,9 @@ public class XBooleanParameter implements XRemote, AutoCloseable {
 					name = name.substring(XConstants.OBJECT_REF_PREFIX.length());
 					if(!name.isEmpty())
 					{
-						if(xparameters.xeval().xbindings().xcontainsKey(name))
+						if(xline.xeval().xbindings().xcontainsKey(name))
 						{
-							XObject xobject = xparameters.xeval().xbindings().xget(name);
+							XObject xobject = xline.xeval().xbindings().xget(name);
 							return xobject.xequals(XObject.xnull);
 						}
 					}

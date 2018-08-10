@@ -9,14 +9,14 @@ import xproject.xutil.XScanner;
 
 public abstract class XIterator extends XCommand {
 
-	protected XIterator(XParameters parameters, XEval eval, String stopLine) {
+	protected XIterator(XLine parameters, XEval eval, String stopLine) {
 		super(parameters, eval);
 		// TODO Auto-generated constructor stub
-		xcache = new ArrayList<XParameters>();
+		xcache = new ArrayList<XLine>();
 		xstopLine = stopLine;
 	}
 
-	private List<XParameters> xcache;
+	private List<XLine> xcache;
 	private String xstopLine;
 
 	@Override
@@ -25,9 +25,9 @@ public abstract class XIterator extends XCommand {
 		return true;
 	}
 	
-	protected XParameters xdo(XParameters parameters) throws Exception
+	protected XLine xdo(XLine line) throws Exception
 	{
-		String method = parameters.xmethod();
+		String method = line.xmethod();
 		if(method.isEmpty() == false)
 		{
 			
@@ -36,36 +36,36 @@ public abstract class XIterator extends XCommand {
 			}
 			else
 			{
-				try(XCommand xcommand = xeval().xcommandFactory().xcommand(method, xeval(), parameters))
+				try(XCommand xcommand = xeval().xcommandFactory().xcommand(method, xeval(), line))
 				{
 					xcommand.xrun();
 				}
 				return null;
 			}
 		}
-		return parameters;
+		return line;
 	}
 	
-	protected XParameters xdo() throws Exception
+	protected XLine xdo() throws Exception
 	{
-		Iterator<XParameters> it = xcache.iterator();
-		ArrayList<XParameters> temp = new ArrayList<XParameters>();
-		XParameters xstopLine = null;
+		Iterator<XLine> it = xcache.iterator();
+		ArrayList<XLine> temp = new ArrayList<XLine>();
+		XLine xstopLine = null;
 		while(xeval().xscanner().xhasNextLine() && xstopLine == null && xeval().xisReturn() == false && xeval().xisFinal() == false);
 		{
 			if(it.hasNext())
 			{
-				XParameters parameters = it.next();
-				xstopLine = xdo(parameters);
+				XLine line = it.next();
+				xstopLine = xdo(line);
 			}
 			else
 			{
 				try(XAutoCloseable<XScanner> current = new XAutoCloseable<XScanner>(xeval().xscanner().xnextLine()))
 				{
-					try(XParameters parameters = new XParameters(current.x(), xeval(), null))
+					try(XLine line = new XLine(current.x(), xeval(), null))
 					{
-						xstopLine = xdo(parameters);
-						temp.add(parameters.xclone());
+						xstopLine = xdo(line);
+						temp.add(line.xclone());
 					}
 				}
 			}

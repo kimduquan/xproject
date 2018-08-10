@@ -10,7 +10,7 @@ import xproject.xscript.impl.XConstants;
 import xproject.xscript.impl.XFutureObject;
 import xproject.xutil.XScanner;
 
-public class XParameters implements XRemote, AutoCloseable {
+public class XLine implements XRemote, AutoCloseable {
 
 	private XEval xeval;
 	private XScanner xscanner;
@@ -23,7 +23,7 @@ public class XParameters implements XRemote, AutoCloseable {
 	private ArrayList<String> xparameterNames;
 	private ArrayList<String> xparameterValues;
 	
-	public XParameters(XScanner scanner, XEval eval, String method)
+	public XLine(XScanner scanner, XEval eval, String method)
 	{
 		xeval = eval;
 		xscanner = scanner;
@@ -295,9 +295,9 @@ public class XParameters implements XRemote, AutoCloseable {
 		return false;
 	}
 	
-	public XParameters xclone() throws Exception
+	public XLine xclone() throws Exception
 	{
-		XParameters other = new XParameters(xscanner.xclone(), xeval, null);
+		XLine other = new XLine(xscanner.xclone(), xeval, null);
 		other.xmethod();
 		/*other.xeval = xeval;
 		other.xscanner = xscanner;

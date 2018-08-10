@@ -4,10 +4,10 @@ import xproject.xscript.impl.XConstants;
 
 public class XWhile extends XIterator {
 
-	private XParameters xwhile;
+	private XLine xwhile;
 	
-	protected XWhile(XParameters parameters, XEval eval) {
-		super(parameters, eval, "");
+	protected XWhile(XLine line, XEval eval) {
+		super(line, eval, "");
 		// TODO Auto-generated constructor stub
 		xwhile = null;
 	}
@@ -17,7 +17,7 @@ public class XWhile extends XIterator {
 		// TODO Auto-generated method stub
 		while(xwhile())
 		{
-			try(XParameters xstop = xdo())
+			try(XLine xstop = xdo())
 			{
 				if(xstop.xmethod().equals(XConstants.BREAK))
 				{

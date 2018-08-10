@@ -2,8 +2,8 @@ package xproject.xscript.impl.model;
 
 public class XFinally extends XCommand {
 
-	protected XFinally(XParameters parameters, XEval eval) {
-		super(parameters, eval);
+	protected XFinally(XLine line, XEval eval) {
+		super(line, eval);
 		// TODO Auto-generated constructor stub
 	}
 
