@@ -43,5 +43,23 @@
   		<artifactId>xutil.impl</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>xproject</groupId>
+  		<artifactId>xwindow</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+<dependency>
+    <groupId>org.openpnp</groupId>
+    <artifactId>opencv</artifactId>
+    <version>3.4.2-0</version>
+</dependency>
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
+<dependency>
+    <groupId>net.sourceforge.tess4j</groupId>
+    <artifactId>tess4j</artifactId>
+    <version>3.5.2</version>
+</dependency>
+
   </dependencies>
 </project>
