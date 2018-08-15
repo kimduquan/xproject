@@ -17,6 +17,12 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.features2d.AgastFeatureDetector;
+import org.opencv.features2d.BFMatcher;
+import org.opencv.features2d.BOWImgDescriptorExtractor;
+import org.opencv.features2d.BOWKMeansTrainer;
+import org.opencv.features2d.BOWTrainer;
+import org.opencv.features2d.BRISK;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.Feature2D;
 import org.opencv.features2d.Features2d;
@@ -35,16 +41,23 @@ public class App {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.setProperty("webdriver.edge.driver", "D:\\installed\\MSWebdriver\\MicrosoftWebDriver.exe");
-        System.setProperty("TESSDATA_PREFIX", "D:\\installed\\Tesseract-OCR");
-		EdgeDriver driver = new EdgeDriver();
+		//System.setProperty("webdriver.edge.driver", "D:\\installed\\MSWebdriver\\MicrosoftWebDriver.exe");
+        //System.setProperty("TESSDATA_PREFIX", "D:\\installed\\Tesseract-OCR");
+		//EdgeDriver driver = new EdgeDriver();
 		//test(driver, "https://www.google.com/", By.name("btnK"), "sub_image.png", "image.png");
 		//test(driver, "https://www.w3schools.com/", By.partialLinkText("Try it Yourself »"), "sub_image.png", "image.png");
 		//test(driver, "https://www.google.com/", By.id("lst-ib"), "sub_image.png", "image.png");
-		test(driver, "https://www.google.com/", By.id("sfdiv"), "sub_image.png", "image.png");
-		driver.close();
+		//test(driver, "https://www.google.com/", By.id("sfdiv"), "sub_image.png", "image.png");
 		
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.setProperty("webdriver.edge.driver", "D:\\installed\\MSWebdriver\\MicrosoftWebDriver.exe");
         
+		//capture();
+		test2();
+		
+		//driver.close();
+		
+        //tracking();
         /*XFactory xfactory = XFactoryImpl.xnew();
         try {
 			xfactory.xref(xfactory);
@@ -174,7 +187,7 @@ public class App {
     	r.width = rect.width + 40;
     	r.x = rect.x - 20;
     	r.y = rect.y - 20;*/
-    	int border = 14;
+    	int border = 10;
     	r.height = rect.height + 2*border;
     	r.width = rect.width + 2*border;
     	r.x = rect.x - border;
@@ -197,6 +210,18 @@ public class App {
 		//computers.put("orb", org.opencv.features2d.ORB.create());
 		//computers.put("fast", org.opencv.features2d.FastFeatureDetector.create());
 		
+		// have not tested
+		/*computers.put("daisy", org.opencv.xfeatures2d.DAISY.create());
+		computers.put("boost", org.opencv.xfeatures2d.BoostDesc.create());
+		computers.put("brief", org.opencv.xfeatures2d.BriefDescriptorExtractor.create());
+		computers.put("freak", org.opencv.xfeatures2d.FREAK.create());
+		computers.put("harris", org.opencv.xfeatures2d.HarrisLaplaceFeatureDetector.create());
+		computers.put("latch", org.opencv.xfeatures2d.LATCH.create());
+		computers.put("lucid", org.opencv.xfeatures2d.LUCID.create());
+		computers.put("sift", org.opencv.xfeatures2d.SIFT.create());
+		computers.put("start", org.opencv.xfeatures2d.StarDetector.create());
+		computers.put("vgg", org.opencv.xfeatures2d.VGG.create());*/
+		
 		HashMap<String, Feature2D> detectors = new HashMap<String, Feature2D>();
 		detectors.put("agast", org.opencv.features2d.AgastFeatureDetector.create());
 		//detectors.put("akaze", org.opencv.features2d.AKAZE.create());
@@ -206,6 +231,18 @@ public class App {
 		//detectors.put("mser", org.opencv.features2d.MSER.create());
 		//detectors.put("orb", org.opencv.features2d.ORB.create());
 		detectors.put("fast", org.opencv.features2d.FastFeatureDetector.create());
+		
+		// have not tested
+		/*computers.put("daisy", org.opencv.xfeatures2d.DAISY.create());
+		computers.put("boost", org.opencv.xfeatures2d.BoostDesc.create());
+		computers.put("brief", org.opencv.xfeatures2d.BriefDescriptorExtractor.create());
+		computers.put("freak", org.opencv.xfeatures2d.FREAK.create());
+		computers.put("harris", org.opencv.xfeatures2d.HarrisLaplaceFeatureDetector.create());
+		computers.put("latch", org.opencv.xfeatures2d.LATCH.create());
+		computers.put("lucid", org.opencv.xfeatures2d.LUCID.create());
+		computers.put("sift", org.opencv.xfeatures2d.SIFT.create());
+		computers.put("start", org.opencv.xfeatures2d.StarDetector.create());
+		computers.put("vgg", org.opencv.xfeatures2d.VGG.create());*/
 		
 		test(driver, subImageName, subImage, imageName, image, matchers, computers, detectors);
 		
@@ -278,5 +315,135 @@ public class App {
 		rect.width = (int)(maxX - minX);
 		rect.height = (int)(maxY - minY);
 		return rect;
+	}
+	
+	protected static void tracking()
+	{
+		//BOWImgDescriptorExtractor bow = new BOWImgDescriptorExtractor();
+		//BOWKMeansTrainer trainer = new BOWKMeansTrainer(0, null, 0, 0);
+		
+	}
+	
+	public static WebElement findElementByImage(RemoteWebDriver driver, String elementImageName, long timeOut)
+	{
+    	Mat eleImg = Imgcodecs.imread(elementImageName);
+    	
+    	BFMatcher matcher = BFMatcher.create();
+    	BRISK computer = BRISK.create();
+    	AgastFeatureDetector detector = AgastFeatureDetector.create();
+    	
+    	MatOfKeyPoint eleImgKPs = new MatOfKeyPoint();
+    	Mat eleImgDesc = new Mat();
+    	detector.detect(eleImg, eleImgKPs);
+    	computer.compute(eleImg, eleImgKPs, eleImgDesc);
+    	
+    	WebElement ele = null;
+    	long time = timeOut * 1000 + System.currentTimeMillis();
+    	
+    	do
+    	{
+    		File image = driver.getScreenshotAs(OutputType.FILE);
+    		Mat screenshot = Imgcodecs.imread(image.getPath());
+        	
+        	MatOfKeyPoint screenshotKPs = new MatOfKeyPoint();
+        	Mat screenshotDesc = new Mat();
+        	detector.detect(screenshot, screenshotKPs);
+        	computer.compute(screenshot, screenshotKPs, screenshotDesc);
+        	
+        	MatOfDMatch matches = new MatOfDMatch();
+        	matcher.match(eleImgDesc, screenshotDesc, matches);
+        	
+        	//Mat matchedImage = new Mat();
+    		//Features2d.drawMatches(eleImg, eleImgKPs, screenshot, screenshotKPs, matches, matchedImage);
+    		//Imgcodecs.imwrite("matched.png", matchedImage);
+        	
+        	Rect rect = convert2(matches, screenshotKPs);
+        	System.out.println(rect);
+        	
+        	if(rect.height <= eleImg.rows() && rect.width <= eleImg.cols())
+        	{
+        		ele = (WebElement)driver.executeScript("return document.elementFromPoint(" + (rect.x + rect.width / 2) + "," +  (rect.y + rect.height / 2) + ");");
+        		break;
+        	}
+        	sleep(100);
+    	}
+    	while(ele == null && System.currentTimeMillis() < time);
+    	
+    	return ele;
+	}
+	
+	public static void test2()
+	{
+		EdgeDriver driver = new EdgeDriver();
+        
+		driver.get("https://www.google.com/");
+		
+		WebElement searchBox = findElementByImage(driver, "capture\\google\\search_box.png", 20);
+        searchBox.click();
+        
+        driver.switchTo().activeElement().sendKeys("abc");
+        
+        WebElement button = findElementByImage(driver, "capture\\google\\search_button.png", 20);
+        button.click();
+        
+        WebElement search_box_abc = findElementByImage(driver, "capture\\\\google\\\\search_box_abc.png", 20);
+        assert(search_box_abc != null);
+        
+        driver.close();
+	}
+	
+	protected static WebElement capture(File screenshot, String elementImg, RemoteWebDriver driver, By by, int border) 
+	{
+		Mat image = Imgcodecs.imread(screenshot.getPath());
+    	
+		WebElement element = driver.findElement(by);
+    	Rectangle rect = element.getRect();
+    	
+    	Rect r = new Rect();
+    	r.height = rect.height + 2*border;
+    	r.width = rect.width + 2*border;
+    	r.x = rect.x - border;
+    	r.y = rect.y - border;
+    	Mat subImage = image.submat(r);
+    	Imgcodecs.imwrite(elementImg, subImage);
+    	
+    	return element;
+	}
+	
+	protected static void capture()
+	{
+		EdgeDriver driver = new EdgeDriver();
+        
+		driver.get("https://www.google.com/");
+		
+		sleep(5000);
+		
+		File screenshot = driver.getScreenshotAs(OutputType.FILE);
+		WebElement search_box = capture(screenshot, "capture\\google\\search_box.png", driver, By.id("sfdiv"), 20);
+		search_box.click();
+        driver.switchTo().activeElement().sendKeys("abc");
+        
+        sleep(2000);
+		
+        screenshot = driver.getScreenshotAs(OutputType.FILE);
+		WebElement search_button = capture(screenshot, "capture\\google\\search_button.png", driver, By.xpath("//input[@class='lsb' and @type='button']"), 10);
+        search_button.click();
+        
+        sleep(5000);
+        
+        screenshot = driver.getScreenshotAs(OutputType.FILE);
+        capture(screenshot, "capture\\google\\search_box_abc.png", driver, By.id("sfdiv"), 20);
+        
+        driver.close();
+	}
+	
+	protected static void sleep(long ms)
+	{
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
