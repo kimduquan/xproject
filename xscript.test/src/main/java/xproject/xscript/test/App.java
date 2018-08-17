@@ -357,13 +357,16 @@ public class App {
     		//Features2d.drawMatches(eleImg, eleImgKPs, screenshot, screenshotKPs, matches, matchedImage);
     		//Imgcodecs.imwrite("matched.png", matchedImage);
         	
-        	Rect rect = convert2(matches, screenshotKPs);
-        	System.out.println(rect);
-        	
-        	if(rect.height <= eleImg.rows() && rect.width <= eleImg.cols())
+        	if(!matches.empty())
         	{
-        		ele = (WebElement)driver.executeScript("return document.elementFromPoint(" + (rect.x + rect.width / 2) + "," +  (rect.y + rect.height / 2) + ");");
-        		break;
+            	Rect rect = convert2(matches, screenshotKPs);
+            	System.out.println(rect);
+            	
+            	if(rect.height <= eleImg.rows() && rect.width <= eleImg.cols())
+            	{
+            		ele = (WebElement)driver.executeScript("return document.elementFromPoint(" + (rect.x + rect.width / 2) + "," +  (rect.y + rect.height / 2) + ");");
+            		break;
+            	}
         	}
         	sleep(100);
     	}
