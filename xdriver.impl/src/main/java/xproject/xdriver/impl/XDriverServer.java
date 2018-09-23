@@ -160,7 +160,7 @@ public interface XDriverServer extends XRemote {
 	String xgetElementAttribute(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("name") String name) throws Exception;
 	
 	@GET
-	@Path("/session/{session id}/element/{element id}/property/{name}")
+	@Path("/session/{session_id}/element/{element_id}/property/{name}")
 	@Produces(MediaType.TEXT_PLAIN)
 	String xgetElementProperty(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("name") String name) throws Exception;
 	
@@ -239,7 +239,7 @@ public interface XDriverServer extends XRemote {
 	void xdeleteCookie(@PathParam("session_id") String session_id, @PathParam("name") String name) throws Exception;
 	
 	@DELETE
-	@Path("/session/{session_id)/cookie")
+	@Path("/session/{session_id}/cookie")
 	void xdeleteAllCookies(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
