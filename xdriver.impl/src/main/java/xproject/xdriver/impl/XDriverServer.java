@@ -8,9 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-
 import xproject.xdriver.impl.request.*;
 import xproject.xdriver.impl.response.*;
 import xproject.xrmi.XRemote;
@@ -21,7 +18,7 @@ public interface XDriverServer extends XRemote {
 	@Path("/session")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	NewSession xnewSession(XCapabilities capabilities) throws Exception;
+	XSession xnewSession(XCapabilities capabilities) throws Exception;
 	
 	@DELETE
 	@Path("//session/{session_id}")
@@ -30,7 +27,7 @@ public interface XDriverServer extends XRemote {
 	@GET
 	@Path("/status")
 	@Produces(MediaType.APPLICATION_JSON)
-	GetStatus xgetStatus() throws Exception;
+	XStatus xgetStatus() throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/timeouts")
@@ -45,7 +42,7 @@ public interface XDriverServer extends XRemote {
 	@POST
 	@Path("/session/{session_id}/url")
 	@Consumes(MediaType.APPLICATION_JSON)
-	void xnavigateTo(@PathParam("session_id") String session_id, NavigateTo request) throws Exception;
+	void xnavigateTo(@PathParam("session_id") String session_id, XUrl request) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/url")
@@ -82,168 +79,204 @@ public interface XDriverServer extends XRemote {
 	@POST
 	@Path("/session/{session_id}/window")
 	@Consumes(MediaType.APPLICATION_JSON)
-	void xswitchToWindow(@PathParam("session_id") String session_id, SwitchToWindow request) throws Exception;
+	void xswitchToWindow(@PathParam("session_id") String session_id, XWindow request) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/window/handles")
 	@Produces(MediaType.APPLICATION_JSON)
-	String[] xgetWindowHandles(@PathParam("session_id") String session_id, Request request) throws Exception;
+	String[] xgetWindowHandles(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/frame")
 	@Consumes(MediaType.APPLICATION_JSON)
-	void xswitchToFrame(@PathParam("session_id") String session_id, SwitchToFrame request) throws Exception;
+	void xswitchToFrame(@PathParam("session_id") String session_id, XFrame request) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/frame/parent")
-	Response xswitchToParentFrame(@PathParam("session_id") String session_id, Request request) throws Exception;
+	void xswitchToParentFrame(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/window/rect")
-	Response xgetWindowRect(@PathParam("session_id") String session_id, Request request) throws Exception;
+	XRect xgetWindowRect(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/window/rect")
-	Response xsetWindowRect(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	XRect xsetWindowRect(@PathParam("session_id") String session_id, XRect rect) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/window/maximize")
-	Response xmaximizeWindow(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XRect xmaximizeWindow(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/window/minimize")
-	Response xminimizeWindow(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XRect xminimizeWindow(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/window/fullscreen")
-	Response xfullscreenWindow(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XRect xfullscreenWindow(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/active")
-	Response xgetActiveElement(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XWebElement xgetActiveElement(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element")
-	Response xfindElement(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	XWebElement xfindElement(@PathParam("session_id") String session_id, XBy by) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/elements")
-	Response xfindElements(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	XWebElement[] xfindElements(@PathParam("session_id") String session_id, XBy by) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/element")
-	Response xfindElementFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	XWebElement xfindElementFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XBy by) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/elements")
-	Response xfindElementsFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	XWebElement[] xfindElementsFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XBy by) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/selected")
-	Response xisElementSelected(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	boolean xisElementSelected(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/attribute/{name}")
-	Response xgetElementAttribute(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("name") String name, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetElementAttribute(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("name") String name) throws Exception;
 	
 	@GET
 	@Path("/session/{session id}/element/{element id}/property/{name}")
-	Response xgetElementProperty(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("name") String name, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetElementProperty(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("name") String name) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/css/{property_name}")
-	Response xgetElementCssProperty(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("property_name") String property_name, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetElementCssProperty(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, @PathParam("property_name") String property_name) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/text")
-	Response xgetElementText(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetElementText(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/name")
-	Response xgetElementTagName(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetElementTagName(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/rect")
-	Response xgetElementRect(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XRect xgetElementRect(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/enabled")
-	Response xisElementEnabled(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	boolean xisElementEnabled(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/click")
-	Response xelementClick(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	void xelementClick(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/clear")
-	Response xelementClear(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	void xelementClear(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/value")
-	Response xelementSendKeys(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Consumes(MediaType.APPLICATION_JSON)
+	void xelementSendKeys(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XKeys keys) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/source")
-	Response xgetPageSource(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetPageSource(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/execute/sync")
-	Response xexecuteScript(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	Object xexecuteScript(@PathParam("session_id") String session_id, XScript script) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/execute/async")
-	Response xexecuteAsyncScript(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	Object xexecuteAsyncScript(@PathParam("session_id") String session_id, XScript script) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/cookie")
-	Response xgetAllCookies(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XCookie[] xgetAllCookies(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/cookie/{name}")
-	Response xgetNamedCookie(@PathParam("session_id") String session_id, @PathParam("name") String name, Request request) throws Exception;
+	@Produces(MediaType.APPLICATION_JSON)
+	XCookie xgetNamedCookie(@PathParam("session_id") String session_id, @PathParam("name") String name) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/cookie")
-	Response xaddCookie(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Consumes(MediaType.APPLICATION_JSON)
+	void xaddCookie(@PathParam("session_id") String session_id, XCookieRequest cookie) throws Exception;
 	
 	@DELETE
 	@Path("/session/{session_id}/cookie/{name}")
-	Response xdeleteCookie(@PathParam("session_id") String session_id, @PathParam("name") String name, Request request) throws Exception;
+	void xdeleteCookie(@PathParam("session_id") String session_id, @PathParam("name") String name) throws Exception;
 	
 	@DELETE
 	@Path("/session/{session_id)/cookie")
-	Response xdeleteAllCookie(@PathParam("session_id") String session_id, Request request) throws Exception;
+	void xdeleteAllCookies(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/actions")
-	Response xperformActions(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Consumes(MediaType.APPLICATION_JSON)
+	void xperformActions(@PathParam("session_id") String session_id, XActions actions) throws Exception;
 	
 	@DELETE
 	@Path("/session/{session_id}/actions")
-	Response xreleaseActions(@PathParam("session_id") String session_id, Request request) throws Exception;
+	void xreleaseActions(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/alert/dismiss")
-	Response xdismissAlert(@PathParam("session_id") String session_id, Request request) throws Exception;
+	void xdismissAlert(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/alert/accept")
-	Response xacceptAlert(@PathParam("session_id") String session_id, Request request) throws Exception;
+	void xacceptAlert(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/alert/text")
-	Response xgetAlertText(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xgetAlertText(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/alert/text")
-	Response xsendAlertText(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Consumes(MediaType.APPLICATION_JSON)
+	void xsendAlertText(@PathParam("session_id") String session_id, XAlert text) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/screenshot")
-	Response xtakeScreenshot(@PathParam("session_id") String session_id, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xtakeScreenshot(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/screenshot")
-	Response xtakeElementScreenshot(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, Request request) throws Exception;
+	@Produces(MediaType.TEXT_PLAIN)
+	String xtakeElementScreenshot(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
 	
 }

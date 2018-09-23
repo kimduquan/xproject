@@ -1,6 +1,6 @@
 package xproject.xdriver.impl.response;
 
-public class GetStatus {
+public class XStatus {
 
 	public boolean ready;
 	public String message;

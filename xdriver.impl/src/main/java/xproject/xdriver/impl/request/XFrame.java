@@ -1,6 +1,6 @@
 package xproject.xdriver.impl.request;
 
-public class SwitchToFrame {
+public class XFrame {
 
 	public Object id;
 }
