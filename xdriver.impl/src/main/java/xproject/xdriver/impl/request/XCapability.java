@@ -1,7 +1,10 @@
-package xproject.xdriver.impl;
+package xproject.xdriver.impl.request;
 
-public class XCapabilities {
+import xproject.xdriver.impl.XProxy;
+import xproject.xdriver.impl.XTimeouts;
 
+public class XCapability {
+	
 	public String browserName;
 	public String browserVersion;
 	public String platformName;

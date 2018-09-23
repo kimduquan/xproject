@@ -26,10 +26,29 @@
     <artifactId>javax.ws.rs-api</artifactId>
     <version>2.1</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-jdk-http -->
 <dependency>
     <groupId>org.glassfish.jersey.containers</groupId>
     <artifactId>jersey-container-jdk-http</artifactId>
-    <version>2.23</version>
+    <version>2.27</version>
 </dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-moxy -->
+<dependency>
+    <groupId>org.glassfish.jersey.media</groupId>
+    <artifactId>jersey-media-moxy</artifactId>
+    <version>2.27</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.inject/jersey-hk2 -->
+<dependency>
+    <groupId>org.glassfish.jersey.inject</groupId>
+    <artifactId>jersey-hk2</artifactId>
+    <version>2.27</version>
+</dependency>
+
+
   </dependencies>
 </project>

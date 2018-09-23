@@ -12,16 +12,34 @@ import xproject.xdriver.impl.request.*;
 import xproject.xdriver.impl.response.*;
 import xproject.xrmi.XRemote;
 
+@Path("/")
 public interface XDriverServer extends XRemote {
 
 	@POST
 	@Path("/session")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	XSession xnewSession(XCapabilities capabilities) throws Exception;
+	/*
+	 * {
+		  "desiredCapabilities": {
+		    "browserName": "MicrosoftEdge",
+		    "version": "",
+		    "platform": "WINDOWS"
+		  },
+		  "capabilities": {
+		    "firstMatch": [
+		      {
+		        "browserName": "MicrosoftEdge",
+		        "platformName": "windows"
+		      }
+		    ]
+		  }
+		}
+	 */
+	XSessionRes xnewSession(XCapabilitiesReq capabilities) throws Exception;
 	
 	@DELETE
-	@Path("//session/{session_id}")
+	@Path("/session/{session_id}")
 	void xdeleteSession(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET

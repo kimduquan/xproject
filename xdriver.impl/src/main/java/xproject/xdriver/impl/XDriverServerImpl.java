@@ -1,5 +1,7 @@
 package xproject.xdriver.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.net.URI;
 
 import javax.ws.rs.core.UriBuilder;
@@ -7,11 +9,10 @@ import javax.ws.rs.core.UriBuilder;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import com.sun.net.httpserver.HttpServer;
-
 import xproject.xdriver.impl.request.XActions;
 import xproject.xdriver.impl.request.XAlert;
 import xproject.xdriver.impl.request.XBy;
+import xproject.xdriver.impl.request.XCapabilitiesReq;
 import xproject.xdriver.impl.request.XCookieRequest;
 import xproject.xdriver.impl.request.XFrame;
 import xproject.xdriver.impl.request.XKeys;
@@ -19,7 +20,7 @@ import xproject.xdriver.impl.request.XScript;
 import xproject.xdriver.impl.request.XUrl;
 import xproject.xdriver.impl.request.XWindow;
 import xproject.xdriver.impl.response.XCookie;
-import xproject.xdriver.impl.response.XSession;
+import xproject.xdriver.impl.response.XSessionRes;
 import xproject.xdriver.impl.response.XStatus;
 import xproject.xdriver.impl.response.XWebElement;
 
@@ -29,9 +30,22 @@ public class XDriverServerImpl implements XDriverServer {
 		// TODO Auto-generated method stub
 
 	}
-
-	public XSession xnewSession(XCapabilities capabilities) throws Exception {
+	
+	protected String convert(InputStream inputStream) throws Exception
+	{
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int length;
+		while ((length = inputStream.read(buffer)) != -1) {
+		    result.write(buffer, 0, length);
+		}
+		return result.toString();
+	}
+	
+	public XSessionRes xnewSession(XCapabilitiesReq capabilities) throws Exception {
 		// TODO Auto-generated method stub
+		//ContainerRequest req = (ContainerRequest) request;
+		//System.out.print(convert(req.getEntityStream()));
 		return null;
 	}
 
