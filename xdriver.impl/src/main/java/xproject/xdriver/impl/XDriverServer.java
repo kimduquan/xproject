@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import xproject.xdriver.impl.request.*;
 import xproject.xdriver.impl.response.*;
 import xproject.xrmi.XRemote;
@@ -296,5 +297,5 @@ public interface XDriverServer extends XRemote {
 	@Path("/session/{session_id}/element/{element_id}/screenshot")
 	@Produces(MediaType.TEXT_PLAIN)
 	String xtakeElementScreenshot(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id) throws Exception;
-	
+	 
 }

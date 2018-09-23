@@ -1,8 +1,11 @@
 package xproject.xdriver.impl.error;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
+@Provider
 public class XExceptionMapper implements ExceptionMapper<Exception> {
 
 	public Response toResponse(Exception exception) {
@@ -16,7 +19,7 @@ public class XExceptionMapper implements ExceptionMapper<Exception> {
 		{
 			ex = new XUnknownError(exception);
 		}
-		return Response.status(ex.HTTPStatus).entity(ex.error).build();
+		return Response.status(ex.HTTPStatus).entity(ex.error).type(MediaType.APPLICATION_JSON).build();
 	}
 
 }

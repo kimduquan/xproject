@@ -3,12 +3,19 @@ package xproject.xdriver.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import xproject.xdriver.impl.error.XExceptionMapper;
+import xproject.xdriver.impl.error.XSessionNotCreated;
+import xproject.xdriver.impl.model.XPageLoadStrategy;
+import xproject.xdriver.impl.model.XSession;
 import xproject.xdriver.impl.request.XActions;
 import xproject.xdriver.impl.request.XAlert;
 import xproject.xdriver.impl.request.XBy;
@@ -25,10 +32,21 @@ import xproject.xdriver.impl.response.XStatus;
 import xproject.xdriver.impl.response.XWebElement;
 
 public class XDriverServerImpl implements XDriverServer {
+	
+	private int maximumActiveSessions;
+	private List<XSession> activeSessions;
+	private boolean webdriverActive; 
 
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public XDriverServerImpl()
+	{
+		maximumActiveSessions = -1;
+		activeSessions = new ArrayList<XSession>();
+		webdriverActive = false;
 	}
 	
 	protected String convert(InputStream inputStream) throws Exception
@@ -44,8 +62,100 @@ public class XDriverServerImpl implements XDriverServer {
 	
 	public XSessionRes xnewSession(XCapabilitiesReq capabilities) throws Exception {
 		// TODO Auto-generated method stub
-		//ContainerRequest req = (ContainerRequest) request;
-		//System.out.print(convert(req.getEntityStream()));
+		//3. If the maximum active sessions is equal to the length of the list of active sessions, return error with error code session not created.
+		if(maximumActiveSessions == activeSessions.size())
+		{
+			throw new XSessionNotCreated();
+		}
+		
+		//5. If capabilities's is null, return error with error code session not created.
+		if(capabilities == null)
+		{
+			throw new XSessionNotCreated();
+		}
+		
+		//6. Let session id be the result of generating a UUID.
+		UUID sessionId = UUID.randomUUID();
+		
+		//7. Let session be a new session with the session ID of session id.
+		XSession session = new XSession(sessionId.toString());
+		
+		//8. Set the current session to session.
+		XSession currentSession = session;
+		
+		//9. Append session to active sessions.
+		activeSessions.add(session);
+		
+		/*10. Let body be a JSON Object initialised with:
+		 * 
+		 * "sessionId"
+		 * 		session id
+		 * "capabilities"
+		 * 		capabilities 
+		*/
+		XSessionRes body = new XSessionRes();
+		
+		//11. Initialize the following from capabilities:
+		//11.1 Let strategy be the result of getting property "pageLoadStrategy" from capabilities.
+		String strategy = capabilities.capabilities.firstMatch[0].pageLoadStrategy;
+		
+		//11.2 If strategy is a string, set the current session’s page loading strategy to strategy. Otherwise, set the page loading strategy to normal and set a property of capabilities with name "pageLoadStrategy" and value "normal".
+		if(strategy != null)
+		{
+			currentSession.sessionPageLoadingStrategy = XPageLoadStrategy.valueOf(strategy);
+		}
+		else
+		{
+			currentSession.sessionPageLoadingStrategy = XPageLoadStrategy.normal;
+			capabilities.capabilities.firstMatch[0].pageLoadStrategy = XPageLoadStrategy.normal.toString();
+		}
+		
+		//11.3 Let proxy be the result of getting property "proxy" from capabilities and run the substeps of the first matching statement:
+		XProxy proxy = capabilities.capabilities.firstMatch[0].proxy;
+		
+		//11.4 Let timeouts be the result of getting property "timeouts" from capabilities.
+		XTimeouts timeouts = capabilities.capabilities.firstMatch[0].timeouts;
+		
+		//11.5 If timeouts is a session timeouts configuration object:
+		if(timeouts != null)
+		{
+			//11.5.1 If timeouts has a numeric property with key "implicit", set the current session’s session implicit wait timeout to the value of property "implicit". Otherwise, set the session implicit wait timeout to 0 (zero) milliseconds.
+			if(timeouts.implicit != null)
+			{
+				currentSession.sessionImplicitWaitTimeout = timeouts.implicit;
+			}
+			else
+			{
+				currentSession.sessionImplicitWaitTimeout = (long) 0;
+			}
+			
+			//11.5.2 If timeouts has a numeric property with key "pageLoad", set the current session’s session page load timeout to the value of property "pageLoad". Otherwise, set the session page load timeout to 300,000 milliseconds.
+			if(timeouts.pageLoad != null)
+			{
+				currentSession.sessionPageLoadtimeout = timeouts.pageLoad;
+			}
+			else
+			{
+				currentSession.sessionPageLoadtimeout = (long) 300000;
+			}
+			
+			//11.5.3 If timeouts has a numeric property with key "script", set the current session’s session script timeout to the value of property "script". Otherwise, set the session script timeout to 30,000 milliseconds.
+			if(timeouts.script != null)
+			{
+				currentSession.sessionScriptTimeout = timeouts.script;
+			}
+			else
+			{
+				currentSession.sessionScriptTimeout = (long) 30000;
+			}
+		}
+		
+		//12. Set the webdriver-active flag to true.
+		webdriverActive = true;
+		
+		//15. Return success with data body.
+		body.sessionId = sessionId.toString();
+		body.capabilities = capabilities.capabilities.firstMatch[0];
 		return null;
 	}
 
@@ -318,6 +428,7 @@ public class XDriverServerImpl implements XDriverServer {
 		// TODO Auto-generated method stub
 		URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
 		ResourceConfig config = new ResourceConfig(XDriverServerImpl.class);
+		config.register(XExceptionMapper.class);
 		JdkHttpServerFactory.createHttpServer(baseUri, config);
 	}
 

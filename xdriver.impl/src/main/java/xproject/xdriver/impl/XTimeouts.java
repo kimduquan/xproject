@@ -2,7 +2,7 @@ package xproject.xdriver.impl;
 
 public class XTimeouts {
 
-	public long script;
-	public long pageLoad;
-	public long implicit;
+	public Long script;
+	public Long pageLoad;
+	public Long implicit;
 }
