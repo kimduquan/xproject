@@ -12,7 +12,7 @@ public class XNoSuchAlert extends XWebDriverException {
 		super();
 		description = "An attempt was made to operate on a modal dialog when one was not open.";
 		HTTPStatus = 404;
-		error.value.error = "no such alert";
+		response.value.error = "no such alert";
 	}
 
 }

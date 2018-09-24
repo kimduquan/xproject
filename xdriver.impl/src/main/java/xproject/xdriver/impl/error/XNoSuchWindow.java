@@ -12,7 +12,7 @@ public class XNoSuchWindow extends XWebDriverException {
 		super();
 		description = "A command to switch to a window could not be satisfied because the window could not be found.";
 		HTTPStatus = 404;
-		error.value.error = "no such window";
+		response.value.error = "no such window";
 	}
 
 }

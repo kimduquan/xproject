@@ -12,7 +12,7 @@ public class XUnableToCaptureScreen extends XWebDriverException {
 		super();
 		description = "A screen capture was made impossible.";
 		HTTPStatus = 500;
-		error.value.error = "unable to capture screen";
+		response.value.error = "unable to capture screen";
 	}
 
 }

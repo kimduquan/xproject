@@ -12,7 +12,7 @@ public class XInvalidSelector extends XWebDriverException {
 		super();
 		description = "Argument was an invalid selector.";
 		HTTPStatus = 400;
-		error.value.error = "invalid selector";
+		response.value.error = "invalid selector";
 	}
 
 }

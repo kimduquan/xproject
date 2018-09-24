@@ -1,6 +1,16 @@
 package xproject.xdriver.impl.response;
 
-public class XSuccess {
+public class XResponse<T> {
 
-	public Object data;
+	public XResponse(T data)
+	{
+		value = data;
+	}
+	
+	public XResponse()
+	{
+		value = null;
+	}
+	
+	public T value;
 }

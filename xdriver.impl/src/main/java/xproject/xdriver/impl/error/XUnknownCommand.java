@@ -12,7 +12,7 @@ public class XUnknownCommand extends XWebDriverException {
 		super();
 		description = "A command could not be executed because the remote end is not aware of it.";
 		HTTPStatus = 404;
-		error.value.error = "unknown command";
+		response.value.error = "unknown command";
 	}
 
 }

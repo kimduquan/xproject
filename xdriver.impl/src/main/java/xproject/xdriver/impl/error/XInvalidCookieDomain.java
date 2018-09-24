@@ -12,7 +12,7 @@ public class XInvalidCookieDomain extends XWebDriverException {
 		super();
 		description = "An illegal attempt was made to set a cookie under a different domain than the current page.";
 		HTTPStatus = 400;
-		error.value.error = "invalid cookie domain";
+		response.value.error = "invalid cookie domain";
 	}
 
 }

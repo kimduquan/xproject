@@ -12,7 +12,7 @@ public class XSessionNotCreated extends XWebDriverException {
 		super();
 		description = "A new session could not be created.";
 		HTTPStatus = 500;
-		error.value.error = "session not created";
+		response.value.error = "session not created";
 	}
 
 }

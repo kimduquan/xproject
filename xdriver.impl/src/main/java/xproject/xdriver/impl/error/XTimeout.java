@@ -12,7 +12,7 @@ public class XTimeout extends XWebDriverException {
 		super();
 		description = "An operation did not complete before its timeout expired.";
 		HTTPStatus = 408;
-		error.value.error = "timeout";
+		response.value.error = "timeout";
 	}
 
 }

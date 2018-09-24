@@ -12,7 +12,7 @@ public class XInvalidArgument extends XWebDriverException {
 		super();
 		description = "The arguments passed to a command are either invalid or malformed.";
 		HTTPStatus = 400;
-		error.value.error = "invalid argument";
+		response.value.error = "invalid argument";
 	}
 
 }

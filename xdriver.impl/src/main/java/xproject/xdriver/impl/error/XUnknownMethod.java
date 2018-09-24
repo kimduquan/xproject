@@ -12,7 +12,7 @@ public class XUnknownMethod extends XWebDriverException {
 		super();
 		description = "The requested command matched a known URL but did not match an method for that URL.";
 		HTTPStatus = 405;
-		error.value.error = "unknown method";
+		response.value.error = "unknown method";
 	}
 
 }

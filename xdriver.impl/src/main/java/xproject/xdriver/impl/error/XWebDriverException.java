@@ -1,5 +1,7 @@
 package xproject.xdriver.impl.error;
 
+import xproject.xdriver.impl.response.XResponse;
+
 public class XWebDriverException extends Exception {
 
 	/**
@@ -10,14 +12,13 @@ public class XWebDriverException extends Exception {
 	public XWebDriverException()
 	{
 		super();
-		error = new XErrorRes();
-		error.value = new XError();
-		error.value.message = "";
-		error.value.stacktrace = "";
+		response = new XResponse<XError>(new XError());
+		response.value.message = "";
+		response.value.stacktrace = "";
 	}
 	
 	public int HTTPStatus;
-	public XErrorRes error;
+	public XResponse<XError> response;
 	public String description;
 
 }

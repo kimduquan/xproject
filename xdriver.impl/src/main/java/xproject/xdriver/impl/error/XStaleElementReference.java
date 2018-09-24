@@ -12,7 +12,7 @@ public class XStaleElementReference extends XWebDriverException {
 		super();
 		description = "A command failed because the referenced element is no longer attached to the DOM.";
 		HTTPStatus = 404;
-		error.value.error = "stale element reference";
+		response.value.error = "stale element reference";
 	}
 
 }

@@ -12,7 +12,7 @@ public class XScriptTimeout extends XWebDriverException {
 		super();
 		description = "A script did not complete before its timeout expired.";
 		HTTPStatus = 408;
-		error.value.error = "script timeout";
+		response.value.error = "script timeout";
 	}
 
 }

@@ -12,7 +12,7 @@ public class XUnsupportedOperation extends XWebDriverException {
 		super();
 		description = "Indicates that a command that should have executed properly cannot be supported for some reason.";
 		HTTPStatus = 500;
-		error.value.error = "unsupported operation";
+		response.value.error = "unsupported operation";
 	}
 
 }

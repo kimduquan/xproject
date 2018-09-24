@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,15 +28,16 @@ import xproject.xdriver.impl.request.XScript;
 import xproject.xdriver.impl.request.XUrl;
 import xproject.xdriver.impl.request.XWindow;
 import xproject.xdriver.impl.response.XCookie;
+import xproject.xdriver.impl.response.XNoResponse;
 import xproject.xdriver.impl.response.XSessionRes;
 import xproject.xdriver.impl.response.XStatus;
+import xproject.xdriver.impl.response.XResponse;
 import xproject.xdriver.impl.response.XWebElement;
 
 public class XDriverServerImpl implements XDriverServer {
 	
 	private int maximumActiveSessions;
 	private List<XSession> activeSessions;
-	private boolean webdriverActive; 
 
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub
@@ -46,7 +48,6 @@ public class XDriverServerImpl implements XDriverServer {
 	{
 		maximumActiveSessions = -1;
 		activeSessions = new ArrayList<XSession>();
-		webdriverActive = false;
 	}
 	
 	protected String convert(InputStream inputStream) throws Exception
@@ -60,15 +61,15 @@ public class XDriverServerImpl implements XDriverServer {
 		return result.toString();
 	}
 	
-	public XSessionRes xnewSession(XCapabilitiesReq capabilities) throws Exception {
+	public XResponse<XSessionRes> xnewSession(XCapabilitiesReq capabilities) throws Exception {
 		// TODO Auto-generated method stub
-		//3. If the maximum active sessions is equal to the length of the list of active sessions, return error with error code session not created.
+		//3. If the maximum active sessions is equal to the length of the list of active sessions, return response with response code session not created.
 		if(maximumActiveSessions == activeSessions.size())
 		{
 			throw new XSessionNotCreated();
 		}
 		
-		//5. If capabilities's is null, return error with error code session not created.
+		//5. If capabilities's is null, return response with response code session not created.
 		if(capabilities == null)
 		{
 			throw new XSessionNotCreated();
@@ -150,276 +151,292 @@ public class XDriverServerImpl implements XDriverServer {
 			}
 		}
 		
-		//12. Set the webdriver-active flag to true.
-		webdriverActive = true;
-		
 		//15. Return success with data body.
 		body.sessionId = sessionId.toString();
 		body.capabilities = capabilities.capabilities.firstMatch[0];
-		return null;
+		
+		XResponse<XSessionRes> success = new XResponse<XSessionRes>(body);
+		return success;
 	}
 
-	public void xdeleteSession(String session_id) throws Exception {
+	public XNoResponse xdeleteSession(String session_id) throws Exception {
 		// TODO Auto-generated method stub
-
+		XSession current = null;
+		for(XSession session : activeSessions)
+		{
+			if(session.sessionID.equals(session_id))
+			{
+				current = session;
+				break;
+			}
+		}
+		
+		//2. Remove the current session from active sessions.
+		activeSessions.remove(current);
+		
+		//Return success with data null.
+		return new XNoResponse();
 	}
 
-	public XStatus xgetStatus() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public XTimeouts xgetTimeouts(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void xsetTimeouts(String session_id, XTimeouts timeouts) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xnavigateTo(String session_id, XUrl request) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String xgetCurrentUrl(String session_id) throws Exception {
+	public XResponse<XStatus> xgetStatus() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void xback(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xforward(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xrefresh(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String xgetTitle(String session_id) throws Exception {
+	public XResponse<XTimeouts> xgetTimeouts(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String xgetWindowHandle(String session_id) throws Exception {
+	public XNoResponse xsetTimeouts(String session_id, XTimeouts timeouts) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String[] xcloseWindow(String session_id) throws Exception {
+	public XNoResponse xnavigateTo(String session_id, XUrl request) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void xswitchToWindow(String session_id, XWindow request) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String[] xgetWindowHandles(String session_id) throws Exception {
+	public XResponse<String> xgetCurrentUrl(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void xswitchToFrame(String session_id, XFrame request) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xswitchToParentFrame(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public XRect xgetWindowRect(String session_id) throws Exception {
+	public XNoResponse xback(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XRect xsetWindowRect(String session_id, XRect rect) throws Exception {
+	public XNoResponse xforward(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XRect xmaximizeWindow(String session_id) throws Exception {
+	public XNoResponse xrefresh(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XRect xminimizeWindow(String session_id) throws Exception {
+	public XResponse<String> xgetTitle(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XRect xfullscreenWindow(String session_id) throws Exception {
+	public XResponse<String> xgetWindowHandle(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XWebElement xgetActiveElement(String session_id) throws Exception {
+	public XResponse<String[]> xcloseWindow(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XWebElement xfindElement(String session_id, XBy by) throws Exception {
+	public XNoResponse xswitchToWindow(String session_id, XWindow request) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XWebElement[] xfindElements(String session_id, XBy by) throws Exception {
+	public XResponse<String[]> xgetWindowHandles(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XWebElement xfindElementFromElement(String session_id, String element_id, XBy by) throws Exception {
+	public XNoResponse xswitchToFrame(String session_id, XFrame request) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XWebElement[] xfindElementsFromElement(String session_id, String element_id, XBy by) throws Exception {
+	public XNoResponse xswitchToParentFrame(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean xisElementSelected(String session_id, String element_id) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public String xgetElementAttribute(String session_id, String element_id, String name) throws Exception {
+	public XResponse<XRect> xgetWindowRect(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String xgetElementProperty(String session_id, String element_id, String name) throws Exception {
+	public XResponse<XRect> xsetWindowRect(String session_id, XRect rect) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String xgetElementCssProperty(String session_id, String element_id, String property_name) throws Exception {
+	public XResponse<XRect> xmaximizeWindow(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String xgetElementText(String session_id, String element_id) throws Exception {
+	public XResponse<XRect> xminimizeWindow(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String xgetElementTagName(String session_id, String element_id) throws Exception {
+	public XResponse<XRect> xfullscreenWindow(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XRect xgetElementRect(String session_id, String element_id) throws Exception {
+	public XResponse<XWebElement> xgetActiveElement(String session_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean xisElementEnabled(String session_id, String element_id) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void xelementClick(String session_id, String element_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xelementClear(String session_id, String element_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xelementSendKeys(String session_id, String element_id, XKeys keys) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String xgetPageSource(String session_id) throws Exception {
+	public XResponse<XWebElement> xfindElement(String session_id, XBy by) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Object xexecuteScript(String session_id, XScript script) throws Exception {
+	public XResponse<XWebElement[]> xfindElements(String session_id, XBy by) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Object xexecuteAsyncScript(String session_id, XScript script) throws Exception {
+	public XResponse<XWebElement> xfindElementFromElement(String session_id, String element_id, XBy by)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XCookie[] xgetAllCookies(String session_id) throws Exception {
+	public XResponse<XWebElement[]> xfindElementsFromElement(String session_id, String element_id, XBy by)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public XCookie xgetNamedCookie(String session_id, String name) throws Exception {
+	public XResponse<Boolean> xisElementSelected(String session_id, String element_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void xaddCookie(String session_id, XCookieRequest cookie) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xdeleteCookie(String session_id, String name) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xdeleteAllCookies(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xperformActions(String session_id, XActions actions) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xreleaseActions(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xdismissAlert(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void xacceptAlert(String session_id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String xgetAlertText(String session_id) throws Exception {
+	public XResponse<String> xgetElementAttribute(String session_id, String element_id, String name) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void xsendAlertText(String session_id, XAlert text) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String xtakeScreenshot(String session_id) throws Exception {
+	public XResponse<String> xgetElementProperty(String session_id, String element_id, String name) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String xtakeElementScreenshot(String session_id, String element_id) throws Exception {
+	public XResponse<String> xgetElementCssProperty(String session_id, String element_id, String property_name)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<String> xgetElementText(String session_id, String element_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<String> xgetElementTagName(String session_id, String element_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<XRect> xgetElementRect(String session_id, String element_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<Boolean> xisElementEnabled(String session_id, String element_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xelementClick(String session_id, String element_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xelementClear(String session_id, String element_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xelementSendKeys(String session_id, String element_id, XKeys keys) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<String> xgetPageSource(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<Object> xexecuteScript(String session_id, XScript script) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<Object> xexecuteAsyncScript(String session_id, XScript script) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<XCookie[]> xgetAllCookies(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<XCookie> xgetNamedCookie(String session_id, String name) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xaddCookie(String session_id, XCookieRequest cookie) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xdeleteCookie(String session_id, String name) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xdeleteAllCookies(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xperformActions(String session_id, XActions actions) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xreleaseActions(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xdismissAlert(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xacceptAlert(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<String> xgetAlertText(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XNoResponse xsendAlertText(String session_id, XAlert text) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<String> xtakeScreenshot(String session_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public XResponse<String> xtakeElementScreenshot(String session_id, String element_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -431,5 +448,4 @@ public class XDriverServerImpl implements XDriverServer {
 		config.register(XExceptionMapper.class);
 		JdkHttpServerFactory.createHttpServer(baseUri, config);
 	}
-
 }

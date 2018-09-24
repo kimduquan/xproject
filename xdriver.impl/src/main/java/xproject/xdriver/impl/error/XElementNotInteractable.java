@@ -12,7 +12,7 @@ public class XElementNotInteractable extends XWebDriverException {
 		super();
 		description = "A command could not be completed because the element is not pointer- or keyboard interactable.";
 		HTTPStatus = 400;
-		error.value.error = "element not interactable";
+		response.value.error = "element not interactable";
 	}
 
 }

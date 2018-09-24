@@ -12,7 +12,7 @@ public class XNoSuchCookie extends XWebDriverException {
 		super();
 		description = "No cookie matching the given path name was found amongst the associated cookies of the current browsing context’s active document.";
 		HTTPStatus = 404;
-		error.value.error = "no such cookie";
+		response.value.error = "no such cookie";
 	}
 
 }

@@ -19,7 +19,7 @@ public class XExceptionMapper implements ExceptionMapper<Exception> {
 		{
 			ex = new XUnknownError(exception);
 		}
-		return Response.status(ex.HTTPStatus).entity(ex.error).type(MediaType.APPLICATION_JSON).build();
+		return Response.status(ex.HTTPStatus).entity(ex.response).type(MediaType.APPLICATION_JSON).build();
 	}
 
 }

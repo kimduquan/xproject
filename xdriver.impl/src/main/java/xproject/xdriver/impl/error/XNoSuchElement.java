@@ -12,7 +12,7 @@ public class XNoSuchElement extends XWebDriverException {
 		super();
 		description = "An element could not be located on the page using the given search parameters.";
 		HTTPStatus = 404;
-		error.value.error = "no such element";
+		response.value.error = "no such element";
 	}
 
 }

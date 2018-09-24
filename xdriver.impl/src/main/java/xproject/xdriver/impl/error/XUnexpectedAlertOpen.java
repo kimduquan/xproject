@@ -12,7 +12,7 @@ public class XUnexpectedAlertOpen extends XWebDriverException {
 		super();
 		description = "A modal dialog was open, blocking this operation.";
 		HTTPStatus = 500;
-		error.value.error = "unexpected alert open";
+		response.value.error = "unexpected alert open";
 	}
 
 }

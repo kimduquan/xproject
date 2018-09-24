@@ -10,9 +10,9 @@ public class XJavascriptError extends XWebDriverException {
 	public XJavascriptError()
 	{
 		super();
-		description = "An error occurred while executing JavaScript supplied by the user.";
+		description = "An response occurred while executing JavaScript supplied by the user.";
 		HTTPStatus = 500;
-		error.value.error = "javascript error";
+		response.value.error = "javascript response";
 	}
 
 }

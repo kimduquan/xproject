@@ -12,7 +12,7 @@ public class XUnableToSetCookie extends XWebDriverException {
 		super();
 		description = "A command to set a cookie’s value could not be satisfied.";
 		HTTPStatus = 500;
-		error.value.error = "unable to set cookie";
+		response.value.error = "unable to set cookie";
 	}
 
 }
