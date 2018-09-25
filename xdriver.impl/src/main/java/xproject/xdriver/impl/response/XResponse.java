@@ -13,4 +13,13 @@ public class XResponse<T> {
 	}
 	
 	public T value;
+	
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("{ \"value\" : ");
+		builder.append(value.toString());
+		builder.append(" }");
+		return builder.toString();
+	}
 }

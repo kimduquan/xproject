@@ -9,6 +9,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import xproject.xdriver.impl.model.XTimeouts;
+import xproject.xdriver.impl.model.XElementIdentifier;
+import xproject.xdriver.impl.model.XWindowIdentifier;
 import xproject.xdriver.impl.request.*;
 import xproject.xdriver.impl.response.*;
 import xproject.xrmi.XRemote;
@@ -37,7 +40,7 @@ public interface XDriverServer extends XRemote {
 		  }
 		}
 	 */
-	XResponse<XSessionRes> xnewSession(XCapabilitiesReq capabilities) throws Exception;
+	XResponse<XSessionInfo> xnewSession(XCapabilitiesReq capabilities) throws Exception;
 	
 	@DELETE
 	@Path("/session/{session_id}")
@@ -81,11 +84,11 @@ public interface XDriverServer extends XRemote {
 	
 	@GET
 	@Path("/session/{session_id}/window")
-	XResponse<String> xgetWindowHandle(@PathParam("session_id") String session_id) throws Exception;
+	XResponse<XWindowIdentifier> xgetWindowHandle(@PathParam("session_id") String session_id) throws Exception;
 	
 	@DELETE
 	@Path("/session/{session_id}/window")
-	XResponse<String[]> xcloseWindow(@PathParam("session_id") String session_id) throws Exception;
+	String xcloseWindow(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/window")
@@ -93,7 +96,7 @@ public interface XDriverServer extends XRemote {
 	
 	@GET
 	@Path("/session/{session_id}/window/handles")
-	XResponse<String[]> xgetWindowHandles(@PathParam("session_id") String session_id) throws Exception;
+	String xgetWindowHandles(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/frame")
@@ -125,23 +128,23 @@ public interface XDriverServer extends XRemote {
 	
 	@GET
 	@Path("/session/{session_id}/element/active")
-	XResponse<XWebElement> xgetActiveElement(@PathParam("session_id") String session_id) throws Exception;
+	XResponse<XElementIdentifier> xgetActiveElement(@PathParam("session_id") String session_id) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element")
-	XResponse<XWebElement> xfindElement(@PathParam("session_id") String session_id, XBy by) throws Exception;
+	XResponse<XElementIdentifier> xfindElement(@PathParam("session_id") String session_id, XBy by) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/elements")
-	XResponse<XWebElement[]> xfindElements(@PathParam("session_id") String session_id, XBy by) throws Exception;
+	String xfindElements(@PathParam("session_id") String session_id, XBy by) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/element")
-	XResponse<XWebElement> xfindElementFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XBy by) throws Exception;
+	XResponse<XElementIdentifier> xfindElementFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XBy by) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/element/{element_id}/elements")
-	XResponse<XWebElement[]> xfindElementsFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XBy by) throws Exception;
+	String xfindElementsFromElement(@PathParam("session_id") String session_id, @PathParam("element_id") String element_id, XBy by) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/element/{element_id}/selected")
@@ -201,7 +204,7 @@ public interface XDriverServer extends XRemote {
 	
 	@GET
 	@Path("/session/{session_id}/cookie")
-	XResponse<XCookie[]> xgetAllCookies(@PathParam("session_id") String session_id) throws Exception;
+	String xgetAllCookies(@PathParam("session_id") String session_id) throws Exception;
 	
 	@GET
 	@Path("/session/{session_id}/cookie/{name}")

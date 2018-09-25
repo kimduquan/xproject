@@ -1,7 +1,7 @@
 package xproject.xdriver.impl.request;
 
 import xproject.xdriver.impl.XProxy;
-import xproject.xdriver.impl.XTimeouts;
+import xproject.xdriver.impl.model.XTimeouts;
 
 public class XCapability {
 	
