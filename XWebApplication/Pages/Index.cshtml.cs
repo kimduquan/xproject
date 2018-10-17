@@ -11,7 +11,6 @@ namespace XWebApplication.Pages
     {
         public void OnGet()
         {
-
         }
     }
 }

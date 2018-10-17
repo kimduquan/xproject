@@ -4,8 +4,8 @@ using System.Text;
 
 namespace XSystem.XReflection
 {
-    public interface XConstructorInfo
+    public interface XAssembly
     {
-        XParameterInfo[] XGetParameters();
+        XType XGetType(string name);
     }
 }
