@@ -10,5 +10,7 @@ namespace XSystem
         int XGetHashCode();
         string XToString();
         XType XGetType();
+
+        object X { get; }
     }
 }

@@ -35,5 +35,10 @@ namespace XSystem.XReflection.XInternal
             }
             return xparameters;
         }
+
+        public XObject XInvoke(XObject[] parameters)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

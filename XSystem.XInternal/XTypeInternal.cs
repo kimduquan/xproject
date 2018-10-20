@@ -12,12 +12,20 @@ namespace XSystem.XInternal
         private Type type = null;
         private XConstructorInfo[] xconstructors = null;
 
+        public bool XIsEnum => type.IsEnum;
+
+        public string XName => type.Name;
+
+        public Type X => type;
+
+        public XTypeInternal(Type t)
+        {
+            type = t;
+        }
+
         public static XType XGetType(string typeName)
         {
-            Type type = Type.GetType(typeName);
-            XTypeInternal xtype = new XTypeInternal();
-            xtype.type = type;
-            return xtype;
+            return new XTypeInternal(Type.GetType(typeName));
         }
 
         public XConstructorInfo XGetConstructor(XType[] xtypes)
@@ -48,6 +56,11 @@ namespace XSystem.XInternal
                 }
             }
             return xconstructors;
+        }
+
+        public string[] XGetEnumNames()
+        {
+            return type.GetEnumNames();
         }
 
         public XFieldInfo XGetField(string name)

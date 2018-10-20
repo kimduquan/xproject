@@ -21,5 +21,9 @@ namespace XSystem
         XType[] XGetNestedTypes();
         XPropertyInfo[] XGetProperties();
         XPropertyInfo XGetProperty(string name);
+        bool XIsEnum { get; }
+        string[] XGetEnumNames();
+        string XName { get; }
+        Type X { get; }
     }
 }
