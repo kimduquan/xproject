@@ -25,5 +25,6 @@ namespace XSystem
         string[] XGetEnumNames();
         string XName { get; }
         Type X { get; }
+        string XNamespace { get; }
     }
 }

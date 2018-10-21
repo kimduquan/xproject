@@ -42,10 +42,10 @@ namespace XWebApplication.Pages
             {
                 if(xtype == null)
                 {
-                    string ns = (string)RouteData.Values["namespace"];
+                    string ns = (string)RouteData.Values[X.NAMESPACE];
                     ns = ns.Replace('-', '.');
-                    string cls = (string)RouteData.Values["class"];
-                    xtype = XTypeInternal.XGetType(ns + "." + cls);
+                    string t = (string)RouteData.Values[X.TYPE];
+                    xtype = XTypeInternal.XGetType(ns + "." + t);
                 }
                 return xtype;
             }
@@ -117,7 +117,10 @@ namespace XWebApplication.Pages
 
         public void OnPost()
         {
-            XConstructor.XInvoke(XParameterValues);
+            XObject xobject = XConstructor.XInvoke(XParameterValues);
+            string ns = (string)RouteData.Values[X.NAMESPACE];
+            string t = (string)RouteData.Values[X.TYPE];
+            Redirect(string.Format("/{0}/{1}/{2}", ns, t, xobject.XGetHashCode()));
         }
     }
 }

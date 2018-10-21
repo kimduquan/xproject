@@ -10,5 +10,7 @@ namespace XSystem.XReflection
         void XSetValue(XObject target, XObject value);
         XMethodInfo XGetGetMethod();
         XMethodInfo XGetSetMethod();
+        XType XPropertyType { get; }
+        string XName { get; }
     }
 }

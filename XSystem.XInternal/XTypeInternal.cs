@@ -18,6 +18,8 @@ namespace XSystem.XInternal
 
         public Type X => type;
 
+        public string XNamespace => type.Namespace;
+
         public XTypeInternal(Type t)
         {
             type = t;

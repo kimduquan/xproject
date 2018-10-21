@@ -8,5 +8,8 @@ namespace XSystem.XReflection
     {
         XObject XGetValue(XObject target);
         void XSetValue(XObject target, XObject value);
+        XType XFieldType { get; }
+        string XName { get; }
+        bool XIsStatic { get; }
     }
 }

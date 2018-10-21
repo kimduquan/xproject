@@ -8,5 +8,7 @@ namespace XSystem.XReflection
     {
         XParameterInfo[] XGetParameters();
         XObject XInvoke(XObject target, XObject[] parameters);
+        string XName { get; }
+        bool XIsStatic { get; }
     }
 }
