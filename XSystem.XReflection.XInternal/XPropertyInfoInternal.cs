@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XSystem.XReflection.XInternal
 {
-    public class XPropertyInfoInternal : XPropertyInfo
+    public class XPropertyInfoInternal : Internal, XPropertyInfo
     {
         private PropertyInfo property = null;
         private XType xpropertyType = null;
@@ -13,6 +13,11 @@ namespace XSystem.XReflection.XInternal
         public XType XPropertyType => xpropertyType;
 
         public string XName => property.Name;
+
+        public XPropertyInfoInternal(PropertyInfo p, X x) : base(x)
+        {
+            property = p;
+        }
 
         public XMethodInfo XGetGetMethod()
         {
@@ -26,12 +31,12 @@ namespace XSystem.XReflection.XInternal
 
         public XObject XGetValue(XObject target)
         {
-            throw new NotImplementedException();
+            return X().XNew(property.GetValue(target.X));
         }
 
         public void XSetValue(XObject target, XObject value)
         {
-            throw new NotImplementedException();
+            property.SetValue(target.X, value.X);
         }
     }
 }

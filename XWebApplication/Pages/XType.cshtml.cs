@@ -15,10 +15,25 @@ namespace XWebApplication.Pages
 {
     public class XTypeModel : PageModel
     {
+        private X x = null;
         private XType xtype = null;
         private XTypeConverter xconverter = null;
         private XFieldInfo[] xstaticFields = null;
         private XMethodInfo[] xstaticMethods = null;
+        private XFieldInfo[] xarrayFields = null;
+        private XJSONConverter xjsonConverter = null;
+
+        public X X
+        {
+            get
+            {
+                if(x == null)
+                {
+                    x = new XInternal();
+                }
+                return x;
+            }
+        }
 
         public XType XType
         {
@@ -26,10 +41,10 @@ namespace XWebApplication.Pages
             {
                 if (xtype == null)
                 {
-                    string ns = (string)RouteData.Values[X.NAMESPACE];
+                    string ns = (string)RouteData.Values["namespace"];
                     ns = ns.Replace('-', '.');
-                    string t = (string)RouteData.Values[X.TYPE];
-                    xtype = XTypeInternal.XGetType(ns + "." + t);
+                    string t = (string)RouteData.Values["type"];
+                    xtype = X.XTypeOf(Type.GetType(ns + "." + t));
                 }
                 return xtype;
             }
@@ -41,7 +56,7 @@ namespace XWebApplication.Pages
             {
                 if(xconverter == null)
                 {
-                    xconverter = new XObjectConverterInternal();
+                    xconverter = new XObjectConverterInternal(X);
                 }
                 return xconverter;
             }
@@ -56,7 +71,7 @@ namespace XWebApplication.Pages
                     List<XFieldInfo> fields = new List<XFieldInfo>();
                     foreach(XFieldInfo xfield in XType.XGetFields())
                     {
-                        if(xfield.XIsStatic)
+                        if(xfield.XIsStatic && !xfield.XFieldType.XIsArray)
                         {
                             fields.Add(xfield);
                         }
@@ -87,6 +102,26 @@ namespace XWebApplication.Pages
             }
         }
 
+        public XFieldInfo[] XArrayFields
+        {
+            get
+            {
+                if(xarrayFields == null)
+                {
+                    List<XFieldInfo> fields = new List<XFieldInfo>();
+                    foreach (XFieldInfo xfield in XType.XGetFields())
+                    {
+                        if (xfield.XIsStatic && xfield.XFieldType.XIsArray)
+                        {
+                            fields.Add(xfield);
+                        }
+                    }
+                    xstaticFields = fields.ToArray();
+                }
+                return xarrayFields;
+            }
+        }
+
         public string XGetValue(XFieldInfo xfield)
         {
             XObject value = xfield.XGetValue(null);
@@ -97,6 +132,14 @@ namespace XWebApplication.Pages
         {
             XObject value = xproperty.XGetValue(null);
             return XConverter.XConvertToString(value);
+        }
+
+        public XJSONConverter XJsonConverter
+        {
+            get
+            {
+                return xjsonConverter;
+            }
         }
 
         public void OnGet()
@@ -117,13 +160,21 @@ namespace XWebApplication.Pages
             }
         }
 
-        public string GetHref(XMethodInfo xmethod)
+        public string XGetHref(XMethodInfo xmethod)
         {
             string ns = XType.XNamespace;
             ns = ns.Replace('.', '-');
             string type = XType.XName;
             string href = string.Format("/{0}/{1}/{2}", ns, type, xmethod.XName);
             return href;
+        }
+
+        public JsonResult OnGetArray()
+        {
+            string field = Request.Query["field"];
+            XFieldInfo xfield = XType.XGetField(field);
+            XObject xvalue = xfield.XGetValue(null);
+            return XJsonConverter.XConvertToJSON(xvalue, xfield.XFieldType);
         }
     }
 }

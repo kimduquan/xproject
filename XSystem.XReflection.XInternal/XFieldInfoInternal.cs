@@ -5,25 +5,28 @@ using System.Text;
 
 namespace XSystem.XReflection.XInternal
 {
-    class XFieldInfoInternal : XFieldInfo
+    public class XFieldInfoInternal : Internal, XFieldInfo
     {
         private FieldInfo field = null;
         private XType xfieldType = null;
 
         public XType XFieldType => xfieldType;
-
         public string XName => field.Name;
-
         public bool XIsStatic => field.IsStatic;
+
+        public XFieldInfoInternal(FieldInfo f, X x): base(x)
+        {
+            field = f;
+        }
 
         public XObject XGetValue(XObject target)
         {
-            throw new NotImplementedException();
+            return X().XNew(field.GetValue(target));
         }
 
         public void XSetValue(XObject target, XObject value)
         {
-            throw new NotImplementedException();
+            field.SetValue(target.X, value.X);
         }
     }
 }

@@ -6,39 +6,37 @@ using XSystem.XReflection;
 
 namespace XSystem.XReflection.XInternal
 {
-    public class XConstructorInfoInternal : XConstructorInfo
+    public class XConstructorInfoInternal : Internal, XConstructorInfo
     {
         private ConstructorInfo constructor;
-        private XParameterInfo[] xparameters;
+        private List<XParameterInfo> xparameters = null;
 
-        public XConstructorInfoInternal(ConstructorInfo c)
+        public XConstructorInfoInternal(ConstructorInfo c, X x) : base(x)
         {
             constructor = c;
-            xparameters = null;
         }
 
         public XParameterInfo[] XGetParameters()
         {
             if(xparameters == null)
             {
-                ParameterInfo[] parameters = constructor.GetParameters();
-                if(parameters != null)
+                xparameters = new List<XParameterInfo>();
+                foreach (ParameterInfo parameter in constructor.GetParameters())
                 {
-                    xparameters = new XParameterInfo[parameters.Length];
-                    int index = 0;
-                    foreach (ParameterInfo parameter in parameters)
-                    {
-                        xparameters[index] = new XParameterInfoInternal(parameter);
-                        index++;
-                    }
+                    xparameters.Add(new XParameterInfoInternal(parameter, X()));
                 }
             }
-            return xparameters;
+            return xparameters.ToArray();
         }
 
         public XObject XInvoke(XObject[] parameters)
         {
-            throw new NotImplementedException();
+            List<object> objects = new List<object>();
+            foreach (XObject xobject in parameters)
+            {
+                objects.Add(xobject);
+            }
+            return X().XNew(constructor.Invoke(objects.ToArray()));
         }
     }
 }

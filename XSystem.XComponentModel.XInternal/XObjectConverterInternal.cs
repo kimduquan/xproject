@@ -6,12 +6,18 @@ using System.IO;
 using System.Text;
 using XSystem.XComponentModel;
 using XSystem.XInternal;
-using xsystem = XSystem.XInternal.XSystem;
 
 namespace XSystem.XComponentModel.XInternal
 {
     public class XObjectConverterInternal : XTypeConverter
     {
+        private X x;
+
+        public XObjectConverterInternal(X x)
+        {
+            this.x = x;
+        }
+
         public bool XCanConvertFrom(Type type)
         {
             if (type == typeof(string))
@@ -57,21 +63,21 @@ namespace XSystem.XComponentModel.XInternal
                 {
                     result = v;
                 }
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             t = typeof(Color);
             if (xtype.XName == t.Name)
             {
                 ColorConverter converter = new ColorConverter();
                 result = converter.ConvertFromString(value);
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             t = typeof(DateTime);
             if (xtype.XName == t.Name)
             {
                 DateTimeConverter converter = new DateTimeConverter();
                 result = converter.ConvertFromString(value);
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             t = typeof(float);
             if (xtype.XName == t.Name)
@@ -81,7 +87,7 @@ namespace XSystem.XComponentModel.XInternal
                 {
                     result = v;
                 }
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             t = typeof(int);
             if (xtype.XName == t.Name)
@@ -91,25 +97,25 @@ namespace XSystem.XComponentModel.XInternal
                 {
                     result = v;
                 }
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             t = typeof(string);
             if (xtype.XName == t.Name)
             {
                 result = value;
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             t = typeof(Uri);
             if (xtype.XName == t.Name)
             {
                 result = new Uri(value);
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             if (xtype.XIsEnum)
             {
                 EnumConverter converter = new EnumConverter(xtype.X);
                 result = converter.ConvertFromString(value);
-                return new XObjectInternal(result, xsystem.XTypeOf(t));
+                return x.XNew(result);
             }
             return null;
         }

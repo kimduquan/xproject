@@ -9,55 +9,68 @@ namespace XSystem.XInternal
 {
     public class XTypeInternal : XType
     {
+        private X x;
         private Type type = null;
-        private XConstructorInfo[] xconstructors = null;
+        private List<XConstructorInfo> xconstructors = null;
+        private List<XFieldInfo> xfields = null;
+        private List<XType> xinterfaces = null;
+        private List<XMemberInfo> xmembers = null;
+        private List<XMethodInfo> xmethods = null;
+        private List<XType> xnestedTypes = null;
+        private List<XPropertyInfo> xproperties = null;
+        private XType xbase = null;
 
         public bool XIsEnum => type.IsEnum;
-
         public string XName => type.Name;
-
         public Type X => type;
-
         public string XNamespace => type.Namespace;
+        public bool XIsArray => type.IsArray;
+        public bool XIsPrimitive => type.IsPrimitive;
 
-        public XTypeInternal(Type t)
+        public XType XBaseType
         {
-            type = t;
+            get
+            {
+                if(xbase == null)
+                {
+                    xbase = new XTypeInternal(type.BaseType, x);
+                }
+                return xbase;
+            }
         }
 
-        public static XType XGetType(string typeName)
+        public string XFullName => type.FullName;
+
+        public bool XIsInterface => type.IsInterface;
+
+        public XTypeInternal(Type t, X x)
         {
-            return new XTypeInternal(Type.GetType(typeName));
+            type = t;
+            this.x = x;
         }
 
         public XConstructorInfo XGetConstructor(XType[] xtypes)
         {
-            Type[] types = new Type[xtypes.Length];
-            int index = 0;
-            foreach (XType x in xtypes)
+            List<Type> types = new List<Type>();
+            foreach (XType xtype in xtypes)
             {
-                XTypeInternal xtype = (XTypeInternal)x;
-                types[index] = xtype.type;
-                index++;
+                types.Add(xtype.X);
             }
-            ConstructorInfo constructor = type.GetConstructor(types);
-            return new XConstructorInfoInternal(constructor);
+            ConstructorInfo constructor = type.GetConstructor(types.ToArray());
+            return new XConstructorInfoInternal(constructor, x);
         }
 
         public XConstructorInfo[] XGetConstructors()
         {
             if(xconstructors == null)
             {
-                ConstructorInfo[] constructors = type.GetConstructors();
-                xconstructors = new XConstructorInfo[constructors.Length];
-                int index = 0;
-                foreach (ConstructorInfo constructor in constructors)
+                xconstructors = new List<XConstructorInfo>();
+                foreach (ConstructorInfo constructor in type.GetConstructors())
                 {
-                    xconstructors[index] = new XConstructorInfoInternal(constructor);
-                    index++;
+                    xconstructors.Add(new XConstructorInfoInternal(constructor, x));
                 }
             }
-            return xconstructors;
+            return xconstructors.ToArray();
         }
 
         public string[] XGetEnumNames()
@@ -67,62 +80,125 @@ namespace XSystem.XInternal
 
         public XFieldInfo XGetField(string name)
         {
-            throw new NotImplementedException();
+            return new XFieldInfoInternal(type.GetField(name), x);
         }
 
         public XFieldInfo[] XGetFields()
         {
-            throw new NotImplementedException();
+            if (xfields == null)
+            {
+                xfields = new List<XFieldInfo>();
+                foreach(FieldInfo field in type.GetFields())
+                {
+                    xfields.Add(new XFieldInfoInternal(field, x));
+                }
+            }
+            return xfields.ToArray();
         }
 
         public XType XGetInterface(string name)
         {
-            throw new NotImplementedException();
+            return new XTypeInternal(type.GetInterface(name), x);
         }
 
         public XType[] XGetInterfaces()
         {
-            throw new NotImplementedException();
+            if(xinterfaces == null)
+            {
+                xinterfaces = new List<XType>();
+                foreach(Type t in type.GetInterfaces())
+                {
+                    xinterfaces.Add(new XTypeInternal(t, x));
+                }
+            }
+            return xinterfaces.ToArray();
         }
 
-        public XMemberInfo XGetMember(string name)
+        public XMemberInfo[] XGetMember(string name)
         {
-            throw new NotImplementedException();
+            List<XMemberInfo> xmemberList = new List<XMemberInfo>();
+            foreach (MemberInfo member in type.GetMember(name))
+            {
+                xmemberList.Add(new XMemberInfoInternal(member));
+            }
+            return xmemberList.ToArray();
         }
 
         public XMemberInfo[] XGetMembers()
         {
-            throw new NotImplementedException();
+            if(xmembers == null)
+            {
+                xmembers = new List<XMemberInfo>();
+                foreach (MemberInfo member in type.GetMembers())
+                {
+                    xmembers.Add(new XMemberInfoInternal(member));
+                }
+            }
+            return xmembers.ToArray();
         }
 
         public XMethodInfo XGetMethod(string name)
         {
-            throw new NotImplementedException();
+            return new XMethodInfoInternal(type.GetMethod(name), x);
         }
 
         public XMethodInfo[] XGetMethods()
         {
-            throw new NotImplementedException();
+            if(xmethods == null)
+            {
+                xmethods = new List<XMethodInfo>();
+                foreach (MethodInfo method in type.GetMethods())
+                {
+                    xmethods.Add(new XMethodInfoInternal(method, x));
+                }
+            }
+            return xmethods.ToArray();
         }
 
         public XType XGetNestedType(string name)
         {
-            throw new NotImplementedException();
+            return new XTypeInternal(type.GetNestedType(name), x);
         }
 
         public XType[] XGetNestedTypes()
         {
-            throw new NotImplementedException();
+            if(xnestedTypes == null)
+            {
+                xnestedTypes = new List<XType>();
+                foreach (Type t in type.GetNestedTypes())
+                {
+                    xnestedTypes.Add(new XTypeInternal(t, x));
+                }
+            }
+            return xnestedTypes.ToArray();
         }
 
         public XPropertyInfo[] XGetProperties()
         {
-            throw new NotImplementedException();
+            if(xproperties == null)
+            {
+                xproperties = new List<XPropertyInfo>();
+                foreach (PropertyInfo property in type.GetProperties())
+                {
+                    xproperties.Add(new XPropertyInfoInternal(property, x));
+                }
+            }
+            return xproperties.ToArray();
         }
 
         public XPropertyInfo XGetProperty(string name)
         {
-            throw new NotImplementedException();
+            return new XPropertyInfoInternal(type.GetProperty(name), x);
+        }
+
+        public bool XIsAssignableFrom(XType xtype)
+        {
+            return type.IsAssignableFrom(xtype.X);
+        }
+
+        public bool XIsSubclassOf(XType xtype)
+        {
+            return type.IsSubclassOf(xtype.X);
         }
     }
 }

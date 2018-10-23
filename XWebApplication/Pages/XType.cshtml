@@ -12,10 +12,16 @@
         <nav>
             @foreach (var xmethod in Model.XStaticMethods)
             {
-                string href = Model.GetHref(xmethod);
+                string href = Model.XGetHref(xmethod);
                 <a href="@href"></a>
             }
         </nav>
+        <ul>
+            @foreach (var xfield in Model.XArrayFields)
+            {
+
+            }
+        </ul>
         <form method="post">
             <fieldset>
                 <legend>Fields :</legend>

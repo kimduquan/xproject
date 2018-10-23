@@ -1,5 +1,6 @@
-﻿function XType() {
-
+﻿function XType(namespace, type) {
+    this.namespace = namespace;
+    this.type = type;
 }
 
 XType.prototype.xgetConstructor = function (types) {

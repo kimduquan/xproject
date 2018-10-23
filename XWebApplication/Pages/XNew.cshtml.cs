@@ -12,17 +12,30 @@ using XSystem.XComponentModel;
 using XSystem.XComponentModel.XInternal;
 using XSystem.XInternal;
 using XSystem.XReflection;
-using xsystem = XSystem.XInternal.XSystem;
+using xsystem = XSystem.XInternal.XInternal;
 
 namespace XWebApplication.Pages
 {
     public class XNewModel : PageModel
     {
+        private X x = null;
         private XConstructorInfo xconstructor = null;
         private XType xtype = null;
-        private XType[] xparameterTypes = null;
-        private XObject[] xparameterValues = null;
+        private List<XType> xparameterTypes = null;
+        private List<XObject> xparameterValues = null;
         private XTypeConverter xconverter = null;
+
+        public X X
+        {
+            get
+            {
+                if(x == null)
+                {
+                    x = new XInternal();
+                }
+                return x;
+            }
+        }
 
         public XConstructorInfo XConstructor
         {
@@ -42,10 +55,10 @@ namespace XWebApplication.Pages
             {
                 if(xtype == null)
                 {
-                    string ns = (string)RouteData.Values[X.NAMESPACE];
+                    string ns = (string)RouteData.Values["namespace"];
                     ns = ns.Replace('-', '.');
-                    string t = (string)RouteData.Values[X.TYPE];
-                    xtype = XTypeInternal.XGetType(ns + "." + t);
+                    string t = (string)RouteData.Values["type"];
+                    xtype = X.XTypeOf(Type.GetType(ns + "." + t));
                 }
                 return xtype;
             }
@@ -57,18 +70,16 @@ namespace XWebApplication.Pages
             {
                 if(xparameterTypes == null)
                 {
-                    xparameterTypes = new XType[Request.Query.Count];
-                    int index = 0;
+                    xparameterTypes = new List<XType>();
                     foreach (KeyValuePair<string, StringValues> pair in Request.Query)
                     {
                         foreach (string value in pair.Value)
                         {
-                            xparameterTypes[index] = XTypeInternal.XGetType(value);
-                            index++;
+                            xparameterTypes.Add(X.XTypeOf(Type.GetType(value)));
                         }
                     }
                 }
-                return xparameterTypes;
+                return xparameterTypes.ToArray();
             }
         }
 
@@ -79,22 +90,20 @@ namespace XWebApplication.Pages
                 if(xparameterValues == null)
                 {
                     XParameterInfo[] xparameters = XConstructor.XGetParameters();
-                    xparameterValues = new XObject[xparameters.Length];
+                    xparameterValues = new List<XObject>();
                     if(XConverter.XCanConvertFrom(typeof(string)))
                     {
-                        int index = 0;
-                        foreach (XParameterInfo xparameter in xparameters)
+                        foreach (XParameterInfo xparameter in XConstructor.XGetParameters())
                         {
                             StringValues value = Request.Form[xparameter.XName];
                             if (XConverter.XCanConvertTo(xparameter.XParameterType))
                             {
-                                xparameterValues[index] = XConverter.XConvertTo(value.ToString(), xparameter.XParameterType);
+                                xparameterValues.Add(XConverter.XConvertTo(value.ToString(), xparameter.XParameterType));
                             }
-                            index++;
                         }
                     }
                 }
-                return xparameterValues;
+                return xparameterValues.ToArray();
             }
         }
 
@@ -104,7 +113,7 @@ namespace XWebApplication.Pages
             {
                 if(xconverter == null)
                 {
-                    xconverter = new XObjectConverterInternal();
+                    xconverter = new XObjectConverterInternal(X);
                 }
                 return xconverter;
             }
@@ -118,8 +127,8 @@ namespace XWebApplication.Pages
         public void OnPost()
         {
             XObject xobject = XConstructor.XInvoke(XParameterValues);
-            string ns = (string)RouteData.Values[X.NAMESPACE];
-            string t = (string)RouteData.Values[X.TYPE];
+            string ns = (string)RouteData.Values["namespace"];
+            string t = (string)RouteData.Values["type"];
             Redirect(string.Format("/{0}/{1}/{2}", ns, t, xobject.XGetHashCode()));
         }
     }
