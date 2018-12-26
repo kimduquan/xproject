@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Tasks.Deployment;
 
 namespace OpenUP.Work_Products.Deployment
 {
-    class Infrastructure
+    public class Infrastructure
     {
+        public Install_and_Validate_Infrastructure Output_From { get; set; }
     }
 }

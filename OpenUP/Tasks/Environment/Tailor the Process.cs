@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Environment
 {
-    class Tailor_the_Process
+    public class Tailor_the_Process
     {
     }
 }

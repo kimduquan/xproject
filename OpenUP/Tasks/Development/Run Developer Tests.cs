@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Development
 {
-    class Run_Developer_Tests
+    public class Run_Developer_Tests
     {
     }
 }

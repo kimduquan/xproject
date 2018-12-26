@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Project_Management
 {
-    class Assess_Results
+    public class Assess_Results
     {
     }
 }

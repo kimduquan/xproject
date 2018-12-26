@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenUP.Roles.Basic_Roles
+﻿namespace OpenUP.Roles.Basic_Roles
 {
-    class Developer
+    public class Developer
     {
     }
 }

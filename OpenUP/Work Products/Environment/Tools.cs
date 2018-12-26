@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Roles.Environment;
 
 namespace OpenUP.Work_Products.Environment
 {
-    class Tools
+    public class Tools
     {
+        public Tool_Specialist Responsible { get; set; }
+        public Tool_Specialist Modified_By { get; set; }
     }
 }

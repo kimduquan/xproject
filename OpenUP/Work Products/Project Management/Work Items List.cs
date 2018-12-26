@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Roles.Basic_Roles;
 
 namespace OpenUP.Work_Products.Project_Management
 {
-    class Work_Items_List
+    public class Work_Items_List
     {
+        public Project_Manager Responsible { get; set; }
     }
 }

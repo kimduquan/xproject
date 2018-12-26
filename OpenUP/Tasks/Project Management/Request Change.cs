@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Project_Management
 {
-    class Request_Change
+    public class Request_Change
     {
     }
 }

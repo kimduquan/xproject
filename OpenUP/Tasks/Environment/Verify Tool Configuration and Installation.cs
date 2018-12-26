@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Environment
 {
-    class Verify_Tool_Configuration_and_Installation
+    public class Verify_Tool_Configuration_and_Installation
     {
     }
 }

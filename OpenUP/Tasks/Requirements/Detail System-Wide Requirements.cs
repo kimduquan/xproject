@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Requirements
 {
-    class Detail_System_Wide_Requirements
+    public class Detail_System_Wide_Requirements
     {
     }
 }

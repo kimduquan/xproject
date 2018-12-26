@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Environment
 {
-    class Set_Up_Tools
+    public class Set_Up_Tools
     {
     }
 }

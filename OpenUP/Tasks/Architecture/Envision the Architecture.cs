@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Architecture
 {
-    class Envision_the_Architecture
+    public class Envision_the_Architecture
     {
     }
 }

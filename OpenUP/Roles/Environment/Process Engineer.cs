@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Roles.Environment
 {
-    class Process_Engineer
+    public class Process_Engineer
     {
     }
 }

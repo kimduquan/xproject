@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Environment
 {
-    class Deploy_the_Process
+    public class Deploy_the_Process
     {
     }
 }

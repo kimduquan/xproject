@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Deployment
 {
-    class Verify_Successful_Deployment
+    public class Verify_Successful_Deployment
     {
     }
 }

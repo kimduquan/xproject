@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Roles.Deployment
 {
-    class Deployment_Manager
+    public class Deployment_Manager
     {
     }
 }

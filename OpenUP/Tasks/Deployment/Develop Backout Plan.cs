@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Deployment
 {
-    class Develop_Backout_Plan
+    public class Develop_Backout_Plan
     {
     }
 }

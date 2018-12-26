@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Roles.Deployment
 {
-    class Product_Owner
+    public class Product_Owner
     {
     }
 }

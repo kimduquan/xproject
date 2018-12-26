@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Requirements
 {
-    class Detail_Use_Case_Scenarios
+    public class Detail_Use_Case_Scenarios
     {
     }
 }

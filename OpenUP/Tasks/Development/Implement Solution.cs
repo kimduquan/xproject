@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Development
 {
-    class Implement_Solution
+    public class Implement_Solution
     {
     }
 }

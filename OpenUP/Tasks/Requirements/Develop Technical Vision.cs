@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Requirements
 {
-    class Develop_Technical_Vision
+    public class Develop_Technical_Vision
     {
     }
 }

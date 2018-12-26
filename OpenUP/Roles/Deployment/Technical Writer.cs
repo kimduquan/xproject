@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Roles.Deployment
 {
-    class Technical_Writer
+    public class Technical_Writer
     {
     }
 }

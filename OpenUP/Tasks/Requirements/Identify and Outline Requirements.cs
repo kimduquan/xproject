@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Requirements
 {
-    class Identify_and_Outline_Requirements
+    public class Identify_and_Outline_Requirements
     {
     }
 }

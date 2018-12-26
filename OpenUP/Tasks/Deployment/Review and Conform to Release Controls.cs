@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Deployment
 {
-    class Review_and_Conform_to_Release_Controls
+    public class Review_and_Conform_to_Release_Controls
     {
     }
 }

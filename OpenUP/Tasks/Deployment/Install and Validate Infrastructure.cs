@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Deployment
 {
-    class Install_and_Validate_Infrastructure
+    public class Install_and_Validate_Infrastructure
     {
     }
 }

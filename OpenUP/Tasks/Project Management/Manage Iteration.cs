@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenUP.Tasks.Project_Management
 {
-    class Manage_Iteration
+    public class Manage_Iteration
     {
     }
 }

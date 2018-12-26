@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Roles.Basic_Roles;
+using System;
 
 namespace OpenUP.Work_Products.Architecture
 {
-    class Architecture_Notebook
+    public class Architecture_Notebook
     {
+        public Architect Responsible { get; set; }
+        public Architect Modified_By { get; set; }
+        public string Project_Name { get; set; }
+        public DateTime Date { get; set; }
     }
 }

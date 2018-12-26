@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Roles.Basic_Roles;
+using OpenUP.Tasks.Development;
 
 namespace OpenUP.Work_Products.Development
 {
-    class Build
+    public class Build
     {
+        public Developer Responsible { get; set; }
+        public Developer Modified_By { get; set; }
+        public Integrate_and_Create_Build Output_From { get; set; }
     }
 }
