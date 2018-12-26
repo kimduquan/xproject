@@ -1,1 +1,57 @@
 ﻿@model XSystem.XType
+
+@{
+    string name = Model.XFullName;
+}
+
+<form method="post" name="@name">
+    <fieldset>
+        <legend>Fields :</legend>
+        <table>
+            <caption></caption>
+            <colgroup>
+                <col />
+                <col />
+            </colgroup>
+            <thead></thead>
+            <tbody>
+                <tr>
+                    @foreach (var xfield in Model.XGetFields())
+                    {
+                        @if (xfield.XIsStatic)
+                        {
+                            @Html.PartialAsync("_XFieldInfo", xfield);
+                        }
+                    }
+                </tr>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Properties :</legend>
+        <table>
+            <caption></caption>
+            <colgroup>
+                <col />
+                <col />
+            </colgroup>
+            <thead></thead>
+            <tbody>
+                <tr>
+                    @foreach (var xproperty in Model.XGetProperties())
+                    {
+                        @if (true)
+                        {
+                            @Html.PartialAsync("_XPropertyInfo", xproperty);
+                        }
+                    }
+                </tr>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </fieldset>
+    <time datetime="@DateTime.Now">@DateTime.Now</time>
+    <progress />
+    <input type="submit" title="Set" />
+</form>
