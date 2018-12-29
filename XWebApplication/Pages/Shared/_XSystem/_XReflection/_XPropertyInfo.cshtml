@@ -5,61 +5,77 @@
     string required = "";
     string name = Model.XName;
     string type = "";
+    bool isInput = true;
 }
 
 <td>
     <label for="@name">@name</label>
 </td>
 <td>
-    @if (Model.XPropertyType.XIsEnum)
-    {
-        <select name="@name" @required>
-            <optgroup label="@Model.XPropertyType.XName">
-                @foreach (string enumName in Model.XPropertyType.XGetEnumNames())
-                {
-                    <option value="@enumName">@enumName</option>
-                }
-            </optgroup>
-        </select>
-    }
-    else if (Model.XPropertyType.Equals(typeof(string[])))
-    {
-        <textarea name="@name" @required />
-    }
-    else
-    {
-        @if (Model.XPropertyType.Equals(typeof(bool)))
+    <form name="@name" method="post">
+        @if (Model.XPropertyType.XIsEnum)
         {
-            type = "checkbox";
+            <select name="@name" @required>
+                <optgroup label="@Model.XPropertyType.XName">
+                    @foreach (string enumName in Model.XPropertyType.XGetEnumNames())
+                    {
+                        <option value="@enumName">@enumName</option>
+                    }
+                </optgroup>
+            </select>
         }
-        else if (Model.XPropertyType.Equals(typeof(System.Drawing.Color)))
+        else if (Model.XPropertyType.Equals(typeof(string[])))
         {
-            type = "color";
+            <textarea name="@name" @required />
         }
-        else if (Model.XPropertyType.Equals(typeof(DateTime)))
+        else
         {
-            type = "datetime";
+            @if (Model.XPropertyType.Equals(typeof(bool)))
+            {
+                type = "checkbox";
+            }
+            else if (Model.XPropertyType.Equals(typeof(System.Drawing.Color)))
+            {
+                type = "color";
+            }
+            else if (Model.XPropertyType.Equals(typeof(DateTime)))
+            {
+                type = "datetime";
+            }
+            else if (Model.XPropertyType.Equals(typeof(System.IO.File)))
+            {
+                type = "file";
+            }
+            else if (Model.XPropertyType.Equals(typeof(float)))
+            {
+                type = "number";
+            }
+            else if (Model.XPropertyType.Equals(typeof(int)))
+            {
+                type = "number";
+            }
+            else if (Model.XPropertyType.Equals(typeof(string)))
+            {
+                type = "text";
+            }
+            else if (Model.XPropertyType.Equals(typeof(Uri)))
+            {
+                type = "url";
+            }
+            else
+            {
+                isInput = false;
+            }
+
+            @if (isInput)
+            {
+                <input name="@name" type="@type" defaultValue="@defaultValue" @required />
+            }
+            else
+            {
+                @Html.PartialAsync("_XRef", Model.XPropertyType);
+            }
         }
-        else if (Model.XPropertyType.Equals(typeof(System.IO.File)))
-        {
-            type = "file";
-        }
-        else if (Model.XPropertyType.Equals(typeof(float)))
-        {
-            type = "number";
-        }
-        else if (Model.XPropertyType.Equals(typeof(int)))
-        {
-            type = "number";
-        }
-        else if (Model.XPropertyType.Equals(typeof(string)))
-        {
-            type = "text";
-        }
-        else if (Model.XPropertyType.Equals(typeof(Uri)))
-        {
-            type = "url";
-        }
-        <input name="@name" type="@type" defaultValue="@defaultValue" @required />
-    }
+        <input type="submit" title="Set" />
+    </form>
 </td>

@@ -1,0 +1,21 @@
+﻿@model XSystem.XType
+
+<script type="text/javascript">
+    function xopen(href) {
+        window.xref = window.open(href, "_blank", "menubar=yes,resizable=yes,scrollbars=yes,status=yes,titlebar=yes,toolbar=yes");
+    }
+    function xonRefClick(event)
+    {
+        var xtype = new XType("@Model.XNamespace", "@Model.XName");
+        var href = xtype.xtoString() + "/ref";
+        xopen(href);
+    }
+    function xonNewClick(event)
+    {
+        var xtype = new XType("@Model.XNamespace", "@Model.XName");
+        var href = xtype.xtoString() + "/new";
+        xopen(href);
+    }
+</script>
+<button autofocus title="ref" onclick="xonRefClick"></button>
+<button autofocus title="new" onclick="xonNewClick"></button>

@@ -22,8 +22,17 @@ namespace XSystem.XReflection.XInternal
 
         public bool XHasDefaultValue => parameter.HasDefaultValue;
 
-        public object XDefaultValue => parameter.DefaultValue;
+        public XObject XDefaultValue { get { return X().XNew(parameter.DefaultValue); } }
 
         public bool XIsOptional => parameter.IsOptional;
+
+        public bool XIsIn => parameter.IsIn;
+
+        public bool XIsOut => parameter.IsOut;
+
+        public bool XIsRetval => parameter.IsRetval;
+
+        public int XPosition => parameter.Position;
+        
     }
 }

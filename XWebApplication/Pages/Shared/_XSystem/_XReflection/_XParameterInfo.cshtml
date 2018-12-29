@@ -5,6 +5,7 @@
     string required = "";
     string name = Model.XName;
     string type = "";
+    bool isInput = true;
 }
 
 <td>
@@ -60,6 +61,18 @@
         {
             type = "url";
         }
-        <input name="@name" type="@type" defaultValue="@defaultValue" @required />
+        else
+        {
+            isInput = false;
+        }
+
+        @if (isInput)
+        {
+            <input name="@name" type="@type" defaultValue="@defaultValue" @required />
+        }
+        else
+        {
+            @Html.PartialAsync("_XRef", Model.XParameterType);
+        }
     }
 </td>

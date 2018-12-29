@@ -58,3 +58,7 @@ XType.prototype.xgetProperties = function () {
 XType.prototype.xgetProperty = function (name) {
 
 }
+
+XType.prototype.xtoString = function () {
+    return namespace + "/" + type;
+}
