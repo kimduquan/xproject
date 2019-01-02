@@ -4,12 +4,12 @@ using System.Text;
 
 namespace XSystem.XInternal
 {
-    public class XArrayInternal : XArray
+    public class XArrayInternal : XObjectInternal, XArray
     {
         private Array array = null;
         private X x;
 
-        public XArrayInternal(Array a, X x)
+        public XArrayInternal(Array a, X x) : base(a, x)
         {
             array = a;
             this.x = x;

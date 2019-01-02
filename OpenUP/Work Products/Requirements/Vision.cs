@@ -3,7 +3,7 @@ using OpenUP.Tasks.Requirements;
 
 namespace OpenUP.Work_Products.Requirements
 {
-    public class Vision
+    public class Vision : Technical_Specification
     {
         public Analyst Responsible { get; set; }
         public Analyst Modified_By { get; set; }

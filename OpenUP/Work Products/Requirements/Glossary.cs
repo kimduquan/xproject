@@ -2,7 +2,7 @@
 
 namespace OpenUP.Work_Products.Requirements
 {
-    public class Glossary
+    public class Glossary : Technical_Specification
     {
         public Analyst Responsible { get; set; }
         public Analyst Modified_By { get; set; }

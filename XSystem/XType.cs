@@ -23,6 +23,7 @@ namespace XSystem
         XPropertyInfo XGetProperty(string name);
         bool XIsAssignableFrom(XType xtype);
         bool XIsSubclassOf(XType xtype);
+        XType XGetElementType();
 
         bool XIsEnum { get; }
         string[] XGetEnumNames();
@@ -34,5 +35,6 @@ namespace XSystem
         XType XBaseType { get; }
         string XFullName { get; }
         bool XIsInterface { get; }
+        bool XHasElementType { get; }
     }
 }

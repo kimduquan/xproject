@@ -1,6 +1,7 @@
 ﻿namespace OpenUP.Roles.Basic_Roles
 {
-    public class Analyst
+    public interface Analyst
     {
+        void Assess_Results();
     }
 }

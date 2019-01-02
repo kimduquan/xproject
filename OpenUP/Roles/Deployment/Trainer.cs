@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenUP.Roles.Deployment
+﻿namespace OpenUP.Roles.Deployment
 {
-    public class Trainer
+    public interface Trainer
     {
     }
 }

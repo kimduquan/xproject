@@ -3,7 +3,7 @@ using System;
 
 namespace OpenUP.Work_Products.Architecture
 {
-    public class Architecture_Notebook
+    public class Architecture_Notebook : Technical_Architecture
     {
         public Architect Responsible { get; set; }
         public Architect Modified_By { get; set; }

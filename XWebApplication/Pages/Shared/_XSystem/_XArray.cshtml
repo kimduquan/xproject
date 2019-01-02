@@ -1,1 +1,60 @@
 ﻿@model XSystem.XArray
+
+@{ 
+    var xtype = Model.XGetType().XGetElementType();
+    string caption = xtype.XName;
+    var xproperties = xtype.XGetProperties();
+    var xfields = xtype.XGetFields();
+}
+
+<table>
+    <caption>@caption</caption>
+    <colgroup>
+        @foreach(var xproperty in xproperties)
+        {
+            <col />
+        }
+    </colgroup>
+    <colgroup>
+        @foreach (var xfield in xfields)
+        {
+            <col />
+        }
+    </colgroup>
+    <thead>
+        <tr>
+            @foreach (var xproperty in xproperties)
+            {
+                <th>
+                    @xproperty.XName
+                </th>
+            }
+            @foreach(var xfield in xfields)
+            {
+                <th>
+                    @xfield.XName
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for(int index = 0; index < Model.XLength; index++)
+        {
+            <tr>
+                @foreach (var xproperty in xproperties)
+                {
+                    <td></td>
+                }
+                @foreach (var xfield in xfields)
+                {
+                    <th>
+                        @xfield.XName
+                    </th>
+                }
+            </tr>
+        }
+    </tbody>foreach
+    <tfoot>
+
+    </tfoot>
+</table>

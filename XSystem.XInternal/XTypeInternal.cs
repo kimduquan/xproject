@@ -19,6 +19,8 @@ namespace XSystem.XInternal
         private List<XType> xnestedTypes = null;
         private List<XPropertyInfo> xproperties = null;
         private XType xbase = null;
+        private string[] enumNames = null;
+        private XType xelementType = null;
 
         public bool XIsEnum => type.IsEnum;
         public string XName => type.Name;
@@ -42,6 +44,8 @@ namespace XSystem.XInternal
         public string XFullName => type.FullName;
 
         public bool XIsInterface => type.IsInterface;
+
+        public bool XHasElementType => type.HasElementType;
 
         public XTypeInternal(Type t, X x)
         {
@@ -75,7 +79,11 @@ namespace XSystem.XInternal
 
         public string[] XGetEnumNames()
         {
-            return type.GetEnumNames();
+            if(enumNames == null)
+            {
+                enumNames = type.GetEnumNames();
+            }
+            return enumNames;
         }
 
         public XFieldInfo XGetField(string name)
@@ -199,6 +207,15 @@ namespace XSystem.XInternal
         public bool XIsSubclassOf(XType xtype)
         {
             return type.IsSubclassOf(xtype.X);
+        }
+
+        public XType XGetElementType()
+        {
+            if(xelementType == null)
+            {
+                xelementType = new XTypeInternal(type.GetElementType(), x);
+            }
+            return xelementType;
         }
     }
 }

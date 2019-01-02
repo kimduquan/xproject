@@ -3,7 +3,7 @@ using OpenUP.Tasks.Development;
 
 namespace OpenUP.Work_Products.Development
 {
-    public class Design
+    public class Design : Technical_Design
     {
         public Developer Responsible { get; set; }
         public Developer Modified_By { get; set; }
