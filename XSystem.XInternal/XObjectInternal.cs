@@ -19,7 +19,7 @@ namespace XSystem.XInternal
 
         public object X => obj;
 
-        public bool XEquals(XObject other)
+        public bool Equals(XObject other)
         {
             return X.Equals(other.X);
         }

@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace XWebApplication.XSystem.XType
+namespace XWebApplication.SignalR
 {
     public class XTypeHub : Hub
     {

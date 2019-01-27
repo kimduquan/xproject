@@ -11,9 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using XWebApplication.XHub;
-using XWebApplication.XSystem.XObject;
-using XWebApplication.XSystem.XType;
+using XWebApplication.SignalR;
 
 namespace XWebApplication
 {
@@ -51,7 +49,7 @@ namespace XWebApplication
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Exception");
                 app.UseHsts();
             }
 
@@ -73,8 +71,8 @@ namespace XWebApplication
             app.UseCookiePolicy();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<XTypeHub>("/XSyxtem/XType");
-                routes.MapHub<XObjectHub>("/XSyxtem/XXObject");
+                routes.MapHub<XTypeHub>("/Syxtem/Type");
+                routes.MapHub<XObjectHub>("/Syxtem/Object");
             });
 
             app.UseMvc();

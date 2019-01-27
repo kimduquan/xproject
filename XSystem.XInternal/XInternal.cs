@@ -41,7 +41,7 @@ namespace XSystem.XInternal
         {
             public object X => null;
 
-            public bool XEquals(XObject other)
+            public bool Equals(XObject other)
             {
                 if (other.X == null)
                     return true;

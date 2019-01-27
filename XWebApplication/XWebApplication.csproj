@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
     <Folder Include="System-IO\Directory\" />
     <Folder Include="System-IO\File\" />
     <Folder Include="wwwroot\lib\XProject\XSystem\XReflection\" />

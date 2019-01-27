@@ -217,5 +217,11 @@ namespace XSystem.XInternal
             }
             return xelementType;
         }
+
+        public bool Equals(XType other)
+        {
+            XTypeInternal otherType = other as XTypeInternal;
+            return type.Equals(otherType.type);
+        }
     }
 }

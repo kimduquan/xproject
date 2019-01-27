@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 
 namespace XSystem.XReflection.XInternal
 {
@@ -27,6 +24,12 @@ namespace XSystem.XReflection.XInternal
         public void XSetValue(XObject target, XObject value)
         {
             field.SetValue(target.X, value.X);
+        }
+
+        public bool Equals(XFieldInfo other)
+        {
+            XFieldInfoInternal otherField = other as XFieldInfoInternal;
+            return field.Equals(otherField.field);
         }
     }
 }

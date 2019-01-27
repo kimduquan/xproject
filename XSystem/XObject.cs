@@ -4,9 +4,8 @@ using System.Text;
 
 namespace XSystem
 {
-    public interface XObject
+    public interface XObject : IEquatable<XObject>
     {
-        bool XEquals(XObject other);
         int XGetHashCode();
         string XToString();
         XType XGetType();

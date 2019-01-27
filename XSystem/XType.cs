@@ -5,7 +5,7 @@ using XSystem.XReflection;
 
 namespace XSystem
 {
-    public interface XType
+    public interface XType : IEquatable<XType>
     {
         XConstructorInfo XGetConstructor(XType[] types);
         XConstructorInfo[] XGetConstructors();

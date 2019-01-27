@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace XSystem.XReflection
 {
-    public interface XFieldInfo
+    public interface XFieldInfo : IEquatable<XFieldInfo>
     {
         XObject XGetValue(XObject target);
         void XSetValue(XObject target, XObject value);
