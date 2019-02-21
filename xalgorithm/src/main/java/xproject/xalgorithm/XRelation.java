@@ -3,11 +3,14 @@ package xproject.xalgorithm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class XRelation {
+import xproject.xrmi.XRemote;
+
+public class XRelation implements XRemote {
 
 	private Map<String, XAttribute> xattributeSet;
 	private Set<XFunctionalDependency> xFDSet;
@@ -18,30 +21,35 @@ public class XRelation {
 		xFDSet = new HashSet<XFunctionalDependency>();
 	}
 	
-	public void addAttribute(String name)
-	{
-		xattributeSet.put(name, new XAttribute(name));
+	public void xaddAttributes(String... attributes) throws Exception {
+		for(String attr : attributes) {
+			xattributeSet.put(attr, new XAttribute(attr));
+		}
 	}
 	
-	public void addFD(String[] left, String[] right)
-	{
-		HashMap<String, XAttribute> xleft = new HashMap<String, XAttribute>();
-		HashMap<String, XAttribute> xright = new HashMap<String, XAttribute>();
-		for(String l : left)
-		{
-			xleft.put(l, new XAttribute(l));
+	public void xaddFunctionalDependencies(String[]... data) throws Exception {
+		for(String[] fd : data) {
+			boolean isLeft = true;
+			HashMap<String, XAttribute> xleft = new HashMap<String, XAttribute>();
+			HashMap<String, XAttribute> xright = new HashMap<String, XAttribute>();
+			for(String attr : fd) {
+				if(attr.equals("->")) {
+					isLeft = false;
+				}
+				else if(isLeft) {
+						xleft.put(attr, new XAttribute(attr));
+					}
+				else {
+					xright.put(attr, new XAttribute(attr));
+				}
+			}
+			xFDSet.add(new XFunctionalDependency(xleft, xright));
 		}
-		for(String r : right)
-		{
-			xleft.put(r, new XAttribute(r));
-		}
-		XFunctionalDependency fd = new XFunctionalDependency(xleft, xright);
-		xFDSet.add(fd);
 	}
 	
 	public static Map<String, XAttribute> xfindClosure(Set<XFunctionalDependency> FDSet, Map<String, XAttribute> F) throws Exception
 	{
-		HashMap<String, XAttribute> xclosure = new HashMap<String, XAttribute>();
+		HashMap<String, XAttribute> xclosure = new HashMap<String, XAttribute>(F);
 		for(XFunctionalDependency fd : FDSet)
 		{
 			if(xclosure.keySet().containsAll(fd.xleft().keySet()))
@@ -74,7 +82,7 @@ public class XRelation {
 				
 				tempFDSet.add(tempFD);
 				
-				if(xequals(result, tempFDSet))
+				if(xequivalent(result, tempFDSet))
 				{
 					xfd.xleft().remove(xattr.xname());
 				}
@@ -87,7 +95,7 @@ public class XRelation {
 			HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(result);
 			tempFDSet.remove(xfd);
 			
-			if(xequals(tempFDSet, result))
+			if(xequivalent(tempFDSet, result))
 			{
 				result.remove(xfd);
 			}
@@ -95,31 +103,72 @@ public class XRelation {
 		return result;
 	}
 	
-	public Map<String, XAttribute> xfindAllKeys() throws Exception
+	public List<Map<String, XAttribute>> xfindAllKeys(List<List<XFunctionalDependency>> resultFDSets) throws Exception
 	{
-		HashMap<String, XAttribute> K = new HashMap<String, XAttribute>(xattributeSet);
+		ArrayList<Map<String, XAttribute>> result = new ArrayList<Map<String, XAttribute>>();
+		
+		ArrayList<Set<XFunctionalDependency>> remainFDSets = new ArrayList<Set<XFunctionalDependency>>();
+		ArrayList<Map<String, XAttribute>> resultAttrSets = new ArrayList<Map<String, XAttribute>>();
+		ArrayList<Map<String, XAttribute>> remainAttrSets = new ArrayList<Map<String, XAttribute>>();
 		
 		for(XAttribute xattr : xattributeSet.values())
 		{
-			HashMap<String, XAttribute> temp = new HashMap<String, XAttribute>(xattributeSet);
-			temp.remove(xattr.xname());
+			Map<String, XAttribute> resultAttrSet = new HashMap<String, XAttribute>();
+			Map<String, XAttribute> remainAttrSet = new HashMap<String, XAttribute>(xattributeSet);
+			resultAttrSet.put(xattr.xname(), xattr);
+			remainAttrSet.remove(xattr.xname());
+			resultAttrSets.add(resultAttrSet);
+			remainAttrSets.add(remainAttrSet);
 			
-			Map<String, XAttribute> xclosure = xfindClosure(xFDSet, temp);
+			resultFDSets.add(new ArrayList<XFunctionalDependency>());
+			remainFDSets.add(new HashSet<XFunctionalDependency>(xFDSet));
+		}
+		
+		Iterator<List<XFunctionalDependency>> itResultFDSet = resultFDSets.iterator();
+		Iterator<Map<String, XAttribute>> itResultAttrSet = resultAttrSets.iterator();
+		Iterator<Set<XFunctionalDependency>> itRemainFDSet = remainFDSets.iterator();
+		Iterator<Map<String, XAttribute>> itRemainAttrSet = remainAttrSets.iterator();
+		
+		while(itResultFDSet.hasNext() 
+				&& itResultAttrSet.hasNext() 
+				&& itRemainFDSet.hasNext() 
+				&& itRemainAttrSet.hasNext()) {
 			
-			if(xequals(xclosure, xattributeSet))
-			{
-				K.remove(xattr.xname());
+			Map<String, XAttribute> resultAttrSet = itResultAttrSet.next();
+			List<XFunctionalDependency> resultFDSet = itResultFDSet.next();
+			Map<String, XAttribute> remainAttrSet = itRemainAttrSet.next();
+			Set<XFunctionalDependency> remainFDSet = itRemainFDSet.next();
+			
+			Set<XFunctionalDependency> tempRemainFDSet = new HashSet<XFunctionalDependency>(remainFDSet);
+			Map<String, XAttribute> tempResultAttrSet = new HashMap<String, XAttribute>(resultAttrSet);
+			Map<String, XAttribute> tempRemainAttrSet = new HashMap<String, XAttribute>(remainAttrSet);
+			
+			for(XFunctionalDependency fd : remainFDSet) {
+				if(tempResultAttrSet.keySet().containsAll(fd.xleft().keySet())) {
+					resultFDSet.add(fd);
+					tempRemainFDSet.remove(fd);
+					tempResultAttrSet.putAll(fd.xright());
+				}
+			}
+			
+			if(tempResultAttrSet.keySet().containsAll(xattributeSet.keySet())
+					&& xattributeSet.keySet().containsAll(tempResultAttrSet.keySet())) {
+				result.add(resultAttrSet);
+			}
+			else {
+				
 			}
 		}
-		return K;
+		
+		return result;
 	}
 	
 	public static boolean xequals(Map<String, XAttribute> set1, Map<String, XAttribute> set2)
 	{
-		return set1.keySet().containsAll(set2.keySet());
+		return set1.keySet().containsAll(set2.keySet()) && set2.keySet().containsAll(set1.keySet());
 	}
 	
-	public static boolean xequals(Set<XFunctionalDependency> xFDSet1, Set<XFunctionalDependency> xFDSet2) throws Exception
+	public static boolean xequivalent(Set<XFunctionalDependency> xFDSet1, Set<XFunctionalDependency> xFDSet2) throws Exception
 	{
 		for(XFunctionalDependency xfd : xFDSet2)
 		{
@@ -142,5 +191,13 @@ public class XRelation {
 		}
 		
 		return true;
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		for(XAttribute xattr : xattributeSet.values()) {
+			xattr.xfinalize();
+		}
+		xattributeSet.clear();
 	}
 }
