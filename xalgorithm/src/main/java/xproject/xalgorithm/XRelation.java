@@ -60,13 +60,24 @@ public class XRelation implements XRemote {
 	{
 		HashMap<String, XAttribute> xclosure = new HashMap<String, XAttribute>(xattrSet);
 		HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(xfdSet);
-		for(XFunctionalDependency fd : tempFDSet) {
-			if(xclosure.keySet().containsAll(fd.xleft().keySet())){
-				xclosure.putAll(fd.xright());
-				if(fds != null) {
-					fds.add(fd);
+		boolean stop = false;
+		while(stop == false) {
+			stop = true;
+			HashSet<XFunctionalDependency> removeFDSet = new HashSet<XFunctionalDependency>();
+			for(XFunctionalDependency fd : tempFDSet) {
+				//System.out.println("FD : " + fd.xleft().keySet().toString() + "->" + fd.xright().keySet().toString());
+				//System.out.println("Closure : " + xclosure.keySet().toString());
+				if(xclosure.keySet().containsAll(fd.xleft().keySet())){
+					xclosure.putAll(fd.xright());
+					removeFDSet.add(fd);
+					stop = false;
+					if(fds != null) {
+						fds.add(fd);
+					}
 				}
 			}
+			tempFDSet.removeAll(removeFDSet);
+			removeFDSet.clear();
 		}
 		return xclosure;
 	}
@@ -208,52 +219,69 @@ public class XRelation implements XRemote {
 		return result;
 	}
 	
-	public static Set<XFunctionalDependency> xfindMinimalCover(Set<XFunctionalDependency> xFDSet) throws Exception
+	public Set<XFunctionalDependency> xfindMinimalCover() throws Exception
 	{
 		HashSet<XFunctionalDependency> result = new HashSet<XFunctionalDependency>();
-		
 		for(XFunctionalDependency xfd : xFDSet)
 		{
 			result.addAll(xfd.decomposeRightAttributes());
 		}
-		
-		for(XFunctionalDependency xfd : result)
-		{
-			HashMap<String, XAttribute> xleft = new HashMap<String, XAttribute>(xfd.xleft());
-			for(XAttribute xattr : xleft.values())
-			{
-				HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(result);
-				tempFDSet.remove(xfd);
-				
-				XFunctionalDependency tempFD = xfd.xclone();
-				tempFD.xleft().remove(xattr.xname());
-				
-				tempFDSet.add(tempFD);
-				
-				/*if(xequivalent(result, tempFDSet))
-				{
-					xfd.xleft().remove(xattr.xname());
-				}*/
+		boolean stop = false;
+		while(stop == false) {
+			stop = true;
+			for(XFunctionalDependency xfd : result) {
+				HashMap<String, XAttribute> removeAttrSet = new HashMap<String, XAttribute>();
+				for(XAttribute xattr : xfd.xleft().values()) {
+					HashMap<String, XAttribute> leftAttrSet = new HashMap<String, XAttribute>(xfd.xleft());
+					leftAttrSet.remove(xattr.xname());
+					if(leftAttrSet.isEmpty() == false) {
+						Map<String, XAttribute> closure = xcalculateClosure(result, leftAttrSet, null);
+						
+						if(closure.containsKey(xattr.xname())) {
+							System.out.println("Remove '" + xattr.xname() + "' in " + xfd.xleft().keySet().toString() + "->" + xfd.xright().keySet().toString() + " because " + closure.keySet().toString() + " contains " + xattr.xname());
+							removeAttrSet.put(xattr.xname(), xattr);
+							stop = false;
+						}
+					}
+				}
+				for(String key : removeAttrSet.keySet()) {
+					xfd.xleft().remove(key);
+				}
+				removeAttrSet.clear();
 			}
 		}
 		
-		HashSet<XFunctionalDependency> temp = new HashSet<XFunctionalDependency>(result);
-		for(XFunctionalDependency xfd : temp)
-		{
-			HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(result);
-			tempFDSet.remove(xfd);
-			
-			/*if(xequivalent(tempFDSet, result))
+		stop = false;
+		while(stop == false) {
+			stop = true;
+			HashSet<XFunctionalDependency> removeFDSet = new HashSet<XFunctionalDependency>();
+			for(XFunctionalDependency xfd : result)
 			{
-				result.remove(xfd);
-			}*/
+				HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(result);
+				tempFDSet.remove(xfd);
+				if(tempFDSet.isEmpty() == false) {
+					Map<String, XAttribute> closure = xcalculateClosure(tempFDSet, xfd.xleft(), null);
+					if(closure.keySet().containsAll(xfd.xright().keySet())) {
+						System.out.println("Remove " + xfd.xleft().keySet().toString() + " because of (" + xfd.xleft().keySet().toString() + "+ = " + closure.keySet().toString() + "contains " + xfd.xright().keySet().toString());
+						removeFDSet.add(xfd);
+						stop = false;
+					}
+				}
+			}
+			result.removeAll(removeFDSet);
+			removeFDSet.clear();
 		}
+		
 		return result;
 	}
 	
 	protected static boolean xequals(Map<String, XAttribute> set1, Map<String, XAttribute> set2)
 	{
 		return set1.keySet().containsAll(set2.keySet()) && set2.keySet().containsAll(set1.keySet());
+	}
+	
+	protected static boolean xequals(XFunctionalDependency fd1, XFunctionalDependency fd2) throws Exception {
+		return xequals(fd1.xleft(), fd2.xleft()) && xequals(fd1.xright(), fd2.xright());
 	}
 
 	public void xfinalize() throws Throwable {

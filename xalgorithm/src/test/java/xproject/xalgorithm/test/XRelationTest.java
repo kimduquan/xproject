@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -139,5 +140,37 @@ public class XRelationTest {
 				|| result.keySet().equals(expected3)
 				|| result.keySet().equals(expected4)
 				);
+	}
+	
+	@Test
+	public void testFindMinimalCover() throws Exception {
+		xrelation.xaddAttributes("A", "B", "C", "D", "E", "F", "G", "H");
+		xrelation.xaddFunctionalDependencies(
+			new String[] { "A", "->", "B", "C" },
+			new String[] { "B", "E", "->", "G" },
+			new String[] { "E", "->", "D" },
+			new String[] { "D", "->", "G" },
+			new String[] { "A", "->", "B" },
+			new String[] { "A", "G", "->", "B", "C" }
+		);
+		
+		Set<XFunctionalDependency> result = xrelation.xfindMinimalCover();
+		
+		Assert.assertEquals(result.size(), 4);
+	}
+	
+	@Test
+	public void testFindMinimalCover_2() throws Exception {
+		xrelation.xaddAttributes("A", "B", "C", "D");
+		xrelation.xaddFunctionalDependencies(
+			new String[] { "A", "B", "->", "C" },
+			new String[] { "A", "B", "->", "D" },
+			new String[] { "B", "->", "C" },
+			new String[] { "C", "->", "D" }
+		);
+		
+		Set<XFunctionalDependency> result = xrelation.xfindMinimalCover();
+		
+		Assert.assertEquals(result.size(), 2);
 	}
 }
