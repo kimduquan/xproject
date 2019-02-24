@@ -62,6 +62,31 @@ public class XRelationTest {
 	}
 	
 	@Test
+	public void testFindAllKeys_sourceAttrSetIsEmpty() throws Exception {
+		//C->T, HR->C, HT->R, CS->G, HS->R
+		/*xrelation.xaddAttributes("C", "T", "H", "R", "S", "G");
+		xrelation.xaddFunctionalDependencies(
+			new String[] { "C", "->", "T" },
+			new String[] { "H", "R", "->", "C" },
+			new String[] { "H", "T", "->", "R" },
+			new String[] { "C", "S", "->", "G" },
+			new String[] { "H", "S", "->", "R" }
+		);*/
+		xrelation.xaddAttributes("A", "B", "C", "D");
+		xrelation.xaddFunctionalDependencies(
+			new String[] { "A", "->", "C" },
+			new String[] { "B", "->", "D" }
+		);
+		
+		List<List<XFunctionalDependency>> fds = new ArrayList<List<XFunctionalDependency>>();
+		List<Map<String, XAttribute>> result = xrelation.xfindAllKeys(fds);
+		
+		Assert.assertEquals(result.size(), 1);
+		Assert.assertEquals(result.size(), fds.size());
+		Assert.assertEquals(fds.get(0).size(), 2);
+	}
+	
+	@Test
 	public void testCalculateClosure() throws Exception {
 		xrelation.xaddAttributes("A", "B", "C", "D", "F", "G", "H");
 		xrelation.xaddFunctionalDependencies(

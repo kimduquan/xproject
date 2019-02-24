@@ -3,7 +3,6 @@ package xproject.xalgorithm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -163,6 +162,9 @@ public class XRelation implements XRemote {
 		
 		if(middleAttrSet.isEmpty()) {
 			result.add(sourceAttrSet);
+			ArrayList<XFunctionalDependency> fds = new ArrayList<XFunctionalDependency>();
+			xcalculateClosure(xFDSet, sourceAttrSet, fds);
+			resultFDs.add(fds);
 		}
 		else {
 			ArrayList<Map<String, XAttribute>> xsuperKeys = new ArrayList<Map<String, XAttribute>>();
