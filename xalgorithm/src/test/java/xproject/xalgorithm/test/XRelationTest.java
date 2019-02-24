@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import xproject.xalgorithm.XAttribute;
+import xproject.xalgorithm.XFunctionalDependency;
 import xproject.xalgorithm.XRelation;
 
 @Test
@@ -53,9 +54,11 @@ public class XRelationTest {
 			new String[] { "C", "->", "A" }
 		);
 		
-		List<Map<String, XAttribute>> result = xrelation.xfindAllKeys();
+		List<List<XFunctionalDependency>> fds = new ArrayList<List<XFunctionalDependency>>();
+		List<Map<String, XAttribute>> result = xrelation.xfindAllKeys(fds);
 		
 		Assert.assertEquals(result.size(), 2);
+		Assert.assertEquals(result.size(), fds.size());
 	}
 	
 	@Test
@@ -93,6 +96,23 @@ public class XRelationTest {
 		
 		HashSet<String> expected = new HashSet<String>();
 		expected.add("B");
-		Assert.assertEquals(result.keySet(), expected);
+		
+		HashSet<String> expected2 = new HashSet<String>();
+		expected2.add("B");
+		expected2.add("C");
+		
+		HashSet<String> expected3 = new HashSet<String>();
+		expected3.add("A");
+		
+		HashSet<String> expected4 = new HashSet<String>();
+		expected4.add("A");
+		expected4.add("B");
+		
+		Assert.assertTrue(
+				result.keySet().equals(expected) 
+				|| result.keySet().equals(expected2)
+				|| result.keySet().equals(expected3)
+				|| result.keySet().equals(expected4)
+				);
 	}
 }

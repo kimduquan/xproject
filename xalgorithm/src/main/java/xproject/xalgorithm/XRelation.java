@@ -57,14 +57,16 @@ public class XRelation implements XRemote {
 	}
 	
 	
-	protected static Map<String, XAttribute> xcalculateClosure(Set<XFunctionalDependency> xfdSet, Map<String, XAttribute> xattrSet) throws Exception
+	protected static Map<String, XAttribute> xcalculateClosure(Set<XFunctionalDependency> xfdSet, Map<String, XAttribute> xattrSet, List<XFunctionalDependency> fds) throws Exception
 	{
 		HashMap<String, XAttribute> xclosure = new HashMap<String, XAttribute>(xattrSet);
 		HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(xfdSet);
 		for(XFunctionalDependency fd : tempFDSet) {
 			if(xclosure.keySet().containsAll(fd.xleft().keySet())){
 				xclosure.putAll(fd.xright());
-				//tempFDSet.remove(fd);
+				if(fds != null) {
+					fds.add(fd);
+				}
 			}
 		}
 		return xclosure;
@@ -78,7 +80,7 @@ public class XRelation implements XRemote {
 			temp = xattributeSet.get(attr);
 			xattrSet.put(temp.xname(), temp);
 		}
-		return xcalculateClosure(xFDSet, xattrSet);
+		return xcalculateClosure(xFDSet, xattrSet, null);
 	}
 	
 	public Map<String, XAttribute> xfindAnyKey() throws Exception {
@@ -87,7 +89,7 @@ public class XRelation implements XRemote {
 		for(XAttribute xattr : xattributeSet.values()) {
 			Map<String, XAttribute> temp = new HashMap<String, XAttribute>(result);
 			temp.remove(xattr.xname());
-			Map<String, XAttribute> tempClosure = xcalculateClosure(xFDSet, temp);
+			Map<String, XAttribute> tempClosure = xcalculateClosure(xFDSet, temp, null);
 			if(xequals(tempClosure, xattributeSet)) {
 				result.remove(xattr.xname());
 			}
@@ -152,38 +154,53 @@ public class XRelation implements XRemote {
 		return result;
 	}
 	
-	public List<Map<String, XAttribute>> xfindAllKeys() throws Exception {
-		ArrayList<Map<String, XAttribute>> result = null;
+	public List<Map<String, XAttribute>> xfindAllKeys( List<List<XFunctionalDependency>> resultFDs ) throws Exception {
+		ArrayList<Map<String, XAttribute>> result = new ArrayList<Map<String, XAttribute>>();
+		
 		
 		Map<String, XAttribute> sourceAttrSet = xsubtract(xattributeSet, xrightSideAttrSet);
 		Map<String, XAttribute> middleAttrSet = xintersect(xleftSideAttrSet, xrightSideAttrSet);
 		
 		if(middleAttrSet.isEmpty()) {
-			result = new ArrayList<Map<String, XAttribute>>();
 			result.add(sourceAttrSet);
 		}
 		else {
 			ArrayList<Map<String, XAttribute>> xsuperKeys = new ArrayList<Map<String, XAttribute>>();
+			List<List<XFunctionalDependency>> xsuperKeysFDs = new ArrayList<List<XFunctionalDependency>>();
 			List<Map<String, XAttribute>> xchildrenSets = xfindAllChildrenSet(middleAttrSet);
 			for(Map<String, XAttribute> childSet : xchildrenSets) {
 				Map<String, XAttribute> temp = xunion(sourceAttrSet, childSet);
-				Map<String, XAttribute> tempClosure = xcalculateClosure(xFDSet, temp);
+				ArrayList<XFunctionalDependency> fds = new ArrayList<XFunctionalDependency>();
+				Map<String, XAttribute> tempClosure = xcalculateClosure(xFDSet, temp, fds);
 				if(xequals(tempClosure, xattributeSet)) {
 					xsuperKeys.add(temp);
+					xsuperKeysFDs.add(fds);
 				}
 			}
-			result = new ArrayList<Map<String, XAttribute>>(xsuperKeys);
-			ArrayList<Map<String, XAttribute>> remove = new ArrayList<Map<String, XAttribute>>();
+			ArrayList<Map<String, XAttribute>> tempResult = new ArrayList<Map<String, XAttribute>>(xsuperKeys);
+			ArrayList<List<XFunctionalDependency>> tempFDs = new ArrayList<List<XFunctionalDependency>>(xsuperKeysFDs);
+			
 			for(int i = 0; i < xsuperKeys.size(); i++) {
 				for(int j = 0; j < xsuperKeys.size(); j++) {
 					if(i != j) {
 						if(xsuperKeys.get(i).keySet().containsAll(xsuperKeys.get(j).keySet())) {
-							remove.add(xsuperKeys.get(i));
+							tempResult.set(i, null);
+							tempFDs.set(i, null);
 						}
 					}
 				}
 			}
-			result.removeAll(remove);
+			
+			for(Map<String, XAttribute> t : tempResult) {
+				if(t != null) {
+					result.add(t);
+				}
+			}
+			for(List<XFunctionalDependency> t : tempFDs) {
+				if(t != null) {
+					resultFDs.add(t);
+				}
+			}
 		}
 		
 		return result;
@@ -229,65 +246,6 @@ public class XRelation implements XRemote {
 				result.remove(xfd);
 			}*/
 		}
-		return result;
-	}
-	
-	public List<Map<String, XAttribute>> xfindAllKeys(List<List<XFunctionalDependency>> resultFDSets) throws Exception
-	{
-		ArrayList<Map<String, XAttribute>> result = new ArrayList<Map<String, XAttribute>>();
-		
-		ArrayList<Set<XFunctionalDependency>> remainFDSets = new ArrayList<Set<XFunctionalDependency>>();
-		ArrayList<Map<String, XAttribute>> resultAttrSets = new ArrayList<Map<String, XAttribute>>();
-		ArrayList<Map<String, XAttribute>> remainAttrSets = new ArrayList<Map<String, XAttribute>>();
-		
-		for(XAttribute xattr : xattributeSet.values())
-		{
-			Map<String, XAttribute> resultAttrSet = new HashMap<String, XAttribute>();
-			Map<String, XAttribute> remainAttrSet = new HashMap<String, XAttribute>(xattributeSet);
-			resultAttrSet.put(xattr.xname(), xattr);
-			remainAttrSet.remove(xattr.xname());
-			resultAttrSets.add(resultAttrSet);
-			remainAttrSets.add(remainAttrSet);
-			
-			resultFDSets.add(new ArrayList<XFunctionalDependency>());
-			remainFDSets.add(new HashSet<XFunctionalDependency>(xFDSet));
-		}
-		
-		Iterator<List<XFunctionalDependency>> itResultFDSet = resultFDSets.iterator();
-		Iterator<Map<String, XAttribute>> itResultAttrSet = resultAttrSets.iterator();
-		Iterator<Set<XFunctionalDependency>> itRemainFDSet = remainFDSets.iterator();
-		Iterator<Map<String, XAttribute>> itRemainAttrSet = remainAttrSets.iterator();
-		
-		while(itResultFDSet.hasNext() 
-				&& itResultAttrSet.hasNext() 
-				&& itRemainFDSet.hasNext() 
-				&& itRemainAttrSet.hasNext()) {
-			
-			Map<String, XAttribute> resultAttrSet = itResultAttrSet.next();
-			List<XFunctionalDependency> resultFDSet = itResultFDSet.next();
-			Map<String, XAttribute> remainAttrSet = itRemainAttrSet.next();
-			Set<XFunctionalDependency> remainFDSet = itRemainFDSet.next();
-			
-			Set<XFunctionalDependency> tempRemainFDSet = new HashSet<XFunctionalDependency>(remainFDSet);
-			Map<String, XAttribute> tempResultAttrSet = new HashMap<String, XAttribute>(resultAttrSet);
-			Map<String, XAttribute> tempRemainAttrSet = new HashMap<String, XAttribute>(remainAttrSet);
-			
-			for(XFunctionalDependency fd : remainFDSet) {
-				if(tempResultAttrSet.keySet().containsAll(fd.xleft().keySet())) {
-					resultFDSet.add(fd);
-					tempRemainFDSet.remove(fd);
-					tempResultAttrSet.putAll(fd.xright());
-				}
-			}
-			
-			if(xequals(tempResultAttrSet, xattributeSet)) {
-				result.add(resultAttrSet);
-			}
-			else {
-				
-			}
-		}
-		
 		return result;
 	}
 	
