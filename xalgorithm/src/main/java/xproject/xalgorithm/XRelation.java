@@ -14,11 +14,15 @@ public class XRelation implements XRemote {
 
 	private Map<String, XAttribute> xattributeSet;
 	private Set<XFunctionalDependency> xFDSet;
+	private Map<String, XAttribute> xleftSideAttrSet;
+	private Map<String, XAttribute> xrightSideAttrSet;
 	
 	public XRelation()
 	{
 		xattributeSet = new HashMap<String, XAttribute>();
 		xFDSet = new HashSet<XFunctionalDependency>();
+		xleftSideAttrSet = new HashMap<String, XAttribute>();
+		xrightSideAttrSet = new HashMap<String, XAttribute>();
 	}
 	
 	public void xaddAttributes(String... attributes) throws Exception {
@@ -32,32 +36,157 @@ public class XRelation implements XRemote {
 			boolean isLeft = true;
 			HashMap<String, XAttribute> xleft = new HashMap<String, XAttribute>();
 			HashMap<String, XAttribute> xright = new HashMap<String, XAttribute>();
+			XAttribute xattr = null;
 			for(String attr : fd) {
 				if(attr.equals("->")) {
 					isLeft = false;
 				}
 				else if(isLeft) {
-						xleft.put(attr, new XAttribute(attr));
+						xattr = new XAttribute(attr);
+						xleft.put(attr, xattr);
+						xleftSideAttrSet.put(attr, xattr);
 					}
 				else {
-					xright.put(attr, new XAttribute(attr));
+					xattr = new XAttribute(attr);
+					xright.put(attr, xattr);
+					xrightSideAttrSet.put(attr, xattr);
 				}
 			}
 			xFDSet.add(new XFunctionalDependency(xleft, xright));
 		}
 	}
 	
-	public static Map<String, XAttribute> xfindClosure(Set<XFunctionalDependency> FDSet, Map<String, XAttribute> F) throws Exception
+	
+	protected static Map<String, XAttribute> xcalculateClosure(Set<XFunctionalDependency> xfdSet, Map<String, XAttribute> xattrSet) throws Exception
 	{
-		HashMap<String, XAttribute> xclosure = new HashMap<String, XAttribute>(F);
-		for(XFunctionalDependency fd : FDSet)
-		{
-			if(xclosure.keySet().containsAll(fd.xleft().keySet()))
-			{
+		HashMap<String, XAttribute> xclosure = new HashMap<String, XAttribute>(xattrSet);
+		HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(xfdSet);
+		for(XFunctionalDependency fd : tempFDSet) {
+			if(xclosure.keySet().containsAll(fd.xleft().keySet())){
 				xclosure.putAll(fd.xright());
+				//tempFDSet.remove(fd);
 			}
 		}
 		return xclosure;
+	}
+	
+	public Map<String, XAttribute> xcalculateClosure(String... attrSet ) throws Exception
+	{
+		Map<String, XAttribute> xattrSet = new HashMap<String, XAttribute>();
+		XAttribute temp = null;
+		for(String attr : attrSet) {
+			temp = xattributeSet.get(attr);
+			xattrSet.put(temp.xname(), temp);
+		}
+		return xcalculateClosure(xFDSet, xattrSet);
+	}
+	
+	public Map<String, XAttribute> xfindAnyKey() throws Exception {
+		Map<String, XAttribute> result = new HashMap<String, XAttribute>(xattributeSet);
+		
+		for(XAttribute xattr : xattributeSet.values()) {
+			Map<String, XAttribute> temp = new HashMap<String, XAttribute>(result);
+			temp.remove(xattr.xname());
+			Map<String, XAttribute> tempClosure = xcalculateClosure(xFDSet, temp);
+			if(xequals(tempClosure, xattributeSet)) {
+				result.remove(xattr.xname());
+			}
+		}
+		
+		return result;
+	}
+	
+	protected  static Map<String, XAttribute> xsubtract(Map<String, XAttribute> set1, Map<String, XAttribute> set2) {
+		Map<String, XAttribute> result = new HashMap<String, XAttribute>(set1);
+		
+		for(String key : set1.keySet()) {
+			if(set2.containsKey(key)) {
+				result.remove(key);
+			}
+		}
+		
+		return result;
+	}
+	
+	protected  static Map<String, XAttribute> xintersect(Map<String, XAttribute> set1, Map<String, XAttribute> set2) {
+		Map<String, XAttribute> result = new HashMap<String, XAttribute>();
+		for(String key : set1.keySet()) {
+			if(set2.containsKey(key)) {
+				result.put(key, set2.get(key));
+			}
+		}
+		return result;
+	}
+	
+	protected static Map<String, XAttribute> xunion(Map<String, XAttribute> set1, Map<String, XAttribute> set2){
+		Map<String, XAttribute> result = new HashMap<String, XAttribute>(set1);
+		result.putAll(set2);
+		return result;
+	}
+	
+	protected static List<Map<String, XAttribute>> xfindAllChildrenSet(Map<String, XAttribute> set) throws Exception {
+		ArrayList<Map<String, XAttribute>> result = new ArrayList<Map<String, XAttribute>>();
+		
+		result.add(new HashMap<String, XAttribute>());
+		ArrayList<Map<String, XAttribute>> cache = new ArrayList<Map<String, XAttribute>>(result);
+		
+		for(int i = 0; i < set.size(); i++) {
+			ArrayList<Map<String, XAttribute>> temp = new ArrayList<Map<String, XAttribute>>(cache);
+			cache.clear();
+			Set<String> remain = new HashSet<String>(set.keySet());
+			for(Map<String, XAttribute> prevSet : temp) {
+				if(remain.isEmpty()) {
+					break;
+				}
+				remain.removeAll(prevSet.keySet());
+				for(String key : remain) {
+					XAttribute xattr = set.get(key);
+					Map<String, XAttribute> childSet = new HashMap<String, XAttribute>(prevSet);
+					childSet.put(xattr.xname(), xattr);
+					result.add(childSet);
+					cache.add(childSet);
+				}
+			}
+			temp.clear();
+		}
+		return result;
+	}
+	
+	public List<Map<String, XAttribute>> xfindAllKeys() throws Exception {
+		ArrayList<Map<String, XAttribute>> result = null;
+		
+		Map<String, XAttribute> sourceAttrSet = xsubtract(xattributeSet, xrightSideAttrSet);
+		Map<String, XAttribute> middleAttrSet = xintersect(xleftSideAttrSet, xrightSideAttrSet);
+		
+		if(middleAttrSet.isEmpty()) {
+			result = new ArrayList<Map<String, XAttribute>>();
+			result.add(sourceAttrSet);
+		}
+		else {
+			ArrayList<Map<String, XAttribute>> xsuperKeys = new ArrayList<Map<String, XAttribute>>();
+			List<Map<String, XAttribute>> xchildrenSets = xfindAllChildrenSet(middleAttrSet);
+			for(Map<String, XAttribute> childSet : xchildrenSets) {
+				Map<String, XAttribute> temp = xunion(sourceAttrSet, childSet);
+				Map<String, XAttribute> tempClosure = xcalculateClosure(xFDSet, temp);
+				if(xequals(tempClosure, xattributeSet)) {
+					xsuperKeys.add(temp);
+				}
+			}
+			result = new ArrayList<Map<String, XAttribute>>(xsuperKeys);
+			ArrayList<Map<String, XAttribute>> remove = new ArrayList<Map<String, XAttribute>>();
+			for(int i = 0; i < xsuperKeys.size(); i++) {
+				for(int j = 0; j < xsuperKeys.size(); j++) {
+					if(i != j) {
+						if(xsuperKeys.get(i).keySet().containsAll(xsuperKeys.get(j).keySet())) {
+							remove.add(xsuperKeys.get(i));
+						}
+					}
+				}
+			}
+			result.removeAll(remove);
+		}
+		
+		return result;
 	}
 	
 	public static Set<XFunctionalDependency> xfindMinimalCover(Set<XFunctionalDependency> xFDSet) throws Exception
@@ -82,10 +211,10 @@ public class XRelation implements XRemote {
 				
 				tempFDSet.add(tempFD);
 				
-				if(xequivalent(result, tempFDSet))
+				/*if(xequivalent(result, tempFDSet))
 				{
 					xfd.xleft().remove(xattr.xname());
-				}
+				}*/
 			}
 		}
 		
@@ -95,10 +224,10 @@ public class XRelation implements XRemote {
 			HashSet<XFunctionalDependency> tempFDSet = new HashSet<XFunctionalDependency>(result);
 			tempFDSet.remove(xfd);
 			
-			if(xequivalent(tempFDSet, result))
+			/*if(xequivalent(tempFDSet, result))
 			{
 				result.remove(xfd);
-			}
+			}*/
 		}
 		return result;
 	}
@@ -151,8 +280,7 @@ public class XRelation implements XRemote {
 				}
 			}
 			
-			if(tempResultAttrSet.keySet().containsAll(xattributeSet.keySet())
-					&& xattributeSet.keySet().containsAll(tempResultAttrSet.keySet())) {
+			if(xequals(tempResultAttrSet, xattributeSet)) {
 				result.add(resultAttrSet);
 			}
 			else {
@@ -163,34 +291,9 @@ public class XRelation implements XRemote {
 		return result;
 	}
 	
-	public static boolean xequals(Map<String, XAttribute> set1, Map<String, XAttribute> set2)
+	protected static boolean xequals(Map<String, XAttribute> set1, Map<String, XAttribute> set2)
 	{
 		return set1.keySet().containsAll(set2.keySet()) && set2.keySet().containsAll(set1.keySet());
-	}
-	
-	public static boolean xequivalent(Set<XFunctionalDependency> xFDSet1, Set<XFunctionalDependency> xFDSet2) throws Exception
-	{
-		for(XFunctionalDependency xfd : xFDSet2)
-		{
-			Map<String, XAttribute> xclosure = xfindClosure(xFDSet1, xfd.xleft());
-			
-			if(xclosure.keySet().containsAll(xfd.xright().keySet()) == false)
-			{
-				return false;
-			}
-		}
-		
-		for(XFunctionalDependency xfd : xFDSet1)
-		{
-			Map<String, XAttribute> xclosure = xfindClosure(xFDSet2, xfd.xleft());
-			
-			if(xclosure.keySet().containsAll(xfd.xright().keySet()) == false)
-			{
-				return false;
-			}
-		}
-		
-		return true;
 	}
 
 	public void xfinalize() throws Throwable {
@@ -199,5 +302,11 @@ public class XRelation implements XRemote {
 			xattr.xfinalize();
 		}
 		xattributeSet.clear();
+		xattributeSet = null;
+		for(XFunctionalDependency fd : xFDSet) {
+			fd.xfinalize();
+		}
+		xFDSet.clear();
+		xFDSet = null;
 	}
 }

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class XFunctionalDependency {
+import xproject.xrmi.XRemote;
+
+public class XFunctionalDependency implements XRemote {
 
 	private Map<String, XAttribute> xleft;
 	private Map<String, XAttribute> xright;
@@ -41,5 +43,13 @@ public class XFunctionalDependency {
 	public XFunctionalDependency xclone()
 	{
 		return new XFunctionalDependency(xleft, xright);
+	}
+
+	public void xfinalize() throws Throwable {
+		// TODO Auto-generated method stub
+		xleft.clear();
+		xleft = null;
+		xright.clear();
+		xright = null;
 	}
 }
