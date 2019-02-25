@@ -15,6 +15,14 @@ public class XAttribute implements XRemote {
 	{
 		return xname;
 	}
+	
+	public boolean xisPrimitive() throws Exception {
+		return true;
+	}
+	
+	public boolean xisMultiValues() throws Exception {
+		return false;
+	}
 
 	public void xfinalize() throws Throwable {
 		// TODO Auto-generated method stub

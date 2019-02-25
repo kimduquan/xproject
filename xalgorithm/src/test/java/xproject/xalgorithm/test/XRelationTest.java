@@ -142,7 +142,7 @@ public class XRelationTest {
 				);
 	}
 	
-	@Test
+	@Test(enabled = false)
 	public void testFindMinimalCover() throws Exception {
 		xrelation.xaddAttributes("A", "B", "C", "D", "E", "F", "G", "H");
 		xrelation.xaddFunctionalDependencies(
@@ -159,7 +159,7 @@ public class XRelationTest {
 		Assert.assertEquals(result.size(), 4);
 	}
 	
-	@Test
+	@Test(invocationCount = 10)
 	public void testFindMinimalCover_2() throws Exception {
 		xrelation.xaddAttributes("A", "B", "C", "D");
 		xrelation.xaddFunctionalDependencies(
