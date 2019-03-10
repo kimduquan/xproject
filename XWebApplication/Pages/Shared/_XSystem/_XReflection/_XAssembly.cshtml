@@ -1,0 +1,13 @@
+﻿@model XSystem.XReflection.XAssembly
+@{ 
+    var it = Model.XExportedTypes.GetEnumerator();
+}
+<nav>
+    <ul>
+        @while (it.MoveNext())
+        {
+            var route = Util.XToRoute(it.Current);
+            <li><a href="@route">@it.Current.XName</a></li>
+        }
+    </ul>
+</nav>

@@ -1,4 +1,4 @@
-﻿@page "/{namespace}/{type}/{hashCode:int}/catch"
+﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}/{hashCode:int}/catch"
 @model XCatchModel
 @{
 }

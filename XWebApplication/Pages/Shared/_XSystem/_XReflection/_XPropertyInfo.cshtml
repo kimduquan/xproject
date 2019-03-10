@@ -73,7 +73,7 @@
             }
             else
             {
-                @Html.PartialAsync("_XRef", Model.XPropertyType);
+                @await Html.PartialAsync("_XRef", Model.XPropertyType);
             }
         }
         <input type="submit" title="Set" />

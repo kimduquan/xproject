@@ -1,4 +1,4 @@
-﻿@page "/{namespace}/{type}/new"
+﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}/new"
 @model XNewModel
 
 <!DOCTYPE html>

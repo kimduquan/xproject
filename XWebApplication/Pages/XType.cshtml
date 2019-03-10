@@ -1,27 +1,21 @@
-﻿@page "/{namespace}/{type}"
+﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}"
 @model XTypeModel
+@{
+    ViewData["Title"] = @Model.XType.XName;
+}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@Model.XType.XName</title>
-    </head>
-    <body>
-        <nav>
-            @foreach (var xmethod in Model.XStaticMethods)
-            {
-                string href = Model.XGetHref(xmethod);
-                <a href="@href"></a>
-            }
-        </nav>
-        <ul>
-            @foreach (var xfield in Model.XArrayFields)
-            {
+<nav>
+    @foreach (var xmethod in Model.XStaticMethods)
+    {
+        string href = Model.XGetHref(xmethod);
+        <a href="@href"></a>
+    }
+</nav>
+<ul>
+    @foreach (var xfield in Model.XArrayFields)
+    {
 
-            }
-        </ul>
-        @Html.PartialAsync("_XType", Model.XType);
-    </body>
-</html>
+    }
+</ul>
+@await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Util.XGetAssembly(Model.XType));
+@await Html.PartialAsync("_XSystem/_XType", Model.XType);

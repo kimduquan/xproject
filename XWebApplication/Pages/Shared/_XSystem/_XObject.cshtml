@@ -21,7 +21,7 @@
                     {
                         @if (xfield.XIsStatic == false)
                         {
-                            @Html.PartialAsync("_XFieldInfo", xfield);
+                            @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
                         }
                     }
                 </tr>
@@ -44,7 +44,7 @@
                     {
                         @if (true)
                         {
-                            @Html.PartialAsync("_XPropertyInfo", xproperty);
+                            @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
                         }
                     }
                 </tr>

@@ -41,10 +41,7 @@ namespace XWebApplication.Pages
             {
                 if (xtype == null)
                 {
-                    string ns = (string)RouteData.Values["namespace"];
-                    ns = ns.Replace('-', '.');
-                    string t = (string)RouteData.Values["type"];
-                    xtype = X.XTypeOf(Type.GetType(ns + "." + t));
+                    xtype = Util.XFromRoute(RouteData);
                 }
                 return xtype;
             }
@@ -116,7 +113,7 @@ namespace XWebApplication.Pages
                             fields.Add(xfield);
                         }
                     }
-                    xstaticFields = fields.ToArray();
+                    xarrayFields = fields.ToArray();
                 }
                 return xarrayFields;
             }
