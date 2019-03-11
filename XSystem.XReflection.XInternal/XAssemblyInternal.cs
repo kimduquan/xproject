@@ -5,25 +5,41 @@ using System.Text;
 
 namespace XSystem.XReflection.XInternal
 {
-    public class XAssemblyInternal : XAssembly
+    public class XAssemblyInternal : Internal, XAssembly
     {
         private Assembly assembly = null;
+        private List<XType> exportedTypes = null;
 
-        private XAssemblyInternal()
+        public XAssemblyInternal(Assembly a, X x) : base(x)
         {
-
+            assembly = a;
         }
 
         public XType XGetType(string name)
         {
-            throw new NotImplementedException();
+            Type t = assembly.GetType(name);
+            if (t == null)
+                return null;
+            return X().XTypeOf(t);
         }
 
-        public static XAssembly XNew(Assembly assembly)
+        public IEnumerable<XType> XExportedTypes
         {
-            XAssemblyInternal xassembly = new XAssemblyInternal();
-            xassembly.assembly = assembly;
-            return xassembly;
+            get
+            {
+                if(exportedTypes == null)
+                {
+                    exportedTypes = new List<XType>();
+                    IEnumerable<Type> types = assembly.ExportedTypes;
+                    IEnumerator<Type> it = types.GetEnumerator();
+                    while (it.MoveNext())
+                    {
+                        XType type = X().XTypeOf(it.Current);
+                        exportedTypes.Add(type);
+                    }
+                }
+                return exportedTypes;
+            }
         }
     }
 }

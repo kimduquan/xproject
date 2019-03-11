@@ -27,10 +27,11 @@ namespace XWebApplication
         public static XType XFromRoute(RouteData data)
         {
             string dll = (string)data.Values["assembly"];
+            dll = dll.Replace('-', '.');
             string ns = (string)data.Values["namespace"];
             ns = ns.Replace('-', '.');
             string t = (string)data.Values["type"];
-            XType xtype = X.XGetType(dll + "." + ns + "." + t);
+            XType xtype = X.XGetType(dll + "." + ns + "." + t + "," + dll);
             return xtype;
         }
 
@@ -57,6 +58,60 @@ namespace XWebApplication
         public static XAssembly XGetAssembly(XType xtype)
         {
             return new XAssemblyInternal(xtype.X.Assembly, X);
+        }
+
+        public static void XToHiearchy(IEnumerator<XType> it, out Dictionary<string, List<string>> childNSs, out Dictionary<string, List<XType>> childTypes)
+        {
+            childNSs = new Dictionary<string, List<string>>();
+            childTypes = new Dictionary<string, List<XType>>();
+            while(it.MoveNext())
+            {
+                if (childTypes.ContainsKey(it.Current.XNamespace))
+                {
+                    childTypes[it.Current.XNamespace].Add(it.Current);
+                }
+                else
+                {
+                    List<XType> types = new List<XType>();
+                    types.Add(it.Current);
+                    childTypes[it.Current.XNamespace] = types;
+                }
+
+                string[] path = it.Current.XNamespace.Split(".");
+                string ns = "";
+                for(int i = 0; i < path.Length - 1; i++)
+                {
+                    if (ns.Equals(""))
+                    {
+                        ns += path[i];
+                    }
+                    else
+                    {
+                        ns += ("." + path[i]);
+                    }
+                    if(childNSs.ContainsKey(ns) == false)
+                    {
+                        childNSs[ns] = new List<string>();
+                        childNSs[ns].Add(path[i + 1]);
+                    }
+                    else
+                    {
+                        bool needAdd = true;
+                        foreach(string n in childNSs[ns])
+                        {
+                            if(n.Equals(path[i + 1]))
+                            {
+                                needAdd = false;
+                                break;
+                            }
+                        }
+                        if(needAdd)
+                        {
+                            childNSs[ns].Add(path[i + 1]);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -9,5 +9,6 @@ namespace XSystem
         public abstract XObject XNew(object obj);
         public abstract XType XTypeOf(Type type);
         public abstract XObject XNULL { get; }
+        public abstract XType XGetType(String name);
     }
 }

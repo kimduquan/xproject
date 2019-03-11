@@ -1,13 +1,89 @@
 ﻿@model XSystem.XReflection.XAssembly
+@using XSystem;
 @{ 
     var it = Model.XExportedTypes.GetEnumerator();
+    Dictionary<string, List<string>> childNSs;
+    Dictionary<string, List<XType>> childTypes;
+    Stack<IEnumerator<string>> stackNS = new Stack<IEnumerator<string>>();
+    Util.XToHiearchy(it, out childNSs, out childTypes);
 }
 <nav>
     <ul>
-        @while (it.MoveNext())
+        @{
+            IEnumerator<string> current = childNSs.Keys.GetEnumerator();
+            IEnumerator<string> next = childNSs.Keys.GetEnumerator();
+            IEnumerator<string> parent = null;
+            List<string> path = new List<string>();
+            string tag = "";
+        }
+        @while (current.MoveNext())
         {
-            var route = Util.XToRoute(it.Current);
-            <li><a href="@route">@it.Current.XName</a></li>
+            tag = "<li>";
+            string ns = string.Join(".", path);
+            if (ns == "")
+            {
+                ns += current.Current;
+            }
+            else
+            {
+                ns += ("." + current.Current);
+            }
+
+            @Html.Raw(tag)
+            @current.Current.Replace('_', ' ')
+
+            @if (childTypes.ContainsKey(ns))
+            {
+                List<XType> childType = childTypes[ns];
+                @if (childType.Count > 0)
+                {
+                    tag = "<ul>";
+
+                    @Html.Raw(tag)
+
+                    @foreach (XType type in childType)
+                    {
+                        var route = Util.XToRoute(type);
+                        <li><a href="@route">@type.XName.Replace('_', ' ')</a></li>
+                    }
+
+                    tag = "</ul>";
+
+                    @Html.Raw(tag)
+                }
+            }
+
+            tag = "</li>";
+
+            @if (childNSs.ContainsKey(ns))
+            {
+                List<string> childNS = childNSs[ns];
+                if (childNS.Count > 0)
+                {
+                    stackNS.Push(current);
+                    path.Add(current.Current);
+                    parent = current;
+                    current = childNS.GetEnumerator();
+                    next = childNS.GetEnumerator();
+                    tag = "<ul>";
+                }
+            }
+
+            @if (next.MoveNext() == false)
+            {
+                if (stackNS.Count > 0)
+                {
+                    current = stackNS.Pop();
+                    next = current;
+                    if (path.Count > 0)
+                    {
+                        path.RemoveAt(path.Count - 1);
+                    }
+                    tag = "</ul>";
+                }
+            }
+
+            @Html.Raw(tag)
         }
     </ul>
 </nav>

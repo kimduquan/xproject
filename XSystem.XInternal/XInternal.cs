@@ -34,6 +34,20 @@ namespace XSystem.XInternal
 
         public override XType XTypeOf(Type type)
         {
+            if(type == null)
+            {
+                return null;
+            }
+            return new XTypeInternal(type, this);
+        }
+
+        public override XType XGetType(string name)
+        {
+            Type type = Type.GetType(name);
+            if (type == null)
+            {
+                return null;
+            }
             return new XTypeInternal(type, this);
         }
 
