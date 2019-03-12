@@ -21,12 +21,7 @@ namespace XWebApplication.Pages
             {
                 if(xobject == null)
                 {
-                    string ns = (string)RouteData.Values["namespace"];
-                    ns = ns.Replace('-', '.');
-                    string t = (string)RouteData.Values["type"];
-                    int hashCode = (int)RouteData.Values["hashCode"];
-                    string key = ns + "." + t + "@" + hashCode;
-                    cache.TryGetValue<XObject>(key, out xobject);
+                    Util.XFromRoute(out xobject, RouteData, cache);
                 }
                 return xobject;
             }

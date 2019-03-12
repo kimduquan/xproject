@@ -20,24 +20,10 @@ namespace XWebApplication.Pages
     public class XNewModel : PageModel
     {
         private IMemoryCache cache = null;
-        private X x = null;
         private XConstructorInfo xconstructor = null;
         private XType xtype = null;
         private List<XType> xparameterTypes = null;
         private List<XObject> xparameterValues = null;
-        private XTypeConverter xconverter = null;
-
-        public X X
-        {
-            get
-            {
-                if(x == null)
-                {
-                    x = new XInternal();
-                }
-                return x;
-            }
-        }
 
         public XConstructorInfo XConstructor
         {
@@ -57,10 +43,7 @@ namespace XWebApplication.Pages
             {
                 if(xtype == null)
                 {
-                    string ns = (string)RouteData.Values["namespace"];
-                    ns = ns.Replace('-', '.');
-                    string t = (string)RouteData.Values["type"];
-                    xtype = X.XTypeOf(Type.GetType(ns + "." + t));
+                    Util.XFromRoute(out xtype, RouteData);
                 }
                 return xtype;
             }
@@ -72,14 +55,7 @@ namespace XWebApplication.Pages
             {
                 if(xparameterTypes == null)
                 {
-                    xparameterTypes = new List<XType>();
-                    foreach (KeyValuePair<string, StringValues> pair in Request.Query)
-                    {
-                        foreach (string value in pair.Value)
-                        {
-                            xparameterTypes.Add(X.XTypeOf(Type.GetType(value)));
-                        }
-                    }
+                    Util.XFromQuery(out xparameterTypes, Request.Query);
                 }
                 return xparameterTypes.ToArray();
             }
@@ -92,32 +68,9 @@ namespace XWebApplication.Pages
                 if(xparameterValues == null)
                 {
                     XParameterInfo[] xparameters = XConstructor.XGetParameters();
-                    xparameterValues = new List<XObject>();
-                    if(XConverter.XCanConvertFrom(typeof(string)))
-                    {
-                        foreach (XParameterInfo xparameter in XConstructor.XGetParameters())
-                        {
-                            StringValues value = Request.Form[xparameter.XName];
-                            if (XConverter.XCanConvertTo(xparameter.XParameterType))
-                            {
-                                xparameterValues.Add(XConverter.XConvertTo(value.ToString(), xparameter.XParameterType));
-                            }
-                        }
-                    }
+                    Util.XFromForm(out xparameterValues, xparameters, Request.Form);
                 }
                 return xparameterValues.ToArray();
-            }
-        }
-
-        protected XTypeConverter XConverter
-        {
-            get
-            {
-                if(xconverter == null)
-                {
-                    xconverter = new XObjectConverterInternal(X);
-                }
-                return xconverter;
             }
         }
 
@@ -134,8 +87,7 @@ namespace XWebApplication.Pages
         public void OnPost()
         {
             XObject xobject = XConstructor.XInvoke(XParameterValues);
-            string key = xobject.XGetType().XFullName + "@" + xobject.XGetHashCode();
-            cache.Set<XObject>(key, xobject);
+            Util.XToCache(xobject, cache);
         }
     }
 }

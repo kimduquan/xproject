@@ -41,7 +41,7 @@ namespace XWebApplication.Pages
             {
                 if (xtype == null)
                 {
-                    xtype = Util.XFromRoute(RouteData);
+                    Util.XFromRoute(out xtype, RouteData);
                 }
                 return xtype;
             }

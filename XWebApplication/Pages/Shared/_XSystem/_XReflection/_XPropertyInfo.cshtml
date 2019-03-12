@@ -6,20 +6,23 @@
     string name = Model.XName;
     string type = "";
     bool isInput = true;
+    var text = Util.XToDisplayString(Model);
 }
 
 <td>
-    <label for="@name">@name</label>
+    <label for="@name">@text</label>
 </td>
 <td>
     <form name="@name" method="post">
         @if (Model.XPropertyType.XIsEnum)
         {
+            text = Util.XToDisplayString(Model.XPropertyType);
             <select name="@name" @required>
-                <optgroup label="@Model.XPropertyType.XName">
+                <optgroup label="@text">
                     @foreach (string enumName in Model.XPropertyType.XGetEnumNames())
                     {
-                        <option value="@enumName">@enumName</option>
+                        text = Util.XToDisplayString(enumName);
+                        <option value="@enumName">@text</option>
                     }
                 </optgroup>
             </select>
@@ -76,6 +79,6 @@
                 @await Html.PartialAsync("_XRef", Model.XPropertyType);
             }
         }
-        <input type="submit" title="Set" />
+        <input type="submit" title="Set" value="Set" />
     </form>
 </td>

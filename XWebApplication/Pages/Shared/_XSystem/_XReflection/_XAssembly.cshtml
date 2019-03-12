@@ -8,7 +8,7 @@
     Util.XToHiearchy(it, out childNSs, out childTypes);
 }
 <nav>
-    <ul>
+    <ul class="assembly">
         @{
             IEnumerator<string> current = childNSs.Keys.GetEnumerator();
             IEnumerator<string> next = childNSs.Keys.GetEnumerator();
@@ -18,7 +18,7 @@
         }
         @while (current.MoveNext())
         {
-            tag = "<li>";
+            tag = "<li class=\"namespace\">";
             string ns = string.Join(".", path);
             if (ns == "")
             {
@@ -30,7 +30,7 @@
             }
 
             @Html.Raw(tag)
-            @current.Current.Replace('_', ' ')
+            @Util.XToDisplayString(current.Current);
 
             @if (childTypes.ContainsKey(ns))
             {
@@ -44,7 +44,8 @@
                     @foreach (XType type in childType)
                     {
                         var route = Util.XToRoute(type);
-                        <li><a href="@route">@type.XName.Replace('_', ' ')</a></li>
+                        var css = Util.XToCSSClass(type);
+                        <li class="type"><a class="@css" href="@route">@Util.XToDisplayString(type)</a></li>
                     }
 
                     tag = "</ul>";
