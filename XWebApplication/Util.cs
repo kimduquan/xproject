@@ -128,6 +128,16 @@ namespace XWebApplication
             return XToDisplayString(prop.XName);
         }
 
+        public static string XToDisplayString(XParameterInfo p)
+        {
+            return XToDisplayString(p.XName);
+        }
+
+        public static string XToDisplayString(XFieldInfo f)
+        {
+            return XToDisplayString(f.XName);
+        }
+
         public static string XToDisplayString(string ns)
         {
             string result = "";
@@ -159,6 +169,46 @@ namespace XWebApplication
         public static string XToCSSClass(XType type)
         {
             return type.XName.ToLower().Replace('_', '-');
+        }
+
+        public static string XToCSSClass(XAssembly a)
+        {
+            return "assembly";
+        }
+
+        public static string XToCSSClass(XParameterInfo p)
+        {
+            return "parameter-info";
+        }
+
+        public static string XToCSSClass(XFieldInfo f)
+        {
+            return "field-info";
+        }
+
+        public static string XToCSSClass(XPropertyInfo p)
+        {
+            return "property-info";
+        }
+
+        public static string XToName(XParameterInfo p)
+        {
+            return XToName(p.XName);
+        }
+
+        public static string XToName(XFieldInfo p)
+        {
+            return XToName(p.XName);
+        }
+
+        public static string XToName(XPropertyInfo p)
+        {
+            return XToName(p.XName);
+        }
+
+        public static string XToName(string ns)
+        {
+            return ns.ToLower().Replace('_', '-');
         }
 
         public static void XFromRoute(out XObject obj,  RouteData data, IMemoryCache cache)
@@ -204,6 +254,13 @@ namespace XWebApplication
         {
             string key = obj.XGetType().XFullName + "@" + obj.XGetHashCode();
             cache.Set<XObject>(key, obj);
+        }
+
+        public static string XToAttribute(string name, XAssembly a)
+        {
+            if (name == "class")
+                return "assembly";
+            return "";
         }
     }
 }

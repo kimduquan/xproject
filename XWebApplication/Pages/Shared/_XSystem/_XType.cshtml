@@ -1,57 +1,50 @@
 ﻿@model XSystem.XType
 
-@{
-    string name = Model.XName;
-}
-
-<form method="post" name="@name">
-    <fieldset>
-        <legend>Fields :</legend>
-        <table>
-            <caption></caption>
-            <colgroup>
-                <col />
-                <col />
-            </colgroup>
-            <thead></thead>
-            <tbody>
-                <tr>
-                    @foreach (var xfield in Model.XGetFields())
+<fieldset>
+    <legend>Fields :</legend>
+    <table>
+        <caption></caption>
+        <colgroup>
+            <col />
+            <col />
+        </colgroup>
+        <thead></thead>
+        <tbody>
+            <tr>
+                @foreach (var xfield in Model.XGetFields())
+                {
+                    @if (xfield.XIsStatic)
                     {
-                        @if (xfield.XIsStatic)
-                        {
-                            @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
-                        }
+                        @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
                     }
-                </tr>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-    </fieldset>
-    <fieldset>
-        <legend>Properties :</legend>
-        <table>
-            <caption></caption>
-            <colgroup>
-                <col />
-                <col />
-            </colgroup>
-            <thead></thead>
-            <tbody>
-                <tr>
-                    @foreach (var xproperty in Model.XGetProperties())
+                }
+            </tr>
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+</fieldset>
+<fieldset>
+    <legend>Properties :</legend>
+    <table>
+        <caption></caption>
+        <colgroup>
+            <col />
+            <col />
+        </colgroup>
+        <thead></thead>
+        <tbody>
+            <tr>
+                @foreach (var xproperty in Model.XGetProperties())
+                {
+                    @if (true)
                     {
-                        @if (true)
-                        {
-                            @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
-                        }
+                        @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
                     }
-                </tr>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-    </fieldset>
-    <time datetime="@DateTime.Now">@DateTime.Now</time>
-    <progress />
-    <input type="submit" title="Set" />
-</form>
+                }
+            </tr>
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+</fieldset>
+<time datetime="@DateTime.Now">@DateTime.Now</time>
+<progress />

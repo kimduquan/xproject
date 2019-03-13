@@ -2,7 +2,7 @@
 
 @{ 
     var xtype = Model.XGetType().XGetElementType();
-    string caption = xtype.XName;
+    string caption = Util.XToDisplayString(xtype);
     var xproperties = xtype.XGetProperties();
     var xfields = xtype.XGetFields();
 }
@@ -26,13 +26,13 @@
             @foreach (var xproperty in xproperties)
             {
                 <th>
-                    @xproperty.XName
+                    @Util.XToDisplayString(xproperty);
                 </th>
             }
             @foreach(var xfield in xfields)
             {
                 <th>
-                    @xfield.XName
+                    @Util.XToDisplayString(xfield);
                 </th>
             }
         </tr>
@@ -48,12 +48,12 @@
                 @foreach (var xfield in xfields)
                 {
                     <th>
-                        @xfield.XName
+                        @Util.XToDisplayString(xfield);
                     </th>
                 }
             </tr>
         }
-    </tbody>foreach
+    </tbody>
     <tfoot>
 
     </tfoot>

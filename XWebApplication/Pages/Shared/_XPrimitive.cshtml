@@ -1,0 +1,100 @@
+﻿@model object
+@using XSystem
+@using XSystem.XReflection
+
+@{
+    string defaultValue = "";
+    string required = "";
+    string name = "";
+    XType xtype = null;
+    string type = "";
+    bool isInput = true;
+    var text = "";
+    var css = "";
+    if (Model.GetType().Equals(typeof(XParameterInfo)))
+    {
+        xtype = ((XParameterInfo)Model).XParameterType;
+        name = Util.XToName((XParameterInfo)Model);
+        text = Util.XToDisplayString((XParameterInfo)Model);
+        css = Util.XToCSSClass((XParameterInfo)Model);
+    }
+    else if (Model.GetType().Equals(typeof(XFieldInfo)))
+    {
+        xtype = ((XFieldInfo)Model).XFieldType;
+        name = Util.XToName((XFieldInfo)Model);
+        text = Util.XToDisplayString((XFieldInfo)Model);
+        css = Util.XToCSSClass((XFieldInfo)Model);
+    }
+    else if (Model.GetType().Equals(typeof(XPropertyInfo)))
+    {
+        xtype = ((XPropertyInfo)Model).XPropertyType;
+        name = Util.XToName((XPropertyInfo)Model);
+        text = Util.XToDisplayString((XPropertyInfo)Model);
+        css = Util.XToCSSClass((XPropertyInfo)Model);
+    }
+}
+
+<label class="@css" for="@name">@text</label>
+@if (xtype.XIsEnum)
+{
+    <select class="@css" name="@name" @required>
+        <optgroup label="@Util.XToDisplayString(xtype)">
+            @foreach (string enumName in xtype.XGetEnumNames())
+            {
+                <option value="@Util.XToName(enumName)">@Util.XToDisplayString(enumName)</option>
+            }
+        </optgroup>
+    </select>
+}
+else if (xtype.Equals(typeof(string[])))
+{
+    <textarea name="@name" @required />
+}
+else
+{
+    @if (xtype.Equals(typeof(bool)))
+    {
+        type = "checkbox";
+    }
+    else if (xtype.Equals(typeof(System.Drawing.Color)))
+    {
+        type = "color";
+    }
+    else if (xtype.Equals(typeof(DateTime)))
+    {
+        type = "datetime";
+    }
+    else if (xtype.Equals(typeof(System.IO.File)))
+    {
+        type = "file";
+    }
+    else if (xtype.Equals(typeof(float)))
+    {
+        type = "number";
+    }
+    else if (xtype.Equals(typeof(int)))
+    {
+        type = "number";
+    }
+    else if (xtype.Equals(typeof(string)))
+    {
+        type = "text";
+    }
+    else if (xtype.Equals(typeof(Uri)))
+    {
+        type = "url";
+    }
+    else
+    {
+        isInput = false;
+    }
+
+    @if (isInput)
+    {
+        <input name="@name" type="@type" defaultValue="@defaultValue" @required />
+    }
+    else
+    {
+        @await Html.PartialAsync("_XRef", xtype);
+    }
+}
