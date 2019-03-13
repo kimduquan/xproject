@@ -1,6 +1,3 @@
 ﻿@model XSystem.XReflection.XFieldInfo
 
-<form name="set-@Util.XToName(Model)" method="post">
-    @await Html.PartialAsync("_XPrimitive", Model);
-    <input type="submit" title="Set" value="Set" />
-</form>
+@await Html.PartialAsync("_XPrimitive", Model);

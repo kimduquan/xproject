@@ -11,21 +11,21 @@
     bool isInput = true;
     var text = "";
     var css = "";
-    if (Model.GetType().Equals(typeof(XParameterInfo)))
+    if ((Model as XParameterInfo) != null)
     {
         xtype = ((XParameterInfo)Model).XParameterType;
         name = Util.XToName((XParameterInfo)Model);
         text = Util.XToDisplayString((XParameterInfo)Model);
         css = Util.XToCSSClass((XParameterInfo)Model);
     }
-    else if (Model.GetType().Equals(typeof(XFieldInfo)))
+    else if ((Model as XFieldInfo) != null)
     {
         xtype = ((XFieldInfo)Model).XFieldType;
         name = Util.XToName((XFieldInfo)Model);
         text = Util.XToDisplayString((XFieldInfo)Model);
         css = Util.XToCSSClass((XFieldInfo)Model);
     }
-    else if (Model.GetType().Equals(typeof(XPropertyInfo)))
+    else if ((Model as XPropertyInfo) != null)
     {
         xtype = ((XPropertyInfo)Model).XPropertyType;
         name = Util.XToName((XPropertyInfo)Model);

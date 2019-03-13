@@ -6,13 +6,23 @@
     Dictionary<string, List<XType>> childTypes;
     Stack<IEnumerator<string>> stackNS = new Stack<IEnumerator<string>>();
     Util.XToHiearchy(it, out childNSs, out childTypes);
+    IEnumerator<string> current = childNSs.Keys.GetEnumerator();
+    List<string> path = new List<string>();
+    current.MoveNext();
+    path.Add(current.Current);
+    IEnumerator<string> next = childNSs[current.Current].GetEnumerator();
+    current = childNSs[current.Current].GetEnumerator();
 }
+<style type="text/css">
+    ul.assembly
+    {
+        height:560px;
+        overflow-y:scroll;
+        float:left;
+    }
+</style>
 <ul class="assembly">
     @{
-        IEnumerator<string> current = childNSs.Keys.GetEnumerator();
-        IEnumerator<string> next = childNSs.Keys.GetEnumerator();
-        IEnumerator<string> parent = null;
-        List<string> path = new List<string>();
         string tag = "";
     }
     @while (current.MoveNext())
@@ -62,7 +72,6 @@
             {
                 stackNS.Push(current);
                 path.Add(current.Current);
-                parent = current;
                 current = childNS.GetEnumerator();
                 next = childNS.GetEnumerator();
                 tag = "<ul>";
