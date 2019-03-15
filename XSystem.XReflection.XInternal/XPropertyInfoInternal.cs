@@ -10,7 +10,17 @@ namespace XSystem.XReflection.XInternal
         private PropertyInfo property = null;
         private XType xpropertyType = null;
 
-        public XType XPropertyType => xpropertyType;
+        public XType XPropertyType
+        {
+            get
+            {
+                if(xpropertyType == null)
+                {
+                    xpropertyType = X().XTypeOf(property.PropertyType);
+                }
+                return xpropertyType;
+            }
+        }
 
         public string XName => property.Name;
 
@@ -37,6 +47,11 @@ namespace XSystem.XReflection.XInternal
         public void XSetValue(XObject target, XObject value)
         {
             property.SetValue(target.X, value.X);
+        }
+
+        public int XGetHashCode()
+        {
+            return property.GetHashCode();
         }
     }
 }

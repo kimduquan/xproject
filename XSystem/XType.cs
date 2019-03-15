@@ -36,5 +36,6 @@ namespace XSystem
         string XFullName { get; }
         bool XIsInterface { get; }
         bool XHasElementType { get; }
+        XAssembly XAssembly { get; }
     }
 }

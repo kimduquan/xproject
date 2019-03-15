@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
@@ -226,6 +227,26 @@ namespace XWebApplication
             return "property-info";
         }
 
+        public static string XToData(string ns)
+        {
+            return XToName(ns);
+        }
+
+        public static string XToData(XParameterInfo p)
+        {
+            return XToData(p.XName);
+        }
+
+        public static string XToData(XFieldInfo f)
+        {
+            return XToData(f.XName);
+        }
+
+        public static string XToData(XPropertyInfo p)
+        {
+            return XToData(p.XName);
+        }
+
         public static string XToName(XParameterInfo p)
         {
             return XToName(p.XName);
@@ -239,6 +260,11 @@ namespace XWebApplication
         public static string XToName(XPropertyInfo p)
         {
             return XToName(p.XName);
+        }
+
+        public static string XToName(XType t)
+        {
+            return XToName(t.XName);
         }
 
         public static string XToName(string ns)
@@ -291,10 +317,176 @@ namespace XWebApplication
             cache.Set<XObject>(key, obj);
         }
 
-        public static string XToAttribute(string name, XAssembly a)
+        public static void XToAccessKeyMap(XFieldInfo[] xfields, XPropertyInfo[] xproperties, ViewDataDictionary data, bool isStatic)
         {
-            if (name == "class")
-                return "assembly";
+            Dictionary<string, char> output = new Dictionary<string, char>();
+            Dictionary<char, string> key = new Dictionary<char, string>();
+            foreach(XFieldInfo field in xfields)
+            {
+                if(field.XIsStatic == isStatic)
+                {
+                    foreach (char ch in field.XName)
+                    {
+                        if (Char.IsLetterOrDigit(ch))
+                        {
+                            char temp = Char.ToLower(ch);
+                            if (!key.ContainsKey(temp))
+                            {
+                                key[temp] = field.XName;
+                                output[field.XName] = temp;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (XPropertyInfo prop in xproperties)
+            {
+                foreach (char ch in prop.XName)
+                {
+                    if (Char.IsLetterOrDigit(ch))
+                    {
+                        char temp = Char.ToLower(ch);
+                        if (!key.ContainsKey(temp))
+                        {
+                            key[temp] = prop.XName;
+                            output[prop.XName] = temp;
+                            break;
+                        }
+                    }
+                }
+            }
+            data["accesskey"] = output;
+        }
+
+        public static void XToAccessKeyMap(XParameterInfo[] xparams, ViewDataDictionary data)
+        {
+            Dictionary<string, char> output = new Dictionary<string, char>();
+            Dictionary<char, string> key = new Dictionary<char, string>();
+            foreach (XParameterInfo xparam in xparams)
+            {
+                foreach (char ch in xparam.XName)
+                {
+                    if (Char.IsLetterOrDigit(ch))
+                    {
+                        char temp = Char.ToLower(ch);
+                        if (!key.ContainsKey(temp))
+                        {
+                            key[temp] = xparam.XName;
+                            output[xparam.XName] = temp;
+                            break;
+                        }
+                    }
+                }
+            }
+            data["accesskey"] = output;
+        }
+
+        public static string XToAccessKey(XPropertyInfo p, ViewDataDictionary data)
+        {
+            Dictionary<string, char> keyMap = data["accesskey"] as Dictionary<string, char>;
+            if (keyMap.ContainsKey(p.XName))
+                return "" + keyMap[p.XName];
+            return "";
+        }
+
+        public static string XToAccessKey(XFieldInfo f, ViewDataDictionary data)
+        {
+            Dictionary<string, char> keyMap = data["accesskey"] as Dictionary<string, char>;
+            if (keyMap.ContainsKey(f.XName))
+                return "" + keyMap[f.XName];
+            return "";
+        }
+
+        public static string XToAccessKey(XParameterInfo p, ViewDataDictionary data)
+        {
+            Dictionary<string, char> keyMap = data["accesskey"] as Dictionary<string, char>;
+            if (keyMap.ContainsKey(p.XName))
+                return "" + keyMap[p.XName];
+            return "";
+        }
+
+        public static void XToViewData(XType t, ViewDataDictionary data)
+        {
+            data["XType"] = t;
+        }
+
+        public static void XToViewData(XObject o, ViewDataDictionary data)
+        {
+            data["XObject"] = o;
+        }
+
+        public static void XToViewData(XMethodInfo m, ViewDataDictionary data)
+        {
+            data["XMethodInfo"] = m;
+        }
+
+        public static void XToViewData(XConstructorInfo c, ViewDataDictionary data)
+        {
+            data["XConstructorInfo"] = c;
+        }
+
+        public static void XFromViewData(out XType t, ViewDataDictionary data)
+        {
+            t = data["XType"] as XType;
+        }
+
+        public static void XFromViewData(out XObject o, ViewDataDictionary data)
+        {
+            o = data["XObject"] as XObject;
+        }
+
+        public static void XFromViewData(out XMethodInfo m, ViewDataDictionary data)
+        {
+            m = data["XMethodInfo"] as XMethodInfo;
+        }
+
+        public static void XFromViewData(out XConstructorInfo c, ViewDataDictionary data)
+        {
+            c = data["XConstructorInfo"] as XConstructorInfo;
+        }
+
+        public static void XToTabIndexMap(XFieldInfo[] xfields, XPropertyInfo[] xprops, ViewDataDictionary data, bool isStatic)
+        {
+            Dictionary<string, int> output = new Dictionary<string, int>();
+            int index = 0;
+            foreach (XFieldInfo field in xfields)
+            {
+                if (field.XIsStatic == isStatic)
+                {
+                    output[field.XName] = index;
+                    index++;
+                }
+            }
+            foreach (XPropertyInfo prop in xprops)
+            {
+                output[prop.XName] = index;
+                index++;
+            }
+            data["tabindex"] = output;
+        }
+
+        public static string XToTabIndex(XPropertyInfo p, ViewDataDictionary data)
+        {
+            Dictionary<string, int> indexMap = data["tabindex"] as Dictionary<string, int>;
+            if (indexMap.ContainsKey(p.XName))
+                return "" + indexMap[p.XName];
+            return "";
+        }
+
+        public static string XToTabIndex(XFieldInfo f, ViewDataDictionary data)
+        {
+            Dictionary<string, int> indexMap = data["tabindex"] as Dictionary<string, int>;
+            if (indexMap.ContainsKey(f.XName))
+                return "" + indexMap[f.XName];
+            return "";
+        }
+
+        public static string XToTabIndex(XParameterInfo p, ViewDataDictionary data)
+        {
+            Dictionary<string, int> indexMap = data["tabindex"] as Dictionary<string, int>;
+            if (indexMap.ContainsKey(p.XName))
+                return "" + indexMap[p.XName];
             return "";
         }
     }

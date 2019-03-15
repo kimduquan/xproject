@@ -1,5 +1,9 @@
 ﻿@model XSystem.XType
-
+@{ 
+    Util.XToViewData(Model, ViewData);
+    Util.XToAccessKeyMap(Model.XGetFields(), Model.XGetProperties(), ViewData, true);
+    Util.XToTabIndexMap(Model.XGetFields(), Model.XGetProperties(), ViewData, true);
+}
 <fieldset>
     <legend>Fields :</legend>
     <table>

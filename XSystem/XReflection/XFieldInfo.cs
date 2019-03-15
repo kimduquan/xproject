@@ -9,5 +9,6 @@ namespace XSystem.XReflection
         XType XFieldType { get; }
         string XName { get; }
         bool XIsStatic { get; }
+        int XGetHashCode();
     }
 }

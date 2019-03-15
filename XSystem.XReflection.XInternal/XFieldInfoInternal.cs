@@ -31,5 +31,10 @@ namespace XSystem.XReflection.XInternal
             XFieldInfoInternal otherField = other as XFieldInfoInternal;
             return field.Equals(otherField.field);
         }
+
+        public int XGetHashCode()
+        {
+            return field.GetHashCode();
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace XSystem.XReflection
         XMethodInfo XGetSetMethod();
         XType XPropertyType { get; }
         string XName { get; }
+        int XGetHashCode();
     }
 }

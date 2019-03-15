@@ -1,6 +1,9 @@
 ﻿@model  XSystem.XReflection.XConstructorInfo
-
-@foreach(var xparameter in Model.XGetParameters())
+@{ 
+    Util.XToViewData(Model, ViewData);
+    Util.XToAccessKeyMap(Model.XGetParameters(), ViewData);
+}
+@foreach (var xparameter in Model.XGetParameters())
 {
     @await Html.PartialAsync("_XParameterInfo", xparameter);
 }

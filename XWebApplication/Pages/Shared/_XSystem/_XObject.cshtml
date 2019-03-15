@@ -1,5 +1,9 @@
 ﻿@model XSystem.XObject
-
+@{
+    Util.XToViewData(Model, ViewData);
+    Util.XToAccessKeyMap(Model.XGetType().XGetFields(), Model.XGetType().XGetProperties(), ViewData, false);
+    Util.XToTabIndexMap(Model.XGetType().XGetFields(), Model.XGetType().XGetProperties(), ViewData, false);
+}
 <fieldset>
     <legend>Fields :</legend>
     <table>

@@ -21,6 +21,7 @@ namespace XSystem.XInternal
         private XType xbase = null;
         private string[] enumNames = null;
         private XType xelementType = null;
+        private XAssembly xassembly = null;
 
         public bool XIsEnum => type.IsEnum;
         public string XName => type.Name;
@@ -33,7 +34,7 @@ namespace XSystem.XInternal
         {
             get
             {
-                if(xbase == null)
+                if (xbase == null)
                 {
                     xbase = new XTypeInternal(type.BaseType, x);
                 }
@@ -46,6 +47,19 @@ namespace XSystem.XInternal
         public bool XIsInterface => type.IsInterface;
 
         public bool XHasElementType => type.HasElementType;
+
+        public XAssembly XAssembly
+        {
+            get
+            {
+                if(xassembly == null)
+                {
+                    if(x.XAssembly != null)
+                        xassembly = x.XAssembly(type.Assembly, x);
+                }
+                return xassembly;
+            }
+        }
 
         public XTypeInternal(Type t, X x)
         {

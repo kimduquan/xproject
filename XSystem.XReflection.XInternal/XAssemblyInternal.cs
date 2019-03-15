@@ -10,7 +10,9 @@ namespace XSystem.XReflection.XInternal
         private Assembly assembly = null;
         private List<XType> exportedTypes = null;
 
-        public XAssemblyInternal(Assembly a, X x) : base(x)
+        public string XFullName => assembly.FullName;
+
+        protected XAssemblyInternal(Assembly a, X x) : base(x)
         {
             assembly = a;
         }
@@ -40,6 +42,11 @@ namespace XSystem.XReflection.XInternal
                 }
                 return exportedTypes;
             }
+        }
+
+        public static XAssembly XNew(Assembly assembly, X x)
+        {
+            return new XAssemblyInternal(assembly, x);
         }
     }
 }

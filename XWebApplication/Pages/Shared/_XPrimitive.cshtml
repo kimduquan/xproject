@@ -11,12 +11,20 @@
     bool isInput = true;
     var text = "";
     var css = "";
+    string data = "";
+    string id = "";
+    string tabIndex = "";
+    string accessKey = "";
     if ((Model as XParameterInfo) != null)
     {
         xtype = ((XParameterInfo)Model).XParameterType;
         name = Util.XToName((XParameterInfo)Model);
         text = Util.XToDisplayString((XParameterInfo)Model);
         css = Util.XToCSSClass((XParameterInfo)Model);
+        data = string.Format("data-{0}={1}", Util.XToData((XParameterInfo)Model), Util.XToName((XParameterInfo)Model));
+        id = "" + ((XParameterInfo)Model).XPosition;
+        tabIndex = "" + ((XParameterInfo)Model).XPosition;
+        accessKey = Util.XToAccessKey((XParameterInfo)Model, ViewData);
     }
     else if ((Model as XFieldInfo) != null)
     {
@@ -24,6 +32,10 @@
         name = Util.XToName((XFieldInfo)Model);
         text = Util.XToDisplayString((XFieldInfo)Model);
         css = Util.XToCSSClass((XFieldInfo)Model);
+        data = string.Format("data-{0}={1}", Util.XToData((XFieldInfo)Model), Util.XToName((XFieldInfo)Model));
+        id = "" + ((XFieldInfo)Model).XGetHashCode();
+        accessKey = Util.XToAccessKey((XFieldInfo)Model, ViewData);
+        tabIndex = Util.XToTabIndex((XFieldInfo)Model, ViewData);
     }
     else if ((Model as XPropertyInfo) != null)
     {
@@ -31,13 +43,23 @@
         name = Util.XToName((XPropertyInfo)Model);
         text = Util.XToDisplayString((XPropertyInfo)Model);
         css = Util.XToCSSClass((XPropertyInfo)Model);
+        data = string.Format("data-{0}={1}", Util.XToData((XPropertyInfo)Model), Util.XToName((XPropertyInfo)Model));
+        id = "" + ((XPropertyInfo)Model).XGetHashCode();
+        accessKey = Util.XToAccessKey((XPropertyInfo)Model, ViewData);
+        tabIndex = Util.XToTabIndex((XPropertyInfo)Model, ViewData);
     }
+    data += (" data-namespace=" + Util.XToName(xtype.XNamespace));
+    data += (" data-type=" + Util.XToName(xtype));
+
+    int index = text.IndexOf(accessKey, StringComparison.OrdinalIgnoreCase);
 }
 
-<label class="@css" for="@name">@text</label>
+<label class="@css" for="@name" @required @Html.Raw(data)>
+    @text.Substring(0, index)<mark><u>@text[index]</u></mark>@text.Substring(index + 1)<mark><sup>[@index]</sup></mark>
+</label>
 @if (xtype.XIsEnum)
 {
-    <select class="@css" name="@name" @required>
+    <select class="@css" name="@name" @required @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey">
         <optgroup label="@Util.XToDisplayString(xtype)">
             @foreach (string enumName in xtype.XGetEnumNames())
             {
@@ -48,7 +70,7 @@
 }
 else if (xtype.Equals(typeof(string[])))
 {
-    <textarea name="@name" @required />
+    <textarea class="@css" name="@name" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey"/>
 }
 else
 {
@@ -91,7 +113,7 @@ else
 
     @if (isInput)
     {
-        <input name="@name" type="@type" defaultValue="@defaultValue" @required />
+        <input name="@name" type="@type" defaultValue="@defaultValue" class="@css" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" />
     }
     else
     {

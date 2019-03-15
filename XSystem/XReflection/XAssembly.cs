@@ -8,5 +8,6 @@ namespace XSystem.XReflection
     {
         XType XGetType(string name);
         IEnumerable<XType> XExportedTypes { get; }
+        String XFullName { get; }
     }
 }
