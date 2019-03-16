@@ -53,6 +53,11 @@ namespace XSystem.XInternal
             return new XTypeInternal(type, this);
         }
 
+        public override XAttribute XAttribute(Attribute attr)
+        {
+            return new XAttributeInternal(attr, this);
+        }
+
         class XNull : XObject
         {
             public object X => null;

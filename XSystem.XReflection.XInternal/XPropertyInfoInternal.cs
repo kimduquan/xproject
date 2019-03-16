@@ -9,6 +9,7 @@ namespace XSystem.XReflection.XInternal
     {
         private PropertyInfo property = null;
         private XType xpropertyType = null;
+        private XType xdeclaringType = null;
 
         public XType XPropertyType
         {
@@ -19,6 +20,18 @@ namespace XSystem.XReflection.XInternal
                     xpropertyType = X().XTypeOf(property.PropertyType);
                 }
                 return xpropertyType;
+            }
+        }
+
+        public XType XDeclaringType
+        {
+            get
+            {
+                if (xdeclaringType == null)
+                {
+                    xdeclaringType = X().XTypeOf(property.DeclaringType);
+                }
+                return xdeclaringType;
             }
         }
 

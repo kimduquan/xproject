@@ -9,6 +9,7 @@ namespace XSystem.XReflection.XInternal
     {
         private Assembly assembly = null;
         private List<XType> exportedTypes = null;
+        private List<XAttribute> xcustomAttributes = null;
 
         public string XFullName => assembly.FullName;
 
@@ -47,6 +48,19 @@ namespace XSystem.XReflection.XInternal
         public static XAssembly XNew(Assembly assembly, X x)
         {
             return new XAssemblyInternal(assembly, x);
+        }
+
+        public IEnumerable<XAttribute> XGetCustomAttributes()
+        {
+            if(xcustomAttributes == null)
+            {
+                xcustomAttributes = new List<XAttribute>();
+                foreach (Attribute attr in assembly.GetCustomAttributes())
+                {
+                    xcustomAttributes.Add(X().XAttribute(attr));
+                }
+            }
+            return xcustomAttributes;
         }
     }
 }

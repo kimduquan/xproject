@@ -13,5 +13,6 @@ namespace XSystem.XReflection
         XType XPropertyType { get; }
         string XName { get; }
         int XGetHashCode();
+        XType XDeclaringType { get; }
     }
 }

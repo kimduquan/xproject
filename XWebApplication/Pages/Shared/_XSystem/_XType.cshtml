@@ -1,54 +1,79 @@
 ﻿@model XSystem.XType
-@{ 
+@using XSystem.XReflection
+@using  XSystem
+@{
     Util.XToViewData(Model, ViewData);
-    Util.XToAccessKeyMap(Model.XGetFields(), Model.XGetProperties(), ViewData, true);
-    Util.XToTabIndexMap(Model.XGetFields(), Model.XGetProperties(), ViewData, true);
+    List<XType> xtypes = null;
+    Dictionary<string, List<XFieldInfo>> xfieldSet = null;
+    Util.XToFieldSet(Model.XGetFields(), out xtypes, out xfieldSet);
+    List<XFieldInfo> xfields = null;
+    Util.XToFields(xtypes, xfieldSet, out xfields);
+    List<XType> xtype2s = null;
+    Dictionary<string, List<XPropertyInfo>> xpropSet = null;
+    Util.XToPropertySet(Model.XGetProperties(), out xtype2s, out xpropSet);
+    List<XPropertyInfo> xprops = null;
+    Util.XToProperties(xtype2s, xpropSet, out xprops);
+    Util.XToAccessKeyMap(xfields.ToArray(), xprops.ToArray(), ViewData, true);
+    Util.XToTabIndexMap(xfields.ToArray(), xprops.ToArray(), ViewData, true);
 }
-<fieldset>
-    <legend>Fields :</legend>
-    <table>
-        <caption></caption>
-        <colgroup>
-            <col />
-            <col />
-        </colgroup>
-        <thead></thead>
-        <tbody>
-            <tr>
-                @foreach (var xfield in Model.XGetFields())
+
+@foreach (XType xtype in xtypes)
+{
+    <fieldset>
+        <legend>@Util.XToDisplayString(xtype)</legend>
+        <table>
+            <caption></caption>
+            <colgroup>
+                <col />
+                <col />
+            </colgroup>
+            <thead></thead>
+            <tbody>
+                @foreach (var xfield in xfieldSet[xtype.XFullName])
                 {
                     @if (xfield.XIsStatic)
                     {
-                        @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
+                        <tr>
+                            <td></td>
+                            <td>
+                                @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
+                            </td>
+                        </tr>
                     }
                 }
-            </tr>
-        </tbody>
-        <tfoot></tfoot>
-    </table>
-</fieldset>
-<fieldset>
-    <legend>Properties :</legend>
-    <table>
-        <caption></caption>
-        <colgroup>
-            <col />
-            <col />
-        </colgroup>
-        <thead></thead>
-        <tbody>
-            <tr>
-                @foreach (var xproperty in Model.XGetProperties())
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </fieldset>
+}
+@foreach (XType xtype in xtype2s)
+{
+    <fieldset>
+        <legend>@Util.XToDisplayString(xtype)</legend>
+        <table>
+            <caption></caption>
+            <colgroup>
+                <col />
+                <col />
+            </colgroup>
+            <thead></thead>
+            <tbody>
+                @foreach (var xproperty in xpropSet[xtype.XFullName])
                 {
                     @if (true)
                     {
-                        @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
+                        <tr>
+                            <td></td>
+                            <td>
+                                @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
+                            </td>
+                        </tr>
                     }
                 }
-            </tr>
-        </tbody>
-        <tfoot></tfoot>
-    </table>
-</fieldset>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </fieldset>
+}
 <time datetime="@DateTime.Now">@DateTime.Now</time>
 <progress />

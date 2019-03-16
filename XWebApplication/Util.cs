@@ -421,6 +421,11 @@ namespace XWebApplication
             data["XMethodInfo"] = m;
         }
 
+        public static void XToViewData(XAssembly a, ViewDataDictionary data)
+        {
+            data["XAssembly"] = a;
+        }
+
         public static void XToViewData(XConstructorInfo c, ViewDataDictionary data)
         {
             data["XConstructorInfo"] = c;
@@ -444,6 +449,11 @@ namespace XWebApplication
         public static void XFromViewData(out XConstructorInfo c, ViewDataDictionary data)
         {
             c = data["XConstructorInfo"] as XConstructorInfo;
+        }
+
+        public static void XFromViewData(out XAssembly a, ViewDataDictionary data)
+        {
+            a = data["XAssembly"] as XAssembly;
         }
 
         public static void XToTabIndexMap(XFieldInfo[] xfields, XPropertyInfo[] xprops, ViewDataDictionary data, bool isStatic)
@@ -488,6 +498,64 @@ namespace XWebApplication
             if (indexMap.ContainsKey(p.XName))
                 return "" + indexMap[p.XName];
             return "";
+        }
+
+        public static void XToFieldSet(XFieldInfo[] xfields, out List<XType> xtypes, out Dictionary<string, List<XFieldInfo>> xfieldSet)
+        {
+            xtypes = new List<XType>();
+            xfieldSet = new Dictionary<string, List<XFieldInfo>>();
+            foreach (XFieldInfo xfield in xfields)
+            {
+                if(xfieldSet.ContainsKey(xfield.XDeclaringType.XFullName) == false)
+                {
+                    xtypes.Add(xfield.XDeclaringType);
+                    List<XFieldInfo> list = new List<XFieldInfo>();
+                    list.Add(xfield);
+                    xfieldSet[xfield.XDeclaringType.XFullName] = list;
+                }
+                else
+                {
+                    xfieldSet[xfield.XDeclaringType.XFullName].Add(xfield);
+                }
+            }
+        }
+
+        public static void XToPropertySet(XPropertyInfo[] xprops, out List<XType> xtypes, out Dictionary<string, List<XPropertyInfo>> xpropSet)
+        {
+            xtypes = new List<XType>();
+            xpropSet = new Dictionary<string, List<XPropertyInfo>>();
+            foreach (XPropertyInfo xprop in xprops)
+            {
+                if (xpropSet.ContainsKey(xprop.XDeclaringType.XFullName) == false)
+                {
+                    xtypes.Add(xprop.XDeclaringType);
+                    List<XPropertyInfo> list = new List<XPropertyInfo>();
+                    list.Add(xprop);
+                    xpropSet[xprop.XDeclaringType.XFullName] = list;
+                }
+                else
+                {
+                    xpropSet[xprop.XDeclaringType.XFullName].Add(xprop);
+                }
+            }
+        }
+
+        public static void XToFields(List<XType> xtypes, Dictionary<string, List<XFieldInfo>> xfieldSet, out List<XFieldInfo> xoutFields)
+        {
+            xoutFields = new List<XFieldInfo>();
+            foreach(XType xtype in xtypes)
+            {
+                xoutFields.AddRange(xfieldSet[xtype.XFullName]);
+            }
+        }
+
+        public static void XToProperties(List<XType> xtypes, Dictionary<string, List<XPropertyInfo>> xpropSet, out List<XPropertyInfo> xoutProps)
+        {
+            xoutProps = new List<XPropertyInfo>();
+            foreach (XType xtype in xtypes)
+            {
+                xoutProps.AddRange(xpropSet[xtype.XFullName]);
+            }
         }
     }
 }

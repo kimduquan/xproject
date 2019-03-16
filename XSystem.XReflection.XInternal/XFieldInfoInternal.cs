@@ -6,10 +6,23 @@ namespace XSystem.XReflection.XInternal
     {
         private FieldInfo field = null;
         private XType xfieldType = null;
+        private XType xdeclaringType = null;
 
         public XType XFieldType => xfieldType;
         public string XName => field.Name;
         public bool XIsStatic => field.IsStatic;
+
+        public XType XDeclaringType
+        {
+            get
+            {
+                if(xdeclaringType == null)
+                {
+                    xdeclaringType = X().XTypeOf(field.DeclaringType);
+                }
+                return xdeclaringType;
+            }
+        }
 
         public XFieldInfoInternal(FieldInfo f, X x): base(x)
         {

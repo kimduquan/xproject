@@ -14,5 +14,6 @@ namespace XSystem
         public abstract XType XGetType(String name);
         public delegate XAssembly XNewAssembly(Assembly assembly, X x);
         public XNewAssembly XAssembly = null;
+        public abstract XAttribute XAttribute(Attribute attr);
     }
 }
