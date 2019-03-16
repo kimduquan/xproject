@@ -1,55 +1,133 @@
-﻿@model XSystem.XArray
+﻿@model object
+@using XSystem
+@using XSystem.XReflection
 
-@{ 
-    var xtype = Model.XGetType().XGetElementType();
-    string caption = Util.XToDisplayString(xtype);
-    var xproperties = xtype.XGetProperties();
-    var xfields = xtype.XGetFields();
+@{
+    string defaultValue = "";
+    string required = "";
+    string name = "";
+    XType xtype = null;
+    string type = "";
+    bool isInput = true;
+    var text = "";
+    var css = "";
+    string data = "";
+    string id = "";
+    string tabIndex = "";
+    string accessKey = "";
+    XArray xarray = null;
+    XObject xobject = null;
+    Util.XFromViewData(out xobject, ViewData);
+    bool isStatic = xobject == null;
+    if ((Model as XFieldInfo) != null)
+    {
+        xtype = ((XFieldInfo)Model).XFieldType.XGetElementType();
+        name = Util.XToName((XFieldInfo)Model);
+        text = Util.XToDisplayString((XFieldInfo)Model);
+        css = Util.XToCSSClass((XFieldInfo)Model);
+        data = string.Format("data-{0}={1}", Util.XToData((XFieldInfo)Model), Util.XToName((XFieldInfo)Model));
+        id = "" + ((XFieldInfo)Model).XGetHashCode();
+        accessKey = Util.XToAccessKey((XFieldInfo)Model, ViewData);
+        tabIndex = Util.XToTabIndex((XFieldInfo)Model, ViewData);
+        if(isStatic)
+        {
+            xarray = ((XFieldInfo)Model).XGetValue(null) as XArray;
+        }
+        else
+        {
+            xarray = ((XFieldInfo)Model).XGetValue(xobject) as XArray;
+        }
+    }
+    else if ((Model as XPropertyInfo) != null)
+    {
+        xtype = ((XPropertyInfo)Model).XPropertyType.XGetElementType();
+        name = Util.XToName((XPropertyInfo)Model);
+        text = Util.XToDisplayString((XPropertyInfo)Model);
+        css = Util.XToCSSClass((XPropertyInfo)Model);
+        data = string.Format("data-{0}={1}", Util.XToData((XPropertyInfo)Model), Util.XToName((XPropertyInfo)Model));
+        id = "" + ((XPropertyInfo)Model).XGetHashCode();
+        accessKey = Util.XToAccessKey((XPropertyInfo)Model, ViewData);
+        tabIndex = Util.XToTabIndex((XPropertyInfo)Model, ViewData);
+        if (isStatic)
+        {
+            xarray = ((XPropertyInfo)Model).XGetValue(null) as XArray;
+        }
+        else
+        {
+            xarray = ((XPropertyInfo)Model).XGetValue(xobject) as XArray;
+        }
+    }
+    data += (" data-namespace=" + Util.XToName(xtype.XNamespace));
+    data += (" data-type=" + Util.XToName(xtype));
+
+    int index = text.IndexOf(accessKey, StringComparison.OrdinalIgnoreCase);
+    List<XType> xtypes = null;
+    Dictionary<string, List<XFieldInfo>> xfieldSet = null;
+    Util.XToFieldSet(xtype.XGetFields(), out xtypes, out xfieldSet, false);
+    List<XType> xtypes2 = null;
+    Dictionary<string, List<XPropertyInfo>> xpropSet = null;
+    Util.XToPropertySet(xtype.XGetProperties(), out xtypes2, out xpropSet, false);
 }
 
-<table>
-    <caption>@caption</caption>
-    <colgroup>
-        @foreach(var xproperty in xproperties)
-        {
-            <col />
-        }
-    </colgroup>
-    <colgroup>
-        @foreach (var xfield in xfields)
-        {
-            <col />
-        }
-    </colgroup>
+<table class="@css" @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey">
+    <caption>
+        @text.Substring(0, index)<mark><u>@text[index]</u></mark>@text.Substring(index + 1)<mark><sup>[@index]</sup></mark>
+    </caption>
+    @foreach (XType t in xtypes)
+    {
+        <colgroup>
+            @foreach (XFieldInfo f in xfieldSet[t.XFullName])
+            {
+                <col />
+            }
+        </colgroup>
+        <colgroup>
+            @foreach (XPropertyInfo p in xpropSet[t.XFullName])
+            {
+                <col />
+            }
+        </colgroup>
+    }
     <thead>
         <tr>
-            @foreach (var xproperty in xproperties)
+            @foreach (XType t in xtypes)
             {
-                <th>
-                    @Util.XToDisplayString(xproperty);
-                </th>
-            }
-            @foreach(var xfield in xfields)
-            {
-                <th>
-                    @Util.XToDisplayString(xfield);
-                </th>
+                @foreach (XFieldInfo f in xfieldSet[t.XFullName])
+                {
+                    <th>
+                        @Util.XToDisplayString(f);
+                    </th>
+                }
+                @foreach (XPropertyInfo p in xpropSet[t.XFullName])
+                {
+                    <th>
+                        @Util.XToDisplayString(p);
+                    </th>
+                }
             }
         </tr>
     </thead>
     <tbody>
-        @for(int index = 0; index < Model.XLength; index++)
+        @for (int i = 0; i < xarray.XLength; i++)
         {
+            XObject item = xarray.XGetValue(i);
             <tr>
-                @foreach (var xproperty in xproperties)
+                @foreach (XType t in xtypes)
                 {
-                    <td></td>
-                }
-                @foreach (var xfield in xfields)
-                {
-                    <th>
-                        @Util.XToDisplayString(xfield);
-                    </th>
+                    @foreach (XFieldInfo f in xfieldSet[t.XFullName])
+                    {
+                        XObject value = f.XGetValue(item);
+                        <td>
+                            @Util.XToDisplayString(value);
+                        </td>
+                    }
+                    @foreach (XPropertyInfo p in xpropSet[t.XFullName])
+                    {
+                        XObject value = p.XGetValue(item);
+                        <td>
+                            @Util.XToDisplayString(value);
+                        </td>
+                    }
                 }
             </tr>
         }

@@ -15,6 +15,7 @@
     string id = "";
     string tabIndex = "";
     string accessKey = "";
+    string spellcheck = "";
     if ((Model as XParameterInfo) != null)
     {
         xtype = ((XParameterInfo)Model).XParameterType;
@@ -70,7 +71,8 @@
 }
 else if (xtype.Equals(typeof(string[])))
 {
-    <textarea class="@css" name="@name" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" />
+    spellcheck = "spellcheck";
+    <textarea class="@css" name="@name" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck />
 }
 else
 {
@@ -100,6 +102,7 @@ else
     }
     else if (xtype.Equals(typeof(string)))
     {
+        spellcheck = "spellcheck";
         type = "text";
     }
     else if (xtype.Equals(typeof(Uri)))
@@ -113,7 +116,7 @@ else
 
     @if (isInput)
     {
-        <input name="@name" type="@type" defaultValue="@defaultValue" class="@css" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" />
+        <input name="@name" type="@type" defaultValue="@defaultValue" class="@css" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck />
     }
     else
     {
