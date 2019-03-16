@@ -37,6 +37,17 @@ namespace XSystem.XReflection.XInternal
 
         public string XName => property.Name;
 
+        public bool XIsStatic
+        {
+            get
+            {
+                if (property.GetMethod != null)
+                    return property.GetMethod.IsStatic;
+                else
+                    return property.SetMethod.IsStatic;
+            }
+        }
+
         public XPropertyInfoInternal(PropertyInfo p, X x) : base(x)
         {
             property = p;

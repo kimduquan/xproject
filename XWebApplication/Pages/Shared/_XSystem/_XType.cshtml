@@ -3,18 +3,25 @@
 @using  XSystem
 @{
     Util.XToViewData(Model, ViewData);
+    XObject xobject = null;
+    Util.XFromViewData(out xobject, ViewData);
+    bool isStatic = xobject == null;
     List<XType> xtypes = null;
     Dictionary<string, List<XFieldInfo>> xfieldSet = null;
-    Util.XToFieldSet(Model.XGetFields(), out xtypes, out xfieldSet);
+    Util.XToFieldSet(Model.XGetFields(), out xtypes, out xfieldSet, isStatic);
     List<XFieldInfo> xfields = null;
     Util.XToFields(xtypes, xfieldSet, out xfields);
     List<XType> xtype2s = null;
     Dictionary<string, List<XPropertyInfo>> xpropSet = null;
-    Util.XToPropertySet(Model.XGetProperties(), out xtype2s, out xpropSet);
+    Util.XToPropertySet(Model.XGetProperties(), out xtype2s, out xpropSet, isStatic);
     List<XPropertyInfo> xprops = null;
     Util.XToProperties(xtype2s, xpropSet, out xprops);
-    Util.XToAccessKeyMap(xfields.ToArray(), xprops.ToArray(), ViewData, true);
-    Util.XToTabIndexMap(xfields.ToArray(), xprops.ToArray(), ViewData, true);
+    Util.XToAccessKeyMap(xfields.ToArray(), xprops.ToArray(), ViewData);
+    Util.XToTabIndexMap(xfields.ToArray(), xprops.ToArray(), ViewData);
+    Dictionary<string, List<string>> fieldData = null;
+    Util.XToData(xfields.ToArray(), xobject, out fieldData);
+    Dictionary<string, List<string>> propertyData = null;
+    Util.XToData(xprops.ToArray(), xobject, out propertyData);
 }
 
 @foreach (XType xtype in xtypes)
@@ -31,15 +38,12 @@
             <tbody>
                 @foreach (var xfield in xfieldSet[xtype.XFullName])
                 {
-                    @if (xfield.XIsStatic)
-                    {
-                        <tr>
-                            <td></td>
-                            <td>
-                                @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            @await Html.PartialAsync("_XSystem/_XReflection/_XFieldInfo", xfield);
+                        </td>
+                    </tr>
                 }
             </tbody>
             <tfoot></tfoot>
@@ -60,15 +64,12 @@
             <tbody>
                 @foreach (var xproperty in xpropSet[xtype.XFullName])
                 {
-                    @if (true)
-                    {
-                        <tr>
-                            <td></td>
-                            <td>
-                                @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td></td>
+                        <td>
+                            @await Html.PartialAsync("_XSystem/_XReflection/_XPropertyInfo", xproperty);
+                        </td>
+                    </tr>
                 }
             </tbody>
             <tfoot></tfoot>
@@ -77,3 +78,17 @@
 }
 <time datetime="@DateTime.Now">@DateTime.Now</time>
 <progress />
+<data value="type" hidden>
+    <data value="property-info">
+        @foreach(var pair in propertyData)
+        {
+            <data value="@pair.Key">@pair.Value</data>
+        }
+    </data>
+    <data value="field-info">
+        @foreach (var pair in fieldData)
+        {
+            <data value="@pair.Key">@pair.Value</data>
+        }
+    </data>
+</data>

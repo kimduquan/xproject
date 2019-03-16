@@ -14,5 +14,6 @@ namespace XSystem.XReflection
         string XName { get; }
         int XGetHashCode();
         XType XDeclaringType { get; }
+        bool XIsStatic { get; }
     }
 }

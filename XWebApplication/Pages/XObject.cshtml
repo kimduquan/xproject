@@ -1,66 +1,12 @@
 ﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}/{hashCode:int}"
 @model XObjectModel
 @{
-    var xtype = Model.XObject.XGetType();
-    int hashCode = Model.XObject.XGetHashCode();
-    string type = xtype.XName;
+    ViewData["Title"] = Util.XToDisplayString(Model.XObject);
+    ViewData["Application"] = Util.XToDisplayString(Model.XObject.XGetType().XAssembly);
+    Util.XToViewData(Model.XObject, ViewData);
+    Util.XToViewData(Model.XObject.XGetType(), ViewData);
+    Util.XToViewData(Model.XObject.XGetType().XAssembly, ViewData);
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@type</title>
-</head>
-<body>
-    <fieldset>
-        <legend>Fields :</legend>
-        <table>
-            <caption></caption>
-            <colgroup>
-                <col />
-                <col />
-            </colgroup>
-            <thead></thead>
-            <tbody>
-                <tr>
-                    @foreach (var xfield in xtype.XGetFields())
-                    {
-                        @if (xfield.XIsStatic == false)
-                        {
-                            @Html.PartialAsync("_XFieldInfo", xfield);
-                        }
-                    }
-                </tr>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-    </fieldset>
-    <fieldset>
-        <legend>Properties :</legend>
-        <table>
-            <caption></caption>
-            <colgroup>
-                <col />
-                <col />
-            </colgroup>
-            <thead></thead>
-            <tbody>
-                <tr>
-                    @foreach (var xproperty in xtype.XGetProperties())
-                    {
-                        @if (true)
-                        {
-                            @Html.PartialAsync("_XPropertyInfo", xproperty);
-                        }
-                    }
-                </tr>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-    </fieldset>
-    <time datetime="@DateTime.Now">@DateTime.Now</time>
-    <progress />
-</body>
-</html>
+@await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XObject.XGetType().XAssembly);
+@await Html.PartialAsync("_XSystem/_XObject", Model.XObject);

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = Util.XToDisplayString(Model.XType);
     ViewData["Application"] = Util.XToDisplayString(Model.XType.XAssembly);
+    Util.XToViewData(Model.XType, ViewData);
     Util.XToViewData(Model.XType.XAssembly, ViewData);
 }
 
