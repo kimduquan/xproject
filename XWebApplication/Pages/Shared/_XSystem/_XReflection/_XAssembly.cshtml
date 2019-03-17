@@ -13,8 +13,6 @@
     path.Add(current.Current);
     IEnumerator<string> next = childNSs[current.Current].GetEnumerator();
     current = childNSs[current.Current].GetEnumerator();
-    XAssembly assembly = null;
-    Util.XFromViewData(out assembly, ViewData);
 }
 <style type="text/css">
     ul.assembly
@@ -98,7 +96,7 @@
         @Html.Raw(tag)
     }
 </ul>
-@foreach(XAttribute xattr in assembly.XGetCustomAttributes())
+@foreach(XAttribute xattr in Model.XGetCustomAttributes())
 {
     @xattr.XGetType().XFullName;
     <br />

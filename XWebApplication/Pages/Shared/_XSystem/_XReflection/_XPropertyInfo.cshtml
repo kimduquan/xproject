@@ -1,3 +1,10 @@
 ﻿@model XSystem.XReflection.XPropertyInfo
 
-@await Html.PartialAsync("_XPrimitive", Model);
+@if (Model.XPropertyType.XIsArray && Model.XPropertyType.XGetElementType().XIsPrimitive == false)
+{
+    @await Html.PartialAsync("_XSystem/_XArray", Model);
+}
+else
+{
+    @await Html.PartialAsync("_XPrimitive", Model);
+}
