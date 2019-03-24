@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XCheckBox {
+import xproject.xrmi.XRemote;
+
+public interface XCheckBox extends XRemote {
 
 }

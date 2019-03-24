@@ -1,7 +1,7 @@
 ﻿@model XSystem.XReflection.XAssembly
 @using XSystem;
 @using XSystem.XReflection;
-@{ 
+@{
     var it = Model.XExportedTypes.GetEnumerator();
     Dictionary<string, List<string>> childNSs;
     Dictionary<string, List<XType>> childTypes;
@@ -15,11 +15,10 @@
     current = childNSs[current.Current].GetEnumerator();
 }
 <style type="text/css">
-    ul.assembly
-    {
-        height:560px;
-        overflow-y:scroll;
-        float:left;
+    ul.assembly {
+        height: 560px;
+        overflow-y: scroll;
+        float: left;
     }
 </style>
 <ul class="assembly">
@@ -40,7 +39,7 @@
         }
 
         @Html.Raw(tag)
-        @Util.XToDisplayString(current.Current);
+        @Util.XToDisplayString(current.Current)
 
         @if (childTypes.ContainsKey(ns))
         {
@@ -96,8 +95,14 @@
         @Html.Raw(tag)
     }
 </ul>
-@foreach(XAttribute xattr in Model.XGetCustomAttributes())
-{
-    @xattr.XGetType().XFullName;
-    <br />
+@{ 
+    Dictionary<string, string> about = null;
+    Util.XToAbout(Model, out about);
 }
+@foreach (KeyValuePair<string, string> v in about)
+{
+    @Util.XToDisplayString(v.Key)
+    
+    @v.Value
+}
+@Model.XEntryPoint

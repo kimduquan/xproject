@@ -12,5 +12,6 @@ public interface XMethod extends XRemote {
 	XParameter[] xgetParameters() throws Exception;
 	int xgetParameterCount() throws Exception;
 	XClass[] xgetParameterTypes() throws Exception;
+	XClass xgetReturnType() throws Exception;
 	XObject xinvoke(XObject xobject, XObject[] xparameters) throws Exception;
 }

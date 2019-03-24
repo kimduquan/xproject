@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XTextField {
+import xproject.xrmi.XRemote;
+
+public interface XTextField extends XRemote {
 
 }

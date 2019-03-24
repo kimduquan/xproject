@@ -20,7 +20,7 @@ public class XAttribute implements XRemote {
 		return true;
 	}
 	
-	public boolean xisMultiValues() throws Exception {
+	public boolean xhasMultiValues() throws Exception {
 		return false;
 	}
 

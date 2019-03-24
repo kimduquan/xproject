@@ -1,7 +1,6 @@
 ﻿namespace XSystem
 {
-    public interface XAttribute
+    public interface XAttribute : XObject
     {
-        XType XGetType();
     }
 }

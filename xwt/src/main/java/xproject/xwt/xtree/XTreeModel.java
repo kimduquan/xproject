@@ -1,5 +1,7 @@
 package xproject.xwt.xtree;
 
-public interface XTreeModel {
+import xproject.xrmi.XRemote;
+
+public interface XTreeModel extends XRemote {
 
 }

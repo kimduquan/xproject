@@ -1,5 +1,7 @@
 package xproject.xwt.xgraphics;
 
-public interface XImage {
+import xproject.xrmi.XRemote;
+
+public interface XImage extends XRemote {
 
 }

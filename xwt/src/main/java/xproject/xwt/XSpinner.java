@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XSpinner {
+import xproject.xrmi.XRemote;
+
+public interface XSpinner extends XRemote {
 
 }

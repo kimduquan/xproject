@@ -4,20 +4,11 @@ using System.Text;
 
 namespace XSystem.XInternal
 {
-    public class XAttributeInternal : XAttribute
+    public class XAttributeInternal : XObjectInternal, XAttribute
     {
-        private Attribute attribute = null;
-        private X x = null;
-
-        public XAttributeInternal(Attribute attr, X xx)
+        public XAttributeInternal(Attribute attr, X x) : base(attr, x)
         {
-            attribute = attr;
-            x = xx;
-        }
 
-        public XType XGetType()
-        {
-            return x.XTypeOf(attribute.GetType());
         }
     }
 }

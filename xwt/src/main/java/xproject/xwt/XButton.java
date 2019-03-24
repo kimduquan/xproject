@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XButton {
+import xproject.xrmi.XRemote;
+
+public interface XButton extends XRemote {
 
 }

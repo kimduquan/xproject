@@ -55,4 +55,10 @@ public class XRemoteMethodImpl extends XUnicastRemoteObject<XMethod> implements 
 		return ref().xinvoke(xobject, xparameters);
 	}
 
+	@Override
+	public XClass xgetReturnType() throws Exception {
+		// TODO Auto-generated method stub
+		return ref().xgetReturnType();
+	}
+
 }

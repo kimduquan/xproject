@@ -46,5 +46,10 @@
     	<artifactId>xscript</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+    	<groupId>xproject</groupId>
+    	<artifactId>xutil.xfunction</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>

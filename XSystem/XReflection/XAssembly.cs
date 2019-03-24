@@ -10,5 +10,6 @@ namespace XSystem.XReflection
         IEnumerable<XType> XExportedTypes { get; }
         String XFullName { get; }
         IEnumerable<XAttribute> XGetCustomAttributes();
+        XMethodInfo XEntryPoint { get; }
     }
 }

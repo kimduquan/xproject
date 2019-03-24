@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XMenuItem {
+import xproject.xrmi.XRemote;
+
+public interface XMenuItem extends XRemote {
 
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import xproject.xrmi.XRemote;
@@ -303,6 +302,20 @@ public class XRelation implements XRemote {
 		xFDSet = null;
 	}
 	
+	protected boolean xisFullyDependend(Map<String, XAttribute> xleft, Map<String, XAttribute> xright) throws Exception {
+		boolean result = true;
+		for(XAttribute xattr : xleft.values()) {
+			Map<String, XAttribute> tempAttrSet = new HashMap<String, XAttribute>(xleft);
+			tempAttrSet.remove(xattr.xname());
+			Map<String, XAttribute> closure = xcalculateClosure(xFDSet, tempAttrSet, null);
+			if(closure.keySet().containsAll(xright.keySet())) {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	
 	public List<XRelation> xnormalize2NF() throws Exception {
 		ArrayList<XRelation> result = new ArrayList<XRelation>();
 		return result;
@@ -311,7 +324,7 @@ public class XRelation implements XRemote {
 	protected boolean xis1NF() throws Exception {
 		boolean result = true;
 		for(XAttribute xattr : xattributeSet.values()) {
-			if(xattr.xisPrimitive() == false || xattr.xisMultiValues()) {
+			if(xattr.xisPrimitive() == false || xattr.xhasMultiValues()) {
 				result = false;
 				break;
 			}
@@ -320,17 +333,44 @@ public class XRelation implements XRemote {
 	}
 	
 	protected boolean xis2NF() throws Exception {
-		boolean result = xis2NF();
+		boolean result = xis1NF();
 		if(result == true) {
-			result = true;
 			List<Map<String, XAttribute>> keyAttrSet = xfindAllKeys(null);
-			Map<String, XAttribute> nonKeyAttrSet = new HashMap<String, XAttribute>(xattributeSet);
-			for(Map<String, XAttribute> keyAttr : keyAttrSet) {
-				for(Entry<String, XAttribute> attr : keyAttr.entrySet()) {
-					nonKeyAttrSet.remove(attr.getKey());
+			for(Map<String, XAttribute> key : keyAttrSet) {
+				Map<String, XAttribute> nonKeyAttr = new HashMap<String, XAttribute>(xattributeSet);
+				for(String attr : key.keySet()) {
+					nonKeyAttr.remove(attr);
+				}
+				for(XAttribute attr : nonKeyAttr.values()) {
+					Map<String, XAttribute> temp = new HashMap<String, XAttribute>();
+					temp.put(attr.xname(), attr);
+					if(xisFullyDependend(key, temp) == false) {
+						result = false;
+						break;
+					}
+				}
+				if(result == false) {
+					break;
 				}
 			}
 		}
+		return result;
+	}
+	
+	protected boolean xis3NF() throws Exception {
+		boolean result = xis2NF();
+		if(result == true){
+			for(XAttribute xattr : xattributeSet.values()) {
+				
+			}
+		}
+		return result;
+	}
+	
+	protected boolean xisTransitiveDependend(Map<String, XAttribute> xleft, Map<String, XAttribute> xright) {
+		boolean result = false;
+		Map<String, XAttribute> xmiddle = new HashMap<String, XAttribute>();
+		
 		return result;
 	}
 }

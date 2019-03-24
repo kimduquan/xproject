@@ -1,3 +1,4 @@
+
 package xproject.xalgorithm.test;
 
 import java.util.ArrayList;
@@ -173,4 +174,6 @@ public class XRelationTest {
 		
 		Assert.assertEquals(result.size(), 2);
 	}
+	
+	
 }

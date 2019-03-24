@@ -20,6 +20,7 @@ public class XMethodImpl implements XMethod {
 	private XParameter[] xparameters;
 	private XClass[] xparameterTypes;
 	private XClass declaringClass;
+	private XClass returnType;
 	private XFactory xfactory;
 	
 	protected XMethodImpl(Method m, XFactory xfactory)
@@ -29,6 +30,7 @@ public class XMethodImpl implements XMethod {
 		xparameters = null;
 		xparameterTypes = null;
 		declaringClass = null;
+		returnType = null;
 		this.xfactory = xfactory;
 	}
 	
@@ -152,7 +154,16 @@ public class XMethodImpl implements XMethod {
 		xparameters = null;
 		xparameterTypes = null;
 		declaringClass = null;
+		returnType = null;
 		xfactory = null;
 		finalize();
+	}
+
+	@Override
+	public XClass xgetReturnType() throws Exception {
+		// TODO Auto-generated method stub
+		if(returnType == null)
+			returnType = xfactory.xClass(method.getReturnType());
+		return returnType;
 	}
 }

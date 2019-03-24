@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSystem.XComponentModel", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSystem.XComponentModel.XInternal", "XSystem.XComponentModel.XInternal\XSystem.XComponentModel.XInternal.csproj", "{27547DFA-E76E-4241-A222-D4D14A8934D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenUP", "OpenUP\OpenUP.csproj", "{52EF6566-3FFF-4821-8C4B-A6BB8285DE9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenUP", "OpenUP\OpenUP.csproj", "{52EF6566-3FFF-4821-8C4B-A6BB8285DE9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

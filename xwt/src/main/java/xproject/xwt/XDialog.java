@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XDialog {
+import xproject.xrmi.XRemote;
+
+public interface XDialog extends XRemote {
 
 }

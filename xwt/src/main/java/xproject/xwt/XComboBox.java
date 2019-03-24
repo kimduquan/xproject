@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XComboBox {
+import xproject.xrmi.XRemote;
+
+public interface XComboBox extends XRemote {
 
 }

@@ -26,7 +26,6 @@ import xproject.xdriver.impl.request.XAlert;
 import xproject.xdriver.impl.request.XBy;
 import xproject.xdriver.impl.request.XCapabilitiesReq;
 import xproject.xdriver.impl.request.XCookieRequest;
-import xproject.xdriver.impl.request.XFrame;
 import xproject.xdriver.impl.request.XKeys;
 import xproject.xdriver.impl.request.XScript;
 import xproject.xdriver.impl.request.XUrl;
@@ -297,9 +296,23 @@ public class XDriverServerImpl implements XDriverServer {
 		return (new XResponse<List<XWindowIdentifier>>(windows)).toString();
 	}
 
-	public XNoResponse xswitchToFrame(String session_id, XFrame request) throws Exception {
+	/*
+	 * {
+		  "id": {
+		    "ELEMENT": "e4e8c37b-e986-4790-9fc5-cc97f0433516",
+		    "element-6066-11e4-a52e-4f735466cecf": "e4e8c37b-e986-4790-9fc5-cc97f0433516"
+		  }
+		}
+		
+		{
+		  "id": 1
+		}
+	 */
+	public XNoResponse xswitchToFrame(String session_id, XElementIdentifier request) throws Exception {
 		// TODO Auto-generated method stub
 		getSession(session_id);
+		//ContainerRequest res = (ContainerRequest) request;
+		//System.out.print(convert(res.getEntityStream()));
 		return new XNoResponse();
 	}
 

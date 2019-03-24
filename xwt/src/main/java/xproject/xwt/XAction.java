@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XAction {
+import xproject.xrmi.XRemote;
+
+public interface XAction extends XRemote {
 
 }

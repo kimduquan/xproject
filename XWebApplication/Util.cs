@@ -638,5 +638,24 @@ namespace XWebApplication
                     data.Add(xprop.XGetValue(X.XNULL).XToString());
             }
         }
+
+        public static void XToAbout(XAssembly assemly, out Dictionary<string, string> about)
+        {
+            about = new Dictionary<string, string>();
+            foreach(XAttribute xattr in assemly.XGetCustomAttributes())
+            {
+                if (xattr.XGetType().XName.StartsWith("Assembly") && xattr.XGetType().XName.EndsWith("Attribute") && xattr.XGetType().XNamespace == "System.Reflection")
+                {
+                    string attr = xattr.XGetType().XName;
+                    attr = attr.Substring("Assembly".Length);
+                    attr = attr.Substring(0, attr.Length - "Attribute".Length);
+                    XPropertyInfo xprop = xattr.XGetType().XGetProperty(attr);
+                    if (xprop != null && xprop.XIsStatic == false)
+                    {
+                        about[attr] = xprop.XGetValue(xattr).XToString();
+                    }
+                }
+            }
+        }
     }
 }

@@ -32,6 +32,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
@@ -51,7 +53,7 @@ public class App {
 		
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		System.setProperty("webdriver.edge.driver", "D:\\installed\\MSWebdriver\\MicrosoftWebDriver.exe");
-        
+        System.setProperty("webdriver.ie.driver", "D:\\installed\\IEDriver\\IEDriverServer.exe");
 		//capture();
 		test2();
 		
@@ -65,7 +67,7 @@ public class App {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        XCommandFactory xcommandFactory = new XCommandFactory();
+        XFunctionFactory xcommandFactory = new XFunctionFactory();
         XClassLoader xclassLoader = XClassLoaderImpl.xnew(ClassLoader.getSystemClassLoader(), xfactory);
         XScriptEngineModel engine = new XScriptEngineModel(xfactory, xcommandFactory, xclassLoader);
         XScanner xscanner = XScannerImpl.xnew("File", "test.xs");
@@ -324,7 +326,7 @@ public class App {
 		
 	}
 	
-	public static WebElement findElementByImage(RemoteWebDriver driver, String elementImageName, long timeOut)
+	public static Rect findElementByImage(RemoteWebDriver driver, String elementImageName, long timeOut)
 	{
     	Mat eleImg = Imgcodecs.imread(elementImageName);
     	
@@ -337,7 +339,7 @@ public class App {
     	detector.detect(eleImg, eleImgKPs);
     	computer.compute(eleImg, eleImgKPs, eleImgDesc);
     	
-    	WebElement ele = null;
+    	Rect eleRect = null;
     	long time = timeOut * 1000 + System.currentTimeMillis();
     	
     	do
@@ -357,6 +359,8 @@ public class App {
     		//Features2d.drawMatches(eleImg, eleImgKPs, screenshot, screenshotKPs, matches, matchedImage);
     		//Imgcodecs.imwrite("matched.png", matchedImage);
         	
+        	
+        	
         	if(!matches.empty())
         	{
             	Rect rect = convert2(matches, screenshotKPs);
@@ -364,15 +368,24 @@ public class App {
             	
             	if(rect.height <= eleImg.rows() && rect.width <= eleImg.cols())
             	{
-            		ele = (WebElement)driver.executeScript("return document.elementFromPoint(" + (rect.x + rect.width / 2) + "," +  (rect.y + rect.height / 2) + ");");
+            		//ele = (WebElement)driver.executeScript("return document.elementFromPoint(" + (rect.x + rect.width / 2) + "," +  (rect.y + rect.height / 2) + ");");
+            		eleRect = rect;
             		break;
             	}
         	}
         	sleep(100);
     	}
-    	while(ele == null && System.currentTimeMillis() < time);
+    	while(eleRect == null && System.currentTimeMillis() < time);
     	
-    	return ele;
+    	return eleRect;
+	}
+	
+	protected static void click(RemoteWebDriver driver, Rect rect)
+	{
+		Actions actions = new Actions(driver);
+		actions = actions.moveByOffset(rect.x + ( rect.width / 2 ), rect.y + ( rect.height / 2 ));
+		actions = actions.click();
+		actions.build().perform();
 	}
 	
 	public static void test2()
@@ -381,15 +394,15 @@ public class App {
         
 		driver.get("https://www.google.com/");
 		
-		WebElement searchBox = findElementByImage(driver, "capture\\google\\search_box.png", 20);
-        searchBox.click();
+		Rect searchBox = findElementByImage(driver, "capture\\google\\search_box.png", 15);
+		click(driver, searchBox);
         
         driver.switchTo().activeElement().sendKeys("abc");
         
-        WebElement button = findElementByImage(driver, "capture\\google\\search_button.png", 20);
-        button.click();
+        Rect button = findElementByImage(driver, "capture\\google\\search_button.png", 10);
+        click(driver, button);
         
-        WebElement search_box_abc = findElementByImage(driver, "capture\\\\google\\\\search_box_abc.png", 20);
+        Rect search_box_abc = findElementByImage(driver, "capture\\\\google\\\\search_box_abc.png", 15);
         assert(search_box_abc != null);
         
         driver.close();
@@ -422,7 +435,7 @@ public class App {
 		sleep(5000);
 		
 		File screenshot = driver.getScreenshotAs(OutputType.FILE);
-		WebElement search_box = capture(screenshot, "capture\\google\\search_box.png", driver, By.id("sfdiv"), 20);
+		WebElement search_box = capture(screenshot, "capture\\google\\search_box.png", driver, By.id("sfdiv"), 15);
 		search_box.click();
         driver.switchTo().activeElement().sendKeys("abc");
         
@@ -435,7 +448,7 @@ public class App {
         sleep(5000);
         
         screenshot = driver.getScreenshotAs(OutputType.FILE);
-        capture(screenshot, "capture\\google\\search_box_abc.png", driver, By.id("sfdiv"), 20);
+        capture(screenshot, "capture\\google\\search_box_abc.png", driver, By.id("sfdiv"), 15);
         
         driver.close();
 	}

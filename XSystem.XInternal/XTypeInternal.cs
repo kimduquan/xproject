@@ -210,7 +210,10 @@ namespace XSystem.XInternal
 
         public XPropertyInfo XGetProperty(string name)
         {
-            return new XPropertyInfoInternal(type.GetProperty(name), x);
+            PropertyInfo p = type.GetProperty(name);
+            if(p != null)
+                return new XPropertyInfoInternal(p, x);
+            return null;
         }
 
         public bool XIsAssignableFrom(XType xtype)

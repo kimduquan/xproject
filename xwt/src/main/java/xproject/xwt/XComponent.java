@@ -1,5 +1,7 @@
 package xproject.xwt;
 
-public interface XComponent {
+import xproject.xrmi.XRemote;
+
+public interface XComponent extends XRemote {
 
 }

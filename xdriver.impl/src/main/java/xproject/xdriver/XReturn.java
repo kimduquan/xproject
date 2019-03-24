@@ -1,5 +1,5 @@
 package xproject.xdriver;
 
-public interface XReturn {
+public interface XReturn<T> {
 
 }

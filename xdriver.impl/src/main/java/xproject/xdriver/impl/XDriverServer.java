@@ -8,7 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import xproject.xdriver.impl.model.XTimeouts;
 import xproject.xdriver.impl.model.XElementIdentifier;
 import xproject.xdriver.impl.model.XWindowIdentifier;
@@ -100,7 +99,7 @@ public interface XDriverServer extends XRemote {
 	
 	@POST
 	@Path("/session/{session_id}/frame")
-	XNoResponse xswitchToFrame(@PathParam("session_id") String session_id, XFrame request) throws Exception;
+	XNoResponse xswitchToFrame(@PathParam("session_id") String session_id, XElementIdentifier request) throws Exception;
 	
 	@POST
 	@Path("/session/{session_id}/frame/parent")

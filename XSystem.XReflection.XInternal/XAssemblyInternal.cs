@@ -10,6 +10,7 @@ namespace XSystem.XReflection.XInternal
         private Assembly assembly = null;
         private List<XType> exportedTypes = null;
         private List<XAttribute> xcustomAttributes = null;
+        private XMethodInfo xentryPoint = null;
 
         public string XFullName => assembly.FullName;
 
@@ -42,6 +43,19 @@ namespace XSystem.XReflection.XInternal
                     }
                 }
                 return exportedTypes;
+            }
+        }
+
+        public XMethodInfo XEntryPoint
+        {
+            get
+            {
+                if(xentryPoint == null)
+                {
+                    if(assembly.EntryPoint != null)
+                        xentryPoint = new XMethodInfoInternal(assembly.EntryPoint, X());
+                }
+                return xentryPoint;
             }
         }
 

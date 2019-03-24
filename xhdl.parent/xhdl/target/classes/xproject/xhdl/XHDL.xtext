@@ -1,9 +1,0 @@
-grammar xproject.xhdl.XHDL with org.eclipse.xtext.common.Terminals
-
-generate xHDL "http://www.xhdl.xproject/XHDL"
-
-Model:
-	greetings+=Greeting*;
-	
-Greeting:
-	'Hello' name=ID '!';
