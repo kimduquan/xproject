@@ -112,15 +112,22 @@ ruleXPackage returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='package'
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXPackageAccess().getXPackageAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='package'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getXPackageAccess().getPackageKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getXPackageAccess().getPackageKeyword_1());
 		}
 		(
 			(
-				lv_name_1_0=RULE_ID
+				lv_name_2_0=RULE_ID
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_1_0());
+					newLeafNode(lv_name_2_0, grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_2_0());
 				}
 				{
 					if ($current==null) {
@@ -129,21 +136,21 @@ ruleXPackage returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_1_0,
+						lv_name_2_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
-		otherlv_2='is'
+		otherlv_3='is'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getXPackageAccess().getIsKeyword_2());
+			newLeafNode(otherlv_3, grammarAccess.getXPackageAccess().getIsKeyword_3());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_4_0());
 				}
-				lv_elements_3_0=ruleXElement
+				lv_elements_4_0=ruleXElement
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getXPackageRule());
@@ -151,23 +158,23 @@ ruleXPackage returns [EObject current=null]
 					add(
 						$current,
 						"elements",
-						lv_elements_3_0,
+						lv_elements_4_0,
 						"xproject.XHDL.XElement");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_4='end'
+		otherlv_5='end'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getXPackageAccess().getEndKeyword_4());
+			newLeafNode(otherlv_5, grammarAccess.getXPackageAccess().getEndKeyword_5());
 		}
-		this_ID_5=RULE_ID
+		this_ID_6=RULE_ID
 		{
-			newLeafNode(this_ID_5, grammarAccess.getXPackageAccess().getIDTerminalRuleCall_5());
+			newLeafNode(this_ID_6, grammarAccess.getXPackageAccess().getIDTerminalRuleCall_6());
 		}
-		otherlv_6=';'
+		otherlv_7=';'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getXPackageAccess().getSemicolonKeyword_6());
+			newLeafNode(otherlv_7, grammarAccess.getXPackageAccess().getSemicolonKeyword_7());
 		}
 	)
 ;
@@ -245,7 +252,7 @@ ruleXAttribute returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getXAttributeAccess().getAttributeAction_0(),
+					grammarAccess.getXAttributeAccess().getXAttributeAction_0(),
 					$current);
 			}
 		)
@@ -253,18 +260,41 @@ ruleXAttribute returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getXAttributeAccess().getAttributeKeyword_1());
 		}
-		this_ID_2=RULE_ID
-		{
-			newLeafNode(this_ID_2, grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_2());
-		}
+		(
+			(
+				lv_name_2_0=RULE_ID
+				{
+					newLeafNode(lv_name_2_0, grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXAttributeRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_2_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
 		otherlv_3=':'
 		{
 			newLeafNode(otherlv_3, grammarAccess.getXAttributeAccess().getColonKeyword_3());
 		}
-		this_ID_4=RULE_ID
-		{
-			newLeafNode(this_ID_4, grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_4());
-		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXAttributeRule());
+					}
+				}
+				otherlv_4=RULE_ID
+				{
+					newLeafNode(otherlv_4, grammarAccess.getXAttributeAccess().getTypeXTypeCrossReference_4_0());
+				}
+			)
+		)
 		otherlv_5=';'
 		{
 			newLeafNode(otherlv_5, grammarAccess.getXAttributeAccess().getSemicolonKeyword_5());
@@ -291,7 +321,7 @@ ruleXSubType returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getXSubTypeAccess().getSubtypeAction_0(),
+					grammarAccess.getXSubTypeAccess().getXSubTypeAction_0(),
 					$current);
 			}
 		)
@@ -299,13 +329,44 @@ ruleXSubType returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getXSubTypeAccess().getSubtypeKeyword_1());
 		}
-		this_ID_2=RULE_ID
+		(
+			(
+				lv_name_2_0=RULE_ID
+				{
+					newLeafNode(lv_name_2_0, grammarAccess.getXSubTypeAccess().getNameIDTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXSubTypeRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_2_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		otherlv_3='is'
 		{
-			newLeafNode(this_ID_2, grammarAccess.getXSubTypeAccess().getIDTerminalRuleCall_2());
+			newLeafNode(otherlv_3, grammarAccess.getXSubTypeAccess().getIsKeyword_3());
 		}
-		otherlv_3=';'
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXSubTypeRule());
+					}
+				}
+				otherlv_4=RULE_ID
+				{
+					newLeafNode(otherlv_4, grammarAccess.getXSubTypeAccess().getIsXTypeCrossReference_4_0());
+				}
+			)
+		)
+		otherlv_5=';'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_3());
+			newLeafNode(otherlv_5, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_5());
 		}
 	)
 ;
@@ -329,7 +390,7 @@ ruleXSignal returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getXSignalAccess().getSignalAction_0(),
+					grammarAccess.getXSignalAccess().getXSignalAction_0(),
 					$current);
 			}
 		)
@@ -337,10 +398,24 @@ ruleXSignal returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getXSignalAccess().getSignalKeyword_1());
 		}
-		this_ID_2=RULE_ID
-		{
-			newLeafNode(this_ID_2, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_2());
-		}
+		(
+			(
+				lv_name_2_0=RULE_ID
+				{
+					newLeafNode(lv_name_2_0, grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXSignalRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_2_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
 		otherlv_3=';'
 		{
 			newLeafNode(otherlv_3, grammarAccess.getXSignalAccess().getSemicolonKeyword_3());
@@ -368,7 +443,7 @@ ruleXType returns [EObject current=null]
 			(
 				{
 					$current = forceCreateModelElement(
-						grammarAccess.getXTypeAccess().getTypeAction_0_0(),
+						grammarAccess.getXTypeAccess().getXTypeAction_0_0(),
 						$current);
 				}
 			)
@@ -452,7 +527,7 @@ ruleXArray returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getXArrayAccess().getArrayAction_0(),
+					grammarAccess.getXArrayAccess().getXArrayAction_0(),
 					$current);
 			}
 		)
@@ -484,10 +559,19 @@ ruleXArray returns [EObject current=null]
 		{
 			newLeafNode(otherlv_7, grammarAccess.getXArrayAccess().getOfKeyword_7());
 		}
-		this_ID_8=RULE_ID
-		{
-			newLeafNode(this_ID_8, grammarAccess.getXArrayAccess().getIDTerminalRuleCall_8());
-		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXArrayRule());
+					}
+				}
+				otherlv_8=RULE_ID
+				{
+					newLeafNode(otherlv_8, grammarAccess.getXArrayAccess().getTypeXTypeCrossReference_8_0());
+				}
+			)
+		)
 	)
 ;
 
@@ -510,7 +594,7 @@ ruleXRange returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getXRangeAccess().getRangeAction_0(),
+					grammarAccess.getXRangeAccess().getXRangeAction_0(),
 					$current);
 			}
 		)
@@ -562,7 +646,7 @@ ruleXUnits returns [EObject current=null]
 		(
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getXUnitsAccess().getUnitsAction_0(),
+					grammarAccess.getXUnitsAccess().getXUnitsAction_0(),
 					$current);
 			}
 		)

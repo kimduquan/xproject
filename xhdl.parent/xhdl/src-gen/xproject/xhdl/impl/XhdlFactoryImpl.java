@@ -75,13 +75,6 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
       case XhdlPackage.XARRAY: return createXArray();
       case XhdlPackage.XRANGE: return createXRange();
       case XhdlPackage.XUNITS: return createXUnits();
-      case XhdlPackage.ATTRIBUTE: return createattribute();
-      case XhdlPackage.SUBTYPE: return createsubtype();
-      case XhdlPackage.SIGNAL: return createsignal();
-      case XhdlPackage.TYPE: return createtype();
-      case XhdlPackage.ARRAY: return createarray();
-      case XhdlPackage.RANGE: return createrange();
-      case XhdlPackage.UNITS: return createunits();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -195,83 +188,6 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
   {
     XUnitsImpl xUnits = new XUnitsImpl();
     return xUnits;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public attribute createattribute()
-  {
-    attributeImpl attribute = new attributeImpl();
-    return attribute;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public subtype createsubtype()
-  {
-    subtypeImpl subtype = new subtypeImpl();
-    return subtype;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public signal createsignal()
-  {
-    signalImpl signal = new signalImpl();
-    return signal;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public type createtype()
-  {
-    typeImpl type = new typeImpl();
-    return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public array createarray()
-  {
-    arrayImpl array = new arrayImpl();
-    return array;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public range createrange()
-  {
-    rangeImpl range = new rangeImpl();
-    return range;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public units createunits()
-  {
-    unitsImpl units = new unitsImpl();
-    return units;
   }
 
   /**

@@ -133,13 +133,22 @@ public interface XhdlPackage extends EPackage
   int XELEMENT = 2;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XELEMENT__NAME = 0;
+
+  /**
    * The number of structural features of the '<em>XElement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XELEMENT_FEATURE_COUNT = 0;
+  int XELEMENT_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XAttributeImpl <em>XAttribute</em>}' class.
@@ -152,13 +161,31 @@ public interface XhdlPackage extends EPackage
   int XATTRIBUTE = 3;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XATTRIBUTE__NAME = XELEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XATTRIBUTE__TYPE = XELEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>XAttribute</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XATTRIBUTE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 0;
+  int XATTRIBUTE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XSubTypeImpl <em>XSub Type</em>}' class.
@@ -171,13 +198,31 @@ public interface XhdlPackage extends EPackage
   int XSUB_TYPE = 4;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XSUB_TYPE__NAME = XELEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Is</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XSUB_TYPE__IS = XELEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>XSub Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XSUB_TYPE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 0;
+  int XSUB_TYPE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XSignalImpl <em>XSignal</em>}' class.
@@ -188,6 +233,15 @@ public interface XhdlPackage extends EPackage
    * @generated
    */
   int XSIGNAL = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XSIGNAL__NAME = XELEMENT__NAME;
 
   /**
    * The number of structural features of the '<em>XSignal</em>' class.
@@ -209,6 +263,15 @@ public interface XhdlPackage extends EPackage
   int XTYPE = 6;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XTYPE__NAME = XELEMENT__NAME;
+
+  /**
    * The number of structural features of the '<em>XType</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -228,13 +291,31 @@ public interface XhdlPackage extends EPackage
   int XARRAY = 7;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XARRAY__NAME = XTYPE__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XARRAY__TYPE = XTYPE_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>XArray</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XARRAY_FEATURE_COUNT = XTYPE_FEATURE_COUNT + 0;
+  int XARRAY_FEATURE_COUNT = XTYPE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XRangeImpl <em>XRange</em>}' class.
@@ -245,6 +326,15 @@ public interface XhdlPackage extends EPackage
    * @generated
    */
   int XRANGE = 8;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XRANGE__NAME = XTYPE__NAME;
 
   /**
    * The number of structural features of the '<em>XRange</em>' class.
@@ -266,146 +356,13 @@ public interface XhdlPackage extends EPackage
   int XUNITS = 9;
 
   /**
-   * The number of structural features of the '<em>XUnits</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int XUNITS_FEATURE_COUNT = XRANGE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.attributeImpl <em>attribute</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.attributeImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getattribute()
-   * @generated
-   */
-  int ATTRIBUTE = 10;
-
-  /**
-   * The number of structural features of the '<em>attribute</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ATTRIBUTE_FEATURE_COUNT = XATTRIBUTE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.subtypeImpl <em>subtype</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.subtypeImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getsubtype()
-   * @generated
-   */
-  int SUBTYPE = 11;
-
-  /**
-   * The number of structural features of the '<em>subtype</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUBTYPE_FEATURE_COUNT = XSUB_TYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.signalImpl <em>signal</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.signalImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getsignal()
-   * @generated
-   */
-  int SIGNAL = 12;
-
-  /**
-   * The number of structural features of the '<em>signal</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SIGNAL_FEATURE_COUNT = XSIGNAL_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.typeImpl <em>type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.typeImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#gettype()
-   * @generated
-   */
-  int TYPE = 13;
-
-  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPE__NAME = XTYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TYPE_FEATURE_COUNT = XTYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.arrayImpl <em>array</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.arrayImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getarray()
-   * @generated
-   */
-  int ARRAY = 14;
-
-  /**
-   * The number of structural features of the '<em>array</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARRAY_FEATURE_COUNT = XARRAY_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.rangeImpl <em>range</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.rangeImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getrange()
-   * @generated
-   */
-  int RANGE = 15;
-
-  /**
-   * The number of structural features of the '<em>range</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RANGE_FEATURE_COUNT = XRANGE_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link xproject.xhdl.impl.unitsImpl <em>units</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.unitsImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getunits()
-   * @generated
-   */
-  int UNITS = 16;
+  int XUNITS__NAME = XRANGE__NAME;
 
   /**
    * The feature id for the '<em><b>Units</b></em>' attribute list.
@@ -414,16 +371,16 @@ public interface XhdlPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNITS__UNITS = XUNITS_FEATURE_COUNT + 0;
+  int XUNITS__UNITS = XRANGE_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>units</em>' class.
+   * The number of structural features of the '<em>XUnits</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNITS_FEATURE_COUNT = XUNITS_FEATURE_COUNT + 1;
+  int XUNITS_FEATURE_COUNT = XRANGE_FEATURE_COUNT + 1;
 
 
   /**
@@ -490,6 +447,17 @@ public interface XhdlPackage extends EPackage
   EClass getXElement();
 
   /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XElement#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see xproject.xhdl.XElement#getName()
+   * @see #getXElement()
+   * @generated
+   */
+  EAttribute getXElement_Name();
+
+  /**
    * Returns the meta object for class '{@link xproject.xhdl.XAttribute <em>XAttribute</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -500,6 +468,17 @@ public interface XhdlPackage extends EPackage
   EClass getXAttribute();
 
   /**
+   * Returns the meta object for the reference '{@link xproject.xhdl.XAttribute#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type</em>'.
+   * @see xproject.xhdl.XAttribute#getType()
+   * @see #getXAttribute()
+   * @generated
+   */
+  EReference getXAttribute_Type();
+
+  /**
    * Returns the meta object for class '{@link xproject.xhdl.XSubType <em>XSub Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -508,6 +487,17 @@ public interface XhdlPackage extends EPackage
    * @generated
    */
   EClass getXSubType();
+
+  /**
+   * Returns the meta object for the reference '{@link xproject.xhdl.XSubType#getIs <em>Is</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Is</em>'.
+   * @see xproject.xhdl.XSubType#getIs()
+   * @see #getXSubType()
+   * @generated
+   */
+  EReference getXSubType_Is();
 
   /**
    * Returns the meta object for class '{@link xproject.xhdl.XSignal <em>XSignal</em>}'.
@@ -540,6 +530,17 @@ public interface XhdlPackage extends EPackage
   EClass getXArray();
 
   /**
+   * Returns the meta object for the reference '{@link xproject.xhdl.XArray#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Type</em>'.
+   * @see xproject.xhdl.XArray#getType()
+   * @see #getXArray()
+   * @generated
+   */
+  EReference getXArray_Type();
+
+  /**
    * Returns the meta object for class '{@link xproject.xhdl.XRange <em>XRange</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -560,96 +561,15 @@ public interface XhdlPackage extends EPackage
   EClass getXUnits();
 
   /**
-   * Returns the meta object for class '{@link xproject.xhdl.attribute <em>attribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>attribute</em>'.
-   * @see xproject.xhdl.attribute
-   * @generated
-   */
-  EClass getattribute();
-
-  /**
-   * Returns the meta object for class '{@link xproject.xhdl.subtype <em>subtype</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>subtype</em>'.
-   * @see xproject.xhdl.subtype
-   * @generated
-   */
-  EClass getsubtype();
-
-  /**
-   * Returns the meta object for class '{@link xproject.xhdl.signal <em>signal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>signal</em>'.
-   * @see xproject.xhdl.signal
-   * @generated
-   */
-  EClass getsignal();
-
-  /**
-   * Returns the meta object for class '{@link xproject.xhdl.type <em>type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>type</em>'.
-   * @see xproject.xhdl.type
-   * @generated
-   */
-  EClass gettype();
-
-  /**
-   * Returns the meta object for the attribute '{@link xproject.xhdl.type#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see xproject.xhdl.type#getName()
-   * @see #gettype()
-   * @generated
-   */
-  EAttribute gettype_Name();
-
-  /**
-   * Returns the meta object for class '{@link xproject.xhdl.array <em>array</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>array</em>'.
-   * @see xproject.xhdl.array
-   * @generated
-   */
-  EClass getarray();
-
-  /**
-   * Returns the meta object for class '{@link xproject.xhdl.range <em>range</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>range</em>'.
-   * @see xproject.xhdl.range
-   * @generated
-   */
-  EClass getrange();
-
-  /**
-   * Returns the meta object for class '{@link xproject.xhdl.units <em>units</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>units</em>'.
-   * @see xproject.xhdl.units
-   * @generated
-   */
-  EClass getunits();
-
-  /**
-   * Returns the meta object for the attribute list '{@link xproject.xhdl.units#getUnits <em>Units</em>}'.
+   * Returns the meta object for the attribute list '{@link xproject.xhdl.XUnits#getUnits <em>Units</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute list '<em>Units</em>'.
-   * @see xproject.xhdl.units#getUnits()
-   * @see #getunits()
+   * @see xproject.xhdl.XUnits#getUnits()
+   * @see #getXUnits()
    * @generated
    */
-  EAttribute getunits_Units();
+  EAttribute getXUnits_Units();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -729,6 +649,14 @@ public interface XhdlPackage extends EPackage
     EClass XELEMENT = eINSTANCE.getXElement();
 
     /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XELEMENT__NAME = eINSTANCE.getXElement_Name();
+
+    /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XAttributeImpl <em>XAttribute</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -739,6 +667,14 @@ public interface XhdlPackage extends EPackage
     EClass XATTRIBUTE = eINSTANCE.getXAttribute();
 
     /**
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XATTRIBUTE__TYPE = eINSTANCE.getXAttribute_Type();
+
+    /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XSubTypeImpl <em>XSub Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -747,6 +683,14 @@ public interface XhdlPackage extends EPackage
      * @generated
      */
     EClass XSUB_TYPE = eINSTANCE.getXSubType();
+
+    /**
+     * The meta object literal for the '<em><b>Is</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XSUB_TYPE__IS = eINSTANCE.getXSubType_Is();
 
     /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XSignalImpl <em>XSignal</em>}' class.
@@ -779,6 +723,14 @@ public interface XhdlPackage extends EPackage
     EClass XARRAY = eINSTANCE.getXArray();
 
     /**
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XARRAY__TYPE = eINSTANCE.getXArray_Type();
+
+    /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XRangeImpl <em>XRange</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -799,90 +751,12 @@ public interface XhdlPackage extends EPackage
     EClass XUNITS = eINSTANCE.getXUnits();
 
     /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.attributeImpl <em>attribute</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.attributeImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getattribute()
-     * @generated
-     */
-    EClass ATTRIBUTE = eINSTANCE.getattribute();
-
-    /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.subtypeImpl <em>subtype</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.subtypeImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getsubtype()
-     * @generated
-     */
-    EClass SUBTYPE = eINSTANCE.getsubtype();
-
-    /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.signalImpl <em>signal</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.signalImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getsignal()
-     * @generated
-     */
-    EClass SIGNAL = eINSTANCE.getsignal();
-
-    /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.typeImpl <em>type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.typeImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#gettype()
-     * @generated
-     */
-    EClass TYPE = eINSTANCE.gettype();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TYPE__NAME = eINSTANCE.gettype_Name();
-
-    /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.arrayImpl <em>array</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.arrayImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getarray()
-     * @generated
-     */
-    EClass ARRAY = eINSTANCE.getarray();
-
-    /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.rangeImpl <em>range</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.rangeImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getrange()
-     * @generated
-     */
-    EClass RANGE = eINSTANCE.getrange();
-
-    /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.unitsImpl <em>units</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.unitsImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getunits()
-     * @generated
-     */
-    EClass UNITS = eINSTANCE.getunits();
-
-    /**
      * The meta object literal for the '<em><b>Units</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute UNITS__UNITS = eINSTANCE.getunits_Units();
+    EAttribute XUNITS__UNITS = eINSTANCE.getXUnits_Units();
 
   }
 

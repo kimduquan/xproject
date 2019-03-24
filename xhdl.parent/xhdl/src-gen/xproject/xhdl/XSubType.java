@@ -9,6 +9,12 @@ package xproject.xhdl;
  * A representation of the model object '<em><b>XSub Type</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.XSubType#getIs <em>Is</em>}</li>
+ * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXSubType()
  * @model
@@ -16,4 +22,30 @@ package xproject.xhdl;
  */
 public interface XSubType extends XElement
 {
+  /**
+   * Returns the value of the '<em><b>Is</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Is</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Is</em>' reference.
+   * @see #setIs(XType)
+   * @see xproject.xhdl.XhdlPackage#getXSubType_Is()
+   * @model
+   * @generated
+   */
+  XType getIs();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XSubType#getIs <em>Is</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Is</em>' reference.
+   * @see #getIs()
+   * @generated
+   */
+  void setIs(XType value);
+
 } // XSubType

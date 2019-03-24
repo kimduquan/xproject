@@ -13,24 +13,23 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XPackage/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XPackage/elements"/>
     </genClasses>
-    <genClasses ecoreClass="XHDL.ecore#//XElement"/>
-    <genClasses ecoreClass="XHDL.ecore#//XAttribute"/>
-    <genClasses ecoreClass="XHDL.ecore#//XSubType"/>
+    <genClasses ecoreClass="XHDL.ecore#//XElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XAttribute/type"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XSubType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XSubType/is"/>
+    </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XSignal"/>
     <genClasses ecoreClass="XHDL.ecore#//XType"/>
-    <genClasses ecoreClass="XHDL.ecore#//XArray"/>
-    <genClasses ecoreClass="XHDL.ecore#//XRange"/>
-    <genClasses ecoreClass="XHDL.ecore#//XUnits"/>
-    <genClasses ecoreClass="XHDL.ecore#//attribute"/>
-    <genClasses ecoreClass="XHDL.ecore#//subtype"/>
-    <genClasses ecoreClass="XHDL.ecore#//signal"/>
-    <genClasses ecoreClass="XHDL.ecore#//type">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//type/name"/>
+    <genClasses ecoreClass="XHDL.ecore#//XArray">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XArray/type"/>
     </genClasses>
-    <genClasses ecoreClass="XHDL.ecore#//array"/>
-    <genClasses ecoreClass="XHDL.ecore#//range"/>
-    <genClasses ecoreClass="XHDL.ecore#//units">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//units/units"/>
+    <genClasses ecoreClass="XHDL.ecore#//XRange"/>
+    <genClasses ecoreClass="XHDL.ecore#//XUnits">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XUnits/units"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

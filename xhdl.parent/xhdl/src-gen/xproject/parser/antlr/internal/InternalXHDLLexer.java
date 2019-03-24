@@ -451,10 +451,10 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:698:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalXHDL.g:698:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalXHDL.g:782:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalXHDL.g:782:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalXHDL.g:698:11: ( '^' )?
+            // InternalXHDL.g:782:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -463,7 +463,7 @@ public class InternalXHDLLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalXHDL.g:698:11: '^'
+                    // InternalXHDL.g:782:11: '^'
                     {
                     match('^'); 
 
@@ -481,7 +481,7 @@ public class InternalXHDLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalXHDL.g:698:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalXHDL.g:782:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -530,10 +530,10 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:700:10: ( ( '0' .. '9' )+ )
-            // InternalXHDL.g:700:12: ( '0' .. '9' )+
+            // InternalXHDL.g:784:10: ( ( '0' .. '9' )+ )
+            // InternalXHDL.g:784:12: ( '0' .. '9' )+
             {
-            // InternalXHDL.g:700:12: ( '0' .. '9' )+
+            // InternalXHDL.g:784:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -547,7 +547,7 @@ public class InternalXHDLLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalXHDL.g:700:13: '0' .. '9'
+            	    // InternalXHDL.g:784:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -579,10 +579,10 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:702:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalXHDL.g:702:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalXHDL.g:786:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalXHDL.g:786:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalXHDL.g:702:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalXHDL.g:786:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -600,10 +600,10 @@ public class InternalXHDLLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalXHDL.g:702:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalXHDL.g:786:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalXHDL.g:702:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalXHDL.g:786:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -619,7 +619,7 @@ public class InternalXHDLLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // InternalXHDL.g:702:21: '\\\\' .
+                    	    // InternalXHDL.g:786:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -627,7 +627,7 @@ public class InternalXHDLLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalXHDL.g:702:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalXHDL.g:786:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -652,10 +652,10 @@ public class InternalXHDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalXHDL.g:702:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalXHDL.g:786:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalXHDL.g:702:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalXHDL.g:786:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -671,7 +671,7 @@ public class InternalXHDLLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // InternalXHDL.g:702:54: '\\\\' .
+                    	    // InternalXHDL.g:786:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -679,7 +679,7 @@ public class InternalXHDLLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalXHDL.g:702:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalXHDL.g:786:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -722,12 +722,12 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:704:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalXHDL.g:704:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalXHDL.g:788:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalXHDL.g:788:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalXHDL.g:704:24: ( options {greedy=false; } : . )*
+            // InternalXHDL.g:788:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -752,7 +752,7 @@ public class InternalXHDLLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalXHDL.g:704:52: .
+            	    // InternalXHDL.g:788:52: .
             	    {
             	    matchAny(); 
 
@@ -782,12 +782,12 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:706:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalXHDL.g:706:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalXHDL.g:790:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalXHDL.g:790:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalXHDL.g:706:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalXHDL.g:790:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -800,7 +800,7 @@ public class InternalXHDLLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalXHDL.g:706:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalXHDL.g:790:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -820,7 +820,7 @@ public class InternalXHDLLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalXHDL.g:706:40: ( ( '\\r' )? '\\n' )?
+            // InternalXHDL.g:790:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -829,9 +829,9 @@ public class InternalXHDLLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalXHDL.g:706:41: ( '\\r' )? '\\n'
+                    // InternalXHDL.g:790:41: ( '\\r' )? '\\n'
                     {
-                    // InternalXHDL.g:706:41: ( '\\r' )?
+                    // InternalXHDL.g:790:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -840,7 +840,7 @@ public class InternalXHDLLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // InternalXHDL.g:706:41: '\\r'
+                            // InternalXHDL.g:790:41: '\\r'
                             {
                             match('\r'); 
 
@@ -872,10 +872,10 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:708:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalXHDL.g:708:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalXHDL.g:792:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalXHDL.g:792:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalXHDL.g:708:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalXHDL.g:792:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -929,8 +929,8 @@ public class InternalXHDLLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalXHDL.g:710:16: ( . )
-            // InternalXHDL.g:710:18: .
+            // InternalXHDL.g:794:16: ( . )
+            // InternalXHDL.g:794:18: .
             {
             matchAny(); 
 

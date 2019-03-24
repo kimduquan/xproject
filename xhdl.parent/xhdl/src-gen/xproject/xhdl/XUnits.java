@@ -3,12 +3,19 @@
  */
 package xproject.xhdl;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>XUnits</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.XUnits#getUnits <em>Units</em>}</li>
+ * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXUnits()
  * @model
@@ -16,4 +23,20 @@ package xproject.xhdl;
  */
 public interface XUnits extends XRange
 {
+  /**
+   * Returns the value of the '<em><b>Units</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Units</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Units</em>' attribute list.
+   * @see xproject.xhdl.XhdlPackage#getXUnits_Units()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getUnits();
+
 } // XUnits

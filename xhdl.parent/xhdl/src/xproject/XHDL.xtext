@@ -7,7 +7,7 @@ xhdl:
 ;
 
 XPackage:
-	'package' name=ID 'is' 
+	{XPackage} 'package' name=ID 'is' 
 		(elements+=XElement)*
 	'end' ID ';'
 ;
@@ -17,31 +17,31 @@ XElement:
 ;
 
 XAttribute:
-	{attribute} 'attribute' ID ':' ID ';'
+	{XAttribute} 'attribute' name=ID ':' type=[XType] ';'
 ;
 
 XSubType:
-	{subtype} 'subtype' ID 'is' ID ';'
+	{XSubType} 'subtype' name=ID 'is' is=[XType] ';'
 ;
 
 XSignal:
-	{signal} 'signal' ID ';'
+	{XSignal} 'signal' name=ID ';'
 ;
 
 XType:
-	{type} 'type' name=ID 'is' XEnums | XRange | XArray ';'
+	{XType} 'type' name=ID 'is' XEnums | XRange | XArray ';'
 ;
 
 XArray:
-	{array} 'array' '(' ID 'range' '<>' ')' 'of' ID
+	{XArray} 'array' '(' ID 'range' '<>' ')' 'of' type=[XType]
 ;
 
 XRange:
-	{range} 'range' INT 'to' INT (XUnits)?
+	{XRange} 'range' INT 'to' INT (XUnits)?
 ;
 
 XUnits:
-	{units} 'units' (units+=XUnit)* 'end' 'units'
+	{XUnits} 'units' (units+=XUnit)* 'end' 'units'
 ;
 
 XUnit:

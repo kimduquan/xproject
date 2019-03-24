@@ -9,6 +9,7 @@ import java.util.List;
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.GrammarUtil;
 import org.eclipse.xtext.Group;
@@ -41,51 +42,55 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	public class XPackageElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XPackage");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPackageKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cIsKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cElementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cElementsXElementParserRuleCall_3_0 = (RuleCall)cElementsAssignment_3.eContents().get(0);
-		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final RuleCall cIDTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Action cXPackageAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cPackageKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cIsKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cElementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cElementsXElementParserRuleCall_4_0 = (RuleCall)cElementsAssignment_4.eContents().get(0);
+		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cIDTerminalRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//XPackage:
-		//	'package' name=ID 'is'
+		//	{XPackage} 'package' name=ID 'is'
 		//	elements+=XElement*
 		//	'end' ID ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'package' name=ID 'is' elements+=XElement* 'end' ID ';'
+		//{XPackage} 'package' name=ID 'is' elements+=XElement* 'end' ID ';'
 		public Group getGroup() { return cGroup; }
 		
+		//{XPackage}
+		public Action getXPackageAction_0() { return cXPackageAction_0; }
+		
 		//'package'
-		public Keyword getPackageKeyword_0() { return cPackageKeyword_0; }
+		public Keyword getPackageKeyword_1() { return cPackageKeyword_1; }
 		
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
 		//'is'
-		public Keyword getIsKeyword_2() { return cIsKeyword_2; }
+		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
 		
 		//elements+=XElement*
-		public Assignment getElementsAssignment_3() { return cElementsAssignment_3; }
+		public Assignment getElementsAssignment_4() { return cElementsAssignment_4; }
 		
 		//XElement
-		public RuleCall getElementsXElementParserRuleCall_3_0() { return cElementsXElementParserRuleCall_3_0; }
+		public RuleCall getElementsXElementParserRuleCall_4_0() { return cElementsXElementParserRuleCall_4_0; }
 		
 		//'end'
-		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
+		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
 		
 		//ID
-		public RuleCall getIDTerminalRuleCall_5() { return cIDTerminalRuleCall_5; }
+		public RuleCall getIDTerminalRuleCall_6() { return cIDTerminalRuleCall_6; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 	}
 	public class XElementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XElement");
@@ -117,34 +122,46 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	public class XAttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XAttribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cAttributeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXAttributeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cAttributeKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final RuleCall cIDTerminalRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cTypeXTypeCrossReference_4_0 = (CrossReference)cTypeAssignment_4.eContents().get(0);
+		private final RuleCall cTypeXTypeIDTerminalRuleCall_4_0_1 = (RuleCall)cTypeXTypeCrossReference_4_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//XAttribute:
-		//	{attribute} 'attribute' ID ':' ID ';';
+		//	{XAttribute} 'attribute' name=ID ':' type=[XType] ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{attribute} 'attribute' ID ':' ID ';'
+		//{XAttribute} 'attribute' name=ID ':' type=[XType] ';'
 		public Group getGroup() { return cGroup; }
 		
-		//{attribute}
-		public Action getAttributeAction_0() { return cAttributeAction_0; }
+		//{XAttribute}
+		public Action getXAttributeAction_0() { return cXAttributeAction_0; }
 		
 		//'attribute'
 		public Keyword getAttributeKeyword_1() { return cAttributeKeyword_1; }
 		
+		//name=ID
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
 		//':'
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 		
+		//type=[XType]
+		public Assignment getTypeAssignment_4() { return cTypeAssignment_4; }
+		
+		//[XType]
+		public CrossReference getTypeXTypeCrossReference_4_0() { return cTypeXTypeCrossReference_4_0; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall_4() { return cIDTerminalRuleCall_4; }
+		public RuleCall getTypeXTypeIDTerminalRuleCall_4_0_1() { return cTypeXTypeIDTerminalRuleCall_4_0_1; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
@@ -152,53 +169,77 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	public class XSubTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XSubType");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cSubtypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXSubTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cSubtypeKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cIsKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cIsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cIsXTypeCrossReference_4_0 = (CrossReference)cIsAssignment_4.eContents().get(0);
+		private final RuleCall cIsXTypeIDTerminalRuleCall_4_0_1 = (RuleCall)cIsXTypeCrossReference_4_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//XSubType:
-		//	{subtype} 'subtype' ID ';';
+		//	{XSubType} 'subtype' name=ID 'is' is=[XType] ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{subtype} 'subtype' ID ';'
+		//{XSubType} 'subtype' name=ID 'is' is=[XType] ';'
 		public Group getGroup() { return cGroup; }
 		
-		//{subtype}
-		public Action getSubtypeAction_0() { return cSubtypeAction_0; }
+		//{XSubType}
+		public Action getXSubTypeAction_0() { return cXSubTypeAction_0; }
 		
 		//'subtype'
 		public Keyword getSubtypeKeyword_1() { return cSubtypeKeyword_1; }
 		
+		//name=ID
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		
+		//'is'
+		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
+		
+		//is=[XType]
+		public Assignment getIsAssignment_4() { return cIsAssignment_4; }
+		
+		//[XType]
+		public CrossReference getIsXTypeCrossReference_4_0() { return cIsXTypeCrossReference_4_0; }
+		
+		//ID
+		public RuleCall getIsXTypeIDTerminalRuleCall_4_0_1() { return cIsXTypeIDTerminalRuleCall_4_0_1; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 	public class XSignalElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XSignal");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cSignalAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXSignalAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cSignalKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//XSignal:
-		//	{signal} 'signal' ID ';';
+		//	{XSignal} 'signal' name=ID ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{signal} 'signal' ID ';'
+		//{XSignal} 'signal' name=ID ';'
 		public Group getGroup() { return cGroup; }
 		
-		//{signal}
-		public Action getSignalAction_0() { return cSignalAction_0; }
+		//{XSignal}
+		public Action getXSignalAction_0() { return cXSignalAction_0; }
 		
 		//'signal'
 		public Keyword getSignalKeyword_1() { return cSignalKeyword_1; }
 		
+		//name=ID
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
@@ -207,7 +248,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cTypeAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Action cXTypeAction_0_0 = (Action)cGroup_0.eContents().get(0);
 		private final Keyword cTypeKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cNameAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_0_2_0 = (RuleCall)cNameAssignment_0_2.eContents().get(0);
@@ -219,17 +260,17 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		
 		//XType:
-		//	{type} 'type' name=ID 'is' XEnums | XRange | XArray ';';
+		//	{XType} 'type' name=ID 'is' XEnums | XRange | XArray ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{type} 'type' name=ID 'is' XEnums | XRange | XArray ';'
+		//{XType} 'type' name=ID 'is' XEnums | XRange | XArray ';'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//{type} 'type' name=ID 'is' XEnums
+		//{XType} 'type' name=ID 'is' XEnums
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//{type}
-		public Action getTypeAction_0_0() { return cTypeAction_0_0; }
+		//{XType}
+		public Action getXTypeAction_0_0() { return cXTypeAction_0_0; }
 		
 		//'type'
 		public Keyword getTypeKeyword_0_1() { return cTypeKeyword_0_1; }
@@ -261,7 +302,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	public class XArrayElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XArray");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cArrayAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXArrayAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cArrayKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
@@ -269,17 +310,19 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLessThanSignGreaterThanSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Keyword cOfKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final RuleCall cIDTerminalRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Assignment cTypeAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final CrossReference cTypeXTypeCrossReference_8_0 = (CrossReference)cTypeAssignment_8.eContents().get(0);
+		private final RuleCall cTypeXTypeIDTerminalRuleCall_8_0_1 = (RuleCall)cTypeXTypeCrossReference_8_0.eContents().get(1);
 		
 		//XArray:
-		//	{array} 'array' '(' ID 'range' '<>' ')' 'of' ID;
+		//	{XArray} 'array' '(' ID 'range' '<>' ')' 'of' type=[XType];
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{array} 'array' '(' ID 'range' '<>' ')' 'of' ID
+		//{XArray} 'array' '(' ID 'range' '<>' ')' 'of' type=[XType]
 		public Group getGroup() { return cGroup; }
 		
-		//{array}
-		public Action getArrayAction_0() { return cArrayAction_0; }
+		//{XArray}
+		public Action getXArrayAction_0() { return cXArrayAction_0; }
 		
 		//'array'
 		public Keyword getArrayKeyword_1() { return cArrayKeyword_1; }
@@ -302,13 +345,19 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'of'
 		public Keyword getOfKeyword_7() { return cOfKeyword_7; }
 		
+		//type=[XType]
+		public Assignment getTypeAssignment_8() { return cTypeAssignment_8; }
+		
+		//[XType]
+		public CrossReference getTypeXTypeCrossReference_8_0() { return cTypeXTypeCrossReference_8_0; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall_8() { return cIDTerminalRuleCall_8; }
+		public RuleCall getTypeXTypeIDTerminalRuleCall_8_0_1() { return cTypeXTypeIDTerminalRuleCall_8_0_1; }
 	}
 	public class XRangeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XRange");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cRangeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXRangeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cRangeKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cINTTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		private final Keyword cToKeyword_3 = (Keyword)cGroup.eContents().get(3);
@@ -316,14 +365,14 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cXUnitsParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		
 		//XRange:
-		//	{range} 'range' INT 'to' INT XUnits?;
+		//	{XRange} 'range' INT 'to' INT XUnits?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{range} 'range' INT 'to' INT XUnits?
+		//{XRange} 'range' INT 'to' INT XUnits?
 		public Group getGroup() { return cGroup; }
 		
-		//{range}
-		public Action getRangeAction_0() { return cRangeAction_0; }
+		//{XRange}
+		public Action getXRangeAction_0() { return cXRangeAction_0; }
 		
 		//'range'
 		public Keyword getRangeKeyword_1() { return cRangeKeyword_1; }
@@ -343,7 +392,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	public class XUnitsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XUnits");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cUnitsAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXUnitsAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cUnitsKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cUnitsAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cUnitsXUnitParserRuleCall_2_0 = (RuleCall)cUnitsAssignment_2.eContents().get(0);
@@ -351,14 +400,14 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cUnitsKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//XUnits:
-		//	{units} 'units' units+=XUnit* 'end' 'units';
+		//	{XUnits} 'units' units+=XUnit* 'end' 'units';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{units} 'units' units+=XUnit* 'end' 'units'
+		//{XUnits} 'units' units+=XUnit* 'end' 'units'
 		public Group getGroup() { return cGroup; }
 		
-		//{units}
-		public Action getUnitsAction_0() { return cUnitsAction_0; }
+		//{XUnits}
+		public Action getXUnitsAction_0() { return cXUnitsAction_0; }
 		
 		//'units'
 		public Keyword getUnitsKeyword_1() { return cUnitsKeyword_1; }
@@ -513,7 +562,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XPackage:
-	//	'package' name=ID 'is'
+	//	{XPackage} 'package' name=ID 'is'
 	//	elements+=XElement*
 	//	'end' ID ';';
 	public XPackageElements getXPackageAccess() {
@@ -535,7 +584,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XAttribute:
-	//	{attribute} 'attribute' ID ':' ID ';';
+	//	{XAttribute} 'attribute' name=ID ':' type=[XType] ';';
 	public XAttributeElements getXAttributeAccess() {
 		return pXAttribute;
 	}
@@ -545,7 +594,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XSubType:
-	//	{subtype} 'subtype' ID ';';
+	//	{XSubType} 'subtype' name=ID 'is' is=[XType] ';';
 	public XSubTypeElements getXSubTypeAccess() {
 		return pXSubType;
 	}
@@ -555,7 +604,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XSignal:
-	//	{signal} 'signal' ID ';';
+	//	{XSignal} 'signal' name=ID ';';
 	public XSignalElements getXSignalAccess() {
 		return pXSignal;
 	}
@@ -565,7 +614,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XType:
-	//	{type} 'type' name=ID 'is' XEnums | XRange | XArray ';';
+	//	{XType} 'type' name=ID 'is' XEnums | XRange | XArray ';';
 	public XTypeElements getXTypeAccess() {
 		return pXType;
 	}
@@ -575,7 +624,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XArray:
-	//	{array} 'array' '(' ID 'range' '<>' ')' 'of' ID;
+	//	{XArray} 'array' '(' ID 'range' '<>' ')' 'of' type=[XType];
 	public XArrayElements getXArrayAccess() {
 		return pXArray;
 	}
@@ -585,7 +634,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XRange:
-	//	{range} 'range' INT 'to' INT XUnits?;
+	//	{XRange} 'range' INT 'to' INT XUnits?;
 	public XRangeElements getXRangeAccess() {
 		return pXRange;
 	}
@@ -595,7 +644,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XUnits:
-	//	{units} 'units' units+=XUnit* 'end' 'units';
+	//	{XUnits} 'units' units+=XUnit* 'end' 'units';
 	public XUnitsElements getXUnitsAccess() {
 		return pXUnits;
 	}

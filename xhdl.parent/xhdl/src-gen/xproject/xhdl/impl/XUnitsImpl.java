@@ -3,7 +3,13 @@
  */
 package xproject.xhdl.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 import xproject.xhdl.XUnits;
 import xproject.xhdl.XhdlPackage;
@@ -12,11 +18,27 @@ import xproject.xhdl.XhdlPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>XUnits</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.impl.XUnitsImpl#getUnits <em>Units</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class XUnitsImpl extends XRangeImpl implements XUnits
 {
+  /**
+   * The cached value of the '{@link #getUnits() <em>Units</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUnits()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> units;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +58,105 @@ public class XUnitsImpl extends XRangeImpl implements XUnits
   protected EClass eStaticClass()
   {
     return XhdlPackage.Literals.XUNITS;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getUnits()
+  {
+    if (units == null)
+    {
+      units = new EDataTypeEList<String>(String.class, this, XhdlPackage.XUNITS__UNITS);
+    }
+    return units;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XUNITS__UNITS:
+        return getUnits();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XUNITS__UNITS:
+        getUnits().clear();
+        getUnits().addAll((Collection<? extends String>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XUNITS__UNITS:
+        getUnits().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XUNITS__UNITS:
+        return units != null && !units.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (units: ");
+    result.append(units);
+    result.append(')');
+    return result.toString();
   }
 
 } //XUnitsImpl

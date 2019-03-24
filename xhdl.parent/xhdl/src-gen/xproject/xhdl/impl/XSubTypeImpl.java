@@ -3,20 +3,42 @@
  */
 package xproject.xhdl.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import xproject.xhdl.XSubType;
+import xproject.xhdl.XType;
 import xproject.xhdl.XhdlPackage;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>XSub Type</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getIs <em>Is</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class XSubTypeImpl extends XElementImpl implements XSubType
 {
+  /**
+   * The cached value of the '{@link #getIs() <em>Is</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIs()
+   * @generated
+   * @ordered
+   */
+  protected XType is;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +58,116 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
   protected EClass eStaticClass()
   {
     return XhdlPackage.Literals.XSUB_TYPE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XType getIs()
+  {
+    if (is != null && is.eIsProxy())
+    {
+      InternalEObject oldIs = (InternalEObject)is;
+      is = (XType)eResolveProxy(oldIs);
+      if (is != oldIs)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XSUB_TYPE__IS, oldIs, is));
+      }
+    }
+    return is;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XType basicGetIs()
+  {
+    return is;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setIs(XType newIs)
+  {
+    XType oldIs = is;
+    is = newIs;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__IS, oldIs, is));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSUB_TYPE__IS:
+        if (resolve) return getIs();
+        return basicGetIs();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSUB_TYPE__IS:
+        setIs((XType)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSUB_TYPE__IS:
+        setIs((XType)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSUB_TYPE__IS:
+        return is != null;
+    }
+    return super.eIsSet(featureID);
   }
 
 } //XSubTypeImpl

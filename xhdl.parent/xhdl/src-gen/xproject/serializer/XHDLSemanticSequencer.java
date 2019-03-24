@@ -15,15 +15,15 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import xproject.services.XHDLGrammarAccess;
+import xproject.xhdl.XArray;
+import xproject.xhdl.XAttribute;
 import xproject.xhdl.XPackage;
+import xproject.xhdl.XRange;
+import xproject.xhdl.XSignal;
+import xproject.xhdl.XSubType;
+import xproject.xhdl.XType;
+import xproject.xhdl.XUnits;
 import xproject.xhdl.XhdlPackage;
-import xproject.xhdl.array;
-import xproject.xhdl.attribute;
-import xproject.xhdl.range;
-import xproject.xhdl.signal;
-import xproject.xhdl.subtype;
-import xproject.xhdl.type;
-import xproject.xhdl.units;
 import xproject.xhdl.xhdl;
 
 @SuppressWarnings("all")
@@ -40,37 +40,37 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == XhdlPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case XhdlPackage.XARRAY:
+				sequence_XArray(context, (XArray) semanticObject); 
+				return; 
+			case XhdlPackage.XATTRIBUTE:
+				sequence_XAttribute(context, (XAttribute) semanticObject); 
+				return; 
 			case XhdlPackage.XPACKAGE:
 				sequence_XPackage(context, (XPackage) semanticObject); 
 				return; 
-			case XhdlPackage.ARRAY:
-				sequence_XArray(context, (array) semanticObject); 
-				return; 
-			case XhdlPackage.ATTRIBUTE:
-				sequence_XAttribute(context, (attribute) semanticObject); 
-				return; 
-			case XhdlPackage.RANGE:
-				if (rule == grammarAccess.getXRangeRule()) {
-					sequence_XRange_XUnits(context, (range) semanticObject); 
+			case XhdlPackage.XRANGE:
+				if (rule == grammarAccess.getXElementRule()
+						|| rule == grammarAccess.getXTypeRule()) {
+					sequence_XRange(context, (XRange) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getXElementRule()
-						|| rule == grammarAccess.getXTypeRule()) {
-					sequence_XRange(context, (range) semanticObject); 
+				else if (rule == grammarAccess.getXRangeRule()) {
+					sequence_XRange_XUnits(context, (XRange) semanticObject); 
 					return; 
 				}
 				else break;
-			case XhdlPackage.SIGNAL:
-				sequence_XSignal(context, (signal) semanticObject); 
+			case XhdlPackage.XSIGNAL:
+				sequence_XSignal(context, (XSignal) semanticObject); 
 				return; 
-			case XhdlPackage.SUBTYPE:
-				sequence_XSubType(context, (subtype) semanticObject); 
+			case XhdlPackage.XSUB_TYPE:
+				sequence_XSubType(context, (XSubType) semanticObject); 
 				return; 
-			case XhdlPackage.TYPE:
-				sequence_XType(context, (type) semanticObject); 
+			case XhdlPackage.XTYPE:
+				sequence_XType(context, (XType) semanticObject); 
 				return; 
-			case XhdlPackage.UNITS:
-				sequence_XUnits(context, (units) semanticObject); 
+			case XhdlPackage.XUNITS:
+				sequence_XUnits(context, (XUnits) semanticObject); 
 				return; 
 			case XhdlPackage.XHDL:
 				sequence_xhdl(context, (xhdl) semanticObject); 
@@ -82,28 +82,43 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     XElement returns array
-	 *     XType returns array
-	 *     XArray returns array
+	 *     XElement returns XArray
+	 *     XType returns XArray
+	 *     XArray returns XArray
 	 *
 	 * Constraint:
-	 *     {array}
+	 *     type=[XType|ID]
 	 */
-	protected void sequence_XArray(ISerializationContext context, array semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_XArray(ISerializationContext context, XArray semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XARRAY__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XARRAY__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getXArrayAccess().getTypeXTypeIDTerminalRuleCall_8_0_1(), semanticObject.eGet(XhdlPackage.Literals.XARRAY__TYPE, false));
+		feeder.finish();
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     XElement returns attribute
-	 *     XAttribute returns attribute
+	 *     XElement returns XAttribute
+	 *     XAttribute returns XAttribute
 	 *
 	 * Constraint:
-	 *     {attribute}
+	 *     (name=ID type=[XType|ID])
 	 */
-	protected void sequence_XAttribute(ISerializationContext context, attribute semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_XAttribute(ISerializationContext context, XAttribute semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XELEMENT__NAME));
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XATTRIBUTE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XATTRIBUTE__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getXAttributeAccess().getTypeXTypeIDTerminalRuleCall_4_0_1(), semanticObject.eGet(XhdlPackage.Literals.XATTRIBUTE__TYPE, false));
+		feeder.finish();
 	}
 	
 	
@@ -121,67 +136,82 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     XRange returns range
+	 *     XElement returns XRange
+	 *     XType returns XRange
+	 *
+	 * Constraint:
+	 *     {XRange}
+	 */
+	protected void sequence_XRange(ISerializationContext context, XRange semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XRange returns XRange
 	 *
 	 * Constraint:
 	 *     units+=XUnit*
 	 */
-	protected void sequence_XRange_XUnits(ISerializationContext context, range semanticObject) {
+	protected void sequence_XRange_XUnits(ISerializationContext context, XRange semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     XElement returns range
-	 *     XType returns range
-	 *
-	 * Constraint:
-	 *     {range}
-	 */
-	protected void sequence_XRange(ISerializationContext context, range semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     XElement returns signal
-	 *     XSignal returns signal
-	 *
-	 * Constraint:
-	 *     {signal}
-	 */
-	protected void sequence_XSignal(ISerializationContext context, signal semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     XElement returns subtype
-	 *     XSubType returns subtype
-	 *
-	 * Constraint:
-	 *     {subtype}
-	 */
-	protected void sequence_XSubType(ISerializationContext context, subtype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     XElement returns type
-	 *     XType returns type
+	 *     XElement returns XSignal
+	 *     XSignal returns XSignal
 	 *
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_XType(ISerializationContext context, type semanticObject) {
+	protected void sequence_XSignal(ISerializationContext context, XSignal semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.TYPE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.TYPE__NAME));
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XELEMENT__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XElement returns XSubType
+	 *     XSubType returns XSubType
+	 *
+	 * Constraint:
+	 *     (name=ID is=[XType|ID])
+	 */
+	protected void sequence_XSubType(ISerializationContext context, XSubType semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XELEMENT__NAME));
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XSUB_TYPE__IS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XSUB_TYPE__IS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getXSubTypeAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getXSubTypeAccess().getIsXTypeIDTerminalRuleCall_4_0_1(), semanticObject.eGet(XhdlPackage.Literals.XSUB_TYPE__IS, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XElement returns XType
+	 *     XType returns XType
+	 *
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_XType(ISerializationContext context, XType semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XELEMENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XELEMENT__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getXTypeAccess().getNameIDTerminalRuleCall_0_2_0(), semanticObject.getName());
@@ -191,12 +221,12 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     XUnits returns units
+	 *     XUnits returns XUnits
 	 *
 	 * Constraint:
 	 *     units+=XUnit*
 	 */
-	protected void sequence_XUnits(ISerializationContext context, units semanticObject) {
+	protected void sequence_XUnits(ISerializationContext context, XUnits semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

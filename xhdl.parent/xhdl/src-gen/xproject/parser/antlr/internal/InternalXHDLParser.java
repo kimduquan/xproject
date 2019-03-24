@@ -246,42 +246,53 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXPackage"
-    // InternalXHDL.g:107:1: ruleXPackage returns [EObject current=null] : (otherlv_0= 'package' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'is' ( (lv_elements_3_0= ruleXElement ) )* otherlv_4= 'end' this_ID_5= RULE_ID otherlv_6= ';' ) ;
+    // InternalXHDL.g:107:1: ruleXPackage returns [EObject current=null] : ( () otherlv_1= 'package' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (lv_elements_4_0= ruleXElement ) )* otherlv_5= 'end' this_ID_6= RULE_ID otherlv_7= ';' ) ;
     public final EObject ruleXPackage() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_0=null;
-        Token lv_name_1_0=null;
-        Token otherlv_2=null;
-        Token otherlv_4=null;
-        Token this_ID_5=null;
-        Token otherlv_6=null;
-        EObject lv_elements_3_0 = null;
+        Token otherlv_1=null;
+        Token lv_name_2_0=null;
+        Token otherlv_3=null;
+        Token otherlv_5=null;
+        Token this_ID_6=null;
+        Token otherlv_7=null;
+        EObject lv_elements_4_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalXHDL.g:113:2: ( (otherlv_0= 'package' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'is' ( (lv_elements_3_0= ruleXElement ) )* otherlv_4= 'end' this_ID_5= RULE_ID otherlv_6= ';' ) )
-            // InternalXHDL.g:114:2: (otherlv_0= 'package' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'is' ( (lv_elements_3_0= ruleXElement ) )* otherlv_4= 'end' this_ID_5= RULE_ID otherlv_6= ';' )
+            // InternalXHDL.g:113:2: ( ( () otherlv_1= 'package' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (lv_elements_4_0= ruleXElement ) )* otherlv_5= 'end' this_ID_6= RULE_ID otherlv_7= ';' ) )
+            // InternalXHDL.g:114:2: ( () otherlv_1= 'package' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (lv_elements_4_0= ruleXElement ) )* otherlv_5= 'end' this_ID_6= RULE_ID otherlv_7= ';' )
             {
-            // InternalXHDL.g:114:2: (otherlv_0= 'package' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'is' ( (lv_elements_3_0= ruleXElement ) )* otherlv_4= 'end' this_ID_5= RULE_ID otherlv_6= ';' )
-            // InternalXHDL.g:115:3: otherlv_0= 'package' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'is' ( (lv_elements_3_0= ruleXElement ) )* otherlv_4= 'end' this_ID_5= RULE_ID otherlv_6= ';'
+            // InternalXHDL.g:114:2: ( () otherlv_1= 'package' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (lv_elements_4_0= ruleXElement ) )* otherlv_5= 'end' this_ID_6= RULE_ID otherlv_7= ';' )
+            // InternalXHDL.g:115:3: () otherlv_1= 'package' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (lv_elements_4_0= ruleXElement ) )* otherlv_5= 'end' this_ID_6= RULE_ID otherlv_7= ';'
             {
-            otherlv_0=(Token)match(input,11,FOLLOW_4); 
+            // InternalXHDL.g:115:3: ()
+            // InternalXHDL.g:116:4: 
+            {
 
-            			newLeafNode(otherlv_0, grammarAccess.getXPackageAccess().getPackageKeyword_0());
+            				current = forceCreateModelElement(
+            					grammarAccess.getXPackageAccess().getXPackageAction_0(),
+            					current);
+            			
+
+            }
+
+            otherlv_1=(Token)match(input,11,FOLLOW_4); 
+
+            			newLeafNode(otherlv_1, grammarAccess.getXPackageAccess().getPackageKeyword_1());
             		
-            // InternalXHDL.g:119:3: ( (lv_name_1_0= RULE_ID ) )
-            // InternalXHDL.g:120:4: (lv_name_1_0= RULE_ID )
+            // InternalXHDL.g:126:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalXHDL.g:127:4: (lv_name_2_0= RULE_ID )
             {
-            // InternalXHDL.g:120:4: (lv_name_1_0= RULE_ID )
-            // InternalXHDL.g:121:5: lv_name_1_0= RULE_ID
+            // InternalXHDL.g:127:4: (lv_name_2_0= RULE_ID )
+            // InternalXHDL.g:128:5: lv_name_2_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_5); 
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
-            					newLeafNode(lv_name_1_0, grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_1_0());
+            					newLeafNode(lv_name_2_0, grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_2_0());
             				
 
             					if (current==null) {
@@ -290,7 +301,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
             					setWithLastConsumed(
             						current,
             						"name",
-            						lv_name_1_0,
+            						lv_name_2_0,
             						"org.eclipse.xtext.common.Terminals.ID");
             				
 
@@ -299,11 +310,11 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,12,FOLLOW_6); 
+            otherlv_3=(Token)match(input,12,FOLLOW_6); 
 
-            			newLeafNode(otherlv_2, grammarAccess.getXPackageAccess().getIsKeyword_2());
+            			newLeafNode(otherlv_3, grammarAccess.getXPackageAccess().getIsKeyword_3());
             		
-            // InternalXHDL.g:141:3: ( (lv_elements_3_0= ruleXElement ) )*
+            // InternalXHDL.g:148:3: ( (lv_elements_4_0= ruleXElement ) )*
             loop2:
             do {
                 int alt2=2;
@@ -316,16 +327,16 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalXHDL.g:142:4: (lv_elements_3_0= ruleXElement )
+            	    // InternalXHDL.g:149:4: (lv_elements_4_0= ruleXElement )
             	    {
-            	    // InternalXHDL.g:142:4: (lv_elements_3_0= ruleXElement )
-            	    // InternalXHDL.g:143:5: lv_elements_3_0= ruleXElement
+            	    // InternalXHDL.g:149:4: (lv_elements_4_0= ruleXElement )
+            	    // InternalXHDL.g:150:5: lv_elements_4_0= ruleXElement
             	    {
 
-            	    					newCompositeNode(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_3_0());
+            	    					newCompositeNode(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_4_0());
             	    				
             	    pushFollow(FOLLOW_6);
-            	    lv_elements_3_0=ruleXElement();
+            	    lv_elements_4_0=ruleXElement();
 
             	    state._fsp--;
 
@@ -336,7 +347,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
             	    					add(
             	    						current,
             	    						"elements",
-            	    						lv_elements_3_0,
+            	    						lv_elements_4_0,
             	    						"xproject.XHDL.XElement");
             	    					afterParserOrEnumRuleCall();
             	    				
@@ -352,17 +363,17 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,13,FOLLOW_4); 
+            otherlv_5=(Token)match(input,13,FOLLOW_4); 
 
-            			newLeafNode(otherlv_4, grammarAccess.getXPackageAccess().getEndKeyword_4());
+            			newLeafNode(otherlv_5, grammarAccess.getXPackageAccess().getEndKeyword_5());
             		
-            this_ID_5=(Token)match(input,RULE_ID,FOLLOW_7); 
+            this_ID_6=(Token)match(input,RULE_ID,FOLLOW_7); 
 
-            			newLeafNode(this_ID_5, grammarAccess.getXPackageAccess().getIDTerminalRuleCall_5());
+            			newLeafNode(this_ID_6, grammarAccess.getXPackageAccess().getIDTerminalRuleCall_6());
             		
-            otherlv_6=(Token)match(input,14,FOLLOW_2); 
+            otherlv_7=(Token)match(input,14,FOLLOW_2); 
 
-            			newLeafNode(otherlv_6, grammarAccess.getXPackageAccess().getSemicolonKeyword_6());
+            			newLeafNode(otherlv_7, grammarAccess.getXPackageAccess().getSemicolonKeyword_7());
             		
 
             }
@@ -387,7 +398,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXElement"
-    // InternalXHDL.g:176:1: entryRuleXElement returns [EObject current=null] : iv_ruleXElement= ruleXElement EOF ;
+    // InternalXHDL.g:183:1: entryRuleXElement returns [EObject current=null] : iv_ruleXElement= ruleXElement EOF ;
     public final EObject entryRuleXElement() throws RecognitionException {
         EObject current = null;
 
@@ -395,8 +406,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:176:49: (iv_ruleXElement= ruleXElement EOF )
-            // InternalXHDL.g:177:2: iv_ruleXElement= ruleXElement EOF
+            // InternalXHDL.g:183:49: (iv_ruleXElement= ruleXElement EOF )
+            // InternalXHDL.g:184:2: iv_ruleXElement= ruleXElement EOF
             {
              newCompositeNode(grammarAccess.getXElementRule()); 
             pushFollow(FOLLOW_1);
@@ -423,7 +434,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXElement"
-    // InternalXHDL.g:183:1: ruleXElement returns [EObject current=null] : (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute ) ;
+    // InternalXHDL.g:190:1: ruleXElement returns [EObject current=null] : (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute ) ;
     public final EObject ruleXElement() throws RecognitionException {
         EObject current = null;
 
@@ -440,10 +451,10 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalXHDL.g:189:2: ( (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute ) )
-            // InternalXHDL.g:190:2: (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute )
+            // InternalXHDL.g:196:2: ( (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute ) )
+            // InternalXHDL.g:197:2: (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute )
             {
-            // InternalXHDL.g:190:2: (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute )
+            // InternalXHDL.g:197:2: (this_XType_0= ruleXType | this_XSignal_1= ruleXSignal | this_XSubType_2= ruleXSubType | this_XAttribute_3= ruleXAttribute )
             int alt3=4;
             switch ( input.LA(1) ) {
             case 19:
@@ -477,7 +488,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             switch (alt3) {
                 case 1 :
-                    // InternalXHDL.g:191:3: this_XType_0= ruleXType
+                    // InternalXHDL.g:198:3: this_XType_0= ruleXType
                     {
 
                     			newCompositeNode(grammarAccess.getXElementAccess().getXTypeParserRuleCall_0());
@@ -495,7 +506,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalXHDL.g:200:3: this_XSignal_1= ruleXSignal
+                    // InternalXHDL.g:207:3: this_XSignal_1= ruleXSignal
                     {
 
                     			newCompositeNode(grammarAccess.getXElementAccess().getXSignalParserRuleCall_1());
@@ -513,7 +524,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalXHDL.g:209:3: this_XSubType_2= ruleXSubType
+                    // InternalXHDL.g:216:3: this_XSubType_2= ruleXSubType
                     {
 
                     			newCompositeNode(grammarAccess.getXElementAccess().getXSubTypeParserRuleCall_2());
@@ -531,7 +542,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalXHDL.g:218:3: this_XAttribute_3= ruleXAttribute
+                    // InternalXHDL.g:225:3: this_XAttribute_3= ruleXAttribute
                     {
 
                     			newCompositeNode(grammarAccess.getXElementAccess().getXAttributeParserRuleCall_3());
@@ -571,7 +582,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXAttribute"
-    // InternalXHDL.g:230:1: entryRuleXAttribute returns [EObject current=null] : iv_ruleXAttribute= ruleXAttribute EOF ;
+    // InternalXHDL.g:237:1: entryRuleXAttribute returns [EObject current=null] : iv_ruleXAttribute= ruleXAttribute EOF ;
     public final EObject entryRuleXAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -579,8 +590,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:230:51: (iv_ruleXAttribute= ruleXAttribute EOF )
-            // InternalXHDL.g:231:2: iv_ruleXAttribute= ruleXAttribute EOF
+            // InternalXHDL.g:237:51: (iv_ruleXAttribute= ruleXAttribute EOF )
+            // InternalXHDL.g:238:2: iv_ruleXAttribute= ruleXAttribute EOF
             {
              newCompositeNode(grammarAccess.getXAttributeRule()); 
             pushFollow(FOLLOW_1);
@@ -607,32 +618,32 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXAttribute"
-    // InternalXHDL.g:237:1: ruleXAttribute returns [EObject current=null] : ( () otherlv_1= 'attribute' this_ID_2= RULE_ID otherlv_3= ':' this_ID_4= RULE_ID otherlv_5= ';' ) ;
+    // InternalXHDL.g:244:1: ruleXAttribute returns [EObject current=null] : ( () otherlv_1= 'attribute' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ':' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' ) ;
     public final EObject ruleXAttribute() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        Token this_ID_2=null;
+        Token lv_name_2_0=null;
         Token otherlv_3=null;
-        Token this_ID_4=null;
+        Token otherlv_4=null;
         Token otherlv_5=null;
 
 
         	enterRule();
 
         try {
-            // InternalXHDL.g:243:2: ( ( () otherlv_1= 'attribute' this_ID_2= RULE_ID otherlv_3= ':' this_ID_4= RULE_ID otherlv_5= ';' ) )
-            // InternalXHDL.g:244:2: ( () otherlv_1= 'attribute' this_ID_2= RULE_ID otherlv_3= ':' this_ID_4= RULE_ID otherlv_5= ';' )
+            // InternalXHDL.g:250:2: ( ( () otherlv_1= 'attribute' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ':' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' ) )
+            // InternalXHDL.g:251:2: ( () otherlv_1= 'attribute' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ':' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' )
             {
-            // InternalXHDL.g:244:2: ( () otherlv_1= 'attribute' this_ID_2= RULE_ID otherlv_3= ':' this_ID_4= RULE_ID otherlv_5= ';' )
-            // InternalXHDL.g:245:3: () otherlv_1= 'attribute' this_ID_2= RULE_ID otherlv_3= ':' this_ID_4= RULE_ID otherlv_5= ';'
+            // InternalXHDL.g:251:2: ( () otherlv_1= 'attribute' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ':' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' )
+            // InternalXHDL.g:252:3: () otherlv_1= 'attribute' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ':' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';'
             {
-            // InternalXHDL.g:245:3: ()
-            // InternalXHDL.g:246:4: 
+            // InternalXHDL.g:252:3: ()
+            // InternalXHDL.g:253:4: 
             {
 
             				current = forceCreateModelElement(
-            					grammarAccess.getXAttributeAccess().getAttributeAction_0(),
+            					grammarAccess.getXAttributeAccess().getXAttributeAction_0(),
             					current);
             			
 
@@ -642,18 +653,57 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_1, grammarAccess.getXAttributeAccess().getAttributeKeyword_1());
             		
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_8); 
+            // InternalXHDL.g:263:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalXHDL.g:264:4: (lv_name_2_0= RULE_ID )
+            {
+            // InternalXHDL.g:264:4: (lv_name_2_0= RULE_ID )
+            // InternalXHDL.g:265:5: lv_name_2_0= RULE_ID
+            {
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_8); 
 
-            			newLeafNode(this_ID_2, grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_2());
-            		
+            					newLeafNode(lv_name_2_0, grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0());
+            				
+
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getXAttributeRule());
+            					}
+            					setWithLastConsumed(
+            						current,
+            						"name",
+            						lv_name_2_0,
+            						"org.eclipse.xtext.common.Terminals.ID");
+            				
+
+            }
+
+
+            }
+
             otherlv_3=(Token)match(input,16,FOLLOW_4); 
 
             			newLeafNode(otherlv_3, grammarAccess.getXAttributeAccess().getColonKeyword_3());
             		
-            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_7); 
+            // InternalXHDL.g:285:3: ( (otherlv_4= RULE_ID ) )
+            // InternalXHDL.g:286:4: (otherlv_4= RULE_ID )
+            {
+            // InternalXHDL.g:286:4: (otherlv_4= RULE_ID )
+            // InternalXHDL.g:287:5: otherlv_4= RULE_ID
+            {
 
-            			newLeafNode(this_ID_4, grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_4());
-            		
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getXAttributeRule());
+            					}
+            				
+            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_7); 
+
+            					newLeafNode(otherlv_4, grammarAccess.getXAttributeAccess().getTypeXTypeCrossReference_4_0());
+            				
+
+            }
+
+
+            }
+
             otherlv_5=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_5, grammarAccess.getXAttributeAccess().getSemicolonKeyword_5());
@@ -681,7 +731,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXSubType"
-    // InternalXHDL.g:276:1: entryRuleXSubType returns [EObject current=null] : iv_ruleXSubType= ruleXSubType EOF ;
+    // InternalXHDL.g:306:1: entryRuleXSubType returns [EObject current=null] : iv_ruleXSubType= ruleXSubType EOF ;
     public final EObject entryRuleXSubType() throws RecognitionException {
         EObject current = null;
 
@@ -689,8 +739,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:276:49: (iv_ruleXSubType= ruleXSubType EOF )
-            // InternalXHDL.g:277:2: iv_ruleXSubType= ruleXSubType EOF
+            // InternalXHDL.g:306:49: (iv_ruleXSubType= ruleXSubType EOF )
+            // InternalXHDL.g:307:2: iv_ruleXSubType= ruleXSubType EOF
             {
              newCompositeNode(grammarAccess.getXSubTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -717,30 +767,32 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXSubType"
-    // InternalXHDL.g:283:1: ruleXSubType returns [EObject current=null] : ( () otherlv_1= 'subtype' this_ID_2= RULE_ID otherlv_3= ';' ) ;
+    // InternalXHDL.g:313:1: ruleXSubType returns [EObject current=null] : ( () otherlv_1= 'subtype' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' ) ;
     public final EObject ruleXSubType() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        Token this_ID_2=null;
+        Token lv_name_2_0=null;
         Token otherlv_3=null;
+        Token otherlv_4=null;
+        Token otherlv_5=null;
 
 
         	enterRule();
 
         try {
-            // InternalXHDL.g:289:2: ( ( () otherlv_1= 'subtype' this_ID_2= RULE_ID otherlv_3= ';' ) )
-            // InternalXHDL.g:290:2: ( () otherlv_1= 'subtype' this_ID_2= RULE_ID otherlv_3= ';' )
+            // InternalXHDL.g:319:2: ( ( () otherlv_1= 'subtype' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' ) )
+            // InternalXHDL.g:320:2: ( () otherlv_1= 'subtype' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' )
             {
-            // InternalXHDL.g:290:2: ( () otherlv_1= 'subtype' this_ID_2= RULE_ID otherlv_3= ';' )
-            // InternalXHDL.g:291:3: () otherlv_1= 'subtype' this_ID_2= RULE_ID otherlv_3= ';'
+            // InternalXHDL.g:320:2: ( () otherlv_1= 'subtype' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';' )
+            // InternalXHDL.g:321:3: () otherlv_1= 'subtype' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ( (otherlv_4= RULE_ID ) ) otherlv_5= ';'
             {
-            // InternalXHDL.g:291:3: ()
-            // InternalXHDL.g:292:4: 
+            // InternalXHDL.g:321:3: ()
+            // InternalXHDL.g:322:4: 
             {
 
             				current = forceCreateModelElement(
-            					grammarAccess.getXSubTypeAccess().getSubtypeAction_0(),
+            					grammarAccess.getXSubTypeAccess().getXSubTypeAction_0(),
             					current);
             			
 
@@ -750,13 +802,60 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_1, grammarAccess.getXSubTypeAccess().getSubtypeKeyword_1());
             		
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_7); 
+            // InternalXHDL.g:332:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalXHDL.g:333:4: (lv_name_2_0= RULE_ID )
+            {
+            // InternalXHDL.g:333:4: (lv_name_2_0= RULE_ID )
+            // InternalXHDL.g:334:5: lv_name_2_0= RULE_ID
+            {
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
-            			newLeafNode(this_ID_2, grammarAccess.getXSubTypeAccess().getIDTerminalRuleCall_2());
+            					newLeafNode(lv_name_2_0, grammarAccess.getXSubTypeAccess().getNameIDTerminalRuleCall_2_0());
+            				
+
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getXSubTypeRule());
+            					}
+            					setWithLastConsumed(
+            						current,
+            						"name",
+            						lv_name_2_0,
+            						"org.eclipse.xtext.common.Terminals.ID");
+            				
+
+            }
+
+
+            }
+
+            otherlv_3=(Token)match(input,12,FOLLOW_4); 
+
+            			newLeafNode(otherlv_3, grammarAccess.getXSubTypeAccess().getIsKeyword_3());
             		
-            otherlv_3=(Token)match(input,14,FOLLOW_2); 
+            // InternalXHDL.g:354:3: ( (otherlv_4= RULE_ID ) )
+            // InternalXHDL.g:355:4: (otherlv_4= RULE_ID )
+            {
+            // InternalXHDL.g:355:4: (otherlv_4= RULE_ID )
+            // InternalXHDL.g:356:5: otherlv_4= RULE_ID
+            {
 
-            			newLeafNode(otherlv_3, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_3());
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getXSubTypeRule());
+            					}
+            				
+            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_7); 
+
+            					newLeafNode(otherlv_4, grammarAccess.getXSubTypeAccess().getIsXTypeCrossReference_4_0());
+            				
+
+            }
+
+
+            }
+
+            otherlv_5=(Token)match(input,14,FOLLOW_2); 
+
+            			newLeafNode(otherlv_5, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_5());
             		
 
             }
@@ -781,7 +880,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXSignal"
-    // InternalXHDL.g:314:1: entryRuleXSignal returns [EObject current=null] : iv_ruleXSignal= ruleXSignal EOF ;
+    // InternalXHDL.g:375:1: entryRuleXSignal returns [EObject current=null] : iv_ruleXSignal= ruleXSignal EOF ;
     public final EObject entryRuleXSignal() throws RecognitionException {
         EObject current = null;
 
@@ -789,8 +888,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:314:48: (iv_ruleXSignal= ruleXSignal EOF )
-            // InternalXHDL.g:315:2: iv_ruleXSignal= ruleXSignal EOF
+            // InternalXHDL.g:375:48: (iv_ruleXSignal= ruleXSignal EOF )
+            // InternalXHDL.g:376:2: iv_ruleXSignal= ruleXSignal EOF
             {
              newCompositeNode(grammarAccess.getXSignalRule()); 
             pushFollow(FOLLOW_1);
@@ -817,30 +916,30 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXSignal"
-    // InternalXHDL.g:321:1: ruleXSignal returns [EObject current=null] : ( () otherlv_1= 'signal' this_ID_2= RULE_ID otherlv_3= ';' ) ;
+    // InternalXHDL.g:382:1: ruleXSignal returns [EObject current=null] : ( () otherlv_1= 'signal' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ';' ) ;
     public final EObject ruleXSignal() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        Token this_ID_2=null;
+        Token lv_name_2_0=null;
         Token otherlv_3=null;
 
 
         	enterRule();
 
         try {
-            // InternalXHDL.g:327:2: ( ( () otherlv_1= 'signal' this_ID_2= RULE_ID otherlv_3= ';' ) )
-            // InternalXHDL.g:328:2: ( () otherlv_1= 'signal' this_ID_2= RULE_ID otherlv_3= ';' )
+            // InternalXHDL.g:388:2: ( ( () otherlv_1= 'signal' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ';' ) )
+            // InternalXHDL.g:389:2: ( () otherlv_1= 'signal' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ';' )
             {
-            // InternalXHDL.g:328:2: ( () otherlv_1= 'signal' this_ID_2= RULE_ID otherlv_3= ';' )
-            // InternalXHDL.g:329:3: () otherlv_1= 'signal' this_ID_2= RULE_ID otherlv_3= ';'
+            // InternalXHDL.g:389:2: ( () otherlv_1= 'signal' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ';' )
+            // InternalXHDL.g:390:3: () otherlv_1= 'signal' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= ';'
             {
-            // InternalXHDL.g:329:3: ()
-            // InternalXHDL.g:330:4: 
+            // InternalXHDL.g:390:3: ()
+            // InternalXHDL.g:391:4: 
             {
 
             				current = forceCreateModelElement(
-            					grammarAccess.getXSignalAccess().getSignalAction_0(),
+            					grammarAccess.getXSignalAccess().getXSignalAction_0(),
             					current);
             			
 
@@ -850,10 +949,32 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_1, grammarAccess.getXSignalAccess().getSignalKeyword_1());
             		
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_7); 
+            // InternalXHDL.g:401:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalXHDL.g:402:4: (lv_name_2_0= RULE_ID )
+            {
+            // InternalXHDL.g:402:4: (lv_name_2_0= RULE_ID )
+            // InternalXHDL.g:403:5: lv_name_2_0= RULE_ID
+            {
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_7); 
 
-            			newLeafNode(this_ID_2, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_2());
-            		
+            					newLeafNode(lv_name_2_0, grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0());
+            				
+
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getXSignalRule());
+            					}
+            					setWithLastConsumed(
+            						current,
+            						"name",
+            						lv_name_2_0,
+            						"org.eclipse.xtext.common.Terminals.ID");
+            				
+
+            }
+
+
+            }
+
             otherlv_3=(Token)match(input,14,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getXSignalAccess().getSemicolonKeyword_3());
@@ -881,7 +1002,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXType"
-    // InternalXHDL.g:352:1: entryRuleXType returns [EObject current=null] : iv_ruleXType= ruleXType EOF ;
+    // InternalXHDL.g:427:1: entryRuleXType returns [EObject current=null] : iv_ruleXType= ruleXType EOF ;
     public final EObject entryRuleXType() throws RecognitionException {
         EObject current = null;
 
@@ -889,8 +1010,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:352:46: (iv_ruleXType= ruleXType EOF )
-            // InternalXHDL.g:353:2: iv_ruleXType= ruleXType EOF
+            // InternalXHDL.g:427:46: (iv_ruleXType= ruleXType EOF )
+            // InternalXHDL.g:428:2: iv_ruleXType= ruleXType EOF
             {
              newCompositeNode(grammarAccess.getXTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -917,7 +1038,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXType"
-    // InternalXHDL.g:359:1: ruleXType returns [EObject current=null] : ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) ) ;
+    // InternalXHDL.g:434:1: ruleXType returns [EObject current=null] : ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) ) ;
     public final EObject ruleXType() throws RecognitionException {
         EObject current = null;
 
@@ -934,10 +1055,10 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalXHDL.g:365:2: ( ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) ) )
-            // InternalXHDL.g:366:2: ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) )
+            // InternalXHDL.g:440:2: ( ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) ) )
+            // InternalXHDL.g:441:2: ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) )
             {
-            // InternalXHDL.g:366:2: ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) )
+            // InternalXHDL.g:441:2: ( ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums ) | this_XRange_5= ruleXRange | (this_XArray_6= ruleXArray otherlv_7= ';' ) )
             int alt4=3;
             switch ( input.LA(1) ) {
             case 19:
@@ -964,17 +1085,17 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             switch (alt4) {
                 case 1 :
-                    // InternalXHDL.g:367:3: ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums )
+                    // InternalXHDL.g:442:3: ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums )
                     {
-                    // InternalXHDL.g:367:3: ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums )
-                    // InternalXHDL.g:368:4: () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums
+                    // InternalXHDL.g:442:3: ( () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums )
+                    // InternalXHDL.g:443:4: () otherlv_1= 'type' ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'is' ruleXEnums
                     {
-                    // InternalXHDL.g:368:4: ()
-                    // InternalXHDL.g:369:5: 
+                    // InternalXHDL.g:443:4: ()
+                    // InternalXHDL.g:444:5: 
                     {
 
                     					current = forceCreateModelElement(
-                    						grammarAccess.getXTypeAccess().getTypeAction_0_0(),
+                    						grammarAccess.getXTypeAccess().getXTypeAction_0_0(),
                     						current);
                     				
 
@@ -984,11 +1105,11 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
                     				newLeafNode(otherlv_1, grammarAccess.getXTypeAccess().getTypeKeyword_0_1());
                     			
-                    // InternalXHDL.g:379:4: ( (lv_name_2_0= RULE_ID ) )
-                    // InternalXHDL.g:380:5: (lv_name_2_0= RULE_ID )
+                    // InternalXHDL.g:454:4: ( (lv_name_2_0= RULE_ID ) )
+                    // InternalXHDL.g:455:5: (lv_name_2_0= RULE_ID )
                     {
-                    // InternalXHDL.g:380:5: (lv_name_2_0= RULE_ID )
-                    // InternalXHDL.g:381:6: lv_name_2_0= RULE_ID
+                    // InternalXHDL.g:455:5: (lv_name_2_0= RULE_ID )
+                    // InternalXHDL.g:456:6: lv_name_2_0= RULE_ID
                     {
                     lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_5); 
 
@@ -1032,7 +1153,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalXHDL.g:410:3: this_XRange_5= ruleXRange
+                    // InternalXHDL.g:485:3: this_XRange_5= ruleXRange
                     {
 
                     			newCompositeNode(grammarAccess.getXTypeAccess().getXRangeParserRuleCall_1());
@@ -1050,10 +1171,10 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalXHDL.g:419:3: (this_XArray_6= ruleXArray otherlv_7= ';' )
+                    // InternalXHDL.g:494:3: (this_XArray_6= ruleXArray otherlv_7= ';' )
                     {
-                    // InternalXHDL.g:419:3: (this_XArray_6= ruleXArray otherlv_7= ';' )
-                    // InternalXHDL.g:420:4: this_XArray_6= ruleXArray otherlv_7= ';'
+                    // InternalXHDL.g:494:3: (this_XArray_6= ruleXArray otherlv_7= ';' )
+                    // InternalXHDL.g:495:4: this_XArray_6= ruleXArray otherlv_7= ';'
                     {
 
                     				newCompositeNode(grammarAccess.getXTypeAccess().getXArrayParserRuleCall_2_0());
@@ -1100,7 +1221,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXArray"
-    // InternalXHDL.g:437:1: entryRuleXArray returns [EObject current=null] : iv_ruleXArray= ruleXArray EOF ;
+    // InternalXHDL.g:512:1: entryRuleXArray returns [EObject current=null] : iv_ruleXArray= ruleXArray EOF ;
     public final EObject entryRuleXArray() throws RecognitionException {
         EObject current = null;
 
@@ -1108,8 +1229,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:437:47: (iv_ruleXArray= ruleXArray EOF )
-            // InternalXHDL.g:438:2: iv_ruleXArray= ruleXArray EOF
+            // InternalXHDL.g:512:47: (iv_ruleXArray= ruleXArray EOF )
+            // InternalXHDL.g:513:2: iv_ruleXArray= ruleXArray EOF
             {
              newCompositeNode(grammarAccess.getXArrayRule()); 
             pushFollow(FOLLOW_1);
@@ -1136,7 +1257,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXArray"
-    // InternalXHDL.g:444:1: ruleXArray returns [EObject current=null] : ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' this_ID_8= RULE_ID ) ;
+    // InternalXHDL.g:519:1: ruleXArray returns [EObject current=null] : ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) ) ;
     public final EObject ruleXArray() throws RecognitionException {
         EObject current = null;
 
@@ -1147,24 +1268,24 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         Token otherlv_5=null;
         Token otherlv_6=null;
         Token otherlv_7=null;
-        Token this_ID_8=null;
+        Token otherlv_8=null;
 
 
         	enterRule();
 
         try {
-            // InternalXHDL.g:450:2: ( ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' this_ID_8= RULE_ID ) )
-            // InternalXHDL.g:451:2: ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' this_ID_8= RULE_ID )
+            // InternalXHDL.g:525:2: ( ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) ) )
+            // InternalXHDL.g:526:2: ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )
             {
-            // InternalXHDL.g:451:2: ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' this_ID_8= RULE_ID )
-            // InternalXHDL.g:452:3: () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' this_ID_8= RULE_ID
+            // InternalXHDL.g:526:2: ( () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' ( (otherlv_8= RULE_ID ) ) )
+            // InternalXHDL.g:527:3: () otherlv_1= 'array' otherlv_2= '(' this_ID_3= RULE_ID otherlv_4= 'range' otherlv_5= '<>' otherlv_6= ')' otherlv_7= 'of' ( (otherlv_8= RULE_ID ) )
             {
-            // InternalXHDL.g:452:3: ()
-            // InternalXHDL.g:453:4: 
+            // InternalXHDL.g:527:3: ()
+            // InternalXHDL.g:528:4: 
             {
 
             				current = forceCreateModelElement(
-            					grammarAccess.getXArrayAccess().getArrayAction_0(),
+            					grammarAccess.getXArrayAccess().getXArrayAction_0(),
             					current);
             			
 
@@ -1198,10 +1319,27 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_7, grammarAccess.getXArrayAccess().getOfKeyword_7());
             		
-            this_ID_8=(Token)match(input,RULE_ID,FOLLOW_2); 
+            // InternalXHDL.g:562:3: ( (otherlv_8= RULE_ID ) )
+            // InternalXHDL.g:563:4: (otherlv_8= RULE_ID )
+            {
+            // InternalXHDL.g:563:4: (otherlv_8= RULE_ID )
+            // InternalXHDL.g:564:5: otherlv_8= RULE_ID
+            {
 
-            			newLeafNode(this_ID_8, grammarAccess.getXArrayAccess().getIDTerminalRuleCall_8());
-            		
+            					if (current==null) {
+            						current = createModelElement(grammarAccess.getXArrayRule());
+            					}
+            				
+            otherlv_8=(Token)match(input,RULE_ID,FOLLOW_2); 
+
+            					newLeafNode(otherlv_8, grammarAccess.getXArrayAccess().getTypeXTypeCrossReference_8_0());
+            				
+
+            }
+
+
+            }
+
 
             }
 
@@ -1225,7 +1363,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXRange"
-    // InternalXHDL.g:495:1: entryRuleXRange returns [EObject current=null] : iv_ruleXRange= ruleXRange EOF ;
+    // InternalXHDL.g:579:1: entryRuleXRange returns [EObject current=null] : iv_ruleXRange= ruleXRange EOF ;
     public final EObject entryRuleXRange() throws RecognitionException {
         EObject current = null;
 
@@ -1233,8 +1371,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:495:47: (iv_ruleXRange= ruleXRange EOF )
-            // InternalXHDL.g:496:2: iv_ruleXRange= ruleXRange EOF
+            // InternalXHDL.g:579:47: (iv_ruleXRange= ruleXRange EOF )
+            // InternalXHDL.g:580:2: iv_ruleXRange= ruleXRange EOF
             {
              newCompositeNode(grammarAccess.getXRangeRule()); 
             pushFollow(FOLLOW_1);
@@ -1261,7 +1399,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXRange"
-    // InternalXHDL.g:502:1: ruleXRange returns [EObject current=null] : ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? ) ;
+    // InternalXHDL.g:586:1: ruleXRange returns [EObject current=null] : ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? ) ;
     public final EObject ruleXRange() throws RecognitionException {
         EObject current = null;
 
@@ -1276,18 +1414,18 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalXHDL.g:508:2: ( ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? ) )
-            // InternalXHDL.g:509:2: ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? )
+            // InternalXHDL.g:592:2: ( ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? ) )
+            // InternalXHDL.g:593:2: ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? )
             {
-            // InternalXHDL.g:509:2: ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? )
-            // InternalXHDL.g:510:3: () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )?
+            // InternalXHDL.g:593:2: ( () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )? )
+            // InternalXHDL.g:594:3: () otherlv_1= 'range' this_INT_2= RULE_INT otherlv_3= 'to' this_INT_4= RULE_INT (this_XUnits_5= ruleXUnits )?
             {
-            // InternalXHDL.g:510:3: ()
-            // InternalXHDL.g:511:4: 
+            // InternalXHDL.g:594:3: ()
+            // InternalXHDL.g:595:4: 
             {
 
             				current = forceCreateModelElement(
-            					grammarAccess.getXRangeAccess().getRangeAction_0(),
+            					grammarAccess.getXRangeAccess().getXRangeAction_0(),
             					current);
             			
 
@@ -1309,7 +1447,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(this_INT_4, grammarAccess.getXRangeAccess().getINTTerminalRuleCall_4());
             		
-            // InternalXHDL.g:533:3: (this_XUnits_5= ruleXUnits )?
+            // InternalXHDL.g:617:3: (this_XUnits_5= ruleXUnits )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1318,7 +1456,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-                    // InternalXHDL.g:534:4: this_XUnits_5= ruleXUnits
+                    // InternalXHDL.g:618:4: this_XUnits_5= ruleXUnits
                     {
 
                     				newCompositeNode(grammarAccess.getXRangeAccess().getXUnitsParserRuleCall_5());
@@ -1361,7 +1499,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXUnits"
-    // InternalXHDL.g:547:1: entryRuleXUnits returns [EObject current=null] : iv_ruleXUnits= ruleXUnits EOF ;
+    // InternalXHDL.g:631:1: entryRuleXUnits returns [EObject current=null] : iv_ruleXUnits= ruleXUnits EOF ;
     public final EObject entryRuleXUnits() throws RecognitionException {
         EObject current = null;
 
@@ -1369,8 +1507,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:547:47: (iv_ruleXUnits= ruleXUnits EOF )
-            // InternalXHDL.g:548:2: iv_ruleXUnits= ruleXUnits EOF
+            // InternalXHDL.g:631:47: (iv_ruleXUnits= ruleXUnits EOF )
+            // InternalXHDL.g:632:2: iv_ruleXUnits= ruleXUnits EOF
             {
              newCompositeNode(grammarAccess.getXUnitsRule()); 
             pushFollow(FOLLOW_1);
@@ -1397,7 +1535,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXUnits"
-    // InternalXHDL.g:554:1: ruleXUnits returns [EObject current=null] : ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' ) ;
+    // InternalXHDL.g:638:1: ruleXUnits returns [EObject current=null] : ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' ) ;
     public final EObject ruleXUnits() throws RecognitionException {
         EObject current = null;
 
@@ -1411,18 +1549,18 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalXHDL.g:560:2: ( ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' ) )
-            // InternalXHDL.g:561:2: ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' )
+            // InternalXHDL.g:644:2: ( ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' ) )
+            // InternalXHDL.g:645:2: ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' )
             {
-            // InternalXHDL.g:561:2: ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' )
-            // InternalXHDL.g:562:3: () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units'
+            // InternalXHDL.g:645:2: ( () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units' )
+            // InternalXHDL.g:646:3: () otherlv_1= 'units' ( (lv_units_2_0= ruleXUnit ) )* otherlv_3= 'end' otherlv_4= 'units'
             {
-            // InternalXHDL.g:562:3: ()
-            // InternalXHDL.g:563:4: 
+            // InternalXHDL.g:646:3: ()
+            // InternalXHDL.g:647:4: 
             {
 
             				current = forceCreateModelElement(
-            					grammarAccess.getXUnitsAccess().getUnitsAction_0(),
+            					grammarAccess.getXUnitsAccess().getXUnitsAction_0(),
             					current);
             			
 
@@ -1432,7 +1570,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
             			newLeafNode(otherlv_1, grammarAccess.getXUnitsAccess().getUnitsKeyword_1());
             		
-            // InternalXHDL.g:573:3: ( (lv_units_2_0= ruleXUnit ) )*
+            // InternalXHDL.g:657:3: ( (lv_units_2_0= ruleXUnit ) )*
             loop6:
             do {
                 int alt6=2;
@@ -1445,10 +1583,10 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
                 switch (alt6) {
             	case 1 :
-            	    // InternalXHDL.g:574:4: (lv_units_2_0= ruleXUnit )
+            	    // InternalXHDL.g:658:4: (lv_units_2_0= ruleXUnit )
             	    {
-            	    // InternalXHDL.g:574:4: (lv_units_2_0= ruleXUnit )
-            	    // InternalXHDL.g:575:5: lv_units_2_0= ruleXUnit
+            	    // InternalXHDL.g:658:4: (lv_units_2_0= ruleXUnit )
+            	    // InternalXHDL.g:659:5: lv_units_2_0= ruleXUnit
             	    {
 
             	    					newCompositeNode(grammarAccess.getXUnitsAccess().getUnitsXUnitParserRuleCall_2_0());
@@ -1512,7 +1650,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXUnit"
-    // InternalXHDL.g:604:1: entryRuleXUnit returns [String current=null] : iv_ruleXUnit= ruleXUnit EOF ;
+    // InternalXHDL.g:688:1: entryRuleXUnit returns [String current=null] : iv_ruleXUnit= ruleXUnit EOF ;
     public final String entryRuleXUnit() throws RecognitionException {
         String current = null;
 
@@ -1520,8 +1658,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:604:45: (iv_ruleXUnit= ruleXUnit EOF )
-            // InternalXHDL.g:605:2: iv_ruleXUnit= ruleXUnit EOF
+            // InternalXHDL.g:688:45: (iv_ruleXUnit= ruleXUnit EOF )
+            // InternalXHDL.g:689:2: iv_ruleXUnit= ruleXUnit EOF
             {
              newCompositeNode(grammarAccess.getXUnitRule()); 
             pushFollow(FOLLOW_1);
@@ -1548,7 +1686,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXUnit"
-    // InternalXHDL.g:611:1: ruleXUnit returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' ) ;
+    // InternalXHDL.g:695:1: ruleXUnit returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' ) ;
     public final AntlrDatatypeRuleToken ruleXUnit() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1561,11 +1699,11 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalXHDL.g:617:2: ( (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' ) )
-            // InternalXHDL.g:618:2: (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' )
+            // InternalXHDL.g:701:2: ( (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' ) )
+            // InternalXHDL.g:702:2: (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' )
             {
-            // InternalXHDL.g:618:2: (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' )
-            // InternalXHDL.g:619:3: this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';'
+            // InternalXHDL.g:702:2: (this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';' )
+            // InternalXHDL.g:703:3: this_ID_0= RULE_ID kw= '=' this_INT_2= RULE_INT this_ID_3= RULE_ID kw= ';'
             {
             this_ID_0=(Token)match(input,RULE_ID,FOLLOW_19); 
 
@@ -1621,7 +1759,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleXEnums"
-    // InternalXHDL.g:654:1: entryRuleXEnums returns [String current=null] : iv_ruleXEnums= ruleXEnums EOF ;
+    // InternalXHDL.g:738:1: entryRuleXEnums returns [String current=null] : iv_ruleXEnums= ruleXEnums EOF ;
     public final String entryRuleXEnums() throws RecognitionException {
         String current = null;
 
@@ -1629,8 +1767,8 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalXHDL.g:654:46: (iv_ruleXEnums= ruleXEnums EOF )
-            // InternalXHDL.g:655:2: iv_ruleXEnums= ruleXEnums EOF
+            // InternalXHDL.g:738:46: (iv_ruleXEnums= ruleXEnums EOF )
+            // InternalXHDL.g:739:2: iv_ruleXEnums= ruleXEnums EOF
             {
              newCompositeNode(grammarAccess.getXEnumsRule()); 
             pushFollow(FOLLOW_1);
@@ -1657,7 +1795,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleXEnums"
-    // InternalXHDL.g:661:1: ruleXEnums returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' ) ;
+    // InternalXHDL.g:745:1: ruleXEnums returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' ) ;
     public final AntlrDatatypeRuleToken ruleXEnums() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1668,18 +1806,18 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalXHDL.g:667:2: ( (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' ) )
-            // InternalXHDL.g:668:2: (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' )
+            // InternalXHDL.g:751:2: ( (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' ) )
+            // InternalXHDL.g:752:2: (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' )
             {
-            // InternalXHDL.g:668:2: (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' )
-            // InternalXHDL.g:669:3: kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')'
+            // InternalXHDL.g:752:2: (kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')' )
+            // InternalXHDL.g:753:3: kw= '(' ( (kw= ',' )? this_ID_2= RULE_ID )* kw= ')'
             {
             kw=(Token)match(input,21,FOLLOW_20); 
 
             			current.merge(kw);
             			newLeafNode(kw, grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_0());
             		
-            // InternalXHDL.g:674:3: ( (kw= ',' )? this_ID_2= RULE_ID )*
+            // InternalXHDL.g:758:3: ( (kw= ',' )? this_ID_2= RULE_ID )*
             loop8:
             do {
                 int alt8=2;
@@ -1692,9 +1830,9 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalXHDL.g:675:4: (kw= ',' )? this_ID_2= RULE_ID
+            	    // InternalXHDL.g:759:4: (kw= ',' )? this_ID_2= RULE_ID
             	    {
-            	    // InternalXHDL.g:675:4: (kw= ',' )?
+            	    // InternalXHDL.g:759:4: (kw= ',' )?
             	    int alt7=2;
             	    int LA7_0 = input.LA(1);
 
@@ -1703,7 +1841,7 @@ public class InternalXHDLParser extends AbstractInternalAntlrParser {
             	    }
             	    switch (alt7) {
             	        case 1 :
-            	            // InternalXHDL.g:676:5: kw= ','
+            	            // InternalXHDL.g:760:5: kw= ','
             	            {
             	            kw=(Token)match(input,29,FOLLOW_4); 
 

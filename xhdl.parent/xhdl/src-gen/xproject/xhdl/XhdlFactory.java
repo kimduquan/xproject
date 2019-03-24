@@ -114,69 +114,6 @@ public interface XhdlFactory extends EFactory
   XUnits createXUnits();
 
   /**
-   * Returns a new object of class '<em>attribute</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>attribute</em>'.
-   * @generated
-   */
-  attribute createattribute();
-
-  /**
-   * Returns a new object of class '<em>subtype</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>subtype</em>'.
-   * @generated
-   */
-  subtype createsubtype();
-
-  /**
-   * Returns a new object of class '<em>signal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>signal</em>'.
-   * @generated
-   */
-  signal createsignal();
-
-  /**
-   * Returns a new object of class '<em>type</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>type</em>'.
-   * @generated
-   */
-  type createtype();
-
-  /**
-   * Returns a new object of class '<em>array</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>array</em>'.
-   * @generated
-   */
-  array createarray();
-
-  /**
-   * Returns a new object of class '<em>range</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>range</em>'.
-   * @generated
-   */
-  range createrange();
-
-  /**
-   * Returns a new object of class '<em>units</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>units</em>'.
-   * @generated
-   */
-  units createunits();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
