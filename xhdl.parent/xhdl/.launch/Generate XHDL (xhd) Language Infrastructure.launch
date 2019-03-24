@@ -12,7 +12,7 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;resources&gt;&#10;&lt;item path=&quot;/xhdl.parent&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.ide&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.ui&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.web&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.target&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.feature&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.repository&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.ui.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/xhdl.ui.tests&quot; type=&quot;4&quot;/&gt;&#10;;&lt;/resources&gt;}"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="xproject.xhdl.GenerateXHDL"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="xproject.GenerateXHDL"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="xhdl"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m"/>
 </launchConfiguration>
