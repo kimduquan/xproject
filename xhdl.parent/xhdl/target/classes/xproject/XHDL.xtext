@@ -1,9 +1,53 @@
 grammar xproject.XHDL with org.eclipse.xtext.common.Terminals
 
-generate xhdl "http://www.XHDL.xproject"
+generate xhdl "http://www.xproject.org/xhdl"
 
-Model:
-	greetings+=Greeting*;
-	
-Greeting:
-	'Hello' name=ID '!';
+xhdl:
+	(packages+=XPackage)*
+;
+
+XPackage:
+	'package' name=ID 'is' 
+		(elements+=XElement)*
+	'end' ID ';'
+;
+
+XElement:
+	XType | XSignal | XSubType | XAttribute
+;
+
+XAttribute:
+	{attribute} 'attribute' ID ':' ID ';'
+;
+
+XSubType:
+	{subtype} 'subtype' ID 'is' ID ';'
+;
+
+XSignal:
+	{signal} 'signal' ID ';'
+;
+
+XType:
+	{type} 'type' name=ID 'is' XEnums | XRange | XArray ';'
+;
+
+XArray:
+	{array} 'array' '(' ID 'range' '<>' ')' 'of' ID
+;
+
+XRange:
+	{range} 'range' INT 'to' INT (XUnits)?
+;
+
+XUnits:
+	{units} 'units' (units+=XUnit)* 'end' 'units'
+;
+
+XUnit:
+	ID '=' INT ID ';'
+;
+
+XEnums:
+	'(' (','? ID)* ')'
+;

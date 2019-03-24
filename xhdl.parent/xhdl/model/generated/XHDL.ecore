@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="xhdl" nsURI="http://www.xproject.org/xhdl" nsPrefix="xhdl">
+  <eClassifiers xsi:type="ecore:EClass" name="xhdl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="packages" upperBound="-1"
+        eType="#//XPackage" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XPackage">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//XElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XAttribute" eSuperTypes="#//XElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XSubType" eSuperTypes="#//XElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XSignal" eSuperTypes="#//XElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XType" eSuperTypes="#//XElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XArray" eSuperTypes="#//XType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XRange" eSuperTypes="#//XType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XUnits" eSuperTypes="#//XRange"/>
+  <eClassifiers xsi:type="ecore:EClass" name="attribute" eSuperTypes="#//XAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="subtype" eSuperTypes="#//XSubType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="signal" eSuperTypes="#//XSignal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="type" eSuperTypes="#//XType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="array" eSuperTypes="#//XArray"/>
+  <eClassifiers xsi:type="ecore:EClass" name="range" eSuperTypes="#//XRange"/>
+  <eClassifiers xsi:type="ecore:EClass" name="units" eSuperTypes="#//XUnits">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="units" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
