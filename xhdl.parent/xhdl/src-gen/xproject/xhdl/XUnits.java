@@ -5,6 +5,8 @@ package xproject.xhdl;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>XUnits</b></em>'.
@@ -14,29 +16,29 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.XUnits#getUnits <em>Units</em>}</li>
+ *   <li>{@link xproject.xhdl.XUnits#getXunits <em>Xunits</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXUnits()
  * @model
  * @generated
  */
-public interface XUnits extends XRange
+public interface XUnits extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Units</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Xunits</b></em>' containment reference list.
+   * The list contents are of type {@link xproject.xhdl.XUnit}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Units</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Xunits</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Units</em>' attribute list.
-   * @see xproject.xhdl.XhdlPackage#getXUnits_Units()
-   * @model unique="false"
+   * @return the value of the '<em>Xunits</em>' containment reference list.
+   * @see xproject.xhdl.XhdlPackage#getXUnits_Xunits()
+   * @model containment="true"
    * @generated
    */
-  EList<String> getUnits();
+  EList<XUnit> getXunits();
 
 } // XUnits

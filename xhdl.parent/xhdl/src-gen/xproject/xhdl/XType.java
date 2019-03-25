@@ -9,6 +9,15 @@ package xproject.xhdl;
  * A representation of the model object '<em><b>XType</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.XType#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.XType#getXenums <em>Xenums</em>}</li>
+ *   <li>{@link xproject.xhdl.XType#getXrange <em>Xrange</em>}</li>
+ *   <li>{@link xproject.xhdl.XType#getXarray <em>Xarray</em>}</li>
+ * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXType()
  * @model
@@ -16,4 +25,108 @@ package xproject.xhdl;
  */
 public interface XType extends XElement
 {
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see xproject.xhdl.XhdlPackage#getXType_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XType#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Xenums</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xenums</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xenums</em>' containment reference.
+   * @see #setXenums(XEnums)
+   * @see xproject.xhdl.XhdlPackage#getXType_Xenums()
+   * @model containment="true"
+   * @generated
+   */
+  XEnums getXenums();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XType#getXenums <em>Xenums</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xenums</em>' containment reference.
+   * @see #getXenums()
+   * @generated
+   */
+  void setXenums(XEnums value);
+
+  /**
+   * Returns the value of the '<em><b>Xrange</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xrange</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xrange</em>' containment reference.
+   * @see #setXrange(XRange)
+   * @see xproject.xhdl.XhdlPackage#getXType_Xrange()
+   * @model containment="true"
+   * @generated
+   */
+  XRange getXrange();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XType#getXrange <em>Xrange</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xrange</em>' containment reference.
+   * @see #getXrange()
+   * @generated
+   */
+  void setXrange(XRange value);
+
+  /**
+   * Returns the value of the '<em><b>Xarray</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xarray</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xarray</em>' containment reference.
+   * @see #setXarray(XArray)
+   * @see xproject.xhdl.XhdlPackage#getXType_Xarray()
+   * @model containment="true"
+   * @generated
+   */
+  XArray getXarray();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XType#getXarray <em>Xarray</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xarray</em>' containment reference.
+   * @see #getXarray()
+   * @generated
+   */
+  void setXarray(XArray value);
+
 } // XType

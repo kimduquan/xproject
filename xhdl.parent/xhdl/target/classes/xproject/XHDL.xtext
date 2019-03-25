@@ -1,4 +1,4 @@
-grammar xproject.XHDL with org.eclipse.xtext.common.Terminals
+grammar xproject.XHDL with org.eclipse.xtext.common.Terminals hidden(WS, COMMENT)
 
 generate xhdl "http://www.xproject.org/xhdl"
 
@@ -6,48 +6,74 @@ xhdl:
 	(packages+=XPackage)*
 ;
 
+terminal COMMENT : '--' !('\n'|'\r')* ('\r'? '\n')?;
+
+XPackageRef:
+	name=ID
+;
+
 XPackage:
 	{XPackage} 'package' name=ID 'is' 
-		(elements+=XElement)*
-	'end' ID ';'
+		(xis+=XElement)*
+	'end' xend=[XPackageRef] ';'
+;
+
+XTypeRef:
+	{XTypeRef} name=ID
 ;
 
 XElement:
-	XType | XSignal | XSubType | XAttribute
+	XType | XSignal | XSubType | XAttribute | XImpure
 ;
 
 XAttribute:
-	{XAttribute} 'attribute' name=ID ':' type=[XType] ';'
+	{XAttribute} 'attribute' name=ID ':' xtype=[XTypeRef] ';'
 ;
 
 XSubType:
-	{XSubType} 'subtype' name=ID 'is' is=[XType] ';'
+	{XSubType} 'subtype' name=ID 'is' xis=[XTypeRef] ';'
 ;
 
 XSignal:
-	{XSignal} 'signal' name=ID ';'
+	{XSignal} 'signal' name=ID ':' xtype=[XTypeRef] (';=' ID)? ';'
 ;
 
 XType:
-	{XType} 'type' name=ID 'is' XEnums | XRange | XArray ';'
+	{XType} 'type' name=ID 'is' xenums=XEnums | xrange=XRange | xarray=XArray ';'
 ;
 
 XArray:
-	{XArray} 'array' '(' ID 'range' '<>' ')' 'of' type=[XType]
+	{XArray} 'array' '(' xrange=[XTypeRef] 'range' '<>' ')' 'of' xof=[XTypeRef]
 ;
 
 XRange:
-	{XRange} 'range' INT 'to' INT (XUnits)?
+	{XRange} 'range' xfrom=[XRangeValue] 'to' xto=[XRangeValue] (xunits=XUnits)?
+;
+
+XRangeValue:
+	{XRangeValue} (xvalue=INT (xunit=[XUnitRef])?) | {XRangeValue} (ID & '\'' & ID)
 ;
 
 XUnits:
-	{XUnits} 'units' (units+=XUnit)* 'end' 'units'
+	{XUnits} 'units' (xunits+=XUnit)* 'end' 'units'
+;
+
+XUnitRef:
+	{XUnitRef} name=ID
 ;
 
 XUnit:
-	ID '=' INT ID ';'
+	{XUnit} name=ID ('=' xvalue=INT xbased=[XUnitRef])? ';'
 ;
 
 XEnums:
-	'(' (','? ID)* ')'
+	{XEnums} '(' (','? xenums+=ID)* ')'
+;
+
+XFunctionRef:
+	{XFunctionRef} 'function' name=ID 'return' xreturn=[XTypeRef] 
+;
+
+XImpure:
+	'impure' xfunc=[XFunctionRef] ';'
 ;

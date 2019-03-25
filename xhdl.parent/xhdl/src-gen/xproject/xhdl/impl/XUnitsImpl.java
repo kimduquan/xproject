@@ -5,12 +5,19 @@ package xproject.xhdl.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import xproject.xhdl.XUnit;
 import xproject.xhdl.XUnits;
 import xproject.xhdl.XhdlPackage;
 
@@ -22,22 +29,22 @@ import xproject.xhdl.XhdlPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.impl.XUnitsImpl#getUnits <em>Units</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XUnitsImpl#getXunits <em>Xunits</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class XUnitsImpl extends XRangeImpl implements XUnits
+public class XUnitsImpl extends MinimalEObjectImpl.Container implements XUnits
 {
   /**
-   * The cached value of the '{@link #getUnits() <em>Units</em>}' attribute list.
+   * The cached value of the '{@link #getXunits() <em>Xunits</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnits()
+   * @see #getXunits()
    * @generated
    * @ordered
    */
-  protected EList<String> units;
+  protected EList<XUnit> xunits;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,13 +72,29 @@ public class XUnitsImpl extends XRangeImpl implements XUnits
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getUnits()
+  public EList<XUnit> getXunits()
   {
-    if (units == null)
+    if (xunits == null)
     {
-      units = new EDataTypeEList<String>(String.class, this, XhdlPackage.XUNITS__UNITS);
+      xunits = new EObjectContainmentEList<XUnit>(XUnit.class, this, XhdlPackage.XUNITS__XUNITS);
     }
-    return units;
+    return xunits;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XUNITS__XUNITS:
+        return ((InternalEList<?>)getXunits()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -84,8 +107,8 @@ public class XUnitsImpl extends XRangeImpl implements XUnits
   {
     switch (featureID)
     {
-      case XhdlPackage.XUNITS__UNITS:
-        return getUnits();
+      case XhdlPackage.XUNITS__XUNITS:
+        return getXunits();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -101,9 +124,9 @@ public class XUnitsImpl extends XRangeImpl implements XUnits
   {
     switch (featureID)
     {
-      case XhdlPackage.XUNITS__UNITS:
-        getUnits().clear();
-        getUnits().addAll((Collection<? extends String>)newValue);
+      case XhdlPackage.XUNITS__XUNITS:
+        getXunits().clear();
+        getXunits().addAll((Collection<? extends XUnit>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -119,8 +142,8 @@ public class XUnitsImpl extends XRangeImpl implements XUnits
   {
     switch (featureID)
     {
-      case XhdlPackage.XUNITS__UNITS:
-        getUnits().clear();
+      case XhdlPackage.XUNITS__XUNITS:
+        getXunits().clear();
         return;
     }
     super.eUnset(featureID);
@@ -136,27 +159,10 @@ public class XUnitsImpl extends XRangeImpl implements XUnits
   {
     switch (featureID)
     {
-      case XhdlPackage.XUNITS__UNITS:
-        return units != null && !units.isEmpty();
+      case XhdlPackage.XUNITS__XUNITS:
+        return xunits != null && !xunits.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (units: ");
-    result.append(units);
-    result.append(')');
-    return result.toString();
   }
 
 } //XUnitsImpl

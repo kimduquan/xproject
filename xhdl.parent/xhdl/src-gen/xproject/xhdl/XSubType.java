@@ -13,7 +13,8 @@ package xproject.xhdl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.XSubType#getIs <em>Is</em>}</li>
+ *   <li>{@link xproject.xhdl.XSubType#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXSubType()
@@ -23,29 +24,55 @@ package xproject.xhdl;
 public interface XSubType extends XElement
 {
   /**
-   * Returns the value of the '<em><b>Is</b></em>' reference.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Is</em>' reference isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Is</em>' reference.
-   * @see #setIs(XType)
-   * @see xproject.xhdl.XhdlPackage#getXSubType_Is()
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see xproject.xhdl.XhdlPackage#getXSubType_Name()
    * @model
    * @generated
    */
-  XType getIs();
+  String getName();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XSubType#getIs <em>Is</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XSubType#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Is</em>' reference.
-   * @see #getIs()
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
    * @generated
    */
-  void setIs(XType value);
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Xis</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xis</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xis</em>' reference.
+   * @see #setXis(XTypeRef)
+   * @see xproject.xhdl.XhdlPackage#getXSubType_Xis()
+   * @model
+   * @generated
+   */
+  XTypeRef getXis();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xis</em>' reference.
+   * @see #getXis()
+   * @generated
+   */
+  void setXis(XTypeRef value);
 
 } // XSubType

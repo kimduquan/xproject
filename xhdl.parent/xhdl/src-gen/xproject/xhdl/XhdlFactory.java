@@ -33,6 +33,15 @@ public interface XhdlFactory extends EFactory
   xhdl createxhdl();
 
   /**
+   * Returns a new object of class '<em>XPackage Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XPackage Ref</em>'.
+   * @generated
+   */
+  XPackageRef createXPackageRef();
+
+  /**
    * Returns a new object of class '<em>XPackage</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -40,6 +49,15 @@ public interface XhdlFactory extends EFactory
    * @generated
    */
   XPackage createXPackage();
+
+  /**
+   * Returns a new object of class '<em>XType Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XType Ref</em>'.
+   * @generated
+   */
+  XTypeRef createXTypeRef();
 
   /**
    * Returns a new object of class '<em>XElement</em>'.
@@ -105,6 +123,15 @@ public interface XhdlFactory extends EFactory
   XRange createXRange();
 
   /**
+   * Returns a new object of class '<em>XRange Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XRange Value</em>'.
+   * @generated
+   */
+  XRangeValue createXRangeValue();
+
+  /**
    * Returns a new object of class '<em>XUnits</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -112,6 +139,51 @@ public interface XhdlFactory extends EFactory
    * @generated
    */
   XUnits createXUnits();
+
+  /**
+   * Returns a new object of class '<em>XUnit Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XUnit Ref</em>'.
+   * @generated
+   */
+  XUnitRef createXUnitRef();
+
+  /**
+   * Returns a new object of class '<em>XUnit</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XUnit</em>'.
+   * @generated
+   */
+  XUnit createXUnit();
+
+  /**
+   * Returns a new object of class '<em>XEnums</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XEnums</em>'.
+   * @generated
+   */
+  XEnums createXEnums();
+
+  /**
+   * Returns a new object of class '<em>XFunction Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XFunction Ref</em>'.
+   * @generated
+   */
+  XFunctionRef createXFunctionRef();
+
+  /**
+   * Returns a new object of class '<em>XImpure</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XImpure</em>'.
+   * @generated
+   */
+  XImpure createXImpure();
 
   /**
    * Returns the package supported by this factory.

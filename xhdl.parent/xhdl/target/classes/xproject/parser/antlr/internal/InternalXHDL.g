@@ -148,17 +148,17 @@ ruleXPackage returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getXPackageAccess().getXisXElementParserRuleCall_4_0());
 				}
-				lv_elements_4_0=ruleXElement
+				lv_xis_4_0=ruleXElement
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getXPackageRule());
 					}
 					add(
 						$current,
-						"elements",
-						lv_elements_4_0,
+						"xis",
+						lv_xis_4_0,
 						"xproject.XHDL.XElement");
 					afterParserOrEnumRuleCall();
 				}
@@ -168,10 +168,19 @@ ruleXPackage returns [EObject current=null]
 		{
 			newLeafNode(otherlv_5, grammarAccess.getXPackageAccess().getEndKeyword_5());
 		}
-		this_ID_6=RULE_ID
-		{
-			newLeafNode(this_ID_6, grammarAccess.getXPackageAccess().getIDTerminalRuleCall_6());
-		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXPackageRule());
+					}
+				}
+				otherlv_6=RULE_ID
+				{
+					newLeafNode(otherlv_6, grammarAccess.getXPackageAccess().getXendXPackageRefCrossReference_6_0());
+				}
+			)
+		)
 		otherlv_7=';'
 		{
 			newLeafNode(otherlv_7, grammarAccess.getXPackageAccess().getSemicolonKeyword_7());
@@ -228,6 +237,15 @@ ruleXElement returns [EObject current=null]
 		this_XAttribute_3=ruleXAttribute
 		{
 			$current = $this_XAttribute_3.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getXElementAccess().getXImpureParserRuleCall_4());
+		}
+		this_XImpure_4=ruleXImpure
+		{
+			$current = $this_XImpure_4.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -291,7 +309,7 @@ ruleXAttribute returns [EObject current=null]
 				}
 				otherlv_4=RULE_ID
 				{
-					newLeafNode(otherlv_4, grammarAccess.getXAttributeAccess().getTypeXTypeCrossReference_4_0());
+					newLeafNode(otherlv_4, grammarAccess.getXAttributeAccess().getXtypeXTypeRefCrossReference_4_0());
 				}
 			)
 		)
@@ -360,7 +378,7 @@ ruleXSubType returns [EObject current=null]
 				}
 				otherlv_4=RULE_ID
 				{
-					newLeafNode(otherlv_4, grammarAccess.getXSubTypeAccess().getIsXTypeCrossReference_4_0());
+					newLeafNode(otherlv_4, grammarAccess.getXSubTypeAccess().getXisXTypeRefCrossReference_4_0());
 				}
 			)
 		)
@@ -416,9 +434,36 @@ ruleXSignal returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3=';'
+		otherlv_3=':'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getXSignalAccess().getSemicolonKeyword_3());
+			newLeafNode(otherlv_3, grammarAccess.getXSignalAccess().getColonKeyword_3());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXSignalRule());
+					}
+				}
+				otherlv_4=RULE_ID
+				{
+					newLeafNode(otherlv_4, grammarAccess.getXSignalAccess().getXtypeXTypeRefCrossReference_4_0());
+				}
+			)
+		)
+		(
+			otherlv_5=';='
+			{
+				newLeafNode(otherlv_5, grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_5_0());
+			}
+			this_ID_6=RULE_ID
+			{
+				newLeafNode(this_ID_6, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_5_1());
+			}
+		)?
+		otherlv_7=';'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getXSignalAccess().getSemicolonKeyword_6());
 		}
 	)
 ;
@@ -473,33 +518,67 @@ ruleXType returns [EObject current=null]
 			{
 				newLeafNode(otherlv_3, grammarAccess.getXTypeAccess().getIsKeyword_0_3());
 			}
-			{
-				newCompositeNode(grammarAccess.getXTypeAccess().getXEnumsParserRuleCall_0_4());
-			}
-			ruleXEnums
-			{
-				afterParserOrEnumRuleCall();
-			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getXTypeAccess().getXenumsXEnumsParserRuleCall_0_4_0());
+					}
+					lv_xenums_4_0=ruleXEnums
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getXTypeRule());
+						}
+						set(
+							$current,
+							"xenums",
+							lv_xenums_4_0,
+							"xproject.XHDL.XEnums");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
 		)
 		    |
-		{
-			newCompositeNode(grammarAccess.getXTypeAccess().getXRangeParserRuleCall_1());
-		}
-		this_XRange_5=ruleXRange
-		{
-			$current = $this_XRange_5.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getXTypeAccess().getXrangeXRangeParserRuleCall_1_0());
+				}
+				lv_xrange_5_0=ruleXRange
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getXTypeRule());
+					}
+					set(
+						$current,
+						"xrange",
+						lv_xrange_5_0,
+						"xproject.XHDL.XRange");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 		    |
 		(
-			{
-				newCompositeNode(grammarAccess.getXTypeAccess().getXArrayParserRuleCall_2_0());
-			}
-			this_XArray_6=ruleXArray
-			{
-				$current = $this_XArray_6.current;
-				afterParserOrEnumRuleCall();
-			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getXTypeAccess().getXarrayXArrayParserRuleCall_2_0_0());
+					}
+					lv_xarray_6_0=ruleXArray
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getXTypeRule());
+						}
+						set(
+							$current,
+							"xarray",
+							lv_xarray_6_0,
+							"xproject.XHDL.XArray");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
 			otherlv_7=';'
 			{
 				newLeafNode(otherlv_7, grammarAccess.getXTypeAccess().getSemicolonKeyword_2_1());
@@ -539,10 +618,19 @@ ruleXArray returns [EObject current=null]
 		{
 			newLeafNode(otherlv_2, grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2());
 		}
-		this_ID_3=RULE_ID
-		{
-			newLeafNode(this_ID_3, grammarAccess.getXArrayAccess().getIDTerminalRuleCall_3());
-		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXArrayRule());
+					}
+				}
+				otherlv_3=RULE_ID
+				{
+					newLeafNode(otherlv_3, grammarAccess.getXArrayAccess().getXrangeXTypeRefCrossReference_3_0());
+				}
+			)
+		)
 		otherlv_4='range'
 		{
 			newLeafNode(otherlv_4, grammarAccess.getXArrayAccess().getRangeKeyword_4());
@@ -568,7 +656,7 @@ ruleXArray returns [EObject current=null]
 				}
 				otherlv_8=RULE_ID
 				{
-					newLeafNode(otherlv_8, grammarAccess.getXArrayAccess().getTypeXTypeCrossReference_8_0());
+					newLeafNode(otherlv_8, grammarAccess.getXArrayAccess().getXofXTypeRefCrossReference_8_0());
 				}
 			)
 		)
@@ -602,27 +690,54 @@ ruleXRange returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getXRangeAccess().getRangeKeyword_1());
 		}
-		this_INT_2=RULE_INT
-		{
-			newLeafNode(this_INT_2, grammarAccess.getXRangeAccess().getINTTerminalRuleCall_2());
-		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXRangeRule());
+					}
+				}
+				otherlv_2=RULE_ID
+				{
+					newLeafNode(otherlv_2, grammarAccess.getXRangeAccess().getXfromXRangeValueCrossReference_2_0());
+				}
+			)
+		)
 		otherlv_3='to'
 		{
 			newLeafNode(otherlv_3, grammarAccess.getXRangeAccess().getToKeyword_3());
 		}
-		this_INT_4=RULE_INT
-		{
-			newLeafNode(this_INT_4, grammarAccess.getXRangeAccess().getINTTerminalRuleCall_4());
-		}
 		(
-			{
-				newCompositeNode(grammarAccess.getXRangeAccess().getXUnitsParserRuleCall_5());
-			}
-			this_XUnits_5=ruleXUnits
-			{
-				$current = $this_XUnits_5.current;
-				afterParserOrEnumRuleCall();
-			}
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXRangeRule());
+					}
+				}
+				otherlv_4=RULE_ID
+				{
+					newLeafNode(otherlv_4, grammarAccess.getXRangeAccess().getXtoXRangeValueCrossReference_4_0());
+				}
+			)
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getXRangeAccess().getXunitsXUnitsParserRuleCall_5_0());
+				}
+				lv_xunits_5_0=ruleXUnits
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getXRangeRule());
+					}
+					set(
+						$current,
+						"xunits",
+						lv_xunits_5_0,
+						"xproject.XHDL.XUnits");
+					afterParserOrEnumRuleCall();
+				}
+			)
 		)?
 	)
 ;
@@ -657,17 +772,17 @@ ruleXUnits returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getXUnitsAccess().getUnitsXUnitParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getXUnitsAccess().getXunitsXUnitParserRuleCall_2_0());
 				}
-				lv_units_2_0=ruleXUnit
+				lv_xunits_2_0=ruleXUnit
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getXUnitsRule());
 					}
 					add(
 						$current,
-						"units",
-						lv_units_2_0,
+						"xunits",
+						lv_xunits_2_0,
 						"xproject.XHDL.XUnit");
 					afterParserOrEnumRuleCall();
 				}
@@ -685,14 +800,14 @@ ruleXUnits returns [EObject current=null]
 ;
 
 // Entry rule entryRuleXUnit
-entryRuleXUnit returns [String current=null]:
+entryRuleXUnit returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getXUnitRule()); }
 	iv_ruleXUnit=ruleXUnit
-	{ $current=$iv_ruleXUnit.current.getText(); }
+	{ $current=$iv_ruleXUnit.current; }
 	EOF;
 
 // Rule XUnit
-ruleXUnit returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+ruleXUnit returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -700,49 +815,84 @@ ruleXUnit returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 	leaveRule();
 }:
 	(
-		this_ID_0=RULE_ID
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXUnitAccess().getXUnitAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getXUnitAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXUnitRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		(
+			otherlv_2='='
+			{
+				newLeafNode(otherlv_2, grammarAccess.getXUnitAccess().getEqualsSignKeyword_2_0());
+			}
+			(
+				(
+					lv_xvalue_3_0=RULE_INT
+					{
+						newLeafNode(lv_xvalue_3_0, grammarAccess.getXUnitAccess().getXvalueINTTerminalRuleCall_2_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getXUnitRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"xvalue",
+							lv_xvalue_3_0,
+							"org.eclipse.xtext.common.Terminals.INT");
+					}
+				)
+			)
+			(
+				(
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getXUnitRule());
+						}
+					}
+					otherlv_4=RULE_ID
+					{
+						newLeafNode(otherlv_4, grammarAccess.getXUnitAccess().getXbasedXUnitRefCrossReference_2_2_0());
+					}
+				)
+			)
+		)?
+		otherlv_5=';'
 		{
-			$current.merge(this_ID_0);
-		}
-		{
-			newLeafNode(this_ID_0, grammarAccess.getXUnitAccess().getIDTerminalRuleCall_0());
-		}
-		kw='='
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getXUnitAccess().getEqualsSignKeyword_1());
-		}
-		this_INT_2=RULE_INT
-		{
-			$current.merge(this_INT_2);
-		}
-		{
-			newLeafNode(this_INT_2, grammarAccess.getXUnitAccess().getINTTerminalRuleCall_2());
-		}
-		this_ID_3=RULE_ID
-		{
-			$current.merge(this_ID_3);
-		}
-		{
-			newLeafNode(this_ID_3, grammarAccess.getXUnitAccess().getIDTerminalRuleCall_3());
-		}
-		kw=';'
-		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getXUnitAccess().getSemicolonKeyword_4());
+			newLeafNode(otherlv_5, grammarAccess.getXUnitAccess().getSemicolonKeyword_3());
 		}
 	)
 ;
 
 // Entry rule entryRuleXEnums
-entryRuleXEnums returns [String current=null]:
+entryRuleXEnums returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getXEnumsRule()); }
 	iv_ruleXEnums=ruleXEnums
-	{ $current=$iv_ruleXEnums.current.getText(); }
+	{ $current=$iv_ruleXEnums.current; }
 	EOF;
 
 // Rule XEnums
-ruleXEnums returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+ruleXEnums returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -750,34 +900,91 @@ ruleXEnums returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 	leaveRule();
 }:
 	(
-		kw='('
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXEnumsAccess().getXEnumsAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='('
 		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_0());
+			newLeafNode(otherlv_1, grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_1());
 		}
 		(
 			(
-				kw=','
+				otherlv_2=','
 				{
-					$current.merge(kw);
-					newLeafNode(kw, grammarAccess.getXEnumsAccess().getCommaKeyword_1_0());
+					newLeafNode(otherlv_2, grammarAccess.getXEnumsAccess().getCommaKeyword_2_0());
 				}
 			)?
-			this_ID_2=RULE_ID
-			{
-				$current.merge(this_ID_2);
-			}
-			{
-				newLeafNode(this_ID_2, grammarAccess.getXEnumsAccess().getIDTerminalRuleCall_1_1());
-			}
+			(
+				(
+					lv_xenums_3_0=RULE_ID
+					{
+						newLeafNode(lv_xenums_3_0, grammarAccess.getXEnumsAccess().getXenumsIDTerminalRuleCall_2_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getXEnumsRule());
+						}
+						addWithLastConsumed(
+							$current,
+							"xenums",
+							lv_xenums_3_0,
+							"org.eclipse.xtext.common.Terminals.ID");
+					}
+				)
+			)
 		)*
-		kw=')'
+		otherlv_4=')'
 		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_2());
+			newLeafNode(otherlv_4, grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_3());
 		}
 	)
 ;
+
+// Entry rule entryRuleXImpure
+entryRuleXImpure returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getXImpureRule()); }
+	iv_ruleXImpure=ruleXImpure
+	{ $current=$iv_ruleXImpure.current; }
+	EOF;
+
+// Rule XImpure
+ruleXImpure returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='impure'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getXImpureAccess().getImpureKeyword_0());
+		}
+		(
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXImpureRule());
+					}
+				}
+				otherlv_1=RULE_ID
+				{
+					newLeafNode(otherlv_1, grammarAccess.getXImpureAccess().getXfuncXFunctionRefCrossReference_1_0());
+				}
+			)
+		)
+		otherlv_2=';'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getXImpureAccess().getSemicolonKeyword_2());
+		}
+	)
+;
+
+RULE_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

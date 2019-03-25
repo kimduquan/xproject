@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import xproject.xhdl.XAttribute;
-import xproject.xhdl.XType;
+import xproject.xhdl.XTypeRef;
 import xproject.xhdl.XhdlPackage;
 
 /**
@@ -22,7 +22,8 @@ import xproject.xhdl.XhdlPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.impl.XAttributeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XAttributeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XAttributeImpl#getXtype <em>Xtype</em>}</li>
  * </ul>
  *
  * @generated
@@ -30,14 +31,34 @@ import xproject.xhdl.XhdlPackage;
 public class XAttributeImpl extends XElementImpl implements XAttribute
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected XType type;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getXtype() <em>Xtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXtype()
+   * @generated
+   * @ordered
+   */
+  protected XTypeRef xtype;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,19 +86,42 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
    * <!-- end-user-doc -->
    * @generated
    */
-  public XType getType()
+  public String getName()
   {
-    if (type != null && type.eIsProxy())
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XATTRIBUTE__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef getXtype()
+  {
+    if (xtype != null && xtype.eIsProxy())
     {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (XType)eResolveProxy(oldType);
-      if (type != oldType)
+      InternalEObject oldXtype = (InternalEObject)xtype;
+      xtype = (XTypeRef)eResolveProxy(oldXtype);
+      if (xtype != oldXtype)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XATTRIBUTE__TYPE, oldType, type));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XATTRIBUTE__XTYPE, oldXtype, xtype));
       }
     }
-    return type;
+    return xtype;
   }
 
   /**
@@ -85,9 +129,9 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
    * <!-- end-user-doc -->
    * @generated
    */
-  public XType basicGetType()
+  public XTypeRef basicGetXtype()
   {
-    return type;
+    return xtype;
   }
 
   /**
@@ -95,12 +139,12 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(XType newType)
+  public void setXtype(XTypeRef newXtype)
   {
-    XType oldType = type;
-    type = newType;
+    XTypeRef oldXtype = xtype;
+    xtype = newXtype;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XATTRIBUTE__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XATTRIBUTE__XTYPE, oldXtype, xtype));
   }
 
   /**
@@ -113,9 +157,11 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
   {
     switch (featureID)
     {
-      case XhdlPackage.XATTRIBUTE__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+      case XhdlPackage.XATTRIBUTE__NAME:
+        return getName();
+      case XhdlPackage.XATTRIBUTE__XTYPE:
+        if (resolve) return getXtype();
+        return basicGetXtype();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -130,8 +176,11 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
   {
     switch (featureID)
     {
-      case XhdlPackage.XATTRIBUTE__TYPE:
-        setType((XType)newValue);
+      case XhdlPackage.XATTRIBUTE__NAME:
+        setName((String)newValue);
+        return;
+      case XhdlPackage.XATTRIBUTE__XTYPE:
+        setXtype((XTypeRef)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,8 +196,11 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
   {
     switch (featureID)
     {
-      case XhdlPackage.XATTRIBUTE__TYPE:
-        setType((XType)null);
+      case XhdlPackage.XATTRIBUTE__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case XhdlPackage.XATTRIBUTE__XTYPE:
+        setXtype((XTypeRef)null);
         return;
     }
     super.eUnset(featureID);
@@ -164,10 +216,29 @@ public class XAttributeImpl extends XElementImpl implements XAttribute
   {
     switch (featureID)
     {
-      case XhdlPackage.XATTRIBUTE__TYPE:
-        return type != null;
+      case XhdlPackage.XATTRIBUTE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case XhdlPackage.XATTRIBUTE__XTYPE:
+        return xtype != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //XAttributeImpl

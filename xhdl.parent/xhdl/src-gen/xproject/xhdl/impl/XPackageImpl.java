@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import xproject.xhdl.XElement;
 import xproject.xhdl.XPackage;
+import xproject.xhdl.XPackageRef;
 import xproject.xhdl.XhdlPackage;
 
 /**
@@ -32,7 +33,8 @@ import xproject.xhdl.XhdlPackage;
  * </p>
  * <ul>
  *   <li>{@link xproject.xhdl.impl.XPackageImpl#getName <em>Name</em>}</li>
- *   <li>{@link xproject.xhdl.impl.XPackageImpl#getElements <em>Elements</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XPackageImpl#getXis <em>Xis</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XPackageImpl#getXend <em>Xend</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,14 +62,24 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
+   * The cached value of the '{@link #getXis() <em>Xis</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getElements()
+   * @see #getXis()
    * @generated
    * @ordered
    */
-  protected EList<XElement> elements;
+  protected EList<XElement> xis;
+
+  /**
+   * The cached value of the '{@link #getXend() <em>Xend</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXend()
+   * @generated
+   * @ordered
+   */
+  protected XPackageRef xend;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,13 +130,56 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XElement> getElements()
+  public EList<XElement> getXis()
   {
-    if (elements == null)
+    if (xis == null)
     {
-      elements = new EObjectContainmentEList<XElement>(XElement.class, this, XhdlPackage.XPACKAGE__ELEMENTS);
+      xis = new EObjectContainmentEList<XElement>(XElement.class, this, XhdlPackage.XPACKAGE__XIS);
     }
-    return elements;
+    return xis;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XPackageRef getXend()
+  {
+    if (xend != null && xend.eIsProxy())
+    {
+      InternalEObject oldXend = (InternalEObject)xend;
+      xend = (XPackageRef)eResolveProxy(oldXend);
+      if (xend != oldXend)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XPACKAGE__XEND, oldXend, xend));
+      }
+    }
+    return xend;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XPackageRef basicGetXend()
+  {
+    return xend;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXend(XPackageRef newXend)
+  {
+    XPackageRef oldXend = xend;
+    xend = newXend;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XPACKAGE__XEND, oldXend, xend));
   }
 
   /**
@@ -137,8 +192,8 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
   {
     switch (featureID)
     {
-      case XhdlPackage.XPACKAGE__ELEMENTS:
-        return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
+      case XhdlPackage.XPACKAGE__XIS:
+        return ((InternalEList<?>)getXis()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -155,8 +210,11 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
     {
       case XhdlPackage.XPACKAGE__NAME:
         return getName();
-      case XhdlPackage.XPACKAGE__ELEMENTS:
-        return getElements();
+      case XhdlPackage.XPACKAGE__XIS:
+        return getXis();
+      case XhdlPackage.XPACKAGE__XEND:
+        if (resolve) return getXend();
+        return basicGetXend();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -175,9 +233,12 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
       case XhdlPackage.XPACKAGE__NAME:
         setName((String)newValue);
         return;
-      case XhdlPackage.XPACKAGE__ELEMENTS:
-        getElements().clear();
-        getElements().addAll((Collection<? extends XElement>)newValue);
+      case XhdlPackage.XPACKAGE__XIS:
+        getXis().clear();
+        getXis().addAll((Collection<? extends XElement>)newValue);
+        return;
+      case XhdlPackage.XPACKAGE__XEND:
+        setXend((XPackageRef)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -196,8 +257,11 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
       case XhdlPackage.XPACKAGE__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case XhdlPackage.XPACKAGE__ELEMENTS:
-        getElements().clear();
+      case XhdlPackage.XPACKAGE__XIS:
+        getXis().clear();
+        return;
+      case XhdlPackage.XPACKAGE__XEND:
+        setXend((XPackageRef)null);
         return;
     }
     super.eUnset(featureID);
@@ -215,8 +279,10 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
     {
       case XhdlPackage.XPACKAGE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case XhdlPackage.XPACKAGE__ELEMENTS:
-        return elements != null && !elements.isEmpty();
+      case XhdlPackage.XPACKAGE__XIS:
+        return xis != null && !xis.isEmpty();
+      case XhdlPackage.XPACKAGE__XEND:
+        return xend != null;
     }
     return super.eIsSet(featureID);
   }

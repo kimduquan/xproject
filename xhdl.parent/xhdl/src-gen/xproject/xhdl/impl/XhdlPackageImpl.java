@@ -13,11 +13,19 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import xproject.xhdl.XArray;
 import xproject.xhdl.XAttribute;
 import xproject.xhdl.XElement;
+import xproject.xhdl.XEnums;
+import xproject.xhdl.XFunctionRef;
+import xproject.xhdl.XImpure;
 import xproject.xhdl.XPackage;
+import xproject.xhdl.XPackageRef;
 import xproject.xhdl.XRange;
+import xproject.xhdl.XRangeValue;
 import xproject.xhdl.XSignal;
 import xproject.xhdl.XSubType;
 import xproject.xhdl.XType;
+import xproject.xhdl.XTypeRef;
+import xproject.xhdl.XUnit;
+import xproject.xhdl.XUnitRef;
 import xproject.xhdl.XUnits;
 import xproject.xhdl.XhdlFactory;
 import xproject.xhdl.XhdlPackage;
@@ -43,7 +51,21 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass xPackageRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass xPackageEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xTypeRefEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -99,7 +121,49 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass xRangeValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass xUnitsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xUnitRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xUnitEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xEnumsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xFunctionRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xImpureEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -189,6 +253,26 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getXPackageRef()
+  {
+    return xPackageRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXPackageRef_Name()
+  {
+    return (EAttribute)xPackageRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getXPackage()
   {
     return xPackageEClass;
@@ -209,9 +293,39 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXPackage_Elements()
+  public EReference getXPackage_Xis()
   {
     return (EReference)xPackageEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXPackage_Xend()
+  {
+    return (EReference)xPackageEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXTypeRef()
+  {
+    return xTypeRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXTypeRef_Name()
+  {
+    return (EAttribute)xTypeRefEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -229,16 +343,6 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXElement_Name()
-  {
-    return (EAttribute)xElementEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getXAttribute()
   {
     return xAttributeEClass;
@@ -249,9 +353,19 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXAttribute_Type()
+  public EAttribute getXAttribute_Name()
   {
-    return (EReference)xAttributeEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)xAttributeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXAttribute_Xtype()
+  {
+    return (EReference)xAttributeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -269,9 +383,19 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXSubType_Is()
+  public EAttribute getXSubType_Name()
   {
-    return (EReference)xSubTypeEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)xSubTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXSubType_Xis()
+  {
+    return (EReference)xSubTypeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -289,9 +413,69 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getXSignal_Name()
+  {
+    return (EAttribute)xSignalEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXSignal_Xtype()
+  {
+    return (EReference)xSignalEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getXType()
   {
     return xTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXType_Name()
+  {
+    return (EAttribute)xTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXType_Xenums()
+  {
+    return (EReference)xTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXType_Xrange()
+  {
+    return (EReference)xTypeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXType_Xarray()
+  {
+    return (EReference)xTypeEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -309,9 +493,19 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXArray_Type()
+  public EReference getXArray_Xrange()
   {
     return (EReference)xArrayEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXArray_Xof()
+  {
+    return (EReference)xArrayEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -329,6 +523,66 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getXRange_Xfrom()
+  {
+    return (EReference)xRangeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXRange_Xto()
+  {
+    return (EReference)xRangeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXRange_Xunits()
+  {
+    return (EReference)xRangeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXRangeValue()
+  {
+    return xRangeValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXRangeValue_Xvalue()
+  {
+    return (EAttribute)xRangeValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXRangeValue_Xunit()
+  {
+    return (EReference)xRangeValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getXUnits()
   {
     return xUnitsEClass;
@@ -339,9 +593,139 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXUnits_Units()
+  public EReference getXUnits_Xunits()
   {
-    return (EAttribute)xUnitsEClass.getEStructuralFeatures().get(0);
+    return (EReference)xUnitsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXUnitRef()
+  {
+    return xUnitRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXUnitRef_Name()
+  {
+    return (EAttribute)xUnitRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXUnit()
+  {
+    return xUnitEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXUnit_Name()
+  {
+    return (EAttribute)xUnitEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXUnit_Xvalue()
+  {
+    return (EAttribute)xUnitEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXUnit_Xbased()
+  {
+    return (EReference)xUnitEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXEnums()
+  {
+    return xEnumsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXEnums_Xenums()
+  {
+    return (EAttribute)xEnumsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXFunctionRef()
+  {
+    return xFunctionRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXFunctionRef_Name()
+  {
+    return (EAttribute)xFunctionRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXFunctionRef_Xreturn()
+  {
+    return (EReference)xFunctionRefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXImpure()
+  {
+    return xImpureEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXImpure_Xfunc()
+  {
+    return (EReference)xImpureEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -377,30 +761,70 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     xhdlEClass = createEClass(XHDL);
     createEReference(xhdlEClass, XHDL__PACKAGES);
 
+    xPackageRefEClass = createEClass(XPACKAGE_REF);
+    createEAttribute(xPackageRefEClass, XPACKAGE_REF__NAME);
+
     xPackageEClass = createEClass(XPACKAGE);
     createEAttribute(xPackageEClass, XPACKAGE__NAME);
-    createEReference(xPackageEClass, XPACKAGE__ELEMENTS);
+    createEReference(xPackageEClass, XPACKAGE__XIS);
+    createEReference(xPackageEClass, XPACKAGE__XEND);
+
+    xTypeRefEClass = createEClass(XTYPE_REF);
+    createEAttribute(xTypeRefEClass, XTYPE_REF__NAME);
 
     xElementEClass = createEClass(XELEMENT);
-    createEAttribute(xElementEClass, XELEMENT__NAME);
 
     xAttributeEClass = createEClass(XATTRIBUTE);
-    createEReference(xAttributeEClass, XATTRIBUTE__TYPE);
+    createEAttribute(xAttributeEClass, XATTRIBUTE__NAME);
+    createEReference(xAttributeEClass, XATTRIBUTE__XTYPE);
 
     xSubTypeEClass = createEClass(XSUB_TYPE);
-    createEReference(xSubTypeEClass, XSUB_TYPE__IS);
+    createEAttribute(xSubTypeEClass, XSUB_TYPE__NAME);
+    createEReference(xSubTypeEClass, XSUB_TYPE__XIS);
 
     xSignalEClass = createEClass(XSIGNAL);
+    createEAttribute(xSignalEClass, XSIGNAL__NAME);
+    createEReference(xSignalEClass, XSIGNAL__XTYPE);
 
     xTypeEClass = createEClass(XTYPE);
+    createEAttribute(xTypeEClass, XTYPE__NAME);
+    createEReference(xTypeEClass, XTYPE__XENUMS);
+    createEReference(xTypeEClass, XTYPE__XRANGE);
+    createEReference(xTypeEClass, XTYPE__XARRAY);
 
     xArrayEClass = createEClass(XARRAY);
-    createEReference(xArrayEClass, XARRAY__TYPE);
+    createEReference(xArrayEClass, XARRAY__XRANGE);
+    createEReference(xArrayEClass, XARRAY__XOF);
 
     xRangeEClass = createEClass(XRANGE);
+    createEReference(xRangeEClass, XRANGE__XFROM);
+    createEReference(xRangeEClass, XRANGE__XTO);
+    createEReference(xRangeEClass, XRANGE__XUNITS);
+
+    xRangeValueEClass = createEClass(XRANGE_VALUE);
+    createEAttribute(xRangeValueEClass, XRANGE_VALUE__XVALUE);
+    createEReference(xRangeValueEClass, XRANGE_VALUE__XUNIT);
 
     xUnitsEClass = createEClass(XUNITS);
-    createEAttribute(xUnitsEClass, XUNITS__UNITS);
+    createEReference(xUnitsEClass, XUNITS__XUNITS);
+
+    xUnitRefEClass = createEClass(XUNIT_REF);
+    createEAttribute(xUnitRefEClass, XUNIT_REF__NAME);
+
+    xUnitEClass = createEClass(XUNIT);
+    createEAttribute(xUnitEClass, XUNIT__NAME);
+    createEAttribute(xUnitEClass, XUNIT__XVALUE);
+    createEReference(xUnitEClass, XUNIT__XBASED);
+
+    xEnumsEClass = createEClass(XENUMS);
+    createEAttribute(xEnumsEClass, XENUMS__XENUMS);
+
+    xFunctionRefEClass = createEClass(XFUNCTION_REF);
+    createEAttribute(xFunctionRefEClass, XFUNCTION_REF__NAME);
+    createEReference(xFunctionRefEClass, XFUNCTION_REF__XRETURN);
+
+    xImpureEClass = createEClass(XIMPURE);
+    createEReference(xImpureEClass, XIMPURE__XFUNC);
   }
 
   /**
@@ -436,38 +860,76 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     xSubTypeEClass.getESuperTypes().add(this.getXElement());
     xSignalEClass.getESuperTypes().add(this.getXElement());
     xTypeEClass.getESuperTypes().add(this.getXElement());
-    xArrayEClass.getESuperTypes().add(this.getXType());
-    xRangeEClass.getESuperTypes().add(this.getXType());
-    xUnitsEClass.getESuperTypes().add(this.getXRange());
+    xImpureEClass.getESuperTypes().add(this.getXElement());
 
     // Initialize classes and features; add operations and parameters
     initEClass(xhdlEClass, xhdl.class, "xhdl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getxhdl_Packages(), this.getXPackage(), null, "packages", null, 0, -1, xhdl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(xPackageRefEClass, XPackageRef.class, "XPackageRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXPackageRef_Name(), ecorePackage.getEString(), "name", null, 0, 1, XPackageRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(xPackageEClass, XPackage.class, "XPackage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getXPackage_Name(), ecorePackage.getEString(), "name", null, 0, 1, XPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getXPackage_Elements(), this.getXElement(), null, "elements", null, 0, -1, XPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXPackage_Xis(), this.getXElement(), null, "xis", null, 0, -1, XPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXPackage_Xend(), this.getXPackageRef(), null, "xend", null, 0, 1, XPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xTypeRefEClass, XTypeRef.class, "XTypeRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXTypeRef_Name(), ecorePackage.getEString(), "name", null, 0, 1, XTypeRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xElementEClass, XElement.class, "XElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, XElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xAttributeEClass, XAttribute.class, "XAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXAttribute_Type(), this.getXType(), null, "type", null, 0, 1, XAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getXAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, XAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXAttribute_Xtype(), this.getXTypeRef(), null, "xtype", null, 0, 1, XAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xSubTypeEClass, XSubType.class, "XSubType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXSubType_Is(), this.getXType(), null, "is", null, 0, 1, XSubType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getXSubType_Name(), ecorePackage.getEString(), "name", null, 0, 1, XSubType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXSubType_Xis(), this.getXTypeRef(), null, "xis", null, 0, 1, XSubType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xSignalEClass, XSignal.class, "XSignal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXSignal_Name(), ecorePackage.getEString(), "name", null, 0, 1, XSignal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXSignal_Xtype(), this.getXTypeRef(), null, "xtype", null, 0, 1, XSignal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xTypeEClass, XType.class, "XType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXType_Name(), ecorePackage.getEString(), "name", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXType_Xenums(), this.getXEnums(), null, "xenums", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXType_Xrange(), this.getXRange(), null, "xrange", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXType_Xarray(), this.getXArray(), null, "xarray", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xArrayEClass, XArray.class, "XArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXArray_Type(), this.getXType(), null, "type", null, 0, 1, XArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXArray_Xrange(), this.getXTypeRef(), null, "xrange", null, 0, 1, XArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXArray_Xof(), this.getXTypeRef(), null, "xof", null, 0, 1, XArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xRangeEClass, XRange.class, "XRange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXRange_Xfrom(), this.getXRangeValue(), null, "xfrom", null, 0, 1, XRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXRange_Xto(), this.getXRangeValue(), null, "xto", null, 0, 1, XRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXRange_Xunits(), this.getXUnits(), null, "xunits", null, 0, 1, XRange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xRangeValueEClass, XRangeValue.class, "XRangeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXRangeValue_Xvalue(), ecorePackage.getEInt(), "xvalue", null, 0, 1, XRangeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXRangeValue_Xunit(), this.getXUnitRef(), null, "xunit", null, 0, 1, XRangeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xUnitsEClass, XUnits.class, "XUnits", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXUnits_Units(), ecorePackage.getEString(), "units", null, 0, -1, XUnits.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXUnits_Xunits(), this.getXUnit(), null, "xunits", null, 0, -1, XUnits.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xUnitRefEClass, XUnitRef.class, "XUnitRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXUnitRef_Name(), ecorePackage.getEString(), "name", null, 0, 1, XUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xUnitEClass, XUnit.class, "XUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXUnit_Name(), ecorePackage.getEString(), "name", null, 0, 1, XUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getXUnit_Xvalue(), ecorePackage.getEInt(), "xvalue", null, 0, 1, XUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXUnit_Xbased(), this.getXUnitRef(), null, "xbased", null, 0, 1, XUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xEnumsEClass, XEnums.class, "XEnums", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXEnums_Xenums(), ecorePackage.getEString(), "xenums", null, 0, -1, XEnums.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xFunctionRefEClass, XFunctionRef.class, "XFunctionRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXFunctionRef_Name(), ecorePackage.getEString(), "name", null, 0, 1, XFunctionRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXFunctionRef_Xreturn(), this.getXTypeRef(), null, "xreturn", null, 0, 1, XFunctionRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xImpureEClass, XImpure.class, "XImpure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXImpure_Xfunc(), this.getXFunctionRef(), null, "xfunc", null, 0, 1, XImpure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

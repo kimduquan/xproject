@@ -22,30 +22,33 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'package'", "'is'", "'end'", "';'", "'attribute'", "':'", "'subtype'", "'signal'", "'type'", "'array'", "'('", "'range'", "'<>'", "')'", "'of'", "'to'", "'units'", "'='", "','"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_COMMENT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'package'", "'is'", "'end'", "';'", "'attribute'", "':'", "'subtype'", "'signal'", "';='", "'type'", "'array'", "'('", "'range'", "'<>'", "')'", "'of'", "'to'", "'units'", "'='", "','", "'impure'"
     };
-    public static final int RULE_STRING=6;
-    public static final int RULE_SL_COMMENT=8;
+    public static final int RULE_STRING=7;
+    public static final int RULE_SL_COMMENT=9;
     public static final int T__19=19;
     public static final int T__15=15;
     public static final int T__16=16;
     public static final int T__17=17;
     public static final int T__18=18;
-    public static final int T__11=11;
     public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
     public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_ID=4;
-    public static final int RULE_WS=9;
-    public static final int RULE_ANY_OTHER=10;
+    public static final int RULE_WS=10;
+    public static final int RULE_COMMENT=6;
+    public static final int RULE_ANY_OTHER=11;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
     public static final int RULE_INT=5;
     public static final int T__29=29;
     public static final int T__22=22;
-    public static final int RULE_ML_COMMENT=7;
+    public static final int RULE_ML_COMMENT=8;
     public static final int T__23=23;
     public static final int T__24=24;
     public static final int T__25=25;
@@ -137,7 +140,7 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==11) ) {
+                if ( (LA1_0==12) ) {
                     alt1=1;
                 }
 
@@ -1029,36 +1032,118 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleXEnums"
 
 
+    // $ANTLR start "entryRuleXImpure"
+    // InternalXHDL.g:353:1: entryRuleXImpure : ruleXImpure EOF ;
+    public final void entryRuleXImpure() throws RecognitionException {
+        try {
+            // InternalXHDL.g:354:1: ( ruleXImpure EOF )
+            // InternalXHDL.g:355:1: ruleXImpure EOF
+            {
+             before(grammarAccess.getXImpureRule()); 
+            pushFollow(FOLLOW_1);
+            ruleXImpure();
+
+            state._fsp--;
+
+             after(grammarAccess.getXImpureRule()); 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end "entryRuleXImpure"
+
+
+    // $ANTLR start "ruleXImpure"
+    // InternalXHDL.g:362:1: ruleXImpure : ( ( rule__XImpure__Group__0 ) ) ;
+    public final void ruleXImpure() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:366:2: ( ( ( rule__XImpure__Group__0 ) ) )
+            // InternalXHDL.g:367:2: ( ( rule__XImpure__Group__0 ) )
+            {
+            // InternalXHDL.g:367:2: ( ( rule__XImpure__Group__0 ) )
+            // InternalXHDL.g:368:3: ( rule__XImpure__Group__0 )
+            {
+             before(grammarAccess.getXImpureAccess().getGroup()); 
+            // InternalXHDL.g:369:3: ( rule__XImpure__Group__0 )
+            // InternalXHDL.g:369:4: rule__XImpure__Group__0
+            {
+            pushFollow(FOLLOW_2);
+            rule__XImpure__Group__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXImpureAccess().getGroup()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "ruleXImpure"
+
+
     // $ANTLR start "rule__XElement__Alternatives"
-    // InternalXHDL.g:352:1: rule__XElement__Alternatives : ( ( ruleXType ) | ( ruleXSignal ) | ( ruleXSubType ) | ( ruleXAttribute ) );
+    // InternalXHDL.g:377:1: rule__XElement__Alternatives : ( ( ruleXType ) | ( ruleXSignal ) | ( ruleXSubType ) | ( ruleXAttribute ) | ( ruleXImpure ) );
     public final void rule__XElement__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:356:1: ( ( ruleXType ) | ( ruleXSignal ) | ( ruleXSubType ) | ( ruleXAttribute ) )
-            int alt2=4;
+            // InternalXHDL.g:381:1: ( ( ruleXType ) | ( ruleXSignal ) | ( ruleXSubType ) | ( ruleXAttribute ) | ( ruleXImpure ) )
+            int alt2=5;
             switch ( input.LA(1) ) {
-            case 19:
-            case 20:
+            case 21:
             case 22:
+            case 24:
                 {
                 alt2=1;
                 }
                 break;
-            case 18:
+            case 19:
                 {
                 alt2=2;
                 }
                 break;
-            case 17:
+            case 18:
                 {
                 alt2=3;
                 }
                 break;
-            case 15:
+            case 16:
                 {
                 alt2=4;
+                }
+                break;
+            case 32:
+                {
+                alt2=5;
                 }
                 break;
             default:
@@ -1070,10 +1155,10 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
             switch (alt2) {
                 case 1 :
-                    // InternalXHDL.g:357:2: ( ruleXType )
+                    // InternalXHDL.g:382:2: ( ruleXType )
                     {
-                    // InternalXHDL.g:357:2: ( ruleXType )
-                    // InternalXHDL.g:358:3: ruleXType
+                    // InternalXHDL.g:382:2: ( ruleXType )
+                    // InternalXHDL.g:383:3: ruleXType
                     {
                      before(grammarAccess.getXElementAccess().getXTypeParserRuleCall_0()); 
                     pushFollow(FOLLOW_2);
@@ -1089,10 +1174,10 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalXHDL.g:363:2: ( ruleXSignal )
+                    // InternalXHDL.g:388:2: ( ruleXSignal )
                     {
-                    // InternalXHDL.g:363:2: ( ruleXSignal )
-                    // InternalXHDL.g:364:3: ruleXSignal
+                    // InternalXHDL.g:388:2: ( ruleXSignal )
+                    // InternalXHDL.g:389:3: ruleXSignal
                     {
                      before(grammarAccess.getXElementAccess().getXSignalParserRuleCall_1()); 
                     pushFollow(FOLLOW_2);
@@ -1108,10 +1193,10 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalXHDL.g:369:2: ( ruleXSubType )
+                    // InternalXHDL.g:394:2: ( ruleXSubType )
                     {
-                    // InternalXHDL.g:369:2: ( ruleXSubType )
-                    // InternalXHDL.g:370:3: ruleXSubType
+                    // InternalXHDL.g:394:2: ( ruleXSubType )
+                    // InternalXHDL.g:395:3: ruleXSubType
                     {
                      before(grammarAccess.getXElementAccess().getXSubTypeParserRuleCall_2()); 
                     pushFollow(FOLLOW_2);
@@ -1127,10 +1212,10 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalXHDL.g:375:2: ( ruleXAttribute )
+                    // InternalXHDL.g:400:2: ( ruleXAttribute )
                     {
-                    // InternalXHDL.g:375:2: ( ruleXAttribute )
-                    // InternalXHDL.g:376:3: ruleXAttribute
+                    // InternalXHDL.g:400:2: ( ruleXAttribute )
+                    // InternalXHDL.g:401:3: ruleXAttribute
                     {
                      before(grammarAccess.getXElementAccess().getXAttributeParserRuleCall_3()); 
                     pushFollow(FOLLOW_2);
@@ -1139,6 +1224,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                     state._fsp--;
 
                      after(grammarAccess.getXElementAccess().getXAttributeParserRuleCall_3()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // InternalXHDL.g:406:2: ( ruleXImpure )
+                    {
+                    // InternalXHDL.g:406:2: ( ruleXImpure )
+                    // InternalXHDL.g:407:3: ruleXImpure
+                    {
+                     before(grammarAccess.getXElementAccess().getXImpureParserRuleCall_4()); 
+                    pushFollow(FOLLOW_2);
+                    ruleXImpure();
+
+                    state._fsp--;
+
+                     after(grammarAccess.getXElementAccess().getXImpureParserRuleCall_4()); 
 
                     }
 
@@ -1163,26 +1267,26 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Alternatives"
-    // InternalXHDL.g:385:1: rule__XType__Alternatives : ( ( ( rule__XType__Group_0__0 ) ) | ( ruleXRange ) | ( ( rule__XType__Group_2__0 ) ) );
+    // InternalXHDL.g:416:1: rule__XType__Alternatives : ( ( ( rule__XType__Group_0__0 ) ) | ( ( rule__XType__XrangeAssignment_1 ) ) | ( ( rule__XType__Group_2__0 ) ) );
     public final void rule__XType__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:389:1: ( ( ( rule__XType__Group_0__0 ) ) | ( ruleXRange ) | ( ( rule__XType__Group_2__0 ) ) )
+            // InternalXHDL.g:420:1: ( ( ( rule__XType__Group_0__0 ) ) | ( ( rule__XType__XrangeAssignment_1 ) ) | ( ( rule__XType__Group_2__0 ) ) )
             int alt3=3;
             switch ( input.LA(1) ) {
-            case 19:
+            case 21:
                 {
                 alt3=1;
                 }
                 break;
-            case 22:
+            case 24:
                 {
                 alt3=2;
                 }
                 break;
-            case 20:
+            case 22:
                 {
                 alt3=3;
                 }
@@ -1196,14 +1300,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
             switch (alt3) {
                 case 1 :
-                    // InternalXHDL.g:390:2: ( ( rule__XType__Group_0__0 ) )
+                    // InternalXHDL.g:421:2: ( ( rule__XType__Group_0__0 ) )
                     {
-                    // InternalXHDL.g:390:2: ( ( rule__XType__Group_0__0 ) )
-                    // InternalXHDL.g:391:3: ( rule__XType__Group_0__0 )
+                    // InternalXHDL.g:421:2: ( ( rule__XType__Group_0__0 ) )
+                    // InternalXHDL.g:422:3: ( rule__XType__Group_0__0 )
                     {
                      before(grammarAccess.getXTypeAccess().getGroup_0()); 
-                    // InternalXHDL.g:392:3: ( rule__XType__Group_0__0 )
-                    // InternalXHDL.g:392:4: rule__XType__Group_0__0
+                    // InternalXHDL.g:423:3: ( rule__XType__Group_0__0 )
+                    // InternalXHDL.g:423:4: rule__XType__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__XType__Group_0__0();
@@ -1221,18 +1325,24 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalXHDL.g:396:2: ( ruleXRange )
+                    // InternalXHDL.g:427:2: ( ( rule__XType__XrangeAssignment_1 ) )
                     {
-                    // InternalXHDL.g:396:2: ( ruleXRange )
-                    // InternalXHDL.g:397:3: ruleXRange
+                    // InternalXHDL.g:427:2: ( ( rule__XType__XrangeAssignment_1 ) )
+                    // InternalXHDL.g:428:3: ( rule__XType__XrangeAssignment_1 )
                     {
-                     before(grammarAccess.getXTypeAccess().getXRangeParserRuleCall_1()); 
+                     before(grammarAccess.getXTypeAccess().getXrangeAssignment_1()); 
+                    // InternalXHDL.g:429:3: ( rule__XType__XrangeAssignment_1 )
+                    // InternalXHDL.g:429:4: rule__XType__XrangeAssignment_1
+                    {
                     pushFollow(FOLLOW_2);
-                    ruleXRange();
+                    rule__XType__XrangeAssignment_1();
 
                     state._fsp--;
 
-                     after(grammarAccess.getXTypeAccess().getXRangeParserRuleCall_1()); 
+
+                    }
+
+                     after(grammarAccess.getXTypeAccess().getXrangeAssignment_1()); 
 
                     }
 
@@ -1240,14 +1350,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalXHDL.g:402:2: ( ( rule__XType__Group_2__0 ) )
+                    // InternalXHDL.g:433:2: ( ( rule__XType__Group_2__0 ) )
                     {
-                    // InternalXHDL.g:402:2: ( ( rule__XType__Group_2__0 ) )
-                    // InternalXHDL.g:403:3: ( rule__XType__Group_2__0 )
+                    // InternalXHDL.g:433:2: ( ( rule__XType__Group_2__0 ) )
+                    // InternalXHDL.g:434:3: ( rule__XType__Group_2__0 )
                     {
                      before(grammarAccess.getXTypeAccess().getGroup_2()); 
-                    // InternalXHDL.g:404:3: ( rule__XType__Group_2__0 )
-                    // InternalXHDL.g:404:4: rule__XType__Group_2__0
+                    // InternalXHDL.g:435:3: ( rule__XType__Group_2__0 )
+                    // InternalXHDL.g:435:4: rule__XType__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__XType__Group_2__0();
@@ -1282,14 +1392,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__0"
-    // InternalXHDL.g:412:1: rule__XPackage__Group__0 : rule__XPackage__Group__0__Impl rule__XPackage__Group__1 ;
+    // InternalXHDL.g:443:1: rule__XPackage__Group__0 : rule__XPackage__Group__0__Impl rule__XPackage__Group__1 ;
     public final void rule__XPackage__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:416:1: ( rule__XPackage__Group__0__Impl rule__XPackage__Group__1 )
-            // InternalXHDL.g:417:2: rule__XPackage__Group__0__Impl rule__XPackage__Group__1
+            // InternalXHDL.g:447:1: ( rule__XPackage__Group__0__Impl rule__XPackage__Group__1 )
+            // InternalXHDL.g:448:2: rule__XPackage__Group__0__Impl rule__XPackage__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__XPackage__Group__0__Impl();
@@ -1320,31 +1430,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__0__Impl"
-    // InternalXHDL.g:424:1: rule__XPackage__Group__0__Impl : ( 'package' ) ;
+    // InternalXHDL.g:455:1: rule__XPackage__Group__0__Impl : ( () ) ;
     public final void rule__XPackage__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:428:1: ( ( 'package' ) )
-            // InternalXHDL.g:429:1: ( 'package' )
+            // InternalXHDL.g:459:1: ( ( () ) )
+            // InternalXHDL.g:460:1: ( () )
             {
-            // InternalXHDL.g:429:1: ( 'package' )
-            // InternalXHDL.g:430:2: 'package'
+            // InternalXHDL.g:460:1: ( () )
+            // InternalXHDL.g:461:2: ()
             {
-             before(grammarAccess.getXPackageAccess().getPackageKeyword_0()); 
-            match(input,11,FOLLOW_2); 
-             after(grammarAccess.getXPackageAccess().getPackageKeyword_0()); 
+             before(grammarAccess.getXPackageAccess().getXPackageAction_0()); 
+            // InternalXHDL.g:462:2: ()
+            // InternalXHDL.g:462:3: 
+            {
+            }
+
+             after(grammarAccess.getXPackageAccess().getXPackageAction_0()); 
 
             }
 
 
             }
 
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
         }
         finally {
 
@@ -1357,14 +1467,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__1"
-    // InternalXHDL.g:439:1: rule__XPackage__Group__1 : rule__XPackage__Group__1__Impl rule__XPackage__Group__2 ;
+    // InternalXHDL.g:470:1: rule__XPackage__Group__1 : rule__XPackage__Group__1__Impl rule__XPackage__Group__2 ;
     public final void rule__XPackage__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:443:1: ( rule__XPackage__Group__1__Impl rule__XPackage__Group__2 )
-            // InternalXHDL.g:444:2: rule__XPackage__Group__1__Impl rule__XPackage__Group__2
+            // InternalXHDL.g:474:1: ( rule__XPackage__Group__1__Impl rule__XPackage__Group__2 )
+            // InternalXHDL.g:475:2: rule__XPackage__Group__1__Impl rule__XPackage__Group__2
             {
             pushFollow(FOLLOW_5);
             rule__XPackage__Group__1__Impl();
@@ -1395,31 +1505,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__1__Impl"
-    // InternalXHDL.g:451:1: rule__XPackage__Group__1__Impl : ( ( rule__XPackage__NameAssignment_1 ) ) ;
+    // InternalXHDL.g:482:1: rule__XPackage__Group__1__Impl : ( 'package' ) ;
     public final void rule__XPackage__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:455:1: ( ( ( rule__XPackage__NameAssignment_1 ) ) )
-            // InternalXHDL.g:456:1: ( ( rule__XPackage__NameAssignment_1 ) )
+            // InternalXHDL.g:486:1: ( ( 'package' ) )
+            // InternalXHDL.g:487:1: ( 'package' )
             {
-            // InternalXHDL.g:456:1: ( ( rule__XPackage__NameAssignment_1 ) )
-            // InternalXHDL.g:457:2: ( rule__XPackage__NameAssignment_1 )
+            // InternalXHDL.g:487:1: ( 'package' )
+            // InternalXHDL.g:488:2: 'package'
             {
-             before(grammarAccess.getXPackageAccess().getNameAssignment_1()); 
-            // InternalXHDL.g:458:2: ( rule__XPackage__NameAssignment_1 )
-            // InternalXHDL.g:458:3: rule__XPackage__NameAssignment_1
-            {
-            pushFollow(FOLLOW_2);
-            rule__XPackage__NameAssignment_1();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getXPackageAccess().getNameAssignment_1()); 
+             before(grammarAccess.getXPackageAccess().getPackageKeyword_1()); 
+            match(input,12,FOLLOW_2); 
+             after(grammarAccess.getXPackageAccess().getPackageKeyword_1()); 
 
             }
 
@@ -1442,14 +1542,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__2"
-    // InternalXHDL.g:466:1: rule__XPackage__Group__2 : rule__XPackage__Group__2__Impl rule__XPackage__Group__3 ;
+    // InternalXHDL.g:497:1: rule__XPackage__Group__2 : rule__XPackage__Group__2__Impl rule__XPackage__Group__3 ;
     public final void rule__XPackage__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:470:1: ( rule__XPackage__Group__2__Impl rule__XPackage__Group__3 )
-            // InternalXHDL.g:471:2: rule__XPackage__Group__2__Impl rule__XPackage__Group__3
+            // InternalXHDL.g:501:1: ( rule__XPackage__Group__2__Impl rule__XPackage__Group__3 )
+            // InternalXHDL.g:502:2: rule__XPackage__Group__2__Impl rule__XPackage__Group__3
             {
             pushFollow(FOLLOW_6);
             rule__XPackage__Group__2__Impl();
@@ -1480,21 +1580,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__2__Impl"
-    // InternalXHDL.g:478:1: rule__XPackage__Group__2__Impl : ( 'is' ) ;
+    // InternalXHDL.g:509:1: rule__XPackage__Group__2__Impl : ( ( rule__XPackage__NameAssignment_2 ) ) ;
     public final void rule__XPackage__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:482:1: ( ( 'is' ) )
-            // InternalXHDL.g:483:1: ( 'is' )
+            // InternalXHDL.g:513:1: ( ( ( rule__XPackage__NameAssignment_2 ) ) )
+            // InternalXHDL.g:514:1: ( ( rule__XPackage__NameAssignment_2 ) )
             {
-            // InternalXHDL.g:483:1: ( 'is' )
-            // InternalXHDL.g:484:2: 'is'
+            // InternalXHDL.g:514:1: ( ( rule__XPackage__NameAssignment_2 ) )
+            // InternalXHDL.g:515:2: ( rule__XPackage__NameAssignment_2 )
             {
-             before(grammarAccess.getXPackageAccess().getIsKeyword_2()); 
-            match(input,12,FOLLOW_2); 
-             after(grammarAccess.getXPackageAccess().getIsKeyword_2()); 
+             before(grammarAccess.getXPackageAccess().getNameAssignment_2()); 
+            // InternalXHDL.g:516:2: ( rule__XPackage__NameAssignment_2 )
+            // InternalXHDL.g:516:3: rule__XPackage__NameAssignment_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__XPackage__NameAssignment_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXPackageAccess().getNameAssignment_2()); 
 
             }
 
@@ -1517,16 +1627,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__3"
-    // InternalXHDL.g:493:1: rule__XPackage__Group__3 : rule__XPackage__Group__3__Impl rule__XPackage__Group__4 ;
+    // InternalXHDL.g:524:1: rule__XPackage__Group__3 : rule__XPackage__Group__3__Impl rule__XPackage__Group__4 ;
     public final void rule__XPackage__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:497:1: ( rule__XPackage__Group__3__Impl rule__XPackage__Group__4 )
-            // InternalXHDL.g:498:2: rule__XPackage__Group__3__Impl rule__XPackage__Group__4
+            // InternalXHDL.g:528:1: ( rule__XPackage__Group__3__Impl rule__XPackage__Group__4 )
+            // InternalXHDL.g:529:2: rule__XPackage__Group__3__Impl rule__XPackage__Group__4
             {
-            pushFollow(FOLLOW_6);
+            pushFollow(FOLLOW_7);
             rule__XPackage__Group__3__Impl();
 
             state._fsp--;
@@ -1555,49 +1665,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__3__Impl"
-    // InternalXHDL.g:505:1: rule__XPackage__Group__3__Impl : ( ( rule__XPackage__ElementsAssignment_3 )* ) ;
+    // InternalXHDL.g:536:1: rule__XPackage__Group__3__Impl : ( 'is' ) ;
     public final void rule__XPackage__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:509:1: ( ( ( rule__XPackage__ElementsAssignment_3 )* ) )
-            // InternalXHDL.g:510:1: ( ( rule__XPackage__ElementsAssignment_3 )* )
+            // InternalXHDL.g:540:1: ( ( 'is' ) )
+            // InternalXHDL.g:541:1: ( 'is' )
             {
-            // InternalXHDL.g:510:1: ( ( rule__XPackage__ElementsAssignment_3 )* )
-            // InternalXHDL.g:511:2: ( rule__XPackage__ElementsAssignment_3 )*
+            // InternalXHDL.g:541:1: ( 'is' )
+            // InternalXHDL.g:542:2: 'is'
             {
-             before(grammarAccess.getXPackageAccess().getElementsAssignment_3()); 
-            // InternalXHDL.g:512:2: ( rule__XPackage__ElementsAssignment_3 )*
-            loop4:
-            do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
-
-                if ( (LA4_0==15||(LA4_0>=17 && LA4_0<=20)||LA4_0==22) ) {
-                    alt4=1;
-                }
-
-
-                switch (alt4) {
-            	case 1 :
-            	    // InternalXHDL.g:512:3: rule__XPackage__ElementsAssignment_3
-            	    {
-            	    pushFollow(FOLLOW_7);
-            	    rule__XPackage__ElementsAssignment_3();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop4;
-                }
-            } while (true);
-
-             after(grammarAccess.getXPackageAccess().getElementsAssignment_3()); 
+             before(grammarAccess.getXPackageAccess().getIsKeyword_3()); 
+            match(input,13,FOLLOW_2); 
+             after(grammarAccess.getXPackageAccess().getIsKeyword_3()); 
 
             }
 
@@ -1620,16 +1702,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__4"
-    // InternalXHDL.g:520:1: rule__XPackage__Group__4 : rule__XPackage__Group__4__Impl rule__XPackage__Group__5 ;
+    // InternalXHDL.g:551:1: rule__XPackage__Group__4 : rule__XPackage__Group__4__Impl rule__XPackage__Group__5 ;
     public final void rule__XPackage__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:524:1: ( rule__XPackage__Group__4__Impl rule__XPackage__Group__5 )
-            // InternalXHDL.g:525:2: rule__XPackage__Group__4__Impl rule__XPackage__Group__5
+            // InternalXHDL.g:555:1: ( rule__XPackage__Group__4__Impl rule__XPackage__Group__5 )
+            // InternalXHDL.g:556:2: rule__XPackage__Group__4__Impl rule__XPackage__Group__5
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_7);
             rule__XPackage__Group__4__Impl();
 
             state._fsp--;
@@ -1658,21 +1740,49 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__4__Impl"
-    // InternalXHDL.g:532:1: rule__XPackage__Group__4__Impl : ( 'end' ) ;
+    // InternalXHDL.g:563:1: rule__XPackage__Group__4__Impl : ( ( rule__XPackage__XisAssignment_4 )* ) ;
     public final void rule__XPackage__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:536:1: ( ( 'end' ) )
-            // InternalXHDL.g:537:1: ( 'end' )
+            // InternalXHDL.g:567:1: ( ( ( rule__XPackage__XisAssignment_4 )* ) )
+            // InternalXHDL.g:568:1: ( ( rule__XPackage__XisAssignment_4 )* )
             {
-            // InternalXHDL.g:537:1: ( 'end' )
-            // InternalXHDL.g:538:2: 'end'
+            // InternalXHDL.g:568:1: ( ( rule__XPackage__XisAssignment_4 )* )
+            // InternalXHDL.g:569:2: ( rule__XPackage__XisAssignment_4 )*
             {
-             before(grammarAccess.getXPackageAccess().getEndKeyword_4()); 
-            match(input,13,FOLLOW_2); 
-             after(grammarAccess.getXPackageAccess().getEndKeyword_4()); 
+             before(grammarAccess.getXPackageAccess().getXisAssignment_4()); 
+            // InternalXHDL.g:570:2: ( rule__XPackage__XisAssignment_4 )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==16||(LA4_0>=18 && LA4_0<=19)||(LA4_0>=21 && LA4_0<=22)||LA4_0==24||LA4_0==32) ) {
+                    alt4=1;
+                }
+
+
+                switch (alt4) {
+            	case 1 :
+            	    // InternalXHDL.g:570:3: rule__XPackage__XisAssignment_4
+            	    {
+            	    pushFollow(FOLLOW_8);
+            	    rule__XPackage__XisAssignment_4();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop4;
+                }
+            } while (true);
+
+             after(grammarAccess.getXPackageAccess().getXisAssignment_4()); 
 
             }
 
@@ -1695,16 +1805,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__5"
-    // InternalXHDL.g:547:1: rule__XPackage__Group__5 : rule__XPackage__Group__5__Impl rule__XPackage__Group__6 ;
+    // InternalXHDL.g:578:1: rule__XPackage__Group__5 : rule__XPackage__Group__5__Impl rule__XPackage__Group__6 ;
     public final void rule__XPackage__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:551:1: ( rule__XPackage__Group__5__Impl rule__XPackage__Group__6 )
-            // InternalXHDL.g:552:2: rule__XPackage__Group__5__Impl rule__XPackage__Group__6
+            // InternalXHDL.g:582:1: ( rule__XPackage__Group__5__Impl rule__XPackage__Group__6 )
+            // InternalXHDL.g:583:2: rule__XPackage__Group__5__Impl rule__XPackage__Group__6
             {
-            pushFollow(FOLLOW_8);
+            pushFollow(FOLLOW_5);
             rule__XPackage__Group__5__Impl();
 
             state._fsp--;
@@ -1733,21 +1843,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__5__Impl"
-    // InternalXHDL.g:559:1: rule__XPackage__Group__5__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:590:1: rule__XPackage__Group__5__Impl : ( 'end' ) ;
     public final void rule__XPackage__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:563:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:564:1: ( RULE_ID )
+            // InternalXHDL.g:594:1: ( ( 'end' ) )
+            // InternalXHDL.g:595:1: ( 'end' )
             {
-            // InternalXHDL.g:564:1: ( RULE_ID )
-            // InternalXHDL.g:565:2: RULE_ID
+            // InternalXHDL.g:595:1: ( 'end' )
+            // InternalXHDL.g:596:2: 'end'
             {
-             before(grammarAccess.getXPackageAccess().getIDTerminalRuleCall_5()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXPackageAccess().getIDTerminalRuleCall_5()); 
+             before(grammarAccess.getXPackageAccess().getEndKeyword_5()); 
+            match(input,14,FOLLOW_2); 
+             after(grammarAccess.getXPackageAccess().getEndKeyword_5()); 
 
             }
 
@@ -1770,17 +1880,22 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__6"
-    // InternalXHDL.g:574:1: rule__XPackage__Group__6 : rule__XPackage__Group__6__Impl ;
+    // InternalXHDL.g:605:1: rule__XPackage__Group__6 : rule__XPackage__Group__6__Impl rule__XPackage__Group__7 ;
     public final void rule__XPackage__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:578:1: ( rule__XPackage__Group__6__Impl )
-            // InternalXHDL.g:579:2: rule__XPackage__Group__6__Impl
+            // InternalXHDL.g:609:1: ( rule__XPackage__Group__6__Impl rule__XPackage__Group__7 )
+            // InternalXHDL.g:610:2: rule__XPackage__Group__6__Impl rule__XPackage__Group__7
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_9);
             rule__XPackage__Group__6__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XPackage__Group__7();
 
             state._fsp--;
 
@@ -1803,21 +1918,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XPackage__Group__6__Impl"
-    // InternalXHDL.g:585:1: rule__XPackage__Group__6__Impl : ( ';' ) ;
+    // InternalXHDL.g:617:1: rule__XPackage__Group__6__Impl : ( ( rule__XPackage__XendAssignment_6 ) ) ;
     public final void rule__XPackage__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:589:1: ( ( ';' ) )
-            // InternalXHDL.g:590:1: ( ';' )
+            // InternalXHDL.g:621:1: ( ( ( rule__XPackage__XendAssignment_6 ) ) )
+            // InternalXHDL.g:622:1: ( ( rule__XPackage__XendAssignment_6 ) )
             {
-            // InternalXHDL.g:590:1: ( ';' )
-            // InternalXHDL.g:591:2: ';'
+            // InternalXHDL.g:622:1: ( ( rule__XPackage__XendAssignment_6 ) )
+            // InternalXHDL.g:623:2: ( rule__XPackage__XendAssignment_6 )
             {
-             before(grammarAccess.getXPackageAccess().getSemicolonKeyword_6()); 
-            match(input,14,FOLLOW_2); 
-             after(grammarAccess.getXPackageAccess().getSemicolonKeyword_6()); 
+             before(grammarAccess.getXPackageAccess().getXendAssignment_6()); 
+            // InternalXHDL.g:624:2: ( rule__XPackage__XendAssignment_6 )
+            // InternalXHDL.g:624:3: rule__XPackage__XendAssignment_6
+            {
+            pushFollow(FOLLOW_2);
+            rule__XPackage__XendAssignment_6();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXPackageAccess().getXendAssignment_6()); 
 
             }
 
@@ -1839,17 +1964,87 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__XPackage__Group__6__Impl"
 
 
+    // $ANTLR start "rule__XPackage__Group__7"
+    // InternalXHDL.g:632:1: rule__XPackage__Group__7 : rule__XPackage__Group__7__Impl ;
+    public final void rule__XPackage__Group__7() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:636:1: ( rule__XPackage__Group__7__Impl )
+            // InternalXHDL.g:637:2: rule__XPackage__Group__7__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__XPackage__Group__7__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XPackage__Group__7"
+
+
+    // $ANTLR start "rule__XPackage__Group__7__Impl"
+    // InternalXHDL.g:643:1: rule__XPackage__Group__7__Impl : ( ';' ) ;
+    public final void rule__XPackage__Group__7__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:647:1: ( ( ';' ) )
+            // InternalXHDL.g:648:1: ( ';' )
+            {
+            // InternalXHDL.g:648:1: ( ';' )
+            // InternalXHDL.g:649:2: ';'
+            {
+             before(grammarAccess.getXPackageAccess().getSemicolonKeyword_7()); 
+            match(input,15,FOLLOW_2); 
+             after(grammarAccess.getXPackageAccess().getSemicolonKeyword_7()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XPackage__Group__7__Impl"
+
+
     // $ANTLR start "rule__XAttribute__Group__0"
-    // InternalXHDL.g:601:1: rule__XAttribute__Group__0 : rule__XAttribute__Group__0__Impl rule__XAttribute__Group__1 ;
+    // InternalXHDL.g:659:1: rule__XAttribute__Group__0 : rule__XAttribute__Group__0__Impl rule__XAttribute__Group__1 ;
     public final void rule__XAttribute__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:605:1: ( rule__XAttribute__Group__0__Impl rule__XAttribute__Group__1 )
-            // InternalXHDL.g:606:2: rule__XAttribute__Group__0__Impl rule__XAttribute__Group__1
+            // InternalXHDL.g:663:1: ( rule__XAttribute__Group__0__Impl rule__XAttribute__Group__1 )
+            // InternalXHDL.g:664:2: rule__XAttribute__Group__0__Impl rule__XAttribute__Group__1
             {
-            pushFollow(FOLLOW_9);
+            pushFollow(FOLLOW_10);
             rule__XAttribute__Group__0__Impl();
 
             state._fsp--;
@@ -1878,25 +2073,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__0__Impl"
-    // InternalXHDL.g:613:1: rule__XAttribute__Group__0__Impl : ( () ) ;
+    // InternalXHDL.g:671:1: rule__XAttribute__Group__0__Impl : ( () ) ;
     public final void rule__XAttribute__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:617:1: ( ( () ) )
-            // InternalXHDL.g:618:1: ( () )
+            // InternalXHDL.g:675:1: ( ( () ) )
+            // InternalXHDL.g:676:1: ( () )
             {
-            // InternalXHDL.g:618:1: ( () )
-            // InternalXHDL.g:619:2: ()
+            // InternalXHDL.g:676:1: ( () )
+            // InternalXHDL.g:677:2: ()
             {
-             before(grammarAccess.getXAttributeAccess().getAttributeAction_0()); 
-            // InternalXHDL.g:620:2: ()
-            // InternalXHDL.g:620:3: 
+             before(grammarAccess.getXAttributeAccess().getXAttributeAction_0()); 
+            // InternalXHDL.g:678:2: ()
+            // InternalXHDL.g:678:3: 
             {
             }
 
-             after(grammarAccess.getXAttributeAccess().getAttributeAction_0()); 
+             after(grammarAccess.getXAttributeAccess().getXAttributeAction_0()); 
 
             }
 
@@ -1915,16 +2110,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__1"
-    // InternalXHDL.g:628:1: rule__XAttribute__Group__1 : rule__XAttribute__Group__1__Impl rule__XAttribute__Group__2 ;
+    // InternalXHDL.g:686:1: rule__XAttribute__Group__1 : rule__XAttribute__Group__1__Impl rule__XAttribute__Group__2 ;
     public final void rule__XAttribute__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:632:1: ( rule__XAttribute__Group__1__Impl rule__XAttribute__Group__2 )
-            // InternalXHDL.g:633:2: rule__XAttribute__Group__1__Impl rule__XAttribute__Group__2
+            // InternalXHDL.g:690:1: ( rule__XAttribute__Group__1__Impl rule__XAttribute__Group__2 )
+            // InternalXHDL.g:691:2: rule__XAttribute__Group__1__Impl rule__XAttribute__Group__2
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XAttribute__Group__1__Impl();
 
             state._fsp--;
@@ -1953,20 +2148,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__1__Impl"
-    // InternalXHDL.g:640:1: rule__XAttribute__Group__1__Impl : ( 'attribute' ) ;
+    // InternalXHDL.g:698:1: rule__XAttribute__Group__1__Impl : ( 'attribute' ) ;
     public final void rule__XAttribute__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:644:1: ( ( 'attribute' ) )
-            // InternalXHDL.g:645:1: ( 'attribute' )
+            // InternalXHDL.g:702:1: ( ( 'attribute' ) )
+            // InternalXHDL.g:703:1: ( 'attribute' )
             {
-            // InternalXHDL.g:645:1: ( 'attribute' )
-            // InternalXHDL.g:646:2: 'attribute'
+            // InternalXHDL.g:703:1: ( 'attribute' )
+            // InternalXHDL.g:704:2: 'attribute'
             {
              before(grammarAccess.getXAttributeAccess().getAttributeKeyword_1()); 
-            match(input,15,FOLLOW_2); 
+            match(input,16,FOLLOW_2); 
              after(grammarAccess.getXAttributeAccess().getAttributeKeyword_1()); 
 
             }
@@ -1990,16 +2185,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__2"
-    // InternalXHDL.g:655:1: rule__XAttribute__Group__2 : rule__XAttribute__Group__2__Impl rule__XAttribute__Group__3 ;
+    // InternalXHDL.g:713:1: rule__XAttribute__Group__2 : rule__XAttribute__Group__2__Impl rule__XAttribute__Group__3 ;
     public final void rule__XAttribute__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:659:1: ( rule__XAttribute__Group__2__Impl rule__XAttribute__Group__3 )
-            // InternalXHDL.g:660:2: rule__XAttribute__Group__2__Impl rule__XAttribute__Group__3
+            // InternalXHDL.g:717:1: ( rule__XAttribute__Group__2__Impl rule__XAttribute__Group__3 )
+            // InternalXHDL.g:718:2: rule__XAttribute__Group__2__Impl rule__XAttribute__Group__3
             {
-            pushFollow(FOLLOW_10);
+            pushFollow(FOLLOW_11);
             rule__XAttribute__Group__2__Impl();
 
             state._fsp--;
@@ -2028,21 +2223,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__2__Impl"
-    // InternalXHDL.g:667:1: rule__XAttribute__Group__2__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:725:1: rule__XAttribute__Group__2__Impl : ( ( rule__XAttribute__NameAssignment_2 ) ) ;
     public final void rule__XAttribute__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:671:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:672:1: ( RULE_ID )
+            // InternalXHDL.g:729:1: ( ( ( rule__XAttribute__NameAssignment_2 ) ) )
+            // InternalXHDL.g:730:1: ( ( rule__XAttribute__NameAssignment_2 ) )
             {
-            // InternalXHDL.g:672:1: ( RULE_ID )
-            // InternalXHDL.g:673:2: RULE_ID
+            // InternalXHDL.g:730:1: ( ( rule__XAttribute__NameAssignment_2 ) )
+            // InternalXHDL.g:731:2: ( rule__XAttribute__NameAssignment_2 )
             {
-             before(grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_2()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_2()); 
+             before(grammarAccess.getXAttributeAccess().getNameAssignment_2()); 
+            // InternalXHDL.g:732:2: ( rule__XAttribute__NameAssignment_2 )
+            // InternalXHDL.g:732:3: rule__XAttribute__NameAssignment_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__XAttribute__NameAssignment_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXAttributeAccess().getNameAssignment_2()); 
 
             }
 
@@ -2065,16 +2270,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__3"
-    // InternalXHDL.g:682:1: rule__XAttribute__Group__3 : rule__XAttribute__Group__3__Impl rule__XAttribute__Group__4 ;
+    // InternalXHDL.g:740:1: rule__XAttribute__Group__3 : rule__XAttribute__Group__3__Impl rule__XAttribute__Group__4 ;
     public final void rule__XAttribute__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:686:1: ( rule__XAttribute__Group__3__Impl rule__XAttribute__Group__4 )
-            // InternalXHDL.g:687:2: rule__XAttribute__Group__3__Impl rule__XAttribute__Group__4
+            // InternalXHDL.g:744:1: ( rule__XAttribute__Group__3__Impl rule__XAttribute__Group__4 )
+            // InternalXHDL.g:745:2: rule__XAttribute__Group__3__Impl rule__XAttribute__Group__4
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XAttribute__Group__3__Impl();
 
             state._fsp--;
@@ -2103,20 +2308,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__3__Impl"
-    // InternalXHDL.g:694:1: rule__XAttribute__Group__3__Impl : ( ':' ) ;
+    // InternalXHDL.g:752:1: rule__XAttribute__Group__3__Impl : ( ':' ) ;
     public final void rule__XAttribute__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:698:1: ( ( ':' ) )
-            // InternalXHDL.g:699:1: ( ':' )
+            // InternalXHDL.g:756:1: ( ( ':' ) )
+            // InternalXHDL.g:757:1: ( ':' )
             {
-            // InternalXHDL.g:699:1: ( ':' )
-            // InternalXHDL.g:700:2: ':'
+            // InternalXHDL.g:757:1: ( ':' )
+            // InternalXHDL.g:758:2: ':'
             {
              before(grammarAccess.getXAttributeAccess().getColonKeyword_3()); 
-            match(input,16,FOLLOW_2); 
+            match(input,17,FOLLOW_2); 
              after(grammarAccess.getXAttributeAccess().getColonKeyword_3()); 
 
             }
@@ -2140,16 +2345,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__4"
-    // InternalXHDL.g:709:1: rule__XAttribute__Group__4 : rule__XAttribute__Group__4__Impl rule__XAttribute__Group__5 ;
+    // InternalXHDL.g:767:1: rule__XAttribute__Group__4 : rule__XAttribute__Group__4__Impl rule__XAttribute__Group__5 ;
     public final void rule__XAttribute__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:713:1: ( rule__XAttribute__Group__4__Impl rule__XAttribute__Group__5 )
-            // InternalXHDL.g:714:2: rule__XAttribute__Group__4__Impl rule__XAttribute__Group__5
+            // InternalXHDL.g:771:1: ( rule__XAttribute__Group__4__Impl rule__XAttribute__Group__5 )
+            // InternalXHDL.g:772:2: rule__XAttribute__Group__4__Impl rule__XAttribute__Group__5
             {
-            pushFollow(FOLLOW_8);
+            pushFollow(FOLLOW_9);
             rule__XAttribute__Group__4__Impl();
 
             state._fsp--;
@@ -2178,21 +2383,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__4__Impl"
-    // InternalXHDL.g:721:1: rule__XAttribute__Group__4__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:779:1: rule__XAttribute__Group__4__Impl : ( ( rule__XAttribute__XtypeAssignment_4 ) ) ;
     public final void rule__XAttribute__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:725:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:726:1: ( RULE_ID )
+            // InternalXHDL.g:783:1: ( ( ( rule__XAttribute__XtypeAssignment_4 ) ) )
+            // InternalXHDL.g:784:1: ( ( rule__XAttribute__XtypeAssignment_4 ) )
             {
-            // InternalXHDL.g:726:1: ( RULE_ID )
-            // InternalXHDL.g:727:2: RULE_ID
+            // InternalXHDL.g:784:1: ( ( rule__XAttribute__XtypeAssignment_4 ) )
+            // InternalXHDL.g:785:2: ( rule__XAttribute__XtypeAssignment_4 )
             {
-             before(grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_4()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXAttributeAccess().getIDTerminalRuleCall_4()); 
+             before(grammarAccess.getXAttributeAccess().getXtypeAssignment_4()); 
+            // InternalXHDL.g:786:2: ( rule__XAttribute__XtypeAssignment_4 )
+            // InternalXHDL.g:786:3: rule__XAttribute__XtypeAssignment_4
+            {
+            pushFollow(FOLLOW_2);
+            rule__XAttribute__XtypeAssignment_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXAttributeAccess().getXtypeAssignment_4()); 
 
             }
 
@@ -2215,14 +2430,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__5"
-    // InternalXHDL.g:736:1: rule__XAttribute__Group__5 : rule__XAttribute__Group__5__Impl ;
+    // InternalXHDL.g:794:1: rule__XAttribute__Group__5 : rule__XAttribute__Group__5__Impl ;
     public final void rule__XAttribute__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:740:1: ( rule__XAttribute__Group__5__Impl )
-            // InternalXHDL.g:741:2: rule__XAttribute__Group__5__Impl
+            // InternalXHDL.g:798:1: ( rule__XAttribute__Group__5__Impl )
+            // InternalXHDL.g:799:2: rule__XAttribute__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__XAttribute__Group__5__Impl();
@@ -2248,20 +2463,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XAttribute__Group__5__Impl"
-    // InternalXHDL.g:747:1: rule__XAttribute__Group__5__Impl : ( ';' ) ;
+    // InternalXHDL.g:805:1: rule__XAttribute__Group__5__Impl : ( ';' ) ;
     public final void rule__XAttribute__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:751:1: ( ( ';' ) )
-            // InternalXHDL.g:752:1: ( ';' )
+            // InternalXHDL.g:809:1: ( ( ';' ) )
+            // InternalXHDL.g:810:1: ( ';' )
             {
-            // InternalXHDL.g:752:1: ( ';' )
-            // InternalXHDL.g:753:2: ';'
+            // InternalXHDL.g:810:1: ( ';' )
+            // InternalXHDL.g:811:2: ';'
             {
              before(grammarAccess.getXAttributeAccess().getSemicolonKeyword_5()); 
-            match(input,14,FOLLOW_2); 
+            match(input,15,FOLLOW_2); 
              after(grammarAccess.getXAttributeAccess().getSemicolonKeyword_5()); 
 
             }
@@ -2285,16 +2500,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__0"
-    // InternalXHDL.g:763:1: rule__XSubType__Group__0 : rule__XSubType__Group__0__Impl rule__XSubType__Group__1 ;
+    // InternalXHDL.g:821:1: rule__XSubType__Group__0 : rule__XSubType__Group__0__Impl rule__XSubType__Group__1 ;
     public final void rule__XSubType__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:767:1: ( rule__XSubType__Group__0__Impl rule__XSubType__Group__1 )
-            // InternalXHDL.g:768:2: rule__XSubType__Group__0__Impl rule__XSubType__Group__1
+            // InternalXHDL.g:825:1: ( rule__XSubType__Group__0__Impl rule__XSubType__Group__1 )
+            // InternalXHDL.g:826:2: rule__XSubType__Group__0__Impl rule__XSubType__Group__1
             {
-            pushFollow(FOLLOW_11);
+            pushFollow(FOLLOW_12);
             rule__XSubType__Group__0__Impl();
 
             state._fsp--;
@@ -2323,25 +2538,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__0__Impl"
-    // InternalXHDL.g:775:1: rule__XSubType__Group__0__Impl : ( () ) ;
+    // InternalXHDL.g:833:1: rule__XSubType__Group__0__Impl : ( () ) ;
     public final void rule__XSubType__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:779:1: ( ( () ) )
-            // InternalXHDL.g:780:1: ( () )
+            // InternalXHDL.g:837:1: ( ( () ) )
+            // InternalXHDL.g:838:1: ( () )
             {
-            // InternalXHDL.g:780:1: ( () )
-            // InternalXHDL.g:781:2: ()
+            // InternalXHDL.g:838:1: ( () )
+            // InternalXHDL.g:839:2: ()
             {
-             before(grammarAccess.getXSubTypeAccess().getSubtypeAction_0()); 
-            // InternalXHDL.g:782:2: ()
-            // InternalXHDL.g:782:3: 
+             before(grammarAccess.getXSubTypeAccess().getXSubTypeAction_0()); 
+            // InternalXHDL.g:840:2: ()
+            // InternalXHDL.g:840:3: 
             {
             }
 
-             after(grammarAccess.getXSubTypeAccess().getSubtypeAction_0()); 
+             after(grammarAccess.getXSubTypeAccess().getXSubTypeAction_0()); 
 
             }
 
@@ -2360,16 +2575,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__1"
-    // InternalXHDL.g:790:1: rule__XSubType__Group__1 : rule__XSubType__Group__1__Impl rule__XSubType__Group__2 ;
+    // InternalXHDL.g:848:1: rule__XSubType__Group__1 : rule__XSubType__Group__1__Impl rule__XSubType__Group__2 ;
     public final void rule__XSubType__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:794:1: ( rule__XSubType__Group__1__Impl rule__XSubType__Group__2 )
-            // InternalXHDL.g:795:2: rule__XSubType__Group__1__Impl rule__XSubType__Group__2
+            // InternalXHDL.g:852:1: ( rule__XSubType__Group__1__Impl rule__XSubType__Group__2 )
+            // InternalXHDL.g:853:2: rule__XSubType__Group__1__Impl rule__XSubType__Group__2
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XSubType__Group__1__Impl();
 
             state._fsp--;
@@ -2398,20 +2613,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__1__Impl"
-    // InternalXHDL.g:802:1: rule__XSubType__Group__1__Impl : ( 'subtype' ) ;
+    // InternalXHDL.g:860:1: rule__XSubType__Group__1__Impl : ( 'subtype' ) ;
     public final void rule__XSubType__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:806:1: ( ( 'subtype' ) )
-            // InternalXHDL.g:807:1: ( 'subtype' )
+            // InternalXHDL.g:864:1: ( ( 'subtype' ) )
+            // InternalXHDL.g:865:1: ( 'subtype' )
             {
-            // InternalXHDL.g:807:1: ( 'subtype' )
-            // InternalXHDL.g:808:2: 'subtype'
+            // InternalXHDL.g:865:1: ( 'subtype' )
+            // InternalXHDL.g:866:2: 'subtype'
             {
              before(grammarAccess.getXSubTypeAccess().getSubtypeKeyword_1()); 
-            match(input,17,FOLLOW_2); 
+            match(input,18,FOLLOW_2); 
              after(grammarAccess.getXSubTypeAccess().getSubtypeKeyword_1()); 
 
             }
@@ -2435,16 +2650,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__2"
-    // InternalXHDL.g:817:1: rule__XSubType__Group__2 : rule__XSubType__Group__2__Impl rule__XSubType__Group__3 ;
+    // InternalXHDL.g:875:1: rule__XSubType__Group__2 : rule__XSubType__Group__2__Impl rule__XSubType__Group__3 ;
     public final void rule__XSubType__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:821:1: ( rule__XSubType__Group__2__Impl rule__XSubType__Group__3 )
-            // InternalXHDL.g:822:2: rule__XSubType__Group__2__Impl rule__XSubType__Group__3
+            // InternalXHDL.g:879:1: ( rule__XSubType__Group__2__Impl rule__XSubType__Group__3 )
+            // InternalXHDL.g:880:2: rule__XSubType__Group__2__Impl rule__XSubType__Group__3
             {
-            pushFollow(FOLLOW_8);
+            pushFollow(FOLLOW_6);
             rule__XSubType__Group__2__Impl();
 
             state._fsp--;
@@ -2473,21 +2688,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__2__Impl"
-    // InternalXHDL.g:829:1: rule__XSubType__Group__2__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:887:1: rule__XSubType__Group__2__Impl : ( ( rule__XSubType__NameAssignment_2 ) ) ;
     public final void rule__XSubType__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:833:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:834:1: ( RULE_ID )
+            // InternalXHDL.g:891:1: ( ( ( rule__XSubType__NameAssignment_2 ) ) )
+            // InternalXHDL.g:892:1: ( ( rule__XSubType__NameAssignment_2 ) )
             {
-            // InternalXHDL.g:834:1: ( RULE_ID )
-            // InternalXHDL.g:835:2: RULE_ID
+            // InternalXHDL.g:892:1: ( ( rule__XSubType__NameAssignment_2 ) )
+            // InternalXHDL.g:893:2: ( rule__XSubType__NameAssignment_2 )
             {
-             before(grammarAccess.getXSubTypeAccess().getIDTerminalRuleCall_2()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXSubTypeAccess().getIDTerminalRuleCall_2()); 
+             before(grammarAccess.getXSubTypeAccess().getNameAssignment_2()); 
+            // InternalXHDL.g:894:2: ( rule__XSubType__NameAssignment_2 )
+            // InternalXHDL.g:894:3: rule__XSubType__NameAssignment_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSubType__NameAssignment_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXSubTypeAccess().getNameAssignment_2()); 
 
             }
 
@@ -2510,17 +2735,22 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__3"
-    // InternalXHDL.g:844:1: rule__XSubType__Group__3 : rule__XSubType__Group__3__Impl ;
+    // InternalXHDL.g:902:1: rule__XSubType__Group__3 : rule__XSubType__Group__3__Impl rule__XSubType__Group__4 ;
     public final void rule__XSubType__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:848:1: ( rule__XSubType__Group__3__Impl )
-            // InternalXHDL.g:849:2: rule__XSubType__Group__3__Impl
+            // InternalXHDL.g:906:1: ( rule__XSubType__Group__3__Impl rule__XSubType__Group__4 )
+            // InternalXHDL.g:907:2: rule__XSubType__Group__3__Impl rule__XSubType__Group__4
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_5);
             rule__XSubType__Group__3__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XSubType__Group__4();
 
             state._fsp--;
 
@@ -2543,21 +2773,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSubType__Group__3__Impl"
-    // InternalXHDL.g:855:1: rule__XSubType__Group__3__Impl : ( ';' ) ;
+    // InternalXHDL.g:914:1: rule__XSubType__Group__3__Impl : ( 'is' ) ;
     public final void rule__XSubType__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:859:1: ( ( ';' ) )
-            // InternalXHDL.g:860:1: ( ';' )
+            // InternalXHDL.g:918:1: ( ( 'is' ) )
+            // InternalXHDL.g:919:1: ( 'is' )
             {
-            // InternalXHDL.g:860:1: ( ';' )
-            // InternalXHDL.g:861:2: ';'
+            // InternalXHDL.g:919:1: ( 'is' )
+            // InternalXHDL.g:920:2: 'is'
             {
-             before(grammarAccess.getXSubTypeAccess().getSemicolonKeyword_3()); 
-            match(input,14,FOLLOW_2); 
-             after(grammarAccess.getXSubTypeAccess().getSemicolonKeyword_3()); 
+             before(grammarAccess.getXSubTypeAccess().getIsKeyword_3()); 
+            match(input,13,FOLLOW_2); 
+             after(grammarAccess.getXSubTypeAccess().getIsKeyword_3()); 
 
             }
 
@@ -2579,17 +2809,172 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__XSubType__Group__3__Impl"
 
 
+    // $ANTLR start "rule__XSubType__Group__4"
+    // InternalXHDL.g:929:1: rule__XSubType__Group__4 : rule__XSubType__Group__4__Impl rule__XSubType__Group__5 ;
+    public final void rule__XSubType__Group__4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:933:1: ( rule__XSubType__Group__4__Impl rule__XSubType__Group__5 )
+            // InternalXHDL.g:934:2: rule__XSubType__Group__4__Impl rule__XSubType__Group__5
+            {
+            pushFollow(FOLLOW_9);
+            rule__XSubType__Group__4__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XSubType__Group__5();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSubType__Group__4"
+
+
+    // $ANTLR start "rule__XSubType__Group__4__Impl"
+    // InternalXHDL.g:941:1: rule__XSubType__Group__4__Impl : ( ( rule__XSubType__XisAssignment_4 ) ) ;
+    public final void rule__XSubType__Group__4__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:945:1: ( ( ( rule__XSubType__XisAssignment_4 ) ) )
+            // InternalXHDL.g:946:1: ( ( rule__XSubType__XisAssignment_4 ) )
+            {
+            // InternalXHDL.g:946:1: ( ( rule__XSubType__XisAssignment_4 ) )
+            // InternalXHDL.g:947:2: ( rule__XSubType__XisAssignment_4 )
+            {
+             before(grammarAccess.getXSubTypeAccess().getXisAssignment_4()); 
+            // InternalXHDL.g:948:2: ( rule__XSubType__XisAssignment_4 )
+            // InternalXHDL.g:948:3: rule__XSubType__XisAssignment_4
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSubType__XisAssignment_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXSubTypeAccess().getXisAssignment_4()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSubType__Group__4__Impl"
+
+
+    // $ANTLR start "rule__XSubType__Group__5"
+    // InternalXHDL.g:956:1: rule__XSubType__Group__5 : rule__XSubType__Group__5__Impl ;
+    public final void rule__XSubType__Group__5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:960:1: ( rule__XSubType__Group__5__Impl )
+            // InternalXHDL.g:961:2: rule__XSubType__Group__5__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSubType__Group__5__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSubType__Group__5"
+
+
+    // $ANTLR start "rule__XSubType__Group__5__Impl"
+    // InternalXHDL.g:967:1: rule__XSubType__Group__5__Impl : ( ';' ) ;
+    public final void rule__XSubType__Group__5__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:971:1: ( ( ';' ) )
+            // InternalXHDL.g:972:1: ( ';' )
+            {
+            // InternalXHDL.g:972:1: ( ';' )
+            // InternalXHDL.g:973:2: ';'
+            {
+             before(grammarAccess.getXSubTypeAccess().getSemicolonKeyword_5()); 
+            match(input,15,FOLLOW_2); 
+             after(grammarAccess.getXSubTypeAccess().getSemicolonKeyword_5()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSubType__Group__5__Impl"
+
+
     // $ANTLR start "rule__XSignal__Group__0"
-    // InternalXHDL.g:871:1: rule__XSignal__Group__0 : rule__XSignal__Group__0__Impl rule__XSignal__Group__1 ;
+    // InternalXHDL.g:983:1: rule__XSignal__Group__0 : rule__XSignal__Group__0__Impl rule__XSignal__Group__1 ;
     public final void rule__XSignal__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:875:1: ( rule__XSignal__Group__0__Impl rule__XSignal__Group__1 )
-            // InternalXHDL.g:876:2: rule__XSignal__Group__0__Impl rule__XSignal__Group__1
+            // InternalXHDL.g:987:1: ( rule__XSignal__Group__0__Impl rule__XSignal__Group__1 )
+            // InternalXHDL.g:988:2: rule__XSignal__Group__0__Impl rule__XSignal__Group__1
             {
-            pushFollow(FOLLOW_12);
+            pushFollow(FOLLOW_13);
             rule__XSignal__Group__0__Impl();
 
             state._fsp--;
@@ -2618,25 +3003,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__0__Impl"
-    // InternalXHDL.g:883:1: rule__XSignal__Group__0__Impl : ( () ) ;
+    // InternalXHDL.g:995:1: rule__XSignal__Group__0__Impl : ( () ) ;
     public final void rule__XSignal__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:887:1: ( ( () ) )
-            // InternalXHDL.g:888:1: ( () )
+            // InternalXHDL.g:999:1: ( ( () ) )
+            // InternalXHDL.g:1000:1: ( () )
             {
-            // InternalXHDL.g:888:1: ( () )
-            // InternalXHDL.g:889:2: ()
+            // InternalXHDL.g:1000:1: ( () )
+            // InternalXHDL.g:1001:2: ()
             {
-             before(grammarAccess.getXSignalAccess().getSignalAction_0()); 
-            // InternalXHDL.g:890:2: ()
-            // InternalXHDL.g:890:3: 
+             before(grammarAccess.getXSignalAccess().getXSignalAction_0()); 
+            // InternalXHDL.g:1002:2: ()
+            // InternalXHDL.g:1002:3: 
             {
             }
 
-             after(grammarAccess.getXSignalAccess().getSignalAction_0()); 
+             after(grammarAccess.getXSignalAccess().getXSignalAction_0()); 
 
             }
 
@@ -2655,16 +3040,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__1"
-    // InternalXHDL.g:898:1: rule__XSignal__Group__1 : rule__XSignal__Group__1__Impl rule__XSignal__Group__2 ;
+    // InternalXHDL.g:1010:1: rule__XSignal__Group__1 : rule__XSignal__Group__1__Impl rule__XSignal__Group__2 ;
     public final void rule__XSignal__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:902:1: ( rule__XSignal__Group__1__Impl rule__XSignal__Group__2 )
-            // InternalXHDL.g:903:2: rule__XSignal__Group__1__Impl rule__XSignal__Group__2
+            // InternalXHDL.g:1014:1: ( rule__XSignal__Group__1__Impl rule__XSignal__Group__2 )
+            // InternalXHDL.g:1015:2: rule__XSignal__Group__1__Impl rule__XSignal__Group__2
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XSignal__Group__1__Impl();
 
             state._fsp--;
@@ -2693,20 +3078,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__1__Impl"
-    // InternalXHDL.g:910:1: rule__XSignal__Group__1__Impl : ( 'signal' ) ;
+    // InternalXHDL.g:1022:1: rule__XSignal__Group__1__Impl : ( 'signal' ) ;
     public final void rule__XSignal__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:914:1: ( ( 'signal' ) )
-            // InternalXHDL.g:915:1: ( 'signal' )
+            // InternalXHDL.g:1026:1: ( ( 'signal' ) )
+            // InternalXHDL.g:1027:1: ( 'signal' )
             {
-            // InternalXHDL.g:915:1: ( 'signal' )
-            // InternalXHDL.g:916:2: 'signal'
+            // InternalXHDL.g:1027:1: ( 'signal' )
+            // InternalXHDL.g:1028:2: 'signal'
             {
              before(grammarAccess.getXSignalAccess().getSignalKeyword_1()); 
-            match(input,18,FOLLOW_2); 
+            match(input,19,FOLLOW_2); 
              after(grammarAccess.getXSignalAccess().getSignalKeyword_1()); 
 
             }
@@ -2730,16 +3115,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__2"
-    // InternalXHDL.g:925:1: rule__XSignal__Group__2 : rule__XSignal__Group__2__Impl rule__XSignal__Group__3 ;
+    // InternalXHDL.g:1037:1: rule__XSignal__Group__2 : rule__XSignal__Group__2__Impl rule__XSignal__Group__3 ;
     public final void rule__XSignal__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:929:1: ( rule__XSignal__Group__2__Impl rule__XSignal__Group__3 )
-            // InternalXHDL.g:930:2: rule__XSignal__Group__2__Impl rule__XSignal__Group__3
+            // InternalXHDL.g:1041:1: ( rule__XSignal__Group__2__Impl rule__XSignal__Group__3 )
+            // InternalXHDL.g:1042:2: rule__XSignal__Group__2__Impl rule__XSignal__Group__3
             {
-            pushFollow(FOLLOW_8);
+            pushFollow(FOLLOW_11);
             rule__XSignal__Group__2__Impl();
 
             state._fsp--;
@@ -2768,21 +3153,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__2__Impl"
-    // InternalXHDL.g:937:1: rule__XSignal__Group__2__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:1049:1: rule__XSignal__Group__2__Impl : ( ( rule__XSignal__NameAssignment_2 ) ) ;
     public final void rule__XSignal__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:941:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:942:1: ( RULE_ID )
+            // InternalXHDL.g:1053:1: ( ( ( rule__XSignal__NameAssignment_2 ) ) )
+            // InternalXHDL.g:1054:1: ( ( rule__XSignal__NameAssignment_2 ) )
             {
-            // InternalXHDL.g:942:1: ( RULE_ID )
-            // InternalXHDL.g:943:2: RULE_ID
+            // InternalXHDL.g:1054:1: ( ( rule__XSignal__NameAssignment_2 ) )
+            // InternalXHDL.g:1055:2: ( rule__XSignal__NameAssignment_2 )
             {
-             before(grammarAccess.getXSignalAccess().getIDTerminalRuleCall_2()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXSignalAccess().getIDTerminalRuleCall_2()); 
+             before(grammarAccess.getXSignalAccess().getNameAssignment_2()); 
+            // InternalXHDL.g:1056:2: ( rule__XSignal__NameAssignment_2 )
+            // InternalXHDL.g:1056:3: rule__XSignal__NameAssignment_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSignal__NameAssignment_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXSignalAccess().getNameAssignment_2()); 
 
             }
 
@@ -2805,17 +3200,22 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__3"
-    // InternalXHDL.g:952:1: rule__XSignal__Group__3 : rule__XSignal__Group__3__Impl ;
+    // InternalXHDL.g:1064:1: rule__XSignal__Group__3 : rule__XSignal__Group__3__Impl rule__XSignal__Group__4 ;
     public final void rule__XSignal__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:956:1: ( rule__XSignal__Group__3__Impl )
-            // InternalXHDL.g:957:2: rule__XSignal__Group__3__Impl
+            // InternalXHDL.g:1068:1: ( rule__XSignal__Group__3__Impl rule__XSignal__Group__4 )
+            // InternalXHDL.g:1069:2: rule__XSignal__Group__3__Impl rule__XSignal__Group__4
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_5);
             rule__XSignal__Group__3__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XSignal__Group__4();
 
             state._fsp--;
 
@@ -2838,21 +3238,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XSignal__Group__3__Impl"
-    // InternalXHDL.g:963:1: rule__XSignal__Group__3__Impl : ( ';' ) ;
+    // InternalXHDL.g:1076:1: rule__XSignal__Group__3__Impl : ( ':' ) ;
     public final void rule__XSignal__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:967:1: ( ( ';' ) )
-            // InternalXHDL.g:968:1: ( ';' )
+            // InternalXHDL.g:1080:1: ( ( ':' ) )
+            // InternalXHDL.g:1081:1: ( ':' )
             {
-            // InternalXHDL.g:968:1: ( ';' )
-            // InternalXHDL.g:969:2: ';'
+            // InternalXHDL.g:1081:1: ( ':' )
+            // InternalXHDL.g:1082:2: ':'
             {
-             before(grammarAccess.getXSignalAccess().getSemicolonKeyword_3()); 
-            match(input,14,FOLLOW_2); 
-             after(grammarAccess.getXSignalAccess().getSemicolonKeyword_3()); 
+             before(grammarAccess.getXSignalAccess().getColonKeyword_3()); 
+            match(input,17,FOLLOW_2); 
+             after(grammarAccess.getXSignalAccess().getColonKeyword_3()); 
 
             }
 
@@ -2874,17 +3274,413 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__XSignal__Group__3__Impl"
 
 
+    // $ANTLR start "rule__XSignal__Group__4"
+    // InternalXHDL.g:1091:1: rule__XSignal__Group__4 : rule__XSignal__Group__4__Impl rule__XSignal__Group__5 ;
+    public final void rule__XSignal__Group__4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1095:1: ( rule__XSignal__Group__4__Impl rule__XSignal__Group__5 )
+            // InternalXHDL.g:1096:2: rule__XSignal__Group__4__Impl rule__XSignal__Group__5
+            {
+            pushFollow(FOLLOW_14);
+            rule__XSignal__Group__4__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XSignal__Group__5();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group__4"
+
+
+    // $ANTLR start "rule__XSignal__Group__4__Impl"
+    // InternalXHDL.g:1103:1: rule__XSignal__Group__4__Impl : ( ( rule__XSignal__XtypeAssignment_4 ) ) ;
+    public final void rule__XSignal__Group__4__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1107:1: ( ( ( rule__XSignal__XtypeAssignment_4 ) ) )
+            // InternalXHDL.g:1108:1: ( ( rule__XSignal__XtypeAssignment_4 ) )
+            {
+            // InternalXHDL.g:1108:1: ( ( rule__XSignal__XtypeAssignment_4 ) )
+            // InternalXHDL.g:1109:2: ( rule__XSignal__XtypeAssignment_4 )
+            {
+             before(grammarAccess.getXSignalAccess().getXtypeAssignment_4()); 
+            // InternalXHDL.g:1110:2: ( rule__XSignal__XtypeAssignment_4 )
+            // InternalXHDL.g:1110:3: rule__XSignal__XtypeAssignment_4
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSignal__XtypeAssignment_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXSignalAccess().getXtypeAssignment_4()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group__4__Impl"
+
+
+    // $ANTLR start "rule__XSignal__Group__5"
+    // InternalXHDL.g:1118:1: rule__XSignal__Group__5 : rule__XSignal__Group__5__Impl rule__XSignal__Group__6 ;
+    public final void rule__XSignal__Group__5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1122:1: ( rule__XSignal__Group__5__Impl rule__XSignal__Group__6 )
+            // InternalXHDL.g:1123:2: rule__XSignal__Group__5__Impl rule__XSignal__Group__6
+            {
+            pushFollow(FOLLOW_14);
+            rule__XSignal__Group__5__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XSignal__Group__6();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group__5"
+
+
+    // $ANTLR start "rule__XSignal__Group__5__Impl"
+    // InternalXHDL.g:1130:1: rule__XSignal__Group__5__Impl : ( ( rule__XSignal__Group_5__0 )? ) ;
+    public final void rule__XSignal__Group__5__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1134:1: ( ( ( rule__XSignal__Group_5__0 )? ) )
+            // InternalXHDL.g:1135:1: ( ( rule__XSignal__Group_5__0 )? )
+            {
+            // InternalXHDL.g:1135:1: ( ( rule__XSignal__Group_5__0 )? )
+            // InternalXHDL.g:1136:2: ( rule__XSignal__Group_5__0 )?
+            {
+             before(grammarAccess.getXSignalAccess().getGroup_5()); 
+            // InternalXHDL.g:1137:2: ( rule__XSignal__Group_5__0 )?
+            int alt5=2;
+            int LA5_0 = input.LA(1);
+
+            if ( (LA5_0==20) ) {
+                alt5=1;
+            }
+            switch (alt5) {
+                case 1 :
+                    // InternalXHDL.g:1137:3: rule__XSignal__Group_5__0
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__XSignal__Group_5__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getXSignalAccess().getGroup_5()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group__5__Impl"
+
+
+    // $ANTLR start "rule__XSignal__Group__6"
+    // InternalXHDL.g:1145:1: rule__XSignal__Group__6 : rule__XSignal__Group__6__Impl ;
+    public final void rule__XSignal__Group__6() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1149:1: ( rule__XSignal__Group__6__Impl )
+            // InternalXHDL.g:1150:2: rule__XSignal__Group__6__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSignal__Group__6__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group__6"
+
+
+    // $ANTLR start "rule__XSignal__Group__6__Impl"
+    // InternalXHDL.g:1156:1: rule__XSignal__Group__6__Impl : ( ';' ) ;
+    public final void rule__XSignal__Group__6__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1160:1: ( ( ';' ) )
+            // InternalXHDL.g:1161:1: ( ';' )
+            {
+            // InternalXHDL.g:1161:1: ( ';' )
+            // InternalXHDL.g:1162:2: ';'
+            {
+             before(grammarAccess.getXSignalAccess().getSemicolonKeyword_6()); 
+            match(input,15,FOLLOW_2); 
+             after(grammarAccess.getXSignalAccess().getSemicolonKeyword_6()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group__6__Impl"
+
+
+    // $ANTLR start "rule__XSignal__Group_5__0"
+    // InternalXHDL.g:1172:1: rule__XSignal__Group_5__0 : rule__XSignal__Group_5__0__Impl rule__XSignal__Group_5__1 ;
+    public final void rule__XSignal__Group_5__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1176:1: ( rule__XSignal__Group_5__0__Impl rule__XSignal__Group_5__1 )
+            // InternalXHDL.g:1177:2: rule__XSignal__Group_5__0__Impl rule__XSignal__Group_5__1
+            {
+            pushFollow(FOLLOW_5);
+            rule__XSignal__Group_5__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XSignal__Group_5__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group_5__0"
+
+
+    // $ANTLR start "rule__XSignal__Group_5__0__Impl"
+    // InternalXHDL.g:1184:1: rule__XSignal__Group_5__0__Impl : ( ';=' ) ;
+    public final void rule__XSignal__Group_5__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1188:1: ( ( ';=' ) )
+            // InternalXHDL.g:1189:1: ( ';=' )
+            {
+            // InternalXHDL.g:1189:1: ( ';=' )
+            // InternalXHDL.g:1190:2: ';='
+            {
+             before(grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_5_0()); 
+            match(input,20,FOLLOW_2); 
+             after(grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_5_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group_5__0__Impl"
+
+
+    // $ANTLR start "rule__XSignal__Group_5__1"
+    // InternalXHDL.g:1199:1: rule__XSignal__Group_5__1 : rule__XSignal__Group_5__1__Impl ;
+    public final void rule__XSignal__Group_5__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1203:1: ( rule__XSignal__Group_5__1__Impl )
+            // InternalXHDL.g:1204:2: rule__XSignal__Group_5__1__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__XSignal__Group_5__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group_5__1"
+
+
+    // $ANTLR start "rule__XSignal__Group_5__1__Impl"
+    // InternalXHDL.g:1210:1: rule__XSignal__Group_5__1__Impl : ( RULE_ID ) ;
+    public final void rule__XSignal__Group_5__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:1214:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:1215:1: ( RULE_ID )
+            {
+            // InternalXHDL.g:1215:1: ( RULE_ID )
+            // InternalXHDL.g:1216:2: RULE_ID
+            {
+             before(grammarAccess.getXSignalAccess().getIDTerminalRuleCall_5_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXSignalAccess().getIDTerminalRuleCall_5_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__Group_5__1__Impl"
+
+
     // $ANTLR start "rule__XType__Group_0__0"
-    // InternalXHDL.g:979:1: rule__XType__Group_0__0 : rule__XType__Group_0__0__Impl rule__XType__Group_0__1 ;
+    // InternalXHDL.g:1226:1: rule__XType__Group_0__0 : rule__XType__Group_0__0__Impl rule__XType__Group_0__1 ;
     public final void rule__XType__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:983:1: ( rule__XType__Group_0__0__Impl rule__XType__Group_0__1 )
-            // InternalXHDL.g:984:2: rule__XType__Group_0__0__Impl rule__XType__Group_0__1
+            // InternalXHDL.g:1230:1: ( rule__XType__Group_0__0__Impl rule__XType__Group_0__1 )
+            // InternalXHDL.g:1231:2: rule__XType__Group_0__0__Impl rule__XType__Group_0__1
             {
-            pushFollow(FOLLOW_13);
+            pushFollow(FOLLOW_15);
             rule__XType__Group_0__0__Impl();
 
             state._fsp--;
@@ -2913,25 +3709,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__0__Impl"
-    // InternalXHDL.g:991:1: rule__XType__Group_0__0__Impl : ( () ) ;
+    // InternalXHDL.g:1238:1: rule__XType__Group_0__0__Impl : ( () ) ;
     public final void rule__XType__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:995:1: ( ( () ) )
-            // InternalXHDL.g:996:1: ( () )
+            // InternalXHDL.g:1242:1: ( ( () ) )
+            // InternalXHDL.g:1243:1: ( () )
             {
-            // InternalXHDL.g:996:1: ( () )
-            // InternalXHDL.g:997:2: ()
+            // InternalXHDL.g:1243:1: ( () )
+            // InternalXHDL.g:1244:2: ()
             {
-             before(grammarAccess.getXTypeAccess().getTypeAction_0_0()); 
-            // InternalXHDL.g:998:2: ()
-            // InternalXHDL.g:998:3: 
+             before(grammarAccess.getXTypeAccess().getXTypeAction_0_0()); 
+            // InternalXHDL.g:1245:2: ()
+            // InternalXHDL.g:1245:3: 
             {
             }
 
-             after(grammarAccess.getXTypeAccess().getTypeAction_0_0()); 
+             after(grammarAccess.getXTypeAccess().getXTypeAction_0_0()); 
 
             }
 
@@ -2950,16 +3746,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__1"
-    // InternalXHDL.g:1006:1: rule__XType__Group_0__1 : rule__XType__Group_0__1__Impl rule__XType__Group_0__2 ;
+    // InternalXHDL.g:1253:1: rule__XType__Group_0__1 : rule__XType__Group_0__1__Impl rule__XType__Group_0__2 ;
     public final void rule__XType__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1010:1: ( rule__XType__Group_0__1__Impl rule__XType__Group_0__2 )
-            // InternalXHDL.g:1011:2: rule__XType__Group_0__1__Impl rule__XType__Group_0__2
+            // InternalXHDL.g:1257:1: ( rule__XType__Group_0__1__Impl rule__XType__Group_0__2 )
+            // InternalXHDL.g:1258:2: rule__XType__Group_0__1__Impl rule__XType__Group_0__2
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XType__Group_0__1__Impl();
 
             state._fsp--;
@@ -2988,20 +3784,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__1__Impl"
-    // InternalXHDL.g:1018:1: rule__XType__Group_0__1__Impl : ( 'type' ) ;
+    // InternalXHDL.g:1265:1: rule__XType__Group_0__1__Impl : ( 'type' ) ;
     public final void rule__XType__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1022:1: ( ( 'type' ) )
-            // InternalXHDL.g:1023:1: ( 'type' )
+            // InternalXHDL.g:1269:1: ( ( 'type' ) )
+            // InternalXHDL.g:1270:1: ( 'type' )
             {
-            // InternalXHDL.g:1023:1: ( 'type' )
-            // InternalXHDL.g:1024:2: 'type'
+            // InternalXHDL.g:1270:1: ( 'type' )
+            // InternalXHDL.g:1271:2: 'type'
             {
              before(grammarAccess.getXTypeAccess().getTypeKeyword_0_1()); 
-            match(input,19,FOLLOW_2); 
+            match(input,21,FOLLOW_2); 
              after(grammarAccess.getXTypeAccess().getTypeKeyword_0_1()); 
 
             }
@@ -3025,16 +3821,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__2"
-    // InternalXHDL.g:1033:1: rule__XType__Group_0__2 : rule__XType__Group_0__2__Impl rule__XType__Group_0__3 ;
+    // InternalXHDL.g:1280:1: rule__XType__Group_0__2 : rule__XType__Group_0__2__Impl rule__XType__Group_0__3 ;
     public final void rule__XType__Group_0__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1037:1: ( rule__XType__Group_0__2__Impl rule__XType__Group_0__3 )
-            // InternalXHDL.g:1038:2: rule__XType__Group_0__2__Impl rule__XType__Group_0__3
+            // InternalXHDL.g:1284:1: ( rule__XType__Group_0__2__Impl rule__XType__Group_0__3 )
+            // InternalXHDL.g:1285:2: rule__XType__Group_0__2__Impl rule__XType__Group_0__3
             {
-            pushFollow(FOLLOW_5);
+            pushFollow(FOLLOW_6);
             rule__XType__Group_0__2__Impl();
 
             state._fsp--;
@@ -3063,21 +3859,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__2__Impl"
-    // InternalXHDL.g:1045:1: rule__XType__Group_0__2__Impl : ( ( rule__XType__NameAssignment_0_2 ) ) ;
+    // InternalXHDL.g:1292:1: rule__XType__Group_0__2__Impl : ( ( rule__XType__NameAssignment_0_2 ) ) ;
     public final void rule__XType__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1049:1: ( ( ( rule__XType__NameAssignment_0_2 ) ) )
-            // InternalXHDL.g:1050:1: ( ( rule__XType__NameAssignment_0_2 ) )
+            // InternalXHDL.g:1296:1: ( ( ( rule__XType__NameAssignment_0_2 ) ) )
+            // InternalXHDL.g:1297:1: ( ( rule__XType__NameAssignment_0_2 ) )
             {
-            // InternalXHDL.g:1050:1: ( ( rule__XType__NameAssignment_0_2 ) )
-            // InternalXHDL.g:1051:2: ( rule__XType__NameAssignment_0_2 )
+            // InternalXHDL.g:1297:1: ( ( rule__XType__NameAssignment_0_2 ) )
+            // InternalXHDL.g:1298:2: ( rule__XType__NameAssignment_0_2 )
             {
              before(grammarAccess.getXTypeAccess().getNameAssignment_0_2()); 
-            // InternalXHDL.g:1052:2: ( rule__XType__NameAssignment_0_2 )
-            // InternalXHDL.g:1052:3: rule__XType__NameAssignment_0_2
+            // InternalXHDL.g:1299:2: ( rule__XType__NameAssignment_0_2 )
+            // InternalXHDL.g:1299:3: rule__XType__NameAssignment_0_2
             {
             pushFollow(FOLLOW_2);
             rule__XType__NameAssignment_0_2();
@@ -3110,16 +3906,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__3"
-    // InternalXHDL.g:1060:1: rule__XType__Group_0__3 : rule__XType__Group_0__3__Impl rule__XType__Group_0__4 ;
+    // InternalXHDL.g:1307:1: rule__XType__Group_0__3 : rule__XType__Group_0__3__Impl rule__XType__Group_0__4 ;
     public final void rule__XType__Group_0__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1064:1: ( rule__XType__Group_0__3__Impl rule__XType__Group_0__4 )
-            // InternalXHDL.g:1065:2: rule__XType__Group_0__3__Impl rule__XType__Group_0__4
+            // InternalXHDL.g:1311:1: ( rule__XType__Group_0__3__Impl rule__XType__Group_0__4 )
+            // InternalXHDL.g:1312:2: rule__XType__Group_0__3__Impl rule__XType__Group_0__4
             {
-            pushFollow(FOLLOW_14);
+            pushFollow(FOLLOW_16);
             rule__XType__Group_0__3__Impl();
 
             state._fsp--;
@@ -3148,20 +3944,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__3__Impl"
-    // InternalXHDL.g:1072:1: rule__XType__Group_0__3__Impl : ( 'is' ) ;
+    // InternalXHDL.g:1319:1: rule__XType__Group_0__3__Impl : ( 'is' ) ;
     public final void rule__XType__Group_0__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1076:1: ( ( 'is' ) )
-            // InternalXHDL.g:1077:1: ( 'is' )
+            // InternalXHDL.g:1323:1: ( ( 'is' ) )
+            // InternalXHDL.g:1324:1: ( 'is' )
             {
-            // InternalXHDL.g:1077:1: ( 'is' )
-            // InternalXHDL.g:1078:2: 'is'
+            // InternalXHDL.g:1324:1: ( 'is' )
+            // InternalXHDL.g:1325:2: 'is'
             {
              before(grammarAccess.getXTypeAccess().getIsKeyword_0_3()); 
-            match(input,12,FOLLOW_2); 
+            match(input,13,FOLLOW_2); 
              after(grammarAccess.getXTypeAccess().getIsKeyword_0_3()); 
 
             }
@@ -3185,14 +3981,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__4"
-    // InternalXHDL.g:1087:1: rule__XType__Group_0__4 : rule__XType__Group_0__4__Impl ;
+    // InternalXHDL.g:1334:1: rule__XType__Group_0__4 : rule__XType__Group_0__4__Impl ;
     public final void rule__XType__Group_0__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1091:1: ( rule__XType__Group_0__4__Impl )
-            // InternalXHDL.g:1092:2: rule__XType__Group_0__4__Impl
+            // InternalXHDL.g:1338:1: ( rule__XType__Group_0__4__Impl )
+            // InternalXHDL.g:1339:2: rule__XType__Group_0__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__XType__Group_0__4__Impl();
@@ -3218,25 +4014,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_0__4__Impl"
-    // InternalXHDL.g:1098:1: rule__XType__Group_0__4__Impl : ( ruleXEnums ) ;
+    // InternalXHDL.g:1345:1: rule__XType__Group_0__4__Impl : ( ( rule__XType__XenumsAssignment_0_4 ) ) ;
     public final void rule__XType__Group_0__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1102:1: ( ( ruleXEnums ) )
-            // InternalXHDL.g:1103:1: ( ruleXEnums )
+            // InternalXHDL.g:1349:1: ( ( ( rule__XType__XenumsAssignment_0_4 ) ) )
+            // InternalXHDL.g:1350:1: ( ( rule__XType__XenumsAssignment_0_4 ) )
             {
-            // InternalXHDL.g:1103:1: ( ruleXEnums )
-            // InternalXHDL.g:1104:2: ruleXEnums
+            // InternalXHDL.g:1350:1: ( ( rule__XType__XenumsAssignment_0_4 ) )
+            // InternalXHDL.g:1351:2: ( rule__XType__XenumsAssignment_0_4 )
             {
-             before(grammarAccess.getXTypeAccess().getXEnumsParserRuleCall_0_4()); 
+             before(grammarAccess.getXTypeAccess().getXenumsAssignment_0_4()); 
+            // InternalXHDL.g:1352:2: ( rule__XType__XenumsAssignment_0_4 )
+            // InternalXHDL.g:1352:3: rule__XType__XenumsAssignment_0_4
+            {
             pushFollow(FOLLOW_2);
-            ruleXEnums();
+            rule__XType__XenumsAssignment_0_4();
 
             state._fsp--;
 
-             after(grammarAccess.getXTypeAccess().getXEnumsParserRuleCall_0_4()); 
+
+            }
+
+             after(grammarAccess.getXTypeAccess().getXenumsAssignment_0_4()); 
 
             }
 
@@ -3259,16 +4061,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_2__0"
-    // InternalXHDL.g:1114:1: rule__XType__Group_2__0 : rule__XType__Group_2__0__Impl rule__XType__Group_2__1 ;
+    // InternalXHDL.g:1361:1: rule__XType__Group_2__0 : rule__XType__Group_2__0__Impl rule__XType__Group_2__1 ;
     public final void rule__XType__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1118:1: ( rule__XType__Group_2__0__Impl rule__XType__Group_2__1 )
-            // InternalXHDL.g:1119:2: rule__XType__Group_2__0__Impl rule__XType__Group_2__1
+            // InternalXHDL.g:1365:1: ( rule__XType__Group_2__0__Impl rule__XType__Group_2__1 )
+            // InternalXHDL.g:1366:2: rule__XType__Group_2__0__Impl rule__XType__Group_2__1
             {
-            pushFollow(FOLLOW_8);
+            pushFollow(FOLLOW_9);
             rule__XType__Group_2__0__Impl();
 
             state._fsp--;
@@ -3297,25 +4099,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_2__0__Impl"
-    // InternalXHDL.g:1126:1: rule__XType__Group_2__0__Impl : ( ruleXArray ) ;
+    // InternalXHDL.g:1373:1: rule__XType__Group_2__0__Impl : ( ( rule__XType__XarrayAssignment_2_0 ) ) ;
     public final void rule__XType__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1130:1: ( ( ruleXArray ) )
-            // InternalXHDL.g:1131:1: ( ruleXArray )
+            // InternalXHDL.g:1377:1: ( ( ( rule__XType__XarrayAssignment_2_0 ) ) )
+            // InternalXHDL.g:1378:1: ( ( rule__XType__XarrayAssignment_2_0 ) )
             {
-            // InternalXHDL.g:1131:1: ( ruleXArray )
-            // InternalXHDL.g:1132:2: ruleXArray
+            // InternalXHDL.g:1378:1: ( ( rule__XType__XarrayAssignment_2_0 ) )
+            // InternalXHDL.g:1379:2: ( rule__XType__XarrayAssignment_2_0 )
             {
-             before(grammarAccess.getXTypeAccess().getXArrayParserRuleCall_2_0()); 
+             before(grammarAccess.getXTypeAccess().getXarrayAssignment_2_0()); 
+            // InternalXHDL.g:1380:2: ( rule__XType__XarrayAssignment_2_0 )
+            // InternalXHDL.g:1380:3: rule__XType__XarrayAssignment_2_0
+            {
             pushFollow(FOLLOW_2);
-            ruleXArray();
+            rule__XType__XarrayAssignment_2_0();
 
             state._fsp--;
 
-             after(grammarAccess.getXTypeAccess().getXArrayParserRuleCall_2_0()); 
+
+            }
+
+             after(grammarAccess.getXTypeAccess().getXarrayAssignment_2_0()); 
 
             }
 
@@ -3338,14 +4146,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_2__1"
-    // InternalXHDL.g:1141:1: rule__XType__Group_2__1 : rule__XType__Group_2__1__Impl ;
+    // InternalXHDL.g:1388:1: rule__XType__Group_2__1 : rule__XType__Group_2__1__Impl ;
     public final void rule__XType__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1145:1: ( rule__XType__Group_2__1__Impl )
-            // InternalXHDL.g:1146:2: rule__XType__Group_2__1__Impl
+            // InternalXHDL.g:1392:1: ( rule__XType__Group_2__1__Impl )
+            // InternalXHDL.g:1393:2: rule__XType__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__XType__Group_2__1__Impl();
@@ -3371,20 +4179,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XType__Group_2__1__Impl"
-    // InternalXHDL.g:1152:1: rule__XType__Group_2__1__Impl : ( ';' ) ;
+    // InternalXHDL.g:1399:1: rule__XType__Group_2__1__Impl : ( ';' ) ;
     public final void rule__XType__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1156:1: ( ( ';' ) )
-            // InternalXHDL.g:1157:1: ( ';' )
+            // InternalXHDL.g:1403:1: ( ( ';' ) )
+            // InternalXHDL.g:1404:1: ( ';' )
             {
-            // InternalXHDL.g:1157:1: ( ';' )
-            // InternalXHDL.g:1158:2: ';'
+            // InternalXHDL.g:1404:1: ( ';' )
+            // InternalXHDL.g:1405:2: ';'
             {
              before(grammarAccess.getXTypeAccess().getSemicolonKeyword_2_1()); 
-            match(input,14,FOLLOW_2); 
+            match(input,15,FOLLOW_2); 
              after(grammarAccess.getXTypeAccess().getSemicolonKeyword_2_1()); 
 
             }
@@ -3408,16 +4216,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__0"
-    // InternalXHDL.g:1168:1: rule__XArray__Group__0 : rule__XArray__Group__0__Impl rule__XArray__Group__1 ;
+    // InternalXHDL.g:1415:1: rule__XArray__Group__0 : rule__XArray__Group__0__Impl rule__XArray__Group__1 ;
     public final void rule__XArray__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1172:1: ( rule__XArray__Group__0__Impl rule__XArray__Group__1 )
-            // InternalXHDL.g:1173:2: rule__XArray__Group__0__Impl rule__XArray__Group__1
+            // InternalXHDL.g:1419:1: ( rule__XArray__Group__0__Impl rule__XArray__Group__1 )
+            // InternalXHDL.g:1420:2: rule__XArray__Group__0__Impl rule__XArray__Group__1
             {
-            pushFollow(FOLLOW_15);
+            pushFollow(FOLLOW_17);
             rule__XArray__Group__0__Impl();
 
             state._fsp--;
@@ -3446,25 +4254,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__0__Impl"
-    // InternalXHDL.g:1180:1: rule__XArray__Group__0__Impl : ( () ) ;
+    // InternalXHDL.g:1427:1: rule__XArray__Group__0__Impl : ( () ) ;
     public final void rule__XArray__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1184:1: ( ( () ) )
-            // InternalXHDL.g:1185:1: ( () )
+            // InternalXHDL.g:1431:1: ( ( () ) )
+            // InternalXHDL.g:1432:1: ( () )
             {
-            // InternalXHDL.g:1185:1: ( () )
-            // InternalXHDL.g:1186:2: ()
+            // InternalXHDL.g:1432:1: ( () )
+            // InternalXHDL.g:1433:2: ()
             {
-             before(grammarAccess.getXArrayAccess().getArrayAction_0()); 
-            // InternalXHDL.g:1187:2: ()
-            // InternalXHDL.g:1187:3: 
+             before(grammarAccess.getXArrayAccess().getXArrayAction_0()); 
+            // InternalXHDL.g:1434:2: ()
+            // InternalXHDL.g:1434:3: 
             {
             }
 
-             after(grammarAccess.getXArrayAccess().getArrayAction_0()); 
+             after(grammarAccess.getXArrayAccess().getXArrayAction_0()); 
 
             }
 
@@ -3483,16 +4291,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__1"
-    // InternalXHDL.g:1195:1: rule__XArray__Group__1 : rule__XArray__Group__1__Impl rule__XArray__Group__2 ;
+    // InternalXHDL.g:1442:1: rule__XArray__Group__1 : rule__XArray__Group__1__Impl rule__XArray__Group__2 ;
     public final void rule__XArray__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1199:1: ( rule__XArray__Group__1__Impl rule__XArray__Group__2 )
-            // InternalXHDL.g:1200:2: rule__XArray__Group__1__Impl rule__XArray__Group__2
+            // InternalXHDL.g:1446:1: ( rule__XArray__Group__1__Impl rule__XArray__Group__2 )
+            // InternalXHDL.g:1447:2: rule__XArray__Group__1__Impl rule__XArray__Group__2
             {
-            pushFollow(FOLLOW_14);
+            pushFollow(FOLLOW_16);
             rule__XArray__Group__1__Impl();
 
             state._fsp--;
@@ -3521,20 +4329,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__1__Impl"
-    // InternalXHDL.g:1207:1: rule__XArray__Group__1__Impl : ( 'array' ) ;
+    // InternalXHDL.g:1454:1: rule__XArray__Group__1__Impl : ( 'array' ) ;
     public final void rule__XArray__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1211:1: ( ( 'array' ) )
-            // InternalXHDL.g:1212:1: ( 'array' )
+            // InternalXHDL.g:1458:1: ( ( 'array' ) )
+            // InternalXHDL.g:1459:1: ( 'array' )
             {
-            // InternalXHDL.g:1212:1: ( 'array' )
-            // InternalXHDL.g:1213:2: 'array'
+            // InternalXHDL.g:1459:1: ( 'array' )
+            // InternalXHDL.g:1460:2: 'array'
             {
              before(grammarAccess.getXArrayAccess().getArrayKeyword_1()); 
-            match(input,20,FOLLOW_2); 
+            match(input,22,FOLLOW_2); 
              after(grammarAccess.getXArrayAccess().getArrayKeyword_1()); 
 
             }
@@ -3558,16 +4366,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__2"
-    // InternalXHDL.g:1222:1: rule__XArray__Group__2 : rule__XArray__Group__2__Impl rule__XArray__Group__3 ;
+    // InternalXHDL.g:1469:1: rule__XArray__Group__2 : rule__XArray__Group__2__Impl rule__XArray__Group__3 ;
     public final void rule__XArray__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1226:1: ( rule__XArray__Group__2__Impl rule__XArray__Group__3 )
-            // InternalXHDL.g:1227:2: rule__XArray__Group__2__Impl rule__XArray__Group__3
+            // InternalXHDL.g:1473:1: ( rule__XArray__Group__2__Impl rule__XArray__Group__3 )
+            // InternalXHDL.g:1474:2: rule__XArray__Group__2__Impl rule__XArray__Group__3
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XArray__Group__2__Impl();
 
             state._fsp--;
@@ -3596,20 +4404,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__2__Impl"
-    // InternalXHDL.g:1234:1: rule__XArray__Group__2__Impl : ( '(' ) ;
+    // InternalXHDL.g:1481:1: rule__XArray__Group__2__Impl : ( '(' ) ;
     public final void rule__XArray__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1238:1: ( ( '(' ) )
-            // InternalXHDL.g:1239:1: ( '(' )
+            // InternalXHDL.g:1485:1: ( ( '(' ) )
+            // InternalXHDL.g:1486:1: ( '(' )
             {
-            // InternalXHDL.g:1239:1: ( '(' )
-            // InternalXHDL.g:1240:2: '('
+            // InternalXHDL.g:1486:1: ( '(' )
+            // InternalXHDL.g:1487:2: '('
             {
              before(grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2()); 
-            match(input,21,FOLLOW_2); 
+            match(input,23,FOLLOW_2); 
              after(grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2()); 
 
             }
@@ -3633,16 +4441,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__3"
-    // InternalXHDL.g:1249:1: rule__XArray__Group__3 : rule__XArray__Group__3__Impl rule__XArray__Group__4 ;
+    // InternalXHDL.g:1496:1: rule__XArray__Group__3 : rule__XArray__Group__3__Impl rule__XArray__Group__4 ;
     public final void rule__XArray__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1253:1: ( rule__XArray__Group__3__Impl rule__XArray__Group__4 )
-            // InternalXHDL.g:1254:2: rule__XArray__Group__3__Impl rule__XArray__Group__4
+            // InternalXHDL.g:1500:1: ( rule__XArray__Group__3__Impl rule__XArray__Group__4 )
+            // InternalXHDL.g:1501:2: rule__XArray__Group__3__Impl rule__XArray__Group__4
             {
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_18);
             rule__XArray__Group__3__Impl();
 
             state._fsp--;
@@ -3671,21 +4479,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__3__Impl"
-    // InternalXHDL.g:1261:1: rule__XArray__Group__3__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:1508:1: rule__XArray__Group__3__Impl : ( ( rule__XArray__XrangeAssignment_3 ) ) ;
     public final void rule__XArray__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1265:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:1266:1: ( RULE_ID )
+            // InternalXHDL.g:1512:1: ( ( ( rule__XArray__XrangeAssignment_3 ) ) )
+            // InternalXHDL.g:1513:1: ( ( rule__XArray__XrangeAssignment_3 ) )
             {
-            // InternalXHDL.g:1266:1: ( RULE_ID )
-            // InternalXHDL.g:1267:2: RULE_ID
+            // InternalXHDL.g:1513:1: ( ( rule__XArray__XrangeAssignment_3 ) )
+            // InternalXHDL.g:1514:2: ( rule__XArray__XrangeAssignment_3 )
             {
-             before(grammarAccess.getXArrayAccess().getIDTerminalRuleCall_3()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXArrayAccess().getIDTerminalRuleCall_3()); 
+             before(grammarAccess.getXArrayAccess().getXrangeAssignment_3()); 
+            // InternalXHDL.g:1515:2: ( rule__XArray__XrangeAssignment_3 )
+            // InternalXHDL.g:1515:3: rule__XArray__XrangeAssignment_3
+            {
+            pushFollow(FOLLOW_2);
+            rule__XArray__XrangeAssignment_3();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXArrayAccess().getXrangeAssignment_3()); 
 
             }
 
@@ -3708,16 +4526,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__4"
-    // InternalXHDL.g:1276:1: rule__XArray__Group__4 : rule__XArray__Group__4__Impl rule__XArray__Group__5 ;
+    // InternalXHDL.g:1523:1: rule__XArray__Group__4 : rule__XArray__Group__4__Impl rule__XArray__Group__5 ;
     public final void rule__XArray__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1280:1: ( rule__XArray__Group__4__Impl rule__XArray__Group__5 )
-            // InternalXHDL.g:1281:2: rule__XArray__Group__4__Impl rule__XArray__Group__5
+            // InternalXHDL.g:1527:1: ( rule__XArray__Group__4__Impl rule__XArray__Group__5 )
+            // InternalXHDL.g:1528:2: rule__XArray__Group__4__Impl rule__XArray__Group__5
             {
-            pushFollow(FOLLOW_17);
+            pushFollow(FOLLOW_19);
             rule__XArray__Group__4__Impl();
 
             state._fsp--;
@@ -3746,20 +4564,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__4__Impl"
-    // InternalXHDL.g:1288:1: rule__XArray__Group__4__Impl : ( 'range' ) ;
+    // InternalXHDL.g:1535:1: rule__XArray__Group__4__Impl : ( 'range' ) ;
     public final void rule__XArray__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1292:1: ( ( 'range' ) )
-            // InternalXHDL.g:1293:1: ( 'range' )
+            // InternalXHDL.g:1539:1: ( ( 'range' ) )
+            // InternalXHDL.g:1540:1: ( 'range' )
             {
-            // InternalXHDL.g:1293:1: ( 'range' )
-            // InternalXHDL.g:1294:2: 'range'
+            // InternalXHDL.g:1540:1: ( 'range' )
+            // InternalXHDL.g:1541:2: 'range'
             {
              before(grammarAccess.getXArrayAccess().getRangeKeyword_4()); 
-            match(input,22,FOLLOW_2); 
+            match(input,24,FOLLOW_2); 
              after(grammarAccess.getXArrayAccess().getRangeKeyword_4()); 
 
             }
@@ -3783,16 +4601,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__5"
-    // InternalXHDL.g:1303:1: rule__XArray__Group__5 : rule__XArray__Group__5__Impl rule__XArray__Group__6 ;
+    // InternalXHDL.g:1550:1: rule__XArray__Group__5 : rule__XArray__Group__5__Impl rule__XArray__Group__6 ;
     public final void rule__XArray__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1307:1: ( rule__XArray__Group__5__Impl rule__XArray__Group__6 )
-            // InternalXHDL.g:1308:2: rule__XArray__Group__5__Impl rule__XArray__Group__6
+            // InternalXHDL.g:1554:1: ( rule__XArray__Group__5__Impl rule__XArray__Group__6 )
+            // InternalXHDL.g:1555:2: rule__XArray__Group__5__Impl rule__XArray__Group__6
             {
-            pushFollow(FOLLOW_18);
+            pushFollow(FOLLOW_20);
             rule__XArray__Group__5__Impl();
 
             state._fsp--;
@@ -3821,20 +4639,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__5__Impl"
-    // InternalXHDL.g:1315:1: rule__XArray__Group__5__Impl : ( '<>' ) ;
+    // InternalXHDL.g:1562:1: rule__XArray__Group__5__Impl : ( '<>' ) ;
     public final void rule__XArray__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1319:1: ( ( '<>' ) )
-            // InternalXHDL.g:1320:1: ( '<>' )
+            // InternalXHDL.g:1566:1: ( ( '<>' ) )
+            // InternalXHDL.g:1567:1: ( '<>' )
             {
-            // InternalXHDL.g:1320:1: ( '<>' )
-            // InternalXHDL.g:1321:2: '<>'
+            // InternalXHDL.g:1567:1: ( '<>' )
+            // InternalXHDL.g:1568:2: '<>'
             {
              before(grammarAccess.getXArrayAccess().getLessThanSignGreaterThanSignKeyword_5()); 
-            match(input,23,FOLLOW_2); 
+            match(input,25,FOLLOW_2); 
              after(grammarAccess.getXArrayAccess().getLessThanSignGreaterThanSignKeyword_5()); 
 
             }
@@ -3858,16 +4676,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__6"
-    // InternalXHDL.g:1330:1: rule__XArray__Group__6 : rule__XArray__Group__6__Impl rule__XArray__Group__7 ;
+    // InternalXHDL.g:1577:1: rule__XArray__Group__6 : rule__XArray__Group__6__Impl rule__XArray__Group__7 ;
     public final void rule__XArray__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1334:1: ( rule__XArray__Group__6__Impl rule__XArray__Group__7 )
-            // InternalXHDL.g:1335:2: rule__XArray__Group__6__Impl rule__XArray__Group__7
+            // InternalXHDL.g:1581:1: ( rule__XArray__Group__6__Impl rule__XArray__Group__7 )
+            // InternalXHDL.g:1582:2: rule__XArray__Group__6__Impl rule__XArray__Group__7
             {
-            pushFollow(FOLLOW_19);
+            pushFollow(FOLLOW_21);
             rule__XArray__Group__6__Impl();
 
             state._fsp--;
@@ -3896,20 +4714,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__6__Impl"
-    // InternalXHDL.g:1342:1: rule__XArray__Group__6__Impl : ( ')' ) ;
+    // InternalXHDL.g:1589:1: rule__XArray__Group__6__Impl : ( ')' ) ;
     public final void rule__XArray__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1346:1: ( ( ')' ) )
-            // InternalXHDL.g:1347:1: ( ')' )
+            // InternalXHDL.g:1593:1: ( ( ')' ) )
+            // InternalXHDL.g:1594:1: ( ')' )
             {
-            // InternalXHDL.g:1347:1: ( ')' )
-            // InternalXHDL.g:1348:2: ')'
+            // InternalXHDL.g:1594:1: ( ')' )
+            // InternalXHDL.g:1595:2: ')'
             {
              before(grammarAccess.getXArrayAccess().getRightParenthesisKeyword_6()); 
-            match(input,24,FOLLOW_2); 
+            match(input,26,FOLLOW_2); 
              after(grammarAccess.getXArrayAccess().getRightParenthesisKeyword_6()); 
 
             }
@@ -3933,16 +4751,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__7"
-    // InternalXHDL.g:1357:1: rule__XArray__Group__7 : rule__XArray__Group__7__Impl rule__XArray__Group__8 ;
+    // InternalXHDL.g:1604:1: rule__XArray__Group__7 : rule__XArray__Group__7__Impl rule__XArray__Group__8 ;
     public final void rule__XArray__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1361:1: ( rule__XArray__Group__7__Impl rule__XArray__Group__8 )
-            // InternalXHDL.g:1362:2: rule__XArray__Group__7__Impl rule__XArray__Group__8
+            // InternalXHDL.g:1608:1: ( rule__XArray__Group__7__Impl rule__XArray__Group__8 )
+            // InternalXHDL.g:1609:2: rule__XArray__Group__7__Impl rule__XArray__Group__8
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_5);
             rule__XArray__Group__7__Impl();
 
             state._fsp--;
@@ -3971,20 +4789,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__7__Impl"
-    // InternalXHDL.g:1369:1: rule__XArray__Group__7__Impl : ( 'of' ) ;
+    // InternalXHDL.g:1616:1: rule__XArray__Group__7__Impl : ( 'of' ) ;
     public final void rule__XArray__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1373:1: ( ( 'of' ) )
-            // InternalXHDL.g:1374:1: ( 'of' )
+            // InternalXHDL.g:1620:1: ( ( 'of' ) )
+            // InternalXHDL.g:1621:1: ( 'of' )
             {
-            // InternalXHDL.g:1374:1: ( 'of' )
-            // InternalXHDL.g:1375:2: 'of'
+            // InternalXHDL.g:1621:1: ( 'of' )
+            // InternalXHDL.g:1622:2: 'of'
             {
              before(grammarAccess.getXArrayAccess().getOfKeyword_7()); 
-            match(input,25,FOLLOW_2); 
+            match(input,27,FOLLOW_2); 
              after(grammarAccess.getXArrayAccess().getOfKeyword_7()); 
 
             }
@@ -4008,14 +4826,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__8"
-    // InternalXHDL.g:1384:1: rule__XArray__Group__8 : rule__XArray__Group__8__Impl ;
+    // InternalXHDL.g:1631:1: rule__XArray__Group__8 : rule__XArray__Group__8__Impl ;
     public final void rule__XArray__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1388:1: ( rule__XArray__Group__8__Impl )
-            // InternalXHDL.g:1389:2: rule__XArray__Group__8__Impl
+            // InternalXHDL.g:1635:1: ( rule__XArray__Group__8__Impl )
+            // InternalXHDL.g:1636:2: rule__XArray__Group__8__Impl
             {
             pushFollow(FOLLOW_2);
             rule__XArray__Group__8__Impl();
@@ -4041,21 +4859,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XArray__Group__8__Impl"
-    // InternalXHDL.g:1395:1: rule__XArray__Group__8__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:1642:1: rule__XArray__Group__8__Impl : ( ( rule__XArray__XofAssignment_8 ) ) ;
     public final void rule__XArray__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1399:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:1400:1: ( RULE_ID )
+            // InternalXHDL.g:1646:1: ( ( ( rule__XArray__XofAssignment_8 ) ) )
+            // InternalXHDL.g:1647:1: ( ( rule__XArray__XofAssignment_8 ) )
             {
-            // InternalXHDL.g:1400:1: ( RULE_ID )
-            // InternalXHDL.g:1401:2: RULE_ID
+            // InternalXHDL.g:1647:1: ( ( rule__XArray__XofAssignment_8 ) )
+            // InternalXHDL.g:1648:2: ( rule__XArray__XofAssignment_8 )
             {
-             before(grammarAccess.getXArrayAccess().getIDTerminalRuleCall_8()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXArrayAccess().getIDTerminalRuleCall_8()); 
+             before(grammarAccess.getXArrayAccess().getXofAssignment_8()); 
+            // InternalXHDL.g:1649:2: ( rule__XArray__XofAssignment_8 )
+            // InternalXHDL.g:1649:3: rule__XArray__XofAssignment_8
+            {
+            pushFollow(FOLLOW_2);
+            rule__XArray__XofAssignment_8();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXArrayAccess().getXofAssignment_8()); 
 
             }
 
@@ -4078,16 +4906,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__0"
-    // InternalXHDL.g:1411:1: rule__XRange__Group__0 : rule__XRange__Group__0__Impl rule__XRange__Group__1 ;
+    // InternalXHDL.g:1658:1: rule__XRange__Group__0 : rule__XRange__Group__0__Impl rule__XRange__Group__1 ;
     public final void rule__XRange__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1415:1: ( rule__XRange__Group__0__Impl rule__XRange__Group__1 )
-            // InternalXHDL.g:1416:2: rule__XRange__Group__0__Impl rule__XRange__Group__1
+            // InternalXHDL.g:1662:1: ( rule__XRange__Group__0__Impl rule__XRange__Group__1 )
+            // InternalXHDL.g:1663:2: rule__XRange__Group__0__Impl rule__XRange__Group__1
             {
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_18);
             rule__XRange__Group__0__Impl();
 
             state._fsp--;
@@ -4116,25 +4944,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__0__Impl"
-    // InternalXHDL.g:1423:1: rule__XRange__Group__0__Impl : ( () ) ;
+    // InternalXHDL.g:1670:1: rule__XRange__Group__0__Impl : ( () ) ;
     public final void rule__XRange__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1427:1: ( ( () ) )
-            // InternalXHDL.g:1428:1: ( () )
+            // InternalXHDL.g:1674:1: ( ( () ) )
+            // InternalXHDL.g:1675:1: ( () )
             {
-            // InternalXHDL.g:1428:1: ( () )
-            // InternalXHDL.g:1429:2: ()
+            // InternalXHDL.g:1675:1: ( () )
+            // InternalXHDL.g:1676:2: ()
             {
-             before(grammarAccess.getXRangeAccess().getRangeAction_0()); 
-            // InternalXHDL.g:1430:2: ()
-            // InternalXHDL.g:1430:3: 
+             before(grammarAccess.getXRangeAccess().getXRangeAction_0()); 
+            // InternalXHDL.g:1677:2: ()
+            // InternalXHDL.g:1677:3: 
             {
             }
 
-             after(grammarAccess.getXRangeAccess().getRangeAction_0()); 
+             after(grammarAccess.getXRangeAccess().getXRangeAction_0()); 
 
             }
 
@@ -4153,16 +4981,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__1"
-    // InternalXHDL.g:1438:1: rule__XRange__Group__1 : rule__XRange__Group__1__Impl rule__XRange__Group__2 ;
+    // InternalXHDL.g:1685:1: rule__XRange__Group__1 : rule__XRange__Group__1__Impl rule__XRange__Group__2 ;
     public final void rule__XRange__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1442:1: ( rule__XRange__Group__1__Impl rule__XRange__Group__2 )
-            // InternalXHDL.g:1443:2: rule__XRange__Group__1__Impl rule__XRange__Group__2
+            // InternalXHDL.g:1689:1: ( rule__XRange__Group__1__Impl rule__XRange__Group__2 )
+            // InternalXHDL.g:1690:2: rule__XRange__Group__1__Impl rule__XRange__Group__2
             {
-            pushFollow(FOLLOW_20);
+            pushFollow(FOLLOW_5);
             rule__XRange__Group__1__Impl();
 
             state._fsp--;
@@ -4191,20 +5019,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__1__Impl"
-    // InternalXHDL.g:1450:1: rule__XRange__Group__1__Impl : ( 'range' ) ;
+    // InternalXHDL.g:1697:1: rule__XRange__Group__1__Impl : ( 'range' ) ;
     public final void rule__XRange__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1454:1: ( ( 'range' ) )
-            // InternalXHDL.g:1455:1: ( 'range' )
+            // InternalXHDL.g:1701:1: ( ( 'range' ) )
+            // InternalXHDL.g:1702:1: ( 'range' )
             {
-            // InternalXHDL.g:1455:1: ( 'range' )
-            // InternalXHDL.g:1456:2: 'range'
+            // InternalXHDL.g:1702:1: ( 'range' )
+            // InternalXHDL.g:1703:2: 'range'
             {
              before(grammarAccess.getXRangeAccess().getRangeKeyword_1()); 
-            match(input,22,FOLLOW_2); 
+            match(input,24,FOLLOW_2); 
              after(grammarAccess.getXRangeAccess().getRangeKeyword_1()); 
 
             }
@@ -4228,16 +5056,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__2"
-    // InternalXHDL.g:1465:1: rule__XRange__Group__2 : rule__XRange__Group__2__Impl rule__XRange__Group__3 ;
+    // InternalXHDL.g:1712:1: rule__XRange__Group__2 : rule__XRange__Group__2__Impl rule__XRange__Group__3 ;
     public final void rule__XRange__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1469:1: ( rule__XRange__Group__2__Impl rule__XRange__Group__3 )
-            // InternalXHDL.g:1470:2: rule__XRange__Group__2__Impl rule__XRange__Group__3
+            // InternalXHDL.g:1716:1: ( rule__XRange__Group__2__Impl rule__XRange__Group__3 )
+            // InternalXHDL.g:1717:2: rule__XRange__Group__2__Impl rule__XRange__Group__3
             {
-            pushFollow(FOLLOW_21);
+            pushFollow(FOLLOW_22);
             rule__XRange__Group__2__Impl();
 
             state._fsp--;
@@ -4266,21 +5094,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__2__Impl"
-    // InternalXHDL.g:1477:1: rule__XRange__Group__2__Impl : ( RULE_INT ) ;
+    // InternalXHDL.g:1724:1: rule__XRange__Group__2__Impl : ( ( rule__XRange__XfromAssignment_2 ) ) ;
     public final void rule__XRange__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1481:1: ( ( RULE_INT ) )
-            // InternalXHDL.g:1482:1: ( RULE_INT )
+            // InternalXHDL.g:1728:1: ( ( ( rule__XRange__XfromAssignment_2 ) ) )
+            // InternalXHDL.g:1729:1: ( ( rule__XRange__XfromAssignment_2 ) )
             {
-            // InternalXHDL.g:1482:1: ( RULE_INT )
-            // InternalXHDL.g:1483:2: RULE_INT
+            // InternalXHDL.g:1729:1: ( ( rule__XRange__XfromAssignment_2 ) )
+            // InternalXHDL.g:1730:2: ( rule__XRange__XfromAssignment_2 )
             {
-             before(grammarAccess.getXRangeAccess().getINTTerminalRuleCall_2()); 
-            match(input,RULE_INT,FOLLOW_2); 
-             after(grammarAccess.getXRangeAccess().getINTTerminalRuleCall_2()); 
+             before(grammarAccess.getXRangeAccess().getXfromAssignment_2()); 
+            // InternalXHDL.g:1731:2: ( rule__XRange__XfromAssignment_2 )
+            // InternalXHDL.g:1731:3: rule__XRange__XfromAssignment_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__XRange__XfromAssignment_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXRangeAccess().getXfromAssignment_2()); 
 
             }
 
@@ -4303,16 +5141,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__3"
-    // InternalXHDL.g:1492:1: rule__XRange__Group__3 : rule__XRange__Group__3__Impl rule__XRange__Group__4 ;
+    // InternalXHDL.g:1739:1: rule__XRange__Group__3 : rule__XRange__Group__3__Impl rule__XRange__Group__4 ;
     public final void rule__XRange__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1496:1: ( rule__XRange__Group__3__Impl rule__XRange__Group__4 )
-            // InternalXHDL.g:1497:2: rule__XRange__Group__3__Impl rule__XRange__Group__4
+            // InternalXHDL.g:1743:1: ( rule__XRange__Group__3__Impl rule__XRange__Group__4 )
+            // InternalXHDL.g:1744:2: rule__XRange__Group__3__Impl rule__XRange__Group__4
             {
-            pushFollow(FOLLOW_20);
+            pushFollow(FOLLOW_5);
             rule__XRange__Group__3__Impl();
 
             state._fsp--;
@@ -4341,20 +5179,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__3__Impl"
-    // InternalXHDL.g:1504:1: rule__XRange__Group__3__Impl : ( 'to' ) ;
+    // InternalXHDL.g:1751:1: rule__XRange__Group__3__Impl : ( 'to' ) ;
     public final void rule__XRange__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1508:1: ( ( 'to' ) )
-            // InternalXHDL.g:1509:1: ( 'to' )
+            // InternalXHDL.g:1755:1: ( ( 'to' ) )
+            // InternalXHDL.g:1756:1: ( 'to' )
             {
-            // InternalXHDL.g:1509:1: ( 'to' )
-            // InternalXHDL.g:1510:2: 'to'
+            // InternalXHDL.g:1756:1: ( 'to' )
+            // InternalXHDL.g:1757:2: 'to'
             {
              before(grammarAccess.getXRangeAccess().getToKeyword_3()); 
-            match(input,26,FOLLOW_2); 
+            match(input,28,FOLLOW_2); 
              after(grammarAccess.getXRangeAccess().getToKeyword_3()); 
 
             }
@@ -4378,16 +5216,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__4"
-    // InternalXHDL.g:1519:1: rule__XRange__Group__4 : rule__XRange__Group__4__Impl rule__XRange__Group__5 ;
+    // InternalXHDL.g:1766:1: rule__XRange__Group__4 : rule__XRange__Group__4__Impl rule__XRange__Group__5 ;
     public final void rule__XRange__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1523:1: ( rule__XRange__Group__4__Impl rule__XRange__Group__5 )
-            // InternalXHDL.g:1524:2: rule__XRange__Group__4__Impl rule__XRange__Group__5
+            // InternalXHDL.g:1770:1: ( rule__XRange__Group__4__Impl rule__XRange__Group__5 )
+            // InternalXHDL.g:1771:2: rule__XRange__Group__4__Impl rule__XRange__Group__5
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_23);
             rule__XRange__Group__4__Impl();
 
             state._fsp--;
@@ -4416,21 +5254,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__4__Impl"
-    // InternalXHDL.g:1531:1: rule__XRange__Group__4__Impl : ( RULE_INT ) ;
+    // InternalXHDL.g:1778:1: rule__XRange__Group__4__Impl : ( ( rule__XRange__XtoAssignment_4 ) ) ;
     public final void rule__XRange__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1535:1: ( ( RULE_INT ) )
-            // InternalXHDL.g:1536:1: ( RULE_INT )
+            // InternalXHDL.g:1782:1: ( ( ( rule__XRange__XtoAssignment_4 ) ) )
+            // InternalXHDL.g:1783:1: ( ( rule__XRange__XtoAssignment_4 ) )
             {
-            // InternalXHDL.g:1536:1: ( RULE_INT )
-            // InternalXHDL.g:1537:2: RULE_INT
+            // InternalXHDL.g:1783:1: ( ( rule__XRange__XtoAssignment_4 ) )
+            // InternalXHDL.g:1784:2: ( rule__XRange__XtoAssignment_4 )
             {
-             before(grammarAccess.getXRangeAccess().getINTTerminalRuleCall_4()); 
-            match(input,RULE_INT,FOLLOW_2); 
-             after(grammarAccess.getXRangeAccess().getINTTerminalRuleCall_4()); 
+             before(grammarAccess.getXRangeAccess().getXtoAssignment_4()); 
+            // InternalXHDL.g:1785:2: ( rule__XRange__XtoAssignment_4 )
+            // InternalXHDL.g:1785:3: rule__XRange__XtoAssignment_4
+            {
+            pushFollow(FOLLOW_2);
+            rule__XRange__XtoAssignment_4();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXRangeAccess().getXtoAssignment_4()); 
 
             }
 
@@ -4453,14 +5301,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__5"
-    // InternalXHDL.g:1546:1: rule__XRange__Group__5 : rule__XRange__Group__5__Impl ;
+    // InternalXHDL.g:1793:1: rule__XRange__Group__5 : rule__XRange__Group__5__Impl ;
     public final void rule__XRange__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1550:1: ( rule__XRange__Group__5__Impl )
-            // InternalXHDL.g:1551:2: rule__XRange__Group__5__Impl
+            // InternalXHDL.g:1797:1: ( rule__XRange__Group__5__Impl )
+            // InternalXHDL.g:1798:2: rule__XRange__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__XRange__Group__5__Impl();
@@ -4486,32 +5334,32 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XRange__Group__5__Impl"
-    // InternalXHDL.g:1557:1: rule__XRange__Group__5__Impl : ( ( ruleXUnits )? ) ;
+    // InternalXHDL.g:1804:1: rule__XRange__Group__5__Impl : ( ( rule__XRange__XunitsAssignment_5 )? ) ;
     public final void rule__XRange__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1561:1: ( ( ( ruleXUnits )? ) )
-            // InternalXHDL.g:1562:1: ( ( ruleXUnits )? )
+            // InternalXHDL.g:1808:1: ( ( ( rule__XRange__XunitsAssignment_5 )? ) )
+            // InternalXHDL.g:1809:1: ( ( rule__XRange__XunitsAssignment_5 )? )
             {
-            // InternalXHDL.g:1562:1: ( ( ruleXUnits )? )
-            // InternalXHDL.g:1563:2: ( ruleXUnits )?
+            // InternalXHDL.g:1809:1: ( ( rule__XRange__XunitsAssignment_5 )? )
+            // InternalXHDL.g:1810:2: ( rule__XRange__XunitsAssignment_5 )?
             {
-             before(grammarAccess.getXRangeAccess().getXUnitsParserRuleCall_5()); 
-            // InternalXHDL.g:1564:2: ( ruleXUnits )?
-            int alt5=2;
-            int LA5_0 = input.LA(1);
+             before(grammarAccess.getXRangeAccess().getXunitsAssignment_5()); 
+            // InternalXHDL.g:1811:2: ( rule__XRange__XunitsAssignment_5 )?
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA5_0==27) ) {
-                alt5=1;
+            if ( (LA6_0==29) ) {
+                alt6=1;
             }
-            switch (alt5) {
+            switch (alt6) {
                 case 1 :
-                    // InternalXHDL.g:1564:3: ruleXUnits
+                    // InternalXHDL.g:1811:3: rule__XRange__XunitsAssignment_5
                     {
                     pushFollow(FOLLOW_2);
-                    ruleXUnits();
+                    rule__XRange__XunitsAssignment_5();
 
                     state._fsp--;
 
@@ -4521,7 +5369,7 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
             }
 
-             after(grammarAccess.getXRangeAccess().getXUnitsParserRuleCall_5()); 
+             after(grammarAccess.getXRangeAccess().getXunitsAssignment_5()); 
 
             }
 
@@ -4544,16 +5392,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__0"
-    // InternalXHDL.g:1573:1: rule__XUnits__Group__0 : rule__XUnits__Group__0__Impl rule__XUnits__Group__1 ;
+    // InternalXHDL.g:1820:1: rule__XUnits__Group__0 : rule__XUnits__Group__0__Impl rule__XUnits__Group__1 ;
     public final void rule__XUnits__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1577:1: ( rule__XUnits__Group__0__Impl rule__XUnits__Group__1 )
-            // InternalXHDL.g:1578:2: rule__XUnits__Group__0__Impl rule__XUnits__Group__1
+            // InternalXHDL.g:1824:1: ( rule__XUnits__Group__0__Impl rule__XUnits__Group__1 )
+            // InternalXHDL.g:1825:2: rule__XUnits__Group__0__Impl rule__XUnits__Group__1
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_23);
             rule__XUnits__Group__0__Impl();
 
             state._fsp--;
@@ -4582,25 +5430,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__0__Impl"
-    // InternalXHDL.g:1585:1: rule__XUnits__Group__0__Impl : ( () ) ;
+    // InternalXHDL.g:1832:1: rule__XUnits__Group__0__Impl : ( () ) ;
     public final void rule__XUnits__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1589:1: ( ( () ) )
-            // InternalXHDL.g:1590:1: ( () )
+            // InternalXHDL.g:1836:1: ( ( () ) )
+            // InternalXHDL.g:1837:1: ( () )
             {
-            // InternalXHDL.g:1590:1: ( () )
-            // InternalXHDL.g:1591:2: ()
+            // InternalXHDL.g:1837:1: ( () )
+            // InternalXHDL.g:1838:2: ()
             {
-             before(grammarAccess.getXUnitsAccess().getUnitsAction_0()); 
-            // InternalXHDL.g:1592:2: ()
-            // InternalXHDL.g:1592:3: 
+             before(grammarAccess.getXUnitsAccess().getXUnitsAction_0()); 
+            // InternalXHDL.g:1839:2: ()
+            // InternalXHDL.g:1839:3: 
             {
             }
 
-             after(grammarAccess.getXUnitsAccess().getUnitsAction_0()); 
+             after(grammarAccess.getXUnitsAccess().getXUnitsAction_0()); 
 
             }
 
@@ -4619,16 +5467,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__1"
-    // InternalXHDL.g:1600:1: rule__XUnits__Group__1 : rule__XUnits__Group__1__Impl rule__XUnits__Group__2 ;
+    // InternalXHDL.g:1847:1: rule__XUnits__Group__1 : rule__XUnits__Group__1__Impl rule__XUnits__Group__2 ;
     public final void rule__XUnits__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1604:1: ( rule__XUnits__Group__1__Impl rule__XUnits__Group__2 )
-            // InternalXHDL.g:1605:2: rule__XUnits__Group__1__Impl rule__XUnits__Group__2
+            // InternalXHDL.g:1851:1: ( rule__XUnits__Group__1__Impl rule__XUnits__Group__2 )
+            // InternalXHDL.g:1852:2: rule__XUnits__Group__1__Impl rule__XUnits__Group__2
             {
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_24);
             rule__XUnits__Group__1__Impl();
 
             state._fsp--;
@@ -4657,20 +5505,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__1__Impl"
-    // InternalXHDL.g:1612:1: rule__XUnits__Group__1__Impl : ( 'units' ) ;
+    // InternalXHDL.g:1859:1: rule__XUnits__Group__1__Impl : ( 'units' ) ;
     public final void rule__XUnits__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1616:1: ( ( 'units' ) )
-            // InternalXHDL.g:1617:1: ( 'units' )
+            // InternalXHDL.g:1863:1: ( ( 'units' ) )
+            // InternalXHDL.g:1864:1: ( 'units' )
             {
-            // InternalXHDL.g:1617:1: ( 'units' )
-            // InternalXHDL.g:1618:2: 'units'
+            // InternalXHDL.g:1864:1: ( 'units' )
+            // InternalXHDL.g:1865:2: 'units'
             {
              before(grammarAccess.getXUnitsAccess().getUnitsKeyword_1()); 
-            match(input,27,FOLLOW_2); 
+            match(input,29,FOLLOW_2); 
              after(grammarAccess.getXUnitsAccess().getUnitsKeyword_1()); 
 
             }
@@ -4694,16 +5542,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__2"
-    // InternalXHDL.g:1627:1: rule__XUnits__Group__2 : rule__XUnits__Group__2__Impl rule__XUnits__Group__3 ;
+    // InternalXHDL.g:1874:1: rule__XUnits__Group__2 : rule__XUnits__Group__2__Impl rule__XUnits__Group__3 ;
     public final void rule__XUnits__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1631:1: ( rule__XUnits__Group__2__Impl rule__XUnits__Group__3 )
-            // InternalXHDL.g:1632:2: rule__XUnits__Group__2__Impl rule__XUnits__Group__3
+            // InternalXHDL.g:1878:1: ( rule__XUnits__Group__2__Impl rule__XUnits__Group__3 )
+            // InternalXHDL.g:1879:2: rule__XUnits__Group__2__Impl rule__XUnits__Group__3
             {
-            pushFollow(FOLLOW_23);
+            pushFollow(FOLLOW_24);
             rule__XUnits__Group__2__Impl();
 
             state._fsp--;
@@ -4732,36 +5580,36 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__2__Impl"
-    // InternalXHDL.g:1639:1: rule__XUnits__Group__2__Impl : ( ( rule__XUnits__UnitsAssignment_2 )* ) ;
+    // InternalXHDL.g:1886:1: rule__XUnits__Group__2__Impl : ( ( rule__XUnits__XunitsAssignment_2 )* ) ;
     public final void rule__XUnits__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1643:1: ( ( ( rule__XUnits__UnitsAssignment_2 )* ) )
-            // InternalXHDL.g:1644:1: ( ( rule__XUnits__UnitsAssignment_2 )* )
+            // InternalXHDL.g:1890:1: ( ( ( rule__XUnits__XunitsAssignment_2 )* ) )
+            // InternalXHDL.g:1891:1: ( ( rule__XUnits__XunitsAssignment_2 )* )
             {
-            // InternalXHDL.g:1644:1: ( ( rule__XUnits__UnitsAssignment_2 )* )
-            // InternalXHDL.g:1645:2: ( rule__XUnits__UnitsAssignment_2 )*
+            // InternalXHDL.g:1891:1: ( ( rule__XUnits__XunitsAssignment_2 )* )
+            // InternalXHDL.g:1892:2: ( rule__XUnits__XunitsAssignment_2 )*
             {
-             before(grammarAccess.getXUnitsAccess().getUnitsAssignment_2()); 
-            // InternalXHDL.g:1646:2: ( rule__XUnits__UnitsAssignment_2 )*
-            loop6:
+             before(grammarAccess.getXUnitsAccess().getXunitsAssignment_2()); 
+            // InternalXHDL.g:1893:2: ( rule__XUnits__XunitsAssignment_2 )*
+            loop7:
             do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( (LA6_0==RULE_ID) ) {
-                    alt6=1;
+                if ( (LA7_0==RULE_ID) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt6) {
+                switch (alt7) {
             	case 1 :
-            	    // InternalXHDL.g:1646:3: rule__XUnits__UnitsAssignment_2
+            	    // InternalXHDL.g:1893:3: rule__XUnits__XunitsAssignment_2
             	    {
-            	    pushFollow(FOLLOW_24);
-            	    rule__XUnits__UnitsAssignment_2();
+            	    pushFollow(FOLLOW_25);
+            	    rule__XUnits__XunitsAssignment_2();
 
             	    state._fsp--;
 
@@ -4770,11 +5618,11 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop6;
+            	    break loop7;
                 }
             } while (true);
 
-             after(grammarAccess.getXUnitsAccess().getUnitsAssignment_2()); 
+             after(grammarAccess.getXUnitsAccess().getXunitsAssignment_2()); 
 
             }
 
@@ -4797,16 +5645,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__3"
-    // InternalXHDL.g:1654:1: rule__XUnits__Group__3 : rule__XUnits__Group__3__Impl rule__XUnits__Group__4 ;
+    // InternalXHDL.g:1901:1: rule__XUnits__Group__3 : rule__XUnits__Group__3__Impl rule__XUnits__Group__4 ;
     public final void rule__XUnits__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1658:1: ( rule__XUnits__Group__3__Impl rule__XUnits__Group__4 )
-            // InternalXHDL.g:1659:2: rule__XUnits__Group__3__Impl rule__XUnits__Group__4
+            // InternalXHDL.g:1905:1: ( rule__XUnits__Group__3__Impl rule__XUnits__Group__4 )
+            // InternalXHDL.g:1906:2: rule__XUnits__Group__3__Impl rule__XUnits__Group__4
             {
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_23);
             rule__XUnits__Group__3__Impl();
 
             state._fsp--;
@@ -4835,20 +5683,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__3__Impl"
-    // InternalXHDL.g:1666:1: rule__XUnits__Group__3__Impl : ( 'end' ) ;
+    // InternalXHDL.g:1913:1: rule__XUnits__Group__3__Impl : ( 'end' ) ;
     public final void rule__XUnits__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1670:1: ( ( 'end' ) )
-            // InternalXHDL.g:1671:1: ( 'end' )
+            // InternalXHDL.g:1917:1: ( ( 'end' ) )
+            // InternalXHDL.g:1918:1: ( 'end' )
             {
-            // InternalXHDL.g:1671:1: ( 'end' )
-            // InternalXHDL.g:1672:2: 'end'
+            // InternalXHDL.g:1918:1: ( 'end' )
+            // InternalXHDL.g:1919:2: 'end'
             {
              before(grammarAccess.getXUnitsAccess().getEndKeyword_3()); 
-            match(input,13,FOLLOW_2); 
+            match(input,14,FOLLOW_2); 
              after(grammarAccess.getXUnitsAccess().getEndKeyword_3()); 
 
             }
@@ -4872,14 +5720,14 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__4"
-    // InternalXHDL.g:1681:1: rule__XUnits__Group__4 : rule__XUnits__Group__4__Impl ;
+    // InternalXHDL.g:1928:1: rule__XUnits__Group__4 : rule__XUnits__Group__4__Impl ;
     public final void rule__XUnits__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1685:1: ( rule__XUnits__Group__4__Impl )
-            // InternalXHDL.g:1686:2: rule__XUnits__Group__4__Impl
+            // InternalXHDL.g:1932:1: ( rule__XUnits__Group__4__Impl )
+            // InternalXHDL.g:1933:2: rule__XUnits__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__XUnits__Group__4__Impl();
@@ -4905,20 +5753,20 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnits__Group__4__Impl"
-    // InternalXHDL.g:1692:1: rule__XUnits__Group__4__Impl : ( 'units' ) ;
+    // InternalXHDL.g:1939:1: rule__XUnits__Group__4__Impl : ( 'units' ) ;
     public final void rule__XUnits__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1696:1: ( ( 'units' ) )
-            // InternalXHDL.g:1697:1: ( 'units' )
+            // InternalXHDL.g:1943:1: ( ( 'units' ) )
+            // InternalXHDL.g:1944:1: ( 'units' )
             {
-            // InternalXHDL.g:1697:1: ( 'units' )
-            // InternalXHDL.g:1698:2: 'units'
+            // InternalXHDL.g:1944:1: ( 'units' )
+            // InternalXHDL.g:1945:2: 'units'
             {
              before(grammarAccess.getXUnitsAccess().getUnitsKeyword_4()); 
-            match(input,27,FOLLOW_2); 
+            match(input,29,FOLLOW_2); 
              after(grammarAccess.getXUnitsAccess().getUnitsKeyword_4()); 
 
             }
@@ -4942,16 +5790,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__0"
-    // InternalXHDL.g:1708:1: rule__XUnit__Group__0 : rule__XUnit__Group__0__Impl rule__XUnit__Group__1 ;
+    // InternalXHDL.g:1955:1: rule__XUnit__Group__0 : rule__XUnit__Group__0__Impl rule__XUnit__Group__1 ;
     public final void rule__XUnit__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1712:1: ( rule__XUnit__Group__0__Impl rule__XUnit__Group__1 )
-            // InternalXHDL.g:1713:2: rule__XUnit__Group__0__Impl rule__XUnit__Group__1
+            // InternalXHDL.g:1959:1: ( rule__XUnit__Group__0__Impl rule__XUnit__Group__1 )
+            // InternalXHDL.g:1960:2: rule__XUnit__Group__0__Impl rule__XUnit__Group__1
             {
-            pushFollow(FOLLOW_25);
+            pushFollow(FOLLOW_5);
             rule__XUnit__Group__0__Impl();
 
             state._fsp--;
@@ -4980,31 +5828,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__0__Impl"
-    // InternalXHDL.g:1720:1: rule__XUnit__Group__0__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:1967:1: rule__XUnit__Group__0__Impl : ( () ) ;
     public final void rule__XUnit__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1724:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:1725:1: ( RULE_ID )
+            // InternalXHDL.g:1971:1: ( ( () ) )
+            // InternalXHDL.g:1972:1: ( () )
             {
-            // InternalXHDL.g:1725:1: ( RULE_ID )
-            // InternalXHDL.g:1726:2: RULE_ID
+            // InternalXHDL.g:1972:1: ( () )
+            // InternalXHDL.g:1973:2: ()
             {
-             before(grammarAccess.getXUnitAccess().getIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXUnitAccess().getIDTerminalRuleCall_0()); 
+             before(grammarAccess.getXUnitAccess().getXUnitAction_0()); 
+            // InternalXHDL.g:1974:2: ()
+            // InternalXHDL.g:1974:3: 
+            {
+            }
+
+             after(grammarAccess.getXUnitAccess().getXUnitAction_0()); 
 
             }
 
 
             }
 
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
         }
         finally {
 
@@ -5017,16 +5865,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__1"
-    // InternalXHDL.g:1735:1: rule__XUnit__Group__1 : rule__XUnit__Group__1__Impl rule__XUnit__Group__2 ;
+    // InternalXHDL.g:1982:1: rule__XUnit__Group__1 : rule__XUnit__Group__1__Impl rule__XUnit__Group__2 ;
     public final void rule__XUnit__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1739:1: ( rule__XUnit__Group__1__Impl rule__XUnit__Group__2 )
-            // InternalXHDL.g:1740:2: rule__XUnit__Group__1__Impl rule__XUnit__Group__2
+            // InternalXHDL.g:1986:1: ( rule__XUnit__Group__1__Impl rule__XUnit__Group__2 )
+            // InternalXHDL.g:1987:2: rule__XUnit__Group__1__Impl rule__XUnit__Group__2
             {
-            pushFollow(FOLLOW_20);
+            pushFollow(FOLLOW_26);
             rule__XUnit__Group__1__Impl();
 
             state._fsp--;
@@ -5055,21 +5903,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__1__Impl"
-    // InternalXHDL.g:1747:1: rule__XUnit__Group__1__Impl : ( '=' ) ;
+    // InternalXHDL.g:1994:1: rule__XUnit__Group__1__Impl : ( ( rule__XUnit__NameAssignment_1 ) ) ;
     public final void rule__XUnit__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1751:1: ( ( '=' ) )
-            // InternalXHDL.g:1752:1: ( '=' )
+            // InternalXHDL.g:1998:1: ( ( ( rule__XUnit__NameAssignment_1 ) ) )
+            // InternalXHDL.g:1999:1: ( ( rule__XUnit__NameAssignment_1 ) )
             {
-            // InternalXHDL.g:1752:1: ( '=' )
-            // InternalXHDL.g:1753:2: '='
+            // InternalXHDL.g:1999:1: ( ( rule__XUnit__NameAssignment_1 ) )
+            // InternalXHDL.g:2000:2: ( rule__XUnit__NameAssignment_1 )
             {
-             before(grammarAccess.getXUnitAccess().getEqualsSignKeyword_1()); 
-            match(input,28,FOLLOW_2); 
-             after(grammarAccess.getXUnitAccess().getEqualsSignKeyword_1()); 
+             before(grammarAccess.getXUnitAccess().getNameAssignment_1()); 
+            // InternalXHDL.g:2001:2: ( rule__XUnit__NameAssignment_1 )
+            // InternalXHDL.g:2001:3: rule__XUnit__NameAssignment_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__XUnit__NameAssignment_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXUnitAccess().getNameAssignment_1()); 
 
             }
 
@@ -5092,16 +5950,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__2"
-    // InternalXHDL.g:1762:1: rule__XUnit__Group__2 : rule__XUnit__Group__2__Impl rule__XUnit__Group__3 ;
+    // InternalXHDL.g:2009:1: rule__XUnit__Group__2 : rule__XUnit__Group__2__Impl rule__XUnit__Group__3 ;
     public final void rule__XUnit__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1766:1: ( rule__XUnit__Group__2__Impl rule__XUnit__Group__3 )
-            // InternalXHDL.g:1767:2: rule__XUnit__Group__2__Impl rule__XUnit__Group__3
+            // InternalXHDL.g:2013:1: ( rule__XUnit__Group__2__Impl rule__XUnit__Group__3 )
+            // InternalXHDL.g:2014:2: rule__XUnit__Group__2__Impl rule__XUnit__Group__3
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_26);
             rule__XUnit__Group__2__Impl();
 
             state._fsp--;
@@ -5130,21 +5988,42 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__2__Impl"
-    // InternalXHDL.g:1774:1: rule__XUnit__Group__2__Impl : ( RULE_INT ) ;
+    // InternalXHDL.g:2021:1: rule__XUnit__Group__2__Impl : ( ( rule__XUnit__Group_2__0 )? ) ;
     public final void rule__XUnit__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1778:1: ( ( RULE_INT ) )
-            // InternalXHDL.g:1779:1: ( RULE_INT )
+            // InternalXHDL.g:2025:1: ( ( ( rule__XUnit__Group_2__0 )? ) )
+            // InternalXHDL.g:2026:1: ( ( rule__XUnit__Group_2__0 )? )
             {
-            // InternalXHDL.g:1779:1: ( RULE_INT )
-            // InternalXHDL.g:1780:2: RULE_INT
+            // InternalXHDL.g:2026:1: ( ( rule__XUnit__Group_2__0 )? )
+            // InternalXHDL.g:2027:2: ( rule__XUnit__Group_2__0 )?
             {
-             before(grammarAccess.getXUnitAccess().getINTTerminalRuleCall_2()); 
-            match(input,RULE_INT,FOLLOW_2); 
-             after(grammarAccess.getXUnitAccess().getINTTerminalRuleCall_2()); 
+             before(grammarAccess.getXUnitAccess().getGroup_2()); 
+            // InternalXHDL.g:2028:2: ( rule__XUnit__Group_2__0 )?
+            int alt8=2;
+            int LA8_0 = input.LA(1);
+
+            if ( (LA8_0==30) ) {
+                alt8=1;
+            }
+            switch (alt8) {
+                case 1 :
+                    // InternalXHDL.g:2028:3: rule__XUnit__Group_2__0
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__XUnit__Group_2__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getXUnitAccess().getGroup_2()); 
 
             }
 
@@ -5167,22 +6046,17 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__3"
-    // InternalXHDL.g:1789:1: rule__XUnit__Group__3 : rule__XUnit__Group__3__Impl rule__XUnit__Group__4 ;
+    // InternalXHDL.g:2036:1: rule__XUnit__Group__3 : rule__XUnit__Group__3__Impl ;
     public final void rule__XUnit__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1793:1: ( rule__XUnit__Group__3__Impl rule__XUnit__Group__4 )
-            // InternalXHDL.g:1794:2: rule__XUnit__Group__3__Impl rule__XUnit__Group__4
+            // InternalXHDL.g:2040:1: ( rule__XUnit__Group__3__Impl )
+            // InternalXHDL.g:2041:2: rule__XUnit__Group__3__Impl
             {
-            pushFollow(FOLLOW_8);
-            rule__XUnit__Group__3__Impl();
-
-            state._fsp--;
-
             pushFollow(FOLLOW_2);
-            rule__XUnit__Group__4();
+            rule__XUnit__Group__3__Impl();
 
             state._fsp--;
 
@@ -5205,21 +6079,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XUnit__Group__3__Impl"
-    // InternalXHDL.g:1801:1: rule__XUnit__Group__3__Impl : ( RULE_ID ) ;
+    // InternalXHDL.g:2047:1: rule__XUnit__Group__3__Impl : ( ';' ) ;
     public final void rule__XUnit__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1805:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:1806:1: ( RULE_ID )
+            // InternalXHDL.g:2051:1: ( ( ';' ) )
+            // InternalXHDL.g:2052:1: ( ';' )
             {
-            // InternalXHDL.g:1806:1: ( RULE_ID )
-            // InternalXHDL.g:1807:2: RULE_ID
+            // InternalXHDL.g:2052:1: ( ';' )
+            // InternalXHDL.g:2053:2: ';'
             {
-             before(grammarAccess.getXUnitAccess().getIDTerminalRuleCall_3()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXUnitAccess().getIDTerminalRuleCall_3()); 
+             before(grammarAccess.getXUnitAccess().getSemicolonKeyword_3()); 
+            match(input,15,FOLLOW_2); 
+             after(grammarAccess.getXUnitAccess().getSemicolonKeyword_3()); 
 
             }
 
@@ -5241,18 +6115,23 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__XUnit__Group__3__Impl"
 
 
-    // $ANTLR start "rule__XUnit__Group__4"
-    // InternalXHDL.g:1816:1: rule__XUnit__Group__4 : rule__XUnit__Group__4__Impl ;
-    public final void rule__XUnit__Group__4() throws RecognitionException {
+    // $ANTLR start "rule__XUnit__Group_2__0"
+    // InternalXHDL.g:2063:1: rule__XUnit__Group_2__0 : rule__XUnit__Group_2__0__Impl rule__XUnit__Group_2__1 ;
+    public final void rule__XUnit__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1820:1: ( rule__XUnit__Group__4__Impl )
-            // InternalXHDL.g:1821:2: rule__XUnit__Group__4__Impl
+            // InternalXHDL.g:2067:1: ( rule__XUnit__Group_2__0__Impl rule__XUnit__Group_2__1 )
+            // InternalXHDL.g:2068:2: rule__XUnit__Group_2__0__Impl rule__XUnit__Group_2__1
             {
+            pushFollow(FOLLOW_27);
+            rule__XUnit__Group_2__0__Impl();
+
+            state._fsp--;
+
             pushFollow(FOLLOW_2);
-            rule__XUnit__Group__4__Impl();
+            rule__XUnit__Group_2__1();
 
             state._fsp--;
 
@@ -5271,25 +6150,25 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XUnit__Group__4"
+    // $ANTLR end "rule__XUnit__Group_2__0"
 
 
-    // $ANTLR start "rule__XUnit__Group__4__Impl"
-    // InternalXHDL.g:1827:1: rule__XUnit__Group__4__Impl : ( ';' ) ;
-    public final void rule__XUnit__Group__4__Impl() throws RecognitionException {
+    // $ANTLR start "rule__XUnit__Group_2__0__Impl"
+    // InternalXHDL.g:2075:1: rule__XUnit__Group_2__0__Impl : ( '=' ) ;
+    public final void rule__XUnit__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1831:1: ( ( ';' ) )
-            // InternalXHDL.g:1832:1: ( ';' )
+            // InternalXHDL.g:2079:1: ( ( '=' ) )
+            // InternalXHDL.g:2080:1: ( '=' )
             {
-            // InternalXHDL.g:1832:1: ( ';' )
-            // InternalXHDL.g:1833:2: ';'
+            // InternalXHDL.g:2080:1: ( '=' )
+            // InternalXHDL.g:2081:2: '='
             {
-             before(grammarAccess.getXUnitAccess().getSemicolonKeyword_4()); 
-            match(input,14,FOLLOW_2); 
-             after(grammarAccess.getXUnitAccess().getSemicolonKeyword_4()); 
+             before(grammarAccess.getXUnitAccess().getEqualsSignKeyword_2_0()); 
+            match(input,30,FOLLOW_2); 
+             after(grammarAccess.getXUnitAccess().getEqualsSignKeyword_2_0()); 
 
             }
 
@@ -5308,20 +6187,185 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XUnit__Group__4__Impl"
+    // $ANTLR end "rule__XUnit__Group_2__0__Impl"
+
+
+    // $ANTLR start "rule__XUnit__Group_2__1"
+    // InternalXHDL.g:2090:1: rule__XUnit__Group_2__1 : rule__XUnit__Group_2__1__Impl rule__XUnit__Group_2__2 ;
+    public final void rule__XUnit__Group_2__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2094:1: ( rule__XUnit__Group_2__1__Impl rule__XUnit__Group_2__2 )
+            // InternalXHDL.g:2095:2: rule__XUnit__Group_2__1__Impl rule__XUnit__Group_2__2
+            {
+            pushFollow(FOLLOW_5);
+            rule__XUnit__Group_2__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XUnit__Group_2__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__Group_2__1"
+
+
+    // $ANTLR start "rule__XUnit__Group_2__1__Impl"
+    // InternalXHDL.g:2102:1: rule__XUnit__Group_2__1__Impl : ( ( rule__XUnit__XvalueAssignment_2_1 ) ) ;
+    public final void rule__XUnit__Group_2__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2106:1: ( ( ( rule__XUnit__XvalueAssignment_2_1 ) ) )
+            // InternalXHDL.g:2107:1: ( ( rule__XUnit__XvalueAssignment_2_1 ) )
+            {
+            // InternalXHDL.g:2107:1: ( ( rule__XUnit__XvalueAssignment_2_1 ) )
+            // InternalXHDL.g:2108:2: ( rule__XUnit__XvalueAssignment_2_1 )
+            {
+             before(grammarAccess.getXUnitAccess().getXvalueAssignment_2_1()); 
+            // InternalXHDL.g:2109:2: ( rule__XUnit__XvalueAssignment_2_1 )
+            // InternalXHDL.g:2109:3: rule__XUnit__XvalueAssignment_2_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__XUnit__XvalueAssignment_2_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXUnitAccess().getXvalueAssignment_2_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__Group_2__1__Impl"
+
+
+    // $ANTLR start "rule__XUnit__Group_2__2"
+    // InternalXHDL.g:2117:1: rule__XUnit__Group_2__2 : rule__XUnit__Group_2__2__Impl ;
+    public final void rule__XUnit__Group_2__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2121:1: ( rule__XUnit__Group_2__2__Impl )
+            // InternalXHDL.g:2122:2: rule__XUnit__Group_2__2__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__XUnit__Group_2__2__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__Group_2__2"
+
+
+    // $ANTLR start "rule__XUnit__Group_2__2__Impl"
+    // InternalXHDL.g:2128:1: rule__XUnit__Group_2__2__Impl : ( ( rule__XUnit__XbasedAssignment_2_2 ) ) ;
+    public final void rule__XUnit__Group_2__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2132:1: ( ( ( rule__XUnit__XbasedAssignment_2_2 ) ) )
+            // InternalXHDL.g:2133:1: ( ( rule__XUnit__XbasedAssignment_2_2 ) )
+            {
+            // InternalXHDL.g:2133:1: ( ( rule__XUnit__XbasedAssignment_2_2 ) )
+            // InternalXHDL.g:2134:2: ( rule__XUnit__XbasedAssignment_2_2 )
+            {
+             before(grammarAccess.getXUnitAccess().getXbasedAssignment_2_2()); 
+            // InternalXHDL.g:2135:2: ( rule__XUnit__XbasedAssignment_2_2 )
+            // InternalXHDL.g:2135:3: rule__XUnit__XbasedAssignment_2_2
+            {
+            pushFollow(FOLLOW_2);
+            rule__XUnit__XbasedAssignment_2_2();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXUnitAccess().getXbasedAssignment_2_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__Group_2__2__Impl"
 
 
     // $ANTLR start "rule__XEnums__Group__0"
-    // InternalXHDL.g:1843:1: rule__XEnums__Group__0 : rule__XEnums__Group__0__Impl rule__XEnums__Group__1 ;
+    // InternalXHDL.g:2144:1: rule__XEnums__Group__0 : rule__XEnums__Group__0__Impl rule__XEnums__Group__1 ;
     public final void rule__XEnums__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1847:1: ( rule__XEnums__Group__0__Impl rule__XEnums__Group__1 )
-            // InternalXHDL.g:1848:2: rule__XEnums__Group__0__Impl rule__XEnums__Group__1
+            // InternalXHDL.g:2148:1: ( rule__XEnums__Group__0__Impl rule__XEnums__Group__1 )
+            // InternalXHDL.g:2149:2: rule__XEnums__Group__0__Impl rule__XEnums__Group__1
             {
-            pushFollow(FOLLOW_26);
+            pushFollow(FOLLOW_16);
             rule__XEnums__Group__0__Impl();
 
             state._fsp--;
@@ -5350,31 +6394,31 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XEnums__Group__0__Impl"
-    // InternalXHDL.g:1855:1: rule__XEnums__Group__0__Impl : ( '(' ) ;
+    // InternalXHDL.g:2156:1: rule__XEnums__Group__0__Impl : ( () ) ;
     public final void rule__XEnums__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1859:1: ( ( '(' ) )
-            // InternalXHDL.g:1860:1: ( '(' )
+            // InternalXHDL.g:2160:1: ( ( () ) )
+            // InternalXHDL.g:2161:1: ( () )
             {
-            // InternalXHDL.g:1860:1: ( '(' )
-            // InternalXHDL.g:1861:2: '('
+            // InternalXHDL.g:2161:1: ( () )
+            // InternalXHDL.g:2162:2: ()
             {
-             before(grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_0()); 
-            match(input,21,FOLLOW_2); 
-             after(grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_0()); 
+             before(grammarAccess.getXEnumsAccess().getXEnumsAction_0()); 
+            // InternalXHDL.g:2163:2: ()
+            // InternalXHDL.g:2163:3: 
+            {
+            }
+
+             after(grammarAccess.getXEnumsAccess().getXEnumsAction_0()); 
 
             }
 
 
             }
 
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
         }
         finally {
 
@@ -5387,16 +6431,16 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XEnums__Group__1"
-    // InternalXHDL.g:1870:1: rule__XEnums__Group__1 : rule__XEnums__Group__1__Impl rule__XEnums__Group__2 ;
+    // InternalXHDL.g:2171:1: rule__XEnums__Group__1 : rule__XEnums__Group__1__Impl rule__XEnums__Group__2 ;
     public final void rule__XEnums__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1874:1: ( rule__XEnums__Group__1__Impl rule__XEnums__Group__2 )
-            // InternalXHDL.g:1875:2: rule__XEnums__Group__1__Impl rule__XEnums__Group__2
+            // InternalXHDL.g:2175:1: ( rule__XEnums__Group__1__Impl rule__XEnums__Group__2 )
+            // InternalXHDL.g:2176:2: rule__XEnums__Group__1__Impl rule__XEnums__Group__2
             {
-            pushFollow(FOLLOW_26);
+            pushFollow(FOLLOW_28);
             rule__XEnums__Group__1__Impl();
 
             state._fsp--;
@@ -5425,49 +6469,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XEnums__Group__1__Impl"
-    // InternalXHDL.g:1882:1: rule__XEnums__Group__1__Impl : ( ( rule__XEnums__Group_1__0 )* ) ;
+    // InternalXHDL.g:2183:1: rule__XEnums__Group__1__Impl : ( '(' ) ;
     public final void rule__XEnums__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1886:1: ( ( ( rule__XEnums__Group_1__0 )* ) )
-            // InternalXHDL.g:1887:1: ( ( rule__XEnums__Group_1__0 )* )
+            // InternalXHDL.g:2187:1: ( ( '(' ) )
+            // InternalXHDL.g:2188:1: ( '(' )
             {
-            // InternalXHDL.g:1887:1: ( ( rule__XEnums__Group_1__0 )* )
-            // InternalXHDL.g:1888:2: ( rule__XEnums__Group_1__0 )*
+            // InternalXHDL.g:2188:1: ( '(' )
+            // InternalXHDL.g:2189:2: '('
             {
-             before(grammarAccess.getXEnumsAccess().getGroup_1()); 
-            // InternalXHDL.g:1889:2: ( rule__XEnums__Group_1__0 )*
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
-
-                if ( (LA7_0==RULE_ID||LA7_0==29) ) {
-                    alt7=1;
-                }
-
-
-                switch (alt7) {
-            	case 1 :
-            	    // InternalXHDL.g:1889:3: rule__XEnums__Group_1__0
-            	    {
-            	    pushFollow(FOLLOW_27);
-            	    rule__XEnums__Group_1__0();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop7;
-                }
-            } while (true);
-
-             after(grammarAccess.getXEnumsAccess().getGroup_1()); 
+             before(grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_1()); 
+            match(input,23,FOLLOW_2); 
+             after(grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_1()); 
 
             }
 
@@ -5490,17 +6506,22 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XEnums__Group__2"
-    // InternalXHDL.g:1897:1: rule__XEnums__Group__2 : rule__XEnums__Group__2__Impl ;
+    // InternalXHDL.g:2198:1: rule__XEnums__Group__2 : rule__XEnums__Group__2__Impl rule__XEnums__Group__3 ;
     public final void rule__XEnums__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1901:1: ( rule__XEnums__Group__2__Impl )
-            // InternalXHDL.g:1902:2: rule__XEnums__Group__2__Impl
+            // InternalXHDL.g:2202:1: ( rule__XEnums__Group__2__Impl rule__XEnums__Group__3 )
+            // InternalXHDL.g:2203:2: rule__XEnums__Group__2__Impl rule__XEnums__Group__3
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_28);
             rule__XEnums__Group__2__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XEnums__Group__3();
 
             state._fsp--;
 
@@ -5523,21 +6544,49 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__XEnums__Group__2__Impl"
-    // InternalXHDL.g:1908:1: rule__XEnums__Group__2__Impl : ( ')' ) ;
+    // InternalXHDL.g:2210:1: rule__XEnums__Group__2__Impl : ( ( rule__XEnums__Group_2__0 )* ) ;
     public final void rule__XEnums__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1912:1: ( ( ')' ) )
-            // InternalXHDL.g:1913:1: ( ')' )
+            // InternalXHDL.g:2214:1: ( ( ( rule__XEnums__Group_2__0 )* ) )
+            // InternalXHDL.g:2215:1: ( ( rule__XEnums__Group_2__0 )* )
             {
-            // InternalXHDL.g:1913:1: ( ')' )
-            // InternalXHDL.g:1914:2: ')'
+            // InternalXHDL.g:2215:1: ( ( rule__XEnums__Group_2__0 )* )
+            // InternalXHDL.g:2216:2: ( rule__XEnums__Group_2__0 )*
             {
-             before(grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_2()); 
-            match(input,24,FOLLOW_2); 
-             after(grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_2()); 
+             before(grammarAccess.getXEnumsAccess().getGroup_2()); 
+            // InternalXHDL.g:2217:2: ( rule__XEnums__Group_2__0 )*
+            loop9:
+            do {
+                int alt9=2;
+                int LA9_0 = input.LA(1);
+
+                if ( (LA9_0==RULE_ID||LA9_0==31) ) {
+                    alt9=1;
+                }
+
+
+                switch (alt9) {
+            	case 1 :
+            	    // InternalXHDL.g:2217:3: rule__XEnums__Group_2__0
+            	    {
+            	    pushFollow(FOLLOW_29);
+            	    rule__XEnums__Group_2__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop9;
+                }
+            } while (true);
+
+             after(grammarAccess.getXEnumsAccess().getGroup_2()); 
 
             }
 
@@ -5559,23 +6608,18 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__XEnums__Group__2__Impl"
 
 
-    // $ANTLR start "rule__XEnums__Group_1__0"
-    // InternalXHDL.g:1924:1: rule__XEnums__Group_1__0 : rule__XEnums__Group_1__0__Impl rule__XEnums__Group_1__1 ;
-    public final void rule__XEnums__Group_1__0() throws RecognitionException {
+    // $ANTLR start "rule__XEnums__Group__3"
+    // InternalXHDL.g:2225:1: rule__XEnums__Group__3 : rule__XEnums__Group__3__Impl ;
+    public final void rule__XEnums__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1928:1: ( rule__XEnums__Group_1__0__Impl rule__XEnums__Group_1__1 )
-            // InternalXHDL.g:1929:2: rule__XEnums__Group_1__0__Impl rule__XEnums__Group_1__1
+            // InternalXHDL.g:2229:1: ( rule__XEnums__Group__3__Impl )
+            // InternalXHDL.g:2230:2: rule__XEnums__Group__3__Impl
             {
-            pushFollow(FOLLOW_28);
-            rule__XEnums__Group_1__0__Impl();
-
-            state._fsp--;
-
             pushFollow(FOLLOW_2);
-            rule__XEnums__Group_1__1();
+            rule__XEnums__Group__3__Impl();
 
             state._fsp--;
 
@@ -5594,42 +6638,117 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XEnums__Group_1__0"
+    // $ANTLR end "rule__XEnums__Group__3"
 
 
-    // $ANTLR start "rule__XEnums__Group_1__0__Impl"
-    // InternalXHDL.g:1936:1: rule__XEnums__Group_1__0__Impl : ( ( ',' )? ) ;
-    public final void rule__XEnums__Group_1__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__XEnums__Group__3__Impl"
+    // InternalXHDL.g:2236:1: rule__XEnums__Group__3__Impl : ( ')' ) ;
+    public final void rule__XEnums__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1940:1: ( ( ( ',' )? ) )
-            // InternalXHDL.g:1941:1: ( ( ',' )? )
+            // InternalXHDL.g:2240:1: ( ( ')' ) )
+            // InternalXHDL.g:2241:1: ( ')' )
             {
-            // InternalXHDL.g:1941:1: ( ( ',' )? )
-            // InternalXHDL.g:1942:2: ( ',' )?
+            // InternalXHDL.g:2241:1: ( ')' )
+            // InternalXHDL.g:2242:2: ')'
             {
-             before(grammarAccess.getXEnumsAccess().getCommaKeyword_1_0()); 
-            // InternalXHDL.g:1943:2: ( ',' )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+             before(grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_3()); 
+            match(input,26,FOLLOW_2); 
+             after(grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_3()); 
 
-            if ( (LA8_0==29) ) {
-                alt8=1;
             }
-            switch (alt8) {
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XEnums__Group__3__Impl"
+
+
+    // $ANTLR start "rule__XEnums__Group_2__0"
+    // InternalXHDL.g:2252:1: rule__XEnums__Group_2__0 : rule__XEnums__Group_2__0__Impl rule__XEnums__Group_2__1 ;
+    public final void rule__XEnums__Group_2__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2256:1: ( rule__XEnums__Group_2__0__Impl rule__XEnums__Group_2__1 )
+            // InternalXHDL.g:2257:2: rule__XEnums__Group_2__0__Impl rule__XEnums__Group_2__1
+            {
+            pushFollow(FOLLOW_30);
+            rule__XEnums__Group_2__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XEnums__Group_2__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XEnums__Group_2__0"
+
+
+    // $ANTLR start "rule__XEnums__Group_2__0__Impl"
+    // InternalXHDL.g:2264:1: rule__XEnums__Group_2__0__Impl : ( ( ',' )? ) ;
+    public final void rule__XEnums__Group_2__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2268:1: ( ( ( ',' )? ) )
+            // InternalXHDL.g:2269:1: ( ( ',' )? )
+            {
+            // InternalXHDL.g:2269:1: ( ( ',' )? )
+            // InternalXHDL.g:2270:2: ( ',' )?
+            {
+             before(grammarAccess.getXEnumsAccess().getCommaKeyword_2_0()); 
+            // InternalXHDL.g:2271:2: ( ',' )?
+            int alt10=2;
+            int LA10_0 = input.LA(1);
+
+            if ( (LA10_0==31) ) {
+                alt10=1;
+            }
+            switch (alt10) {
                 case 1 :
-                    // InternalXHDL.g:1943:3: ','
+                    // InternalXHDL.g:2271:3: ','
                     {
-                    match(input,29,FOLLOW_2); 
+                    match(input,31,FOLLOW_2); 
 
                     }
                     break;
 
             }
 
-             after(grammarAccess.getXEnumsAccess().getCommaKeyword_1_0()); 
+             after(grammarAccess.getXEnumsAccess().getCommaKeyword_2_0()); 
 
             }
 
@@ -5648,21 +6767,21 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XEnums__Group_1__0__Impl"
+    // $ANTLR end "rule__XEnums__Group_2__0__Impl"
 
 
-    // $ANTLR start "rule__XEnums__Group_1__1"
-    // InternalXHDL.g:1951:1: rule__XEnums__Group_1__1 : rule__XEnums__Group_1__1__Impl ;
-    public final void rule__XEnums__Group_1__1() throws RecognitionException {
+    // $ANTLR start "rule__XEnums__Group_2__1"
+    // InternalXHDL.g:2279:1: rule__XEnums__Group_2__1 : rule__XEnums__Group_2__1__Impl ;
+    public final void rule__XEnums__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1955:1: ( rule__XEnums__Group_1__1__Impl )
-            // InternalXHDL.g:1956:2: rule__XEnums__Group_1__1__Impl
+            // InternalXHDL.g:2283:1: ( rule__XEnums__Group_2__1__Impl )
+            // InternalXHDL.g:2284:2: rule__XEnums__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__XEnums__Group_1__1__Impl();
+            rule__XEnums__Group_2__1__Impl();
 
             state._fsp--;
 
@@ -5681,25 +6800,35 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XEnums__Group_1__1"
+    // $ANTLR end "rule__XEnums__Group_2__1"
 
 
-    // $ANTLR start "rule__XEnums__Group_1__1__Impl"
-    // InternalXHDL.g:1962:1: rule__XEnums__Group_1__1__Impl : ( RULE_ID ) ;
-    public final void rule__XEnums__Group_1__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__XEnums__Group_2__1__Impl"
+    // InternalXHDL.g:2290:1: rule__XEnums__Group_2__1__Impl : ( ( rule__XEnums__XenumsAssignment_2_1 ) ) ;
+    public final void rule__XEnums__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1966:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:1967:1: ( RULE_ID )
+            // InternalXHDL.g:2294:1: ( ( ( rule__XEnums__XenumsAssignment_2_1 ) ) )
+            // InternalXHDL.g:2295:1: ( ( rule__XEnums__XenumsAssignment_2_1 ) )
             {
-            // InternalXHDL.g:1967:1: ( RULE_ID )
-            // InternalXHDL.g:1968:2: RULE_ID
+            // InternalXHDL.g:2295:1: ( ( rule__XEnums__XenumsAssignment_2_1 ) )
+            // InternalXHDL.g:2296:2: ( rule__XEnums__XenumsAssignment_2_1 )
             {
-             before(grammarAccess.getXEnumsAccess().getIDTerminalRuleCall_1_1()); 
-            match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXEnumsAccess().getIDTerminalRuleCall_1_1()); 
+             before(grammarAccess.getXEnumsAccess().getXenumsAssignment_2_1()); 
+            // InternalXHDL.g:2297:2: ( rule__XEnums__XenumsAssignment_2_1 )
+            // InternalXHDL.g:2297:3: rule__XEnums__XenumsAssignment_2_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__XEnums__XenumsAssignment_2_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXEnumsAccess().getXenumsAssignment_2_1()); 
 
             }
 
@@ -5718,21 +6847,251 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XEnums__Group_1__1__Impl"
+    // $ANTLR end "rule__XEnums__Group_2__1__Impl"
+
+
+    // $ANTLR start "rule__XImpure__Group__0"
+    // InternalXHDL.g:2306:1: rule__XImpure__Group__0 : rule__XImpure__Group__0__Impl rule__XImpure__Group__1 ;
+    public final void rule__XImpure__Group__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2310:1: ( rule__XImpure__Group__0__Impl rule__XImpure__Group__1 )
+            // InternalXHDL.g:2311:2: rule__XImpure__Group__0__Impl rule__XImpure__Group__1
+            {
+            pushFollow(FOLLOW_5);
+            rule__XImpure__Group__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XImpure__Group__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__Group__0"
+
+
+    // $ANTLR start "rule__XImpure__Group__0__Impl"
+    // InternalXHDL.g:2318:1: rule__XImpure__Group__0__Impl : ( 'impure' ) ;
+    public final void rule__XImpure__Group__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2322:1: ( ( 'impure' ) )
+            // InternalXHDL.g:2323:1: ( 'impure' )
+            {
+            // InternalXHDL.g:2323:1: ( 'impure' )
+            // InternalXHDL.g:2324:2: 'impure'
+            {
+             before(grammarAccess.getXImpureAccess().getImpureKeyword_0()); 
+            match(input,32,FOLLOW_2); 
+             after(grammarAccess.getXImpureAccess().getImpureKeyword_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__Group__0__Impl"
+
+
+    // $ANTLR start "rule__XImpure__Group__1"
+    // InternalXHDL.g:2333:1: rule__XImpure__Group__1 : rule__XImpure__Group__1__Impl rule__XImpure__Group__2 ;
+    public final void rule__XImpure__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2337:1: ( rule__XImpure__Group__1__Impl rule__XImpure__Group__2 )
+            // InternalXHDL.g:2338:2: rule__XImpure__Group__1__Impl rule__XImpure__Group__2
+            {
+            pushFollow(FOLLOW_9);
+            rule__XImpure__Group__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__XImpure__Group__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__Group__1"
+
+
+    // $ANTLR start "rule__XImpure__Group__1__Impl"
+    // InternalXHDL.g:2345:1: rule__XImpure__Group__1__Impl : ( ( rule__XImpure__XfuncAssignment_1 ) ) ;
+    public final void rule__XImpure__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2349:1: ( ( ( rule__XImpure__XfuncAssignment_1 ) ) )
+            // InternalXHDL.g:2350:1: ( ( rule__XImpure__XfuncAssignment_1 ) )
+            {
+            // InternalXHDL.g:2350:1: ( ( rule__XImpure__XfuncAssignment_1 ) )
+            // InternalXHDL.g:2351:2: ( rule__XImpure__XfuncAssignment_1 )
+            {
+             before(grammarAccess.getXImpureAccess().getXfuncAssignment_1()); 
+            // InternalXHDL.g:2352:2: ( rule__XImpure__XfuncAssignment_1 )
+            // InternalXHDL.g:2352:3: rule__XImpure__XfuncAssignment_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__XImpure__XfuncAssignment_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getXImpureAccess().getXfuncAssignment_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__Group__1__Impl"
+
+
+    // $ANTLR start "rule__XImpure__Group__2"
+    // InternalXHDL.g:2360:1: rule__XImpure__Group__2 : rule__XImpure__Group__2__Impl ;
+    public final void rule__XImpure__Group__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2364:1: ( rule__XImpure__Group__2__Impl )
+            // InternalXHDL.g:2365:2: rule__XImpure__Group__2__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__XImpure__Group__2__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__Group__2"
+
+
+    // $ANTLR start "rule__XImpure__Group__2__Impl"
+    // InternalXHDL.g:2371:1: rule__XImpure__Group__2__Impl : ( ';' ) ;
+    public final void rule__XImpure__Group__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2375:1: ( ( ';' ) )
+            // InternalXHDL.g:2376:1: ( ';' )
+            {
+            // InternalXHDL.g:2376:1: ( ';' )
+            // InternalXHDL.g:2377:2: ';'
+            {
+             before(grammarAccess.getXImpureAccess().getSemicolonKeyword_2()); 
+            match(input,15,FOLLOW_2); 
+             after(grammarAccess.getXImpureAccess().getSemicolonKeyword_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__Group__2__Impl"
 
 
     // $ANTLR start "rule__Xhdl__PackagesAssignment"
-    // InternalXHDL.g:1978:1: rule__Xhdl__PackagesAssignment : ( ruleXPackage ) ;
+    // InternalXHDL.g:2387:1: rule__Xhdl__PackagesAssignment : ( ruleXPackage ) ;
     public final void rule__Xhdl__PackagesAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1982:1: ( ( ruleXPackage ) )
-            // InternalXHDL.g:1983:2: ( ruleXPackage )
+            // InternalXHDL.g:2391:1: ( ( ruleXPackage ) )
+            // InternalXHDL.g:2392:2: ( ruleXPackage )
             {
-            // InternalXHDL.g:1983:2: ( ruleXPackage )
-            // InternalXHDL.g:1984:3: ruleXPackage
+            // InternalXHDL.g:2392:2: ( ruleXPackage )
+            // InternalXHDL.g:2393:3: ruleXPackage
             {
              before(grammarAccess.getXhdlAccess().getPackagesXPackageParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -5762,22 +7121,22 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Xhdl__PackagesAssignment"
 
 
-    // $ANTLR start "rule__XPackage__NameAssignment_1"
-    // InternalXHDL.g:1993:1: rule__XPackage__NameAssignment_1 : ( RULE_ID ) ;
-    public final void rule__XPackage__NameAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__XPackage__NameAssignment_2"
+    // InternalXHDL.g:2402:1: rule__XPackage__NameAssignment_2 : ( RULE_ID ) ;
+    public final void rule__XPackage__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:1997:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:1998:2: ( RULE_ID )
+            // InternalXHDL.g:2406:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2407:2: ( RULE_ID )
             {
-            // InternalXHDL.g:1998:2: ( RULE_ID )
-            // InternalXHDL.g:1999:3: RULE_ID
+            // InternalXHDL.g:2407:2: ( RULE_ID )
+            // InternalXHDL.g:2408:3: RULE_ID
             {
-             before(grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_1_0()); 
+             before(grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_2_0()); 
             match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_1_0()); 
+             after(grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
 
@@ -5796,29 +7155,29 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XPackage__NameAssignment_1"
+    // $ANTLR end "rule__XPackage__NameAssignment_2"
 
 
-    // $ANTLR start "rule__XPackage__ElementsAssignment_3"
-    // InternalXHDL.g:2008:1: rule__XPackage__ElementsAssignment_3 : ( ruleXElement ) ;
-    public final void rule__XPackage__ElementsAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__XPackage__XisAssignment_4"
+    // InternalXHDL.g:2417:1: rule__XPackage__XisAssignment_4 : ( ruleXElement ) ;
+    public final void rule__XPackage__XisAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:2012:1: ( ( ruleXElement ) )
-            // InternalXHDL.g:2013:2: ( ruleXElement )
+            // InternalXHDL.g:2421:1: ( ( ruleXElement ) )
+            // InternalXHDL.g:2422:2: ( ruleXElement )
             {
-            // InternalXHDL.g:2013:2: ( ruleXElement )
-            // InternalXHDL.g:2014:3: ruleXElement
+            // InternalXHDL.g:2422:2: ( ruleXElement )
+            // InternalXHDL.g:2423:3: ruleXElement
             {
-             before(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_3_0()); 
+             before(grammarAccess.getXPackageAccess().getXisXElementParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
             ruleXElement();
 
             state._fsp--;
 
-             after(grammarAccess.getXPackageAccess().getElementsXElementParserRuleCall_3_0()); 
+             after(grammarAccess.getXPackageAccess().getXisXElementParserRuleCall_4_0()); 
 
             }
 
@@ -5837,21 +7196,312 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XPackage__ElementsAssignment_3"
+    // $ANTLR end "rule__XPackage__XisAssignment_4"
+
+
+    // $ANTLR start "rule__XPackage__XendAssignment_6"
+    // InternalXHDL.g:2432:1: rule__XPackage__XendAssignment_6 : ( ( RULE_ID ) ) ;
+    public final void rule__XPackage__XendAssignment_6() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2436:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2437:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2437:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2438:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXPackageAccess().getXendXPackageRefCrossReference_6_0()); 
+            // InternalXHDL.g:2439:3: ( RULE_ID )
+            // InternalXHDL.g:2440:4: RULE_ID
+            {
+             before(grammarAccess.getXPackageAccess().getXendXPackageRefIDTerminalRuleCall_6_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXPackageAccess().getXendXPackageRefIDTerminalRuleCall_6_0_1()); 
+
+            }
+
+             after(grammarAccess.getXPackageAccess().getXendXPackageRefCrossReference_6_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XPackage__XendAssignment_6"
+
+
+    // $ANTLR start "rule__XAttribute__NameAssignment_2"
+    // InternalXHDL.g:2451:1: rule__XAttribute__NameAssignment_2 : ( RULE_ID ) ;
+    public final void rule__XAttribute__NameAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2455:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2456:2: ( RULE_ID )
+            {
+            // InternalXHDL.g:2456:2: ( RULE_ID )
+            // InternalXHDL.g:2457:3: RULE_ID
+            {
+             before(grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XAttribute__NameAssignment_2"
+
+
+    // $ANTLR start "rule__XAttribute__XtypeAssignment_4"
+    // InternalXHDL.g:2466:1: rule__XAttribute__XtypeAssignment_4 : ( ( RULE_ID ) ) ;
+    public final void rule__XAttribute__XtypeAssignment_4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2470:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2471:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2471:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2472:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXAttributeAccess().getXtypeXTypeRefCrossReference_4_0()); 
+            // InternalXHDL.g:2473:3: ( RULE_ID )
+            // InternalXHDL.g:2474:4: RULE_ID
+            {
+             before(grammarAccess.getXAttributeAccess().getXtypeXTypeRefIDTerminalRuleCall_4_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXAttributeAccess().getXtypeXTypeRefIDTerminalRuleCall_4_0_1()); 
+
+            }
+
+             after(grammarAccess.getXAttributeAccess().getXtypeXTypeRefCrossReference_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XAttribute__XtypeAssignment_4"
+
+
+    // $ANTLR start "rule__XSubType__NameAssignment_2"
+    // InternalXHDL.g:2485:1: rule__XSubType__NameAssignment_2 : ( RULE_ID ) ;
+    public final void rule__XSubType__NameAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2489:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2490:2: ( RULE_ID )
+            {
+            // InternalXHDL.g:2490:2: ( RULE_ID )
+            // InternalXHDL.g:2491:3: RULE_ID
+            {
+             before(grammarAccess.getXSubTypeAccess().getNameIDTerminalRuleCall_2_0()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXSubTypeAccess().getNameIDTerminalRuleCall_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSubType__NameAssignment_2"
+
+
+    // $ANTLR start "rule__XSubType__XisAssignment_4"
+    // InternalXHDL.g:2500:1: rule__XSubType__XisAssignment_4 : ( ( RULE_ID ) ) ;
+    public final void rule__XSubType__XisAssignment_4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2504:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2505:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2505:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2506:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXSubTypeAccess().getXisXTypeRefCrossReference_4_0()); 
+            // InternalXHDL.g:2507:3: ( RULE_ID )
+            // InternalXHDL.g:2508:4: RULE_ID
+            {
+             before(grammarAccess.getXSubTypeAccess().getXisXTypeRefIDTerminalRuleCall_4_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXSubTypeAccess().getXisXTypeRefIDTerminalRuleCall_4_0_1()); 
+
+            }
+
+             after(grammarAccess.getXSubTypeAccess().getXisXTypeRefCrossReference_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSubType__XisAssignment_4"
+
+
+    // $ANTLR start "rule__XSignal__NameAssignment_2"
+    // InternalXHDL.g:2519:1: rule__XSignal__NameAssignment_2 : ( RULE_ID ) ;
+    public final void rule__XSignal__NameAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2523:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2524:2: ( RULE_ID )
+            {
+            // InternalXHDL.g:2524:2: ( RULE_ID )
+            // InternalXHDL.g:2525:3: RULE_ID
+            {
+             before(grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__NameAssignment_2"
+
+
+    // $ANTLR start "rule__XSignal__XtypeAssignment_4"
+    // InternalXHDL.g:2534:1: rule__XSignal__XtypeAssignment_4 : ( ( RULE_ID ) ) ;
+    public final void rule__XSignal__XtypeAssignment_4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2538:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2539:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2539:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2540:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXSignalAccess().getXtypeXTypeRefCrossReference_4_0()); 
+            // InternalXHDL.g:2541:3: ( RULE_ID )
+            // InternalXHDL.g:2542:4: RULE_ID
+            {
+             before(grammarAccess.getXSignalAccess().getXtypeXTypeRefIDTerminalRuleCall_4_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXSignalAccess().getXtypeXTypeRefIDTerminalRuleCall_4_0_1()); 
+
+            }
+
+             after(grammarAccess.getXSignalAccess().getXtypeXTypeRefCrossReference_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XSignal__XtypeAssignment_4"
 
 
     // $ANTLR start "rule__XType__NameAssignment_0_2"
-    // InternalXHDL.g:2023:1: rule__XType__NameAssignment_0_2 : ( RULE_ID ) ;
+    // InternalXHDL.g:2553:1: rule__XType__NameAssignment_0_2 : ( RULE_ID ) ;
     public final void rule__XType__NameAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:2027:1: ( ( RULE_ID ) )
-            // InternalXHDL.g:2028:2: ( RULE_ID )
+            // InternalXHDL.g:2557:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2558:2: ( RULE_ID )
             {
-            // InternalXHDL.g:2028:2: ( RULE_ID )
-            // InternalXHDL.g:2029:3: RULE_ID
+            // InternalXHDL.g:2558:2: ( RULE_ID )
+            // InternalXHDL.g:2559:3: RULE_ID
             {
              before(grammarAccess.getXTypeAccess().getNameIDTerminalRuleCall_0_2_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -5877,26 +7527,26 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__XType__NameAssignment_0_2"
 
 
-    // $ANTLR start "rule__XUnits__UnitsAssignment_2"
-    // InternalXHDL.g:2038:1: rule__XUnits__UnitsAssignment_2 : ( ruleXUnit ) ;
-    public final void rule__XUnits__UnitsAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__XType__XenumsAssignment_0_4"
+    // InternalXHDL.g:2568:1: rule__XType__XenumsAssignment_0_4 : ( ruleXEnums ) ;
+    public final void rule__XType__XenumsAssignment_0_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalXHDL.g:2042:1: ( ( ruleXUnit ) )
-            // InternalXHDL.g:2043:2: ( ruleXUnit )
+            // InternalXHDL.g:2572:1: ( ( ruleXEnums ) )
+            // InternalXHDL.g:2573:2: ( ruleXEnums )
             {
-            // InternalXHDL.g:2043:2: ( ruleXUnit )
-            // InternalXHDL.g:2044:3: ruleXUnit
+            // InternalXHDL.g:2573:2: ( ruleXEnums )
+            // InternalXHDL.g:2574:3: ruleXEnums
             {
-             before(grammarAccess.getXUnitsAccess().getUnitsXUnitParserRuleCall_2_0()); 
+             before(grammarAccess.getXTypeAccess().getXenumsXEnumsParserRuleCall_0_4_0()); 
             pushFollow(FOLLOW_2);
-            ruleXUnit();
+            ruleXEnums();
 
             state._fsp--;
 
-             after(grammarAccess.getXUnitsAccess().getUnitsXUnitParserRuleCall_2_0()); 
+             after(grammarAccess.getXTypeAccess().getXenumsXEnumsParserRuleCall_0_4_0()); 
 
             }
 
@@ -5915,7 +7565,552 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__XUnits__UnitsAssignment_2"
+    // $ANTLR end "rule__XType__XenumsAssignment_0_4"
+
+
+    // $ANTLR start "rule__XType__XrangeAssignment_1"
+    // InternalXHDL.g:2583:1: rule__XType__XrangeAssignment_1 : ( ruleXRange ) ;
+    public final void rule__XType__XrangeAssignment_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2587:1: ( ( ruleXRange ) )
+            // InternalXHDL.g:2588:2: ( ruleXRange )
+            {
+            // InternalXHDL.g:2588:2: ( ruleXRange )
+            // InternalXHDL.g:2589:3: ruleXRange
+            {
+             before(grammarAccess.getXTypeAccess().getXrangeXRangeParserRuleCall_1_0()); 
+            pushFollow(FOLLOW_2);
+            ruleXRange();
+
+            state._fsp--;
+
+             after(grammarAccess.getXTypeAccess().getXrangeXRangeParserRuleCall_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XType__XrangeAssignment_1"
+
+
+    // $ANTLR start "rule__XType__XarrayAssignment_2_0"
+    // InternalXHDL.g:2598:1: rule__XType__XarrayAssignment_2_0 : ( ruleXArray ) ;
+    public final void rule__XType__XarrayAssignment_2_0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2602:1: ( ( ruleXArray ) )
+            // InternalXHDL.g:2603:2: ( ruleXArray )
+            {
+            // InternalXHDL.g:2603:2: ( ruleXArray )
+            // InternalXHDL.g:2604:3: ruleXArray
+            {
+             before(grammarAccess.getXTypeAccess().getXarrayXArrayParserRuleCall_2_0_0()); 
+            pushFollow(FOLLOW_2);
+            ruleXArray();
+
+            state._fsp--;
+
+             after(grammarAccess.getXTypeAccess().getXarrayXArrayParserRuleCall_2_0_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XType__XarrayAssignment_2_0"
+
+
+    // $ANTLR start "rule__XArray__XrangeAssignment_3"
+    // InternalXHDL.g:2613:1: rule__XArray__XrangeAssignment_3 : ( ( RULE_ID ) ) ;
+    public final void rule__XArray__XrangeAssignment_3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2617:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2618:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2618:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2619:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXArrayAccess().getXrangeXTypeRefCrossReference_3_0()); 
+            // InternalXHDL.g:2620:3: ( RULE_ID )
+            // InternalXHDL.g:2621:4: RULE_ID
+            {
+             before(grammarAccess.getXArrayAccess().getXrangeXTypeRefIDTerminalRuleCall_3_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXArrayAccess().getXrangeXTypeRefIDTerminalRuleCall_3_0_1()); 
+
+            }
+
+             after(grammarAccess.getXArrayAccess().getXrangeXTypeRefCrossReference_3_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XArray__XrangeAssignment_3"
+
+
+    // $ANTLR start "rule__XArray__XofAssignment_8"
+    // InternalXHDL.g:2632:1: rule__XArray__XofAssignment_8 : ( ( RULE_ID ) ) ;
+    public final void rule__XArray__XofAssignment_8() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2636:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2637:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2637:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2638:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXArrayAccess().getXofXTypeRefCrossReference_8_0()); 
+            // InternalXHDL.g:2639:3: ( RULE_ID )
+            // InternalXHDL.g:2640:4: RULE_ID
+            {
+             before(grammarAccess.getXArrayAccess().getXofXTypeRefIDTerminalRuleCall_8_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXArrayAccess().getXofXTypeRefIDTerminalRuleCall_8_0_1()); 
+
+            }
+
+             after(grammarAccess.getXArrayAccess().getXofXTypeRefCrossReference_8_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XArray__XofAssignment_8"
+
+
+    // $ANTLR start "rule__XRange__XfromAssignment_2"
+    // InternalXHDL.g:2651:1: rule__XRange__XfromAssignment_2 : ( ( RULE_ID ) ) ;
+    public final void rule__XRange__XfromAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2655:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2656:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2656:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2657:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXRangeAccess().getXfromXRangeValueCrossReference_2_0()); 
+            // InternalXHDL.g:2658:3: ( RULE_ID )
+            // InternalXHDL.g:2659:4: RULE_ID
+            {
+             before(grammarAccess.getXRangeAccess().getXfromXRangeValueIDTerminalRuleCall_2_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXRangeAccess().getXfromXRangeValueIDTerminalRuleCall_2_0_1()); 
+
+            }
+
+             after(grammarAccess.getXRangeAccess().getXfromXRangeValueCrossReference_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XRange__XfromAssignment_2"
+
+
+    // $ANTLR start "rule__XRange__XtoAssignment_4"
+    // InternalXHDL.g:2670:1: rule__XRange__XtoAssignment_4 : ( ( RULE_ID ) ) ;
+    public final void rule__XRange__XtoAssignment_4() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2674:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2675:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2675:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2676:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXRangeAccess().getXtoXRangeValueCrossReference_4_0()); 
+            // InternalXHDL.g:2677:3: ( RULE_ID )
+            // InternalXHDL.g:2678:4: RULE_ID
+            {
+             before(grammarAccess.getXRangeAccess().getXtoXRangeValueIDTerminalRuleCall_4_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXRangeAccess().getXtoXRangeValueIDTerminalRuleCall_4_0_1()); 
+
+            }
+
+             after(grammarAccess.getXRangeAccess().getXtoXRangeValueCrossReference_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XRange__XtoAssignment_4"
+
+
+    // $ANTLR start "rule__XRange__XunitsAssignment_5"
+    // InternalXHDL.g:2689:1: rule__XRange__XunitsAssignment_5 : ( ruleXUnits ) ;
+    public final void rule__XRange__XunitsAssignment_5() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2693:1: ( ( ruleXUnits ) )
+            // InternalXHDL.g:2694:2: ( ruleXUnits )
+            {
+            // InternalXHDL.g:2694:2: ( ruleXUnits )
+            // InternalXHDL.g:2695:3: ruleXUnits
+            {
+             before(grammarAccess.getXRangeAccess().getXunitsXUnitsParserRuleCall_5_0()); 
+            pushFollow(FOLLOW_2);
+            ruleXUnits();
+
+            state._fsp--;
+
+             after(grammarAccess.getXRangeAccess().getXunitsXUnitsParserRuleCall_5_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XRange__XunitsAssignment_5"
+
+
+    // $ANTLR start "rule__XUnits__XunitsAssignment_2"
+    // InternalXHDL.g:2704:1: rule__XUnits__XunitsAssignment_2 : ( ruleXUnit ) ;
+    public final void rule__XUnits__XunitsAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2708:1: ( ( ruleXUnit ) )
+            // InternalXHDL.g:2709:2: ( ruleXUnit )
+            {
+            // InternalXHDL.g:2709:2: ( ruleXUnit )
+            // InternalXHDL.g:2710:3: ruleXUnit
+            {
+             before(grammarAccess.getXUnitsAccess().getXunitsXUnitParserRuleCall_2_0()); 
+            pushFollow(FOLLOW_2);
+            ruleXUnit();
+
+            state._fsp--;
+
+             after(grammarAccess.getXUnitsAccess().getXunitsXUnitParserRuleCall_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnits__XunitsAssignment_2"
+
+
+    // $ANTLR start "rule__XUnit__NameAssignment_1"
+    // InternalXHDL.g:2719:1: rule__XUnit__NameAssignment_1 : ( RULE_ID ) ;
+    public final void rule__XUnit__NameAssignment_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2723:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2724:2: ( RULE_ID )
+            {
+            // InternalXHDL.g:2724:2: ( RULE_ID )
+            // InternalXHDL.g:2725:3: RULE_ID
+            {
+             before(grammarAccess.getXUnitAccess().getNameIDTerminalRuleCall_1_0()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXUnitAccess().getNameIDTerminalRuleCall_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__NameAssignment_1"
+
+
+    // $ANTLR start "rule__XUnit__XvalueAssignment_2_1"
+    // InternalXHDL.g:2734:1: rule__XUnit__XvalueAssignment_2_1 : ( RULE_INT ) ;
+    public final void rule__XUnit__XvalueAssignment_2_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2738:1: ( ( RULE_INT ) )
+            // InternalXHDL.g:2739:2: ( RULE_INT )
+            {
+            // InternalXHDL.g:2739:2: ( RULE_INT )
+            // InternalXHDL.g:2740:3: RULE_INT
+            {
+             before(grammarAccess.getXUnitAccess().getXvalueINTTerminalRuleCall_2_1_0()); 
+            match(input,RULE_INT,FOLLOW_2); 
+             after(grammarAccess.getXUnitAccess().getXvalueINTTerminalRuleCall_2_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__XvalueAssignment_2_1"
+
+
+    // $ANTLR start "rule__XUnit__XbasedAssignment_2_2"
+    // InternalXHDL.g:2749:1: rule__XUnit__XbasedAssignment_2_2 : ( ( RULE_ID ) ) ;
+    public final void rule__XUnit__XbasedAssignment_2_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2753:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2754:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2754:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2755:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXUnitAccess().getXbasedXUnitRefCrossReference_2_2_0()); 
+            // InternalXHDL.g:2756:3: ( RULE_ID )
+            // InternalXHDL.g:2757:4: RULE_ID
+            {
+             before(grammarAccess.getXUnitAccess().getXbasedXUnitRefIDTerminalRuleCall_2_2_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXUnitAccess().getXbasedXUnitRefIDTerminalRuleCall_2_2_0_1()); 
+
+            }
+
+             after(grammarAccess.getXUnitAccess().getXbasedXUnitRefCrossReference_2_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XUnit__XbasedAssignment_2_2"
+
+
+    // $ANTLR start "rule__XEnums__XenumsAssignment_2_1"
+    // InternalXHDL.g:2768:1: rule__XEnums__XenumsAssignment_2_1 : ( RULE_ID ) ;
+    public final void rule__XEnums__XenumsAssignment_2_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2772:1: ( ( RULE_ID ) )
+            // InternalXHDL.g:2773:2: ( RULE_ID )
+            {
+            // InternalXHDL.g:2773:2: ( RULE_ID )
+            // InternalXHDL.g:2774:3: RULE_ID
+            {
+             before(grammarAccess.getXEnumsAccess().getXenumsIDTerminalRuleCall_2_1_0()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXEnumsAccess().getXenumsIDTerminalRuleCall_2_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XEnums__XenumsAssignment_2_1"
+
+
+    // $ANTLR start "rule__XImpure__XfuncAssignment_1"
+    // InternalXHDL.g:2783:1: rule__XImpure__XfuncAssignment_1 : ( ( RULE_ID ) ) ;
+    public final void rule__XImpure__XfuncAssignment_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalXHDL.g:2787:1: ( ( ( RULE_ID ) ) )
+            // InternalXHDL.g:2788:2: ( ( RULE_ID ) )
+            {
+            // InternalXHDL.g:2788:2: ( ( RULE_ID ) )
+            // InternalXHDL.g:2789:3: ( RULE_ID )
+            {
+             before(grammarAccess.getXImpureAccess().getXfuncXFunctionRefCrossReference_1_0()); 
+            // InternalXHDL.g:2790:3: ( RULE_ID )
+            // InternalXHDL.g:2791:4: RULE_ID
+            {
+             before(grammarAccess.getXImpureAccess().getXfuncXFunctionRefIDTerminalRuleCall_1_0_1()); 
+            match(input,RULE_ID,FOLLOW_2); 
+             after(grammarAccess.getXImpureAccess().getXfuncXFunctionRefIDTerminalRuleCall_1_0_1()); 
+
+            }
+
+             after(grammarAccess.getXImpureAccess().getXfuncXFunctionRefCrossReference_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__XImpure__XfuncAssignment_1"
 
     // Delegated rules
 
@@ -5924,31 +8119,33 @@ public class InternalXHDLParser extends AbstractInternalContentAssistParser {
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000000802L});
-    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x00000000005EA000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x00000000005E8002L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x00000000005E8000L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x00000001016D4000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x00000001016D0002L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000010000L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000580000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000108000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000001600000L});
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000001000000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000002010L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000021000010L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000020000012L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000020000010L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000004010L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000040008000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000084000010L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000080000012L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000080000010L});
 
 }

@@ -17,7 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link xproject.xhdl.XPackage#getName <em>Name</em>}</li>
- *   <li>{@link xproject.xhdl.XPackage#getElements <em>Elements</em>}</li>
+ *   <li>{@link xproject.xhdl.XPackage#getXis <em>Xis</em>}</li>
+ *   <li>{@link xproject.xhdl.XPackage#getXend <em>Xend</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXPackage()
@@ -53,19 +54,45 @@ public interface XPackage extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Xis</b></em>' containment reference list.
    * The list contents are of type {@link xproject.xhdl.XElement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Xis</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Elements</em>' containment reference list.
-   * @see xproject.xhdl.XhdlPackage#getXPackage_Elements()
+   * @return the value of the '<em>Xis</em>' containment reference list.
+   * @see xproject.xhdl.XhdlPackage#getXPackage_Xis()
    * @model containment="true"
    * @generated
    */
-  EList<XElement> getElements();
+  EList<XElement> getXis();
+
+  /**
+   * Returns the value of the '<em><b>Xend</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xend</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xend</em>' reference.
+   * @see #setXend(XPackageRef)
+   * @see xproject.xhdl.XhdlPackage#getXPackage_Xend()
+   * @model
+   * @generated
+   */
+  XPackageRef getXend();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XPackage#getXend <em>Xend</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xend</em>' reference.
+   * @see #getXend()
+   * @generated
+   */
+  void setXend(XPackageRef value);
 
 } // XPackage

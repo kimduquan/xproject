@@ -80,10 +80,24 @@ public class XhdlSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case XhdlPackage.XPACKAGE_REF:
+      {
+        XPackageRef xPackageRef = (XPackageRef)theEObject;
+        T result = caseXPackageRef(xPackageRef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case XhdlPackage.XPACKAGE:
       {
         XPackage xPackage = (XPackage)theEObject;
         T result = caseXPackage(xPackage);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XTYPE_REF:
+      {
+        XTypeRef xTypeRef = (XTypeRef)theEObject;
+        T result = caseXTypeRef(xTypeRef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -130,8 +144,6 @@ public class XhdlSwitch<T> extends Switch<T>
       {
         XArray xArray = (XArray)theEObject;
         T result = caseXArray(xArray);
-        if (result == null) result = caseXType(xArray);
-        if (result == null) result = caseXElement(xArray);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -139,8 +151,13 @@ public class XhdlSwitch<T> extends Switch<T>
       {
         XRange xRange = (XRange)theEObject;
         T result = caseXRange(xRange);
-        if (result == null) result = caseXType(xRange);
-        if (result == null) result = caseXElement(xRange);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XRANGE_VALUE:
+      {
+        XRangeValue xRangeValue = (XRangeValue)theEObject;
+        T result = caseXRangeValue(xRangeValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -148,9 +165,42 @@ public class XhdlSwitch<T> extends Switch<T>
       {
         XUnits xUnits = (XUnits)theEObject;
         T result = caseXUnits(xUnits);
-        if (result == null) result = caseXRange(xUnits);
-        if (result == null) result = caseXType(xUnits);
-        if (result == null) result = caseXElement(xUnits);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XUNIT_REF:
+      {
+        XUnitRef xUnitRef = (XUnitRef)theEObject;
+        T result = caseXUnitRef(xUnitRef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XUNIT:
+      {
+        XUnit xUnit = (XUnit)theEObject;
+        T result = caseXUnit(xUnit);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XENUMS:
+      {
+        XEnums xEnums = (XEnums)theEObject;
+        T result = caseXEnums(xEnums);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XFUNCTION_REF:
+      {
+        XFunctionRef xFunctionRef = (XFunctionRef)theEObject;
+        T result = caseXFunctionRef(xFunctionRef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case XhdlPackage.XIMPURE:
+      {
+        XImpure xImpure = (XImpure)theEObject;
+        T result = caseXImpure(xImpure);
+        if (result == null) result = caseXElement(xImpure);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -175,6 +225,22 @@ public class XhdlSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>XPackage Ref</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XPackage Ref</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXPackageRef(XPackageRef object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>XPackage</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -186,6 +252,22 @@ public class XhdlSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseXPackage(XPackage object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XType Ref</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XType Ref</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXTypeRef(XTypeRef object)
   {
     return null;
   }
@@ -303,6 +385,22 @@ public class XhdlSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>XRange Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XRange Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXRangeValue(XRangeValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>XUnits</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -314,6 +412,86 @@ public class XhdlSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseXUnits(XUnits object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XUnit Ref</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XUnit Ref</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXUnitRef(XUnitRef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XUnit</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XUnit</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXUnit(XUnit object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XEnums</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XEnums</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXEnums(XEnums object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XFunction Ref</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XFunction Ref</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXFunctionRef(XFunctionRef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XImpure</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XImpure</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXImpure(XImpure object)
   {
     return null;
   }

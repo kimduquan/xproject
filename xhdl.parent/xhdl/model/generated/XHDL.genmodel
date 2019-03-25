@@ -9,27 +9,69 @@
     <genClasses ecoreClass="XHDL.ecore#//xhdl">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//xhdl/packages"/>
     </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XPackageRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XPackageRef/name"/>
+    </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XPackage">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XPackage/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XPackage/elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XPackage/xis"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XPackage/xend"/>
     </genClasses>
-    <genClasses ecoreClass="XHDL.ecore#//XElement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XElement/name"/>
+    <genClasses ecoreClass="XHDL.ecore#//XTypeRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XTypeRef/name"/>
     </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XElement"/>
     <genClasses ecoreClass="XHDL.ecore#//XAttribute">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XAttribute/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XAttribute/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XAttribute/xtype"/>
     </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XSubType">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XSubType/is"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XSubType/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XSubType/xis"/>
     </genClasses>
-    <genClasses ecoreClass="XHDL.ecore#//XSignal"/>
-    <genClasses ecoreClass="XHDL.ecore#//XType"/>
+    <genClasses ecoreClass="XHDL.ecore#//XSignal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XSignal/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XSignal/xtype"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XType/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xenums"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xrange"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xarray"/>
+    </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XArray">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XArray/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XArray/xrange"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XArray/xof"/>
     </genClasses>
-    <genClasses ecoreClass="XHDL.ecore#//XRange"/>
+    <genClasses ecoreClass="XHDL.ecore#//XRange">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XRange/xfrom"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XRange/xto"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XRange/xunits"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XRangeValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XRangeValue/xvalue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XRangeValue/xunit"/>
+    </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XUnits">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XUnits/units"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XUnits/xunits"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XUnitRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XUnitRef/name"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XUnit/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XUnit/xvalue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XUnit/xbased"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XEnums">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XEnums/xenums"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XFunctionRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XFunctionRef/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XFunctionRef/xreturn"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XImpure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XHDL.ecore#//XImpure/xfunc"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

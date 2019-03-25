@@ -3,17 +3,104 @@
  */
 package xproject.xhdl;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>XRange</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.XRange#getXfrom <em>Xfrom</em>}</li>
+ *   <li>{@link xproject.xhdl.XRange#getXto <em>Xto</em>}</li>
+ *   <li>{@link xproject.xhdl.XRange#getXunits <em>Xunits</em>}</li>
+ * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXRange()
  * @model
  * @generated
  */
-public interface XRange extends XType
+public interface XRange extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Xfrom</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xfrom</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xfrom</em>' reference.
+   * @see #setXfrom(XRangeValue)
+   * @see xproject.xhdl.XhdlPackage#getXRange_Xfrom()
+   * @model
+   * @generated
+   */
+  XRangeValue getXfrom();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XRange#getXfrom <em>Xfrom</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xfrom</em>' reference.
+   * @see #getXfrom()
+   * @generated
+   */
+  void setXfrom(XRangeValue value);
+
+  /**
+   * Returns the value of the '<em><b>Xto</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xto</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xto</em>' reference.
+   * @see #setXto(XRangeValue)
+   * @see xproject.xhdl.XhdlPackage#getXRange_Xto()
+   * @model
+   * @generated
+   */
+  XRangeValue getXto();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XRange#getXto <em>Xto</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xto</em>' reference.
+   * @see #getXto()
+   * @generated
+   */
+  void setXto(XRangeValue value);
+
+  /**
+   * Returns the value of the '<em><b>Xunits</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xunits</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xunits</em>' containment reference.
+   * @see #setXunits(XUnits)
+   * @see xproject.xhdl.XhdlPackage#getXRange_Xunits()
+   * @model containment="true"
+   * @generated
+   */
+  XUnits getXunits();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XRange#getXunits <em>Xunits</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xunits</em>' containment reference.
+   * @see #getXunits()
+   * @generated
+   */
+  void setXunits(XUnits value);
+
 } // XRange

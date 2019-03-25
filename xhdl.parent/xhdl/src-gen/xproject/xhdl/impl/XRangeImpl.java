@@ -3,20 +3,67 @@
  */
 package xproject.xhdl.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import xproject.xhdl.XRange;
+import xproject.xhdl.XRangeValue;
+import xproject.xhdl.XUnits;
 import xproject.xhdl.XhdlPackage;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>XRange</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.impl.XRangeImpl#getXfrom <em>Xfrom</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XRangeImpl#getXto <em>Xto</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XRangeImpl#getXunits <em>Xunits</em>}</li>
+ * </ul>
  *
  * @generated
  */
-public class XRangeImpl extends XTypeImpl implements XRange
+public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
 {
+  /**
+   * The cached value of the '{@link #getXfrom() <em>Xfrom</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXfrom()
+   * @generated
+   * @ordered
+   */
+  protected XRangeValue xfrom;
+
+  /**
+   * The cached value of the '{@link #getXto() <em>Xto</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXto()
+   * @generated
+   * @ordered
+   */
+  protected XRangeValue xto;
+
+  /**
+   * The cached value of the '{@link #getXunits() <em>Xunits</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXunits()
+   * @generated
+   * @ordered
+   */
+  protected XUnits xunits;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +83,244 @@ public class XRangeImpl extends XTypeImpl implements XRange
   protected EClass eStaticClass()
   {
     return XhdlPackage.Literals.XRANGE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XRangeValue getXfrom()
+  {
+    if (xfrom != null && xfrom.eIsProxy())
+    {
+      InternalEObject oldXfrom = (InternalEObject)xfrom;
+      xfrom = (XRangeValue)eResolveProxy(oldXfrom);
+      if (xfrom != oldXfrom)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XRANGE__XFROM, oldXfrom, xfrom));
+      }
+    }
+    return xfrom;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XRangeValue basicGetXfrom()
+  {
+    return xfrom;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXfrom(XRangeValue newXfrom)
+  {
+    XRangeValue oldXfrom = xfrom;
+    xfrom = newXfrom;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XFROM, oldXfrom, xfrom));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XRangeValue getXto()
+  {
+    if (xto != null && xto.eIsProxy())
+    {
+      InternalEObject oldXto = (InternalEObject)xto;
+      xto = (XRangeValue)eResolveProxy(oldXto);
+      if (xto != oldXto)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XRANGE__XTO, oldXto, xto));
+      }
+    }
+    return xto;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XRangeValue basicGetXto()
+  {
+    return xto;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXto(XRangeValue newXto)
+  {
+    XRangeValue oldXto = xto;
+    xto = newXto;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XTO, oldXto, xto));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XUnits getXunits()
+  {
+    return xunits;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXunits(XUnits newXunits, NotificationChain msgs)
+  {
+    XUnits oldXunits = xunits;
+    xunits = newXunits;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XUNITS, oldXunits, newXunits);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXunits(XUnits newXunits)
+  {
+    if (newXunits != xunits)
+    {
+      NotificationChain msgs = null;
+      if (xunits != null)
+        msgs = ((InternalEObject)xunits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XRANGE__XUNITS, null, msgs);
+      if (newXunits != null)
+        msgs = ((InternalEObject)newXunits).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XRANGE__XUNITS, null, msgs);
+      msgs = basicSetXunits(newXunits, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XUNITS, newXunits, newXunits));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XRANGE__XUNITS:
+        return basicSetXunits(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XRANGE__XFROM:
+        if (resolve) return getXfrom();
+        return basicGetXfrom();
+      case XhdlPackage.XRANGE__XTO:
+        if (resolve) return getXto();
+        return basicGetXto();
+      case XhdlPackage.XRANGE__XUNITS:
+        return getXunits();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XRANGE__XFROM:
+        setXfrom((XRangeValue)newValue);
+        return;
+      case XhdlPackage.XRANGE__XTO:
+        setXto((XRangeValue)newValue);
+        return;
+      case XhdlPackage.XRANGE__XUNITS:
+        setXunits((XUnits)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XRANGE__XFROM:
+        setXfrom((XRangeValue)null);
+        return;
+      case XhdlPackage.XRANGE__XTO:
+        setXto((XRangeValue)null);
+        return;
+      case XhdlPackage.XRANGE__XUNITS:
+        setXunits((XUnits)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XRANGE__XFROM:
+        return xfrom != null;
+      case XhdlPackage.XRANGE__XTO:
+        return xto != null;
+      case XhdlPackage.XRANGE__XUNITS:
+        return xunits != null;
+    }
+    return super.eIsSet(featureID);
   }
 
 } //XRangeImpl

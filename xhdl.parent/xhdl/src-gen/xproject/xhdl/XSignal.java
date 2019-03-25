@@ -9,6 +9,13 @@ package xproject.xhdl;
  * A representation of the model object '<em><b>XSignal</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.XSignal#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.XSignal#getXtype <em>Xtype</em>}</li>
+ * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXSignal()
  * @model
@@ -16,4 +23,56 @@ package xproject.xhdl;
  */
 public interface XSignal extends XElement
 {
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see xproject.xhdl.XhdlPackage#getXSignal_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XSignal#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Xtype</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xtype</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xtype</em>' reference.
+   * @see #setXtype(XTypeRef)
+   * @see xproject.xhdl.XhdlPackage#getXSignal_Xtype()
+   * @model
+   * @generated
+   */
+  XTypeRef getXtype();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XSignal#getXtype <em>Xtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xtype</em>' reference.
+   * @see #getXtype()
+   * @generated
+   */
+  void setXtype(XTypeRef value);
+
 } // XSignal

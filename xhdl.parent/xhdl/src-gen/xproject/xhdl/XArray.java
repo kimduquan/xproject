@@ -3,6 +3,7 @@
  */
 package xproject.xhdl;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,39 +14,66 @@ package xproject.xhdl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.XArray#getType <em>Type</em>}</li>
+ *   <li>{@link xproject.xhdl.XArray#getXrange <em>Xrange</em>}</li>
+ *   <li>{@link xproject.xhdl.XArray#getXof <em>Xof</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXArray()
  * @model
  * @generated
  */
-public interface XArray extends XType
+public interface XArray extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
+   * Returns the value of the '<em><b>Xrange</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Xrange</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(XType)
-   * @see xproject.xhdl.XhdlPackage#getXArray_Type()
+   * @return the value of the '<em>Xrange</em>' reference.
+   * @see #setXrange(XTypeRef)
+   * @see xproject.xhdl.XhdlPackage#getXArray_Xrange()
    * @model
    * @generated
    */
-  XType getType();
+  XTypeRef getXrange();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XArray#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XArray#getXrange <em>Xrange</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
-   * @see #getType()
+   * @param value the new value of the '<em>Xrange</em>' reference.
+   * @see #getXrange()
    * @generated
    */
-  void setType(XType value);
+  void setXrange(XTypeRef value);
+
+  /**
+   * Returns the value of the '<em><b>Xof</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xof</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xof</em>' reference.
+   * @see #setXof(XTypeRef)
+   * @see xproject.xhdl.XhdlPackage#getXArray_Xof()
+   * @model
+   * @generated
+   */
+  XTypeRef getXof();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XArray#getXof <em>Xof</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xof</em>' reference.
+   * @see #getXof()
+   * @generated
+   */
+  void setXof(XTypeRef value);
 
 } // XArray

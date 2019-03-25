@@ -3,8 +3,17 @@
  */
 package xproject.xhdl.impl;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import xproject.xhdl.XArray;
+import xproject.xhdl.XEnums;
+import xproject.xhdl.XRange;
 import xproject.xhdl.XType;
 import xproject.xhdl.XhdlPackage;
 
@@ -12,11 +21,70 @@ import xproject.xhdl.XhdlPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>XType</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.impl.XTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXenums <em>Xenums</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXrange <em>Xrange</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXarray <em>Xarray</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class XTypeImpl extends XElementImpl implements XType
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getXenums() <em>Xenums</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXenums()
+   * @generated
+   * @ordered
+   */
+  protected XEnums xenums;
+
+  /**
+   * The cached value of the '{@link #getXrange() <em>Xrange</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXrange()
+   * @generated
+   * @ordered
+   */
+  protected XRange xrange;
+
+  /**
+   * The cached value of the '{@link #getXarray() <em>Xarray</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXarray()
+   * @generated
+   * @ordered
+   */
+  protected XArray xarray;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +104,306 @@ public class XTypeImpl extends XElementImpl implements XType
   protected EClass eStaticClass()
   {
     return XhdlPackage.Literals.XTYPE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XEnums getXenums()
+  {
+    return xenums;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXenums(XEnums newXenums, NotificationChain msgs)
+  {
+    XEnums oldXenums = xenums;
+    xenums = newXenums;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XENUMS, oldXenums, newXenums);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXenums(XEnums newXenums)
+  {
+    if (newXenums != xenums)
+    {
+      NotificationChain msgs = null;
+      if (xenums != null)
+        msgs = ((InternalEObject)xenums).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XENUMS, null, msgs);
+      if (newXenums != null)
+        msgs = ((InternalEObject)newXenums).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XENUMS, null, msgs);
+      msgs = basicSetXenums(newXenums, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XENUMS, newXenums, newXenums));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XRange getXrange()
+  {
+    return xrange;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXrange(XRange newXrange, NotificationChain msgs)
+  {
+    XRange oldXrange = xrange;
+    xrange = newXrange;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XRANGE, oldXrange, newXrange);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXrange(XRange newXrange)
+  {
+    if (newXrange != xrange)
+    {
+      NotificationChain msgs = null;
+      if (xrange != null)
+        msgs = ((InternalEObject)xrange).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XRANGE, null, msgs);
+      if (newXrange != null)
+        msgs = ((InternalEObject)newXrange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XRANGE, null, msgs);
+      msgs = basicSetXrange(newXrange, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XRANGE, newXrange, newXrange));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XArray getXarray()
+  {
+    return xarray;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXarray(XArray newXarray, NotificationChain msgs)
+  {
+    XArray oldXarray = xarray;
+    xarray = newXarray;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XARRAY, oldXarray, newXarray);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXarray(XArray newXarray)
+  {
+    if (newXarray != xarray)
+    {
+      NotificationChain msgs = null;
+      if (xarray != null)
+        msgs = ((InternalEObject)xarray).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XARRAY, null, msgs);
+      if (newXarray != null)
+        msgs = ((InternalEObject)newXarray).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XARRAY, null, msgs);
+      msgs = basicSetXarray(newXarray, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XARRAY, newXarray, newXarray));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XTYPE__XENUMS:
+        return basicSetXenums(null, msgs);
+      case XhdlPackage.XTYPE__XRANGE:
+        return basicSetXrange(null, msgs);
+      case XhdlPackage.XTYPE__XARRAY:
+        return basicSetXarray(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XTYPE__NAME:
+        return getName();
+      case XhdlPackage.XTYPE__XENUMS:
+        return getXenums();
+      case XhdlPackage.XTYPE__XRANGE:
+        return getXrange();
+      case XhdlPackage.XTYPE__XARRAY:
+        return getXarray();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XTYPE__NAME:
+        setName((String)newValue);
+        return;
+      case XhdlPackage.XTYPE__XENUMS:
+        setXenums((XEnums)newValue);
+        return;
+      case XhdlPackage.XTYPE__XRANGE:
+        setXrange((XRange)newValue);
+        return;
+      case XhdlPackage.XTYPE__XARRAY:
+        setXarray((XArray)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XTYPE__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case XhdlPackage.XTYPE__XENUMS:
+        setXenums((XEnums)null);
+        return;
+      case XhdlPackage.XTYPE__XRANGE:
+        setXrange((XRange)null);
+        return;
+      case XhdlPackage.XTYPE__XARRAY:
+        setXarray((XArray)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XTYPE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case XhdlPackage.XTYPE__XENUMS:
+        return xenums != null;
+      case XhdlPackage.XTYPE__XRANGE:
+        return xrange != null;
+      case XhdlPackage.XTYPE__XARRAY:
+        return xarray != null;
+    }
+    return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //XTypeImpl

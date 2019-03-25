@@ -3,20 +3,63 @@
  */
 package xproject.xhdl.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import xproject.xhdl.XSignal;
+import xproject.xhdl.XTypeRef;
 import xproject.xhdl.XhdlPackage;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>XSignal</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link xproject.xhdl.impl.XSignalImpl#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XSignalImpl#getXtype <em>Xtype</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class XSignalImpl extends XElementImpl implements XSignal
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getXtype() <em>Xtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXtype()
+   * @generated
+   * @ordered
+   */
+  protected XTypeRef xtype;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -36,6 +79,166 @@ public class XSignalImpl extends XElementImpl implements XSignal
   protected EClass eStaticClass()
   {
     return XhdlPackage.Literals.XSIGNAL;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSIGNAL__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef getXtype()
+  {
+    if (xtype != null && xtype.eIsProxy())
+    {
+      InternalEObject oldXtype = (InternalEObject)xtype;
+      xtype = (XTypeRef)eResolveProxy(oldXtype);
+      if (xtype != oldXtype)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XSIGNAL__XTYPE, oldXtype, xtype));
+      }
+    }
+    return xtype;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef basicGetXtype()
+  {
+    return xtype;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXtype(XTypeRef newXtype)
+  {
+    XTypeRef oldXtype = xtype;
+    xtype = newXtype;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSIGNAL__XTYPE, oldXtype, xtype));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSIGNAL__NAME:
+        return getName();
+      case XhdlPackage.XSIGNAL__XTYPE:
+        if (resolve) return getXtype();
+        return basicGetXtype();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSIGNAL__NAME:
+        setName((String)newValue);
+        return;
+      case XhdlPackage.XSIGNAL__XTYPE:
+        setXtype((XTypeRef)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSIGNAL__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case XhdlPackage.XSIGNAL__XTYPE:
+        setXtype((XTypeRef)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSIGNAL__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case XhdlPackage.XSIGNAL__XTYPE:
+        return xtype != null;
+    }
+    return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //XSignalImpl

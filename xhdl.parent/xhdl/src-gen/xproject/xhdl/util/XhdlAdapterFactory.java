@@ -81,9 +81,19 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
         return createxhdlAdapter();
       }
       @Override
+      public Adapter caseXPackageRef(XPackageRef object)
+      {
+        return createXPackageRefAdapter();
+      }
+      @Override
       public Adapter caseXPackage(XPackage object)
       {
         return createXPackageAdapter();
+      }
+      @Override
+      public Adapter caseXTypeRef(XTypeRef object)
+      {
+        return createXTypeRefAdapter();
       }
       @Override
       public Adapter caseXElement(XElement object)
@@ -121,9 +131,39 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
         return createXRangeAdapter();
       }
       @Override
+      public Adapter caseXRangeValue(XRangeValue object)
+      {
+        return createXRangeValueAdapter();
+      }
+      @Override
       public Adapter caseXUnits(XUnits object)
       {
         return createXUnitsAdapter();
+      }
+      @Override
+      public Adapter caseXUnitRef(XUnitRef object)
+      {
+        return createXUnitRefAdapter();
+      }
+      @Override
+      public Adapter caseXUnit(XUnit object)
+      {
+        return createXUnitAdapter();
+      }
+      @Override
+      public Adapter caseXEnums(XEnums object)
+      {
+        return createXEnumsAdapter();
+      }
+      @Override
+      public Adapter caseXFunctionRef(XFunctionRef object)
+      {
+        return createXFunctionRefAdapter();
+      }
+      @Override
+      public Adapter caseXImpure(XImpure object)
+      {
+        return createXImpureAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -163,6 +203,21 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XPackageRef <em>XPackage Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XPackageRef
+   * @generated
+   */
+  public Adapter createXPackageRefAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link xproject.xhdl.XPackage <em>XPackage</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -173,6 +228,21 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createXPackageAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XTypeRef <em>XType Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XTypeRef
+   * @generated
+   */
+  public Adapter createXTypeRefAdapter()
   {
     return null;
   }
@@ -283,6 +353,21 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XRangeValue <em>XRange Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XRangeValue
+   * @generated
+   */
+  public Adapter createXRangeValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link xproject.xhdl.XUnits <em>XUnits</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -293,6 +378,81 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createXUnitsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XUnitRef <em>XUnit Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XUnitRef
+   * @generated
+   */
+  public Adapter createXUnitRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XUnit <em>XUnit</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XUnit
+   * @generated
+   */
+  public Adapter createXUnitAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XEnums <em>XEnums</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XEnums
+   * @generated
+   */
+  public Adapter createXEnumsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XFunctionRef <em>XFunction Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XFunctionRef
+   * @generated
+   */
+  public Adapter createXFunctionRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XImpure <em>XImpure</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XImpure
+   * @generated
+   */
+  public Adapter createXImpureAdapter()
   {
     return null;
   }

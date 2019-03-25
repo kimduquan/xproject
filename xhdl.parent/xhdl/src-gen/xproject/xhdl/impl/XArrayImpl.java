@@ -9,9 +9,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import xproject.xhdl.XArray;
-import xproject.xhdl.XType;
+import xproject.xhdl.XTypeRef;
 import xproject.xhdl.XhdlPackage;
 
 /**
@@ -22,22 +23,33 @@ import xproject.xhdl.XhdlPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.impl.XArrayImpl#getType <em>Type</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XArrayImpl#getXrange <em>Xrange</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XArrayImpl#getXof <em>Xof</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class XArrayImpl extends XTypeImpl implements XArray
+public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+   * The cached value of the '{@link #getXrange() <em>Xrange</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getType()
+   * @see #getXrange()
    * @generated
    * @ordered
    */
-  protected XType type;
+  protected XTypeRef xrange;
+
+  /**
+   * The cached value of the '{@link #getXof() <em>Xof</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXof()
+   * @generated
+   * @ordered
+   */
+  protected XTypeRef xof;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,19 +77,19 @@ public class XArrayImpl extends XTypeImpl implements XArray
    * <!-- end-user-doc -->
    * @generated
    */
-  public XType getType()
+  public XTypeRef getXrange()
   {
-    if (type != null && type.eIsProxy())
+    if (xrange != null && xrange.eIsProxy())
     {
-      InternalEObject oldType = (InternalEObject)type;
-      type = (XType)eResolveProxy(oldType);
-      if (type != oldType)
+      InternalEObject oldXrange = (InternalEObject)xrange;
+      xrange = (XTypeRef)eResolveProxy(oldXrange);
+      if (xrange != oldXrange)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XARRAY__TYPE, oldType, type));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XARRAY__XRANGE, oldXrange, xrange));
       }
     }
-    return type;
+    return xrange;
   }
 
   /**
@@ -85,9 +97,9 @@ public class XArrayImpl extends XTypeImpl implements XArray
    * <!-- end-user-doc -->
    * @generated
    */
-  public XType basicGetType()
+  public XTypeRef basicGetXrange()
   {
-    return type;
+    return xrange;
   }
 
   /**
@@ -95,12 +107,55 @@ public class XArrayImpl extends XTypeImpl implements XArray
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(XType newType)
+  public void setXrange(XTypeRef newXrange)
   {
-    XType oldType = type;
-    type = newType;
+    XTypeRef oldXrange = xrange;
+    xrange = newXrange;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__TYPE, oldType, type));
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XRANGE, oldXrange, xrange));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef getXof()
+  {
+    if (xof != null && xof.eIsProxy())
+    {
+      InternalEObject oldXof = (InternalEObject)xof;
+      xof = (XTypeRef)eResolveProxy(oldXof);
+      if (xof != oldXof)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XARRAY__XOF, oldXof, xof));
+      }
+    }
+    return xof;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef basicGetXof()
+  {
+    return xof;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXof(XTypeRef newXof)
+  {
+    XTypeRef oldXof = xof;
+    xof = newXof;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XOF, oldXof, xof));
   }
 
   /**
@@ -113,9 +168,12 @@ public class XArrayImpl extends XTypeImpl implements XArray
   {
     switch (featureID)
     {
-      case XhdlPackage.XARRAY__TYPE:
-        if (resolve) return getType();
-        return basicGetType();
+      case XhdlPackage.XARRAY__XRANGE:
+        if (resolve) return getXrange();
+        return basicGetXrange();
+      case XhdlPackage.XARRAY__XOF:
+        if (resolve) return getXof();
+        return basicGetXof();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -130,8 +188,11 @@ public class XArrayImpl extends XTypeImpl implements XArray
   {
     switch (featureID)
     {
-      case XhdlPackage.XARRAY__TYPE:
-        setType((XType)newValue);
+      case XhdlPackage.XARRAY__XRANGE:
+        setXrange((XTypeRef)newValue);
+        return;
+      case XhdlPackage.XARRAY__XOF:
+        setXof((XTypeRef)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,8 +208,11 @@ public class XArrayImpl extends XTypeImpl implements XArray
   {
     switch (featureID)
     {
-      case XhdlPackage.XARRAY__TYPE:
-        setType((XType)null);
+      case XhdlPackage.XARRAY__XRANGE:
+        setXrange((XTypeRef)null);
+        return;
+      case XhdlPackage.XARRAY__XOF:
+        setXof((XTypeRef)null);
         return;
     }
     super.eUnset(featureID);
@@ -164,8 +228,10 @@ public class XArrayImpl extends XTypeImpl implements XArray
   {
     switch (featureID)
     {
-      case XhdlPackage.XARRAY__TYPE:
-        return type != null;
+      case XhdlPackage.XARRAY__XRANGE:
+        return xrange != null;
+      case XhdlPackage.XARRAY__XOF:
+        return xof != null;
     }
     return super.eIsSet(featureID);
   }

@@ -66,7 +66,9 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
     switch (eClass.getClassifierID())
     {
       case XhdlPackage.XHDL: return createxhdl();
+      case XhdlPackage.XPACKAGE_REF: return createXPackageRef();
       case XhdlPackage.XPACKAGE: return createXPackage();
+      case XhdlPackage.XTYPE_REF: return createXTypeRef();
       case XhdlPackage.XELEMENT: return createXElement();
       case XhdlPackage.XATTRIBUTE: return createXAttribute();
       case XhdlPackage.XSUB_TYPE: return createXSubType();
@@ -74,7 +76,13 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
       case XhdlPackage.XTYPE: return createXType();
       case XhdlPackage.XARRAY: return createXArray();
       case XhdlPackage.XRANGE: return createXRange();
+      case XhdlPackage.XRANGE_VALUE: return createXRangeValue();
       case XhdlPackage.XUNITS: return createXUnits();
+      case XhdlPackage.XUNIT_REF: return createXUnitRef();
+      case XhdlPackage.XUNIT: return createXUnit();
+      case XhdlPackage.XENUMS: return createXEnums();
+      case XhdlPackage.XFUNCTION_REF: return createXFunctionRef();
+      case XhdlPackage.XIMPURE: return createXImpure();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -96,10 +104,32 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public XPackageRef createXPackageRef()
+  {
+    XPackageRefImpl xPackageRef = new XPackageRefImpl();
+    return xPackageRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public XPackage createXPackage()
   {
     XPackageImpl xPackage = new XPackageImpl();
     return xPackage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef createXTypeRef()
+  {
+    XTypeRefImpl xTypeRef = new XTypeRefImpl();
+    return xTypeRef;
   }
 
   /**
@@ -184,10 +214,76 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public XRangeValue createXRangeValue()
+  {
+    XRangeValueImpl xRangeValue = new XRangeValueImpl();
+    return xRangeValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public XUnits createXUnits()
   {
     XUnitsImpl xUnits = new XUnitsImpl();
     return xUnits;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XUnitRef createXUnitRef()
+  {
+    XUnitRefImpl xUnitRef = new XUnitRefImpl();
+    return xUnitRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XUnit createXUnit()
+  {
+    XUnitImpl xUnit = new XUnitImpl();
+    return xUnit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XEnums createXEnums()
+  {
+    XEnumsImpl xEnums = new XEnumsImpl();
+    return xEnums;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XFunctionRef createXFunctionRef()
+  {
+    XFunctionRefImpl xFunctionRef = new XFunctionRefImpl();
+    return xFunctionRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XImpure createXImpure()
+  {
+    XImpureImpl xImpure = new XImpureImpl();
+    return xImpure;
   }
 
   /**

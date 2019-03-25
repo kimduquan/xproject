@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import xproject.xhdl.XSubType;
-import xproject.xhdl.XType;
+import xproject.xhdl.XTypeRef;
 import xproject.xhdl.XhdlPackage;
 
 /**
@@ -22,7 +22,8 @@ import xproject.xhdl.XhdlPackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getIs <em>Is</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getXis <em>Xis</em>}</li>
  * </ul>
  *
  * @generated
@@ -30,14 +31,34 @@ import xproject.xhdl.XhdlPackage;
 public class XSubTypeImpl extends XElementImpl implements XSubType
 {
   /**
-   * The cached value of the '{@link #getIs() <em>Is</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getIs()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected XType is;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getXis() <em>Xis</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXis()
+   * @generated
+   * @ordered
+   */
+  protected XTypeRef xis;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,19 +86,42 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    * <!-- end-user-doc -->
    * @generated
    */
-  public XType getIs()
+  public String getName()
   {
-    if (is != null && is.eIsProxy())
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XTypeRef getXis()
+  {
+    if (xis != null && xis.eIsProxy())
     {
-      InternalEObject oldIs = (InternalEObject)is;
-      is = (XType)eResolveProxy(oldIs);
-      if (is != oldIs)
+      InternalEObject oldXis = (InternalEObject)xis;
+      xis = (XTypeRef)eResolveProxy(oldXis);
+      if (xis != oldXis)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XSUB_TYPE__IS, oldIs, is));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XSUB_TYPE__XIS, oldXis, xis));
       }
     }
-    return is;
+    return xis;
   }
 
   /**
@@ -85,9 +129,9 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    * <!-- end-user-doc -->
    * @generated
    */
-  public XType basicGetIs()
+  public XTypeRef basicGetXis()
   {
-    return is;
+    return xis;
   }
 
   /**
@@ -95,12 +139,12 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIs(XType newIs)
+  public void setXis(XTypeRef newXis)
   {
-    XType oldIs = is;
-    is = newIs;
+    XTypeRef oldXis = xis;
+    xis = newXis;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__IS, oldIs, is));
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__XIS, oldXis, xis));
   }
 
   /**
@@ -113,9 +157,11 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
   {
     switch (featureID)
     {
-      case XhdlPackage.XSUB_TYPE__IS:
-        if (resolve) return getIs();
-        return basicGetIs();
+      case XhdlPackage.XSUB_TYPE__NAME:
+        return getName();
+      case XhdlPackage.XSUB_TYPE__XIS:
+        if (resolve) return getXis();
+        return basicGetXis();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -130,8 +176,11 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
   {
     switch (featureID)
     {
-      case XhdlPackage.XSUB_TYPE__IS:
-        setIs((XType)newValue);
+      case XhdlPackage.XSUB_TYPE__NAME:
+        setName((String)newValue);
+        return;
+      case XhdlPackage.XSUB_TYPE__XIS:
+        setXis((XTypeRef)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,8 +196,11 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
   {
     switch (featureID)
     {
-      case XhdlPackage.XSUB_TYPE__IS:
-        setIs((XType)null);
+      case XhdlPackage.XSUB_TYPE__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case XhdlPackage.XSUB_TYPE__XIS:
+        setXis((XTypeRef)null);
         return;
     }
     super.eUnset(featureID);
@@ -164,10 +216,29 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
   {
     switch (featureID)
     {
-      case XhdlPackage.XSUB_TYPE__IS:
-        return is != null;
+      case XhdlPackage.XSUB_TYPE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case XhdlPackage.XSUB_TYPE__XIS:
+        return xis != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //XSubTypeImpl

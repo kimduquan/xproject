@@ -33,23 +33,61 @@ public class XHDLParser extends AbstractContentAssistParser {
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, XHDLGrammarAccess grammarAccess) {
 			builder.put(grammarAccess.getXElementAccess().getAlternatives(), "rule__XElement__Alternatives");
 			builder.put(grammarAccess.getXTypeAccess().getAlternatives(), "rule__XType__Alternatives");
+			builder.put(grammarAccess.getXRangeValueAccess().getAlternatives(), "rule__XRangeValue__Alternatives");
 			builder.put(grammarAccess.getXPackageAccess().getGroup(), "rule__XPackage__Group__0");
+			builder.put(grammarAccess.getXTypeRefAccess().getGroup(), "rule__XTypeRef__Group__0");
 			builder.put(grammarAccess.getXAttributeAccess().getGroup(), "rule__XAttribute__Group__0");
 			builder.put(grammarAccess.getXSubTypeAccess().getGroup(), "rule__XSubType__Group__0");
 			builder.put(grammarAccess.getXSignalAccess().getGroup(), "rule__XSignal__Group__0");
+			builder.put(grammarAccess.getXSignalAccess().getGroup_5(), "rule__XSignal__Group_5__0");
 			builder.put(grammarAccess.getXTypeAccess().getGroup_0(), "rule__XType__Group_0__0");
 			builder.put(grammarAccess.getXTypeAccess().getGroup_2(), "rule__XType__Group_2__0");
 			builder.put(grammarAccess.getXArrayAccess().getGroup(), "rule__XArray__Group__0");
 			builder.put(grammarAccess.getXRangeAccess().getGroup(), "rule__XRange__Group__0");
+			builder.put(grammarAccess.getXRangeValueAccess().getGroup_0(), "rule__XRangeValue__Group_0__0");
+			builder.put(grammarAccess.getXRangeValueAccess().getGroup_0_1(), "rule__XRangeValue__Group_0_1__0");
+			builder.put(grammarAccess.getXRangeValueAccess().getGroup_1(), "rule__XRangeValue__Group_1__0");
 			builder.put(grammarAccess.getXUnitsAccess().getGroup(), "rule__XUnits__Group__0");
+			builder.put(grammarAccess.getXUnitRefAccess().getGroup(), "rule__XUnitRef__Group__0");
 			builder.put(grammarAccess.getXUnitAccess().getGroup(), "rule__XUnit__Group__0");
+			builder.put(grammarAccess.getXUnitAccess().getGroup_2(), "rule__XUnit__Group_2__0");
 			builder.put(grammarAccess.getXEnumsAccess().getGroup(), "rule__XEnums__Group__0");
-			builder.put(grammarAccess.getXEnumsAccess().getGroup_1(), "rule__XEnums__Group_1__0");
+			builder.put(grammarAccess.getXEnumsAccess().getGroup_2(), "rule__XEnums__Group_2__0");
+			builder.put(grammarAccess.getXFunctionRefAccess().getGroup(), "rule__XFunctionRef__Group__0");
+			builder.put(grammarAccess.getXImpureAccess().getGroup(), "rule__XImpure__Group__0");
 			builder.put(grammarAccess.getXhdlAccess().getPackagesAssignment(), "rule__Xhdl__PackagesAssignment");
-			builder.put(grammarAccess.getXPackageAccess().getNameAssignment_1(), "rule__XPackage__NameAssignment_1");
-			builder.put(grammarAccess.getXPackageAccess().getElementsAssignment_3(), "rule__XPackage__ElementsAssignment_3");
+			builder.put(grammarAccess.getXPackageRefAccess().getNameAssignment(), "rule__XPackageRef__NameAssignment");
+			builder.put(grammarAccess.getXPackageAccess().getNameAssignment_2(), "rule__XPackage__NameAssignment_2");
+			builder.put(grammarAccess.getXPackageAccess().getXisAssignment_4(), "rule__XPackage__XisAssignment_4");
+			builder.put(grammarAccess.getXPackageAccess().getXendAssignment_6(), "rule__XPackage__XendAssignment_6");
+			builder.put(grammarAccess.getXTypeRefAccess().getNameAssignment_1(), "rule__XTypeRef__NameAssignment_1");
+			builder.put(grammarAccess.getXAttributeAccess().getNameAssignment_2(), "rule__XAttribute__NameAssignment_2");
+			builder.put(grammarAccess.getXAttributeAccess().getXtypeAssignment_4(), "rule__XAttribute__XtypeAssignment_4");
+			builder.put(grammarAccess.getXSubTypeAccess().getNameAssignment_2(), "rule__XSubType__NameAssignment_2");
+			builder.put(grammarAccess.getXSubTypeAccess().getXisAssignment_4(), "rule__XSubType__XisAssignment_4");
+			builder.put(grammarAccess.getXSignalAccess().getNameAssignment_2(), "rule__XSignal__NameAssignment_2");
+			builder.put(grammarAccess.getXSignalAccess().getXtypeAssignment_4(), "rule__XSignal__XtypeAssignment_4");
 			builder.put(grammarAccess.getXTypeAccess().getNameAssignment_0_2(), "rule__XType__NameAssignment_0_2");
-			builder.put(grammarAccess.getXUnitsAccess().getUnitsAssignment_2(), "rule__XUnits__UnitsAssignment_2");
+			builder.put(grammarAccess.getXTypeAccess().getXenumsAssignment_0_4(), "rule__XType__XenumsAssignment_0_4");
+			builder.put(grammarAccess.getXTypeAccess().getXrangeAssignment_1(), "rule__XType__XrangeAssignment_1");
+			builder.put(grammarAccess.getXTypeAccess().getXarrayAssignment_2_0(), "rule__XType__XarrayAssignment_2_0");
+			builder.put(grammarAccess.getXArrayAccess().getXrangeAssignment_3(), "rule__XArray__XrangeAssignment_3");
+			builder.put(grammarAccess.getXArrayAccess().getXofAssignment_8(), "rule__XArray__XofAssignment_8");
+			builder.put(grammarAccess.getXRangeAccess().getXfromAssignment_2(), "rule__XRange__XfromAssignment_2");
+			builder.put(grammarAccess.getXRangeAccess().getXtoAssignment_4(), "rule__XRange__XtoAssignment_4");
+			builder.put(grammarAccess.getXRangeAccess().getXunitsAssignment_5(), "rule__XRange__XunitsAssignment_5");
+			builder.put(grammarAccess.getXRangeValueAccess().getXvalueAssignment_0_1_0(), "rule__XRangeValue__XvalueAssignment_0_1_0");
+			builder.put(grammarAccess.getXRangeValueAccess().getXunitAssignment_0_1_1(), "rule__XRangeValue__XunitAssignment_0_1_1");
+			builder.put(grammarAccess.getXUnitsAccess().getXunitsAssignment_2(), "rule__XUnits__XunitsAssignment_2");
+			builder.put(grammarAccess.getXUnitRefAccess().getNameAssignment_1(), "rule__XUnitRef__NameAssignment_1");
+			builder.put(grammarAccess.getXUnitAccess().getNameAssignment_1(), "rule__XUnit__NameAssignment_1");
+			builder.put(grammarAccess.getXUnitAccess().getXvalueAssignment_2_1(), "rule__XUnit__XvalueAssignment_2_1");
+			builder.put(grammarAccess.getXUnitAccess().getXbasedAssignment_2_2(), "rule__XUnit__XbasedAssignment_2_2");
+			builder.put(grammarAccess.getXEnumsAccess().getXenumsAssignment_2_1(), "rule__XEnums__XenumsAssignment_2_1");
+			builder.put(grammarAccess.getXFunctionRefAccess().getNameAssignment_2(), "rule__XFunctionRef__NameAssignment_2");
+			builder.put(grammarAccess.getXFunctionRefAccess().getXreturnAssignment_4(), "rule__XFunctionRef__XreturnAssignment_4");
+			builder.put(grammarAccess.getXImpureAccess().getXfuncAssignment_1(), "rule__XImpure__XfuncAssignment_1");
+			builder.put(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1(), "rule__XRangeValue__UnorderedGroup_1_1");
 		}
 	}
 	
@@ -73,7 +111,7 @@ public class XHDLParser extends AbstractContentAssistParser {
 
 	@Override
 	protected String[] getInitialHiddenTokens() {
-		return new String[] { "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT" };
+		return new String[] { "RULE_WS", "RULE_COMMENT" };
 	}
 
 	public XHDLGrammarAccess getGrammarAccess() {

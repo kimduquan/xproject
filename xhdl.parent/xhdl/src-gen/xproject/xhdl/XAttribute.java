@@ -13,7 +13,8 @@ package xproject.xhdl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link xproject.xhdl.XAttribute#getType <em>Type</em>}</li>
+ *   <li>{@link xproject.xhdl.XAttribute#getName <em>Name</em>}</li>
+ *   <li>{@link xproject.xhdl.XAttribute#getXtype <em>Xtype</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXAttribute()
@@ -23,29 +24,55 @@ package xproject.xhdl;
 public interface XAttribute extends XElement
 {
   /**
-   * Returns the value of the '<em><b>Type</b></em>' reference.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' reference isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' reference.
-   * @see #setType(XType)
-   * @see xproject.xhdl.XhdlPackage#getXAttribute_Type()
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see xproject.xhdl.XhdlPackage#getXAttribute_Name()
    * @model
    * @generated
    */
-  XType getType();
+  String getName();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XAttribute#getType <em>Type</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XAttribute#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' reference.
-   * @see #getType()
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
    * @generated
    */
-  void setType(XType value);
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Xtype</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xtype</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xtype</em>' reference.
+   * @see #setXtype(XTypeRef)
+   * @see xproject.xhdl.XhdlPackage#getXAttribute_Xtype()
+   * @model
+   * @generated
+   */
+  XTypeRef getXtype();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XAttribute#getXtype <em>Xtype</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xtype</em>' reference.
+   * @see #getXtype()
+   * @generated
+   */
+  void setXtype(XTypeRef value);
 
 } // XAttribute
