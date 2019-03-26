@@ -4,6 +4,7 @@
 package xproject.xhdl.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -32,7 +33,7 @@ import xproject.xhdl.XhdlPackage;
 public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
 {
   /**
-   * The cached value of the '{@link #getXrange() <em>Xrange</em>}' reference.
+   * The cached value of the '{@link #getXrange() <em>Xrange</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXrange()
@@ -42,7 +43,7 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
   protected XTypeRef xrange;
 
   /**
-   * The cached value of the '{@link #getXof() <em>Xof</em>}' reference.
+   * The cached value of the '{@link #getXof() <em>Xof</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXof()
@@ -79,16 +80,6 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
    */
   public XTypeRef getXrange()
   {
-    if (xrange != null && xrange.eIsProxy())
-    {
-      InternalEObject oldXrange = (InternalEObject)xrange;
-      xrange = (XTypeRef)eResolveProxy(oldXrange);
-      if (xrange != oldXrange)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XARRAY__XRANGE, oldXrange, xrange));
-      }
-    }
     return xrange;
   }
 
@@ -97,9 +88,16 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
    * <!-- end-user-doc -->
    * @generated
    */
-  public XTypeRef basicGetXrange()
+  public NotificationChain basicSetXrange(XTypeRef newXrange, NotificationChain msgs)
   {
-    return xrange;
+    XTypeRef oldXrange = xrange;
+    xrange = newXrange;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XRANGE, oldXrange, newXrange);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -109,10 +107,18 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
    */
   public void setXrange(XTypeRef newXrange)
   {
-    XTypeRef oldXrange = xrange;
-    xrange = newXrange;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XRANGE, oldXrange, xrange));
+    if (newXrange != xrange)
+    {
+      NotificationChain msgs = null;
+      if (xrange != null)
+        msgs = ((InternalEObject)xrange).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XARRAY__XRANGE, null, msgs);
+      if (newXrange != null)
+        msgs = ((InternalEObject)newXrange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XARRAY__XRANGE, null, msgs);
+      msgs = basicSetXrange(newXrange, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XRANGE, newXrange, newXrange));
   }
 
   /**
@@ -122,16 +128,6 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
    */
   public XTypeRef getXof()
   {
-    if (xof != null && xof.eIsProxy())
-    {
-      InternalEObject oldXof = (InternalEObject)xof;
-      xof = (XTypeRef)eResolveProxy(oldXof);
-      if (xof != oldXof)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XARRAY__XOF, oldXof, xof));
-      }
-    }
     return xof;
   }
 
@@ -140,9 +136,16 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
    * <!-- end-user-doc -->
    * @generated
    */
-  public XTypeRef basicGetXof()
+  public NotificationChain basicSetXof(XTypeRef newXof, NotificationChain msgs)
   {
-    return xof;
+    XTypeRef oldXof = xof;
+    xof = newXof;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XOF, oldXof, newXof);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -152,10 +155,36 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
    */
   public void setXof(XTypeRef newXof)
   {
-    XTypeRef oldXof = xof;
-    xof = newXof;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XOF, oldXof, xof));
+    if (newXof != xof)
+    {
+      NotificationChain msgs = null;
+      if (xof != null)
+        msgs = ((InternalEObject)xof).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XARRAY__XOF, null, msgs);
+      if (newXof != null)
+        msgs = ((InternalEObject)newXof).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XARRAY__XOF, null, msgs);
+      msgs = basicSetXof(newXof, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XARRAY__XOF, newXof, newXof));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XARRAY__XRANGE:
+        return basicSetXrange(null, msgs);
+      case XhdlPackage.XARRAY__XOF:
+        return basicSetXof(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -169,11 +198,9 @@ public class XArrayImpl extends MinimalEObjectImpl.Container implements XArray
     switch (featureID)
     {
       case XhdlPackage.XARRAY__XRANGE:
-        if (resolve) return getXrange();
-        return basicGetXrange();
+        return getXrange();
       case XhdlPackage.XARRAY__XOF:
-        if (resolve) return getXof();
-        return basicGetXof();
+        return getXof();
     }
     return super.eGet(featureID, resolve, coreType);
   }

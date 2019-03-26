@@ -22,16 +22,46 @@ import xproject.services.XHDLGrammarAccess;
 public class XHDLSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected XHDLGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_XEnums_CommaKeyword_2_0_q;
-	protected AbstractElementAlias match_XRangeValue___ApostropheKeyword_1_1_1_or_IDTerminalRuleCall_1_1_0_or_IDTerminalRuleCall_1_1_2__p;
-	protected AbstractElementAlias match_XSignal___SemicolonEqualsSignKeyword_5_0_IDTerminalRuleCall_5_1__q;
+	protected AbstractElementAlias match_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__a;
+	protected AbstractElementAlias match_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__p;
+	protected AbstractElementAlias match_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__a;
+	protected AbstractElementAlias match_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__p;
+	protected AbstractElementAlias match_XEnums___CommaKeyword_1_1_0_or_LeftParenthesisKeyword_1_0_or_RightParenthesisKeyword_1_2__a;
+	protected AbstractElementAlias match_XImpure_SemicolonKeyword_1_a;
+	protected AbstractElementAlias match_XImpure_SemicolonKeyword_1_p;
+	protected AbstractElementAlias match_XPackage_SemicolonKeyword_5_1_a;
+	protected AbstractElementAlias match_XPackage_SemicolonKeyword_5_1_p;
+	protected AbstractElementAlias match_XRangeValue___IDTerminalRuleCall_1_1_1_or___IDTerminalRuleCall_1_1_0_0_ApostropheKeyword_1_1_0_1____p;
+	protected AbstractElementAlias match_XSignal___IDTerminalRuleCall_2_2_1_or_SemicolonEqualsSignKeyword_2_2_0_or_SemicolonKeyword_2_3__a;
+	protected AbstractElementAlias match_XSubType_SemicolonKeyword_4_1_a;
+	protected AbstractElementAlias match_XSubType_SemicolonKeyword_4_1_p;
+	protected AbstractElementAlias match_XType_SemicolonKeyword_4_1_a;
+	protected AbstractElementAlias match_XType_SemicolonKeyword_4_1_p;
+	protected AbstractElementAlias match_XUnit_EqualsSignKeyword_1_0_1_0_a;
+	protected AbstractElementAlias match_XUnit_SemicolonKeyword_1_1_a;
+	protected AbstractElementAlias match_XUnit_SemicolonKeyword_1_1_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (XHDLGrammarAccess) access;
-		match_XEnums_CommaKeyword_2_0_q = new TokenAlias(false, true, grammarAccess.getXEnumsAccess().getCommaKeyword_2_0());
-		match_XRangeValue___ApostropheKeyword_1_1_1_or_IDTerminalRuleCall_1_1_0_or_IDTerminalRuleCall_1_1_2__p = new AlternativeAlias(true, false, new TokenAlias(false, false, grammarAccess.getXRangeValueAccess().getApostropheKeyword_1_1_1()), new TokenAlias(false, false, grammarAccess.getXRangeValueAccess().getIDTerminalRuleCall_1_1_0()), new TokenAlias(false, false, grammarAccess.getXRangeValueAccess().getIDTerminalRuleCall_1_1_2()));
-		match_XSignal___SemicolonEqualsSignKeyword_5_0_IDTerminalRuleCall_5_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_5_1()));
+		match_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getXArrayAccess().getRightParenthesisKeyword_2_2()));
+		match_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__p = new AlternativeAlias(true, false, new TokenAlias(false, false, grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getXArrayAccess().getRightParenthesisKeyword_2_2()));
+		match_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getXAttributeAccess().getColonKeyword_2_1()), new TokenAlias(false, false, grammarAccess.getXAttributeAccess().getSemicolonKeyword_2_3()));
+		match_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__p = new AlternativeAlias(true, false, new TokenAlias(false, false, grammarAccess.getXAttributeAccess().getColonKeyword_2_1()), new TokenAlias(false, false, grammarAccess.getXAttributeAccess().getSemicolonKeyword_2_3()));
+		match_XEnums___CommaKeyword_1_1_0_or_LeftParenthesisKeyword_1_0_or_RightParenthesisKeyword_1_2__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getXEnumsAccess().getCommaKeyword_1_1_0()), new TokenAlias(false, false, grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_1_2()));
+		match_XImpure_SemicolonKeyword_1_a = new TokenAlias(true, true, grammarAccess.getXImpureAccess().getSemicolonKeyword_1());
+		match_XImpure_SemicolonKeyword_1_p = new TokenAlias(true, false, grammarAccess.getXImpureAccess().getSemicolonKeyword_1());
+		match_XPackage_SemicolonKeyword_5_1_a = new TokenAlias(true, true, grammarAccess.getXPackageAccess().getSemicolonKeyword_5_1());
+		match_XPackage_SemicolonKeyword_5_1_p = new TokenAlias(true, false, grammarAccess.getXPackageAccess().getSemicolonKeyword_5_1());
+		match_XRangeValue___IDTerminalRuleCall_1_1_1_or___IDTerminalRuleCall_1_1_0_0_ApostropheKeyword_1_1_0_1____p = new AlternativeAlias(true, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getXRangeValueAccess().getIDTerminalRuleCall_1_1_0_0()), new TokenAlias(false, false, grammarAccess.getXRangeValueAccess().getApostropheKeyword_1_1_0_1())), new TokenAlias(false, false, grammarAccess.getXRangeValueAccess().getIDTerminalRuleCall_1_1_1()));
+		match_XSignal___IDTerminalRuleCall_2_2_1_or_SemicolonEqualsSignKeyword_2_2_0_or_SemicolonKeyword_2_3__a = new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_2_2_1()), new TokenAlias(false, false, grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_2_2_0()), new TokenAlias(false, false, grammarAccess.getXSignalAccess().getSemicolonKeyword_2_3()));
+		match_XSubType_SemicolonKeyword_4_1_a = new TokenAlias(true, true, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_4_1());
+		match_XSubType_SemicolonKeyword_4_1_p = new TokenAlias(true, false, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_4_1());
+		match_XType_SemicolonKeyword_4_1_a = new TokenAlias(true, true, grammarAccess.getXTypeAccess().getSemicolonKeyword_4_1());
+		match_XType_SemicolonKeyword_4_1_p = new TokenAlias(true, false, grammarAccess.getXTypeAccess().getSemicolonKeyword_4_1());
+		match_XUnit_EqualsSignKeyword_1_0_1_0_a = new TokenAlias(true, true, grammarAccess.getXUnitAccess().getEqualsSignKeyword_1_0_1_0());
+		match_XUnit_SemicolonKeyword_1_1_a = new TokenAlias(true, true, grammarAccess.getXUnitAccess().getSemicolonKeyword_1_1());
+		match_XUnit_SemicolonKeyword_1_1_p = new TokenAlias(true, false, grammarAccess.getXUnitAccess().getSemicolonKeyword_1_1());
 	}
 	
 	@Override
@@ -56,47 +86,294 @@ public class XHDLSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_XEnums_CommaKeyword_2_0_q.equals(syntax))
-				emit_XEnums_CommaKeyword_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_XRangeValue___ApostropheKeyword_1_1_1_or_IDTerminalRuleCall_1_1_0_or_IDTerminalRuleCall_1_1_2__p.equals(syntax))
-				emit_XRangeValue___ApostropheKeyword_1_1_1_or_IDTerminalRuleCall_1_1_0_or_IDTerminalRuleCall_1_1_2__p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_XSignal___SemicolonEqualsSignKeyword_5_0_IDTerminalRuleCall_5_1__q.equals(syntax))
-				emit_XSignal___SemicolonEqualsSignKeyword_5_0_IDTerminalRuleCall_5_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__a.equals(syntax))
+				emit_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__p.equals(syntax))
+				emit_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__a.equals(syntax))
+				emit_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__p.equals(syntax))
+				emit_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XEnums___CommaKeyword_1_1_0_or_LeftParenthesisKeyword_1_0_or_RightParenthesisKeyword_1_2__a.equals(syntax))
+				emit_XEnums___CommaKeyword_1_1_0_or_LeftParenthesisKeyword_1_0_or_RightParenthesisKeyword_1_2__a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XImpure_SemicolonKeyword_1_a.equals(syntax))
+				emit_XImpure_SemicolonKeyword_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XImpure_SemicolonKeyword_1_p.equals(syntax))
+				emit_XImpure_SemicolonKeyword_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XPackage_SemicolonKeyword_5_1_a.equals(syntax))
+				emit_XPackage_SemicolonKeyword_5_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XPackage_SemicolonKeyword_5_1_p.equals(syntax))
+				emit_XPackage_SemicolonKeyword_5_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XRangeValue___IDTerminalRuleCall_1_1_1_or___IDTerminalRuleCall_1_1_0_0_ApostropheKeyword_1_1_0_1____p.equals(syntax))
+				emit_XRangeValue___IDTerminalRuleCall_1_1_1_or___IDTerminalRuleCall_1_1_0_0_ApostropheKeyword_1_1_0_1____p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XSignal___IDTerminalRuleCall_2_2_1_or_SemicolonEqualsSignKeyword_2_2_0_or_SemicolonKeyword_2_3__a.equals(syntax))
+				emit_XSignal___IDTerminalRuleCall_2_2_1_or_SemicolonEqualsSignKeyword_2_2_0_or_SemicolonKeyword_2_3__a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XSubType_SemicolonKeyword_4_1_a.equals(syntax))
+				emit_XSubType_SemicolonKeyword_4_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XSubType_SemicolonKeyword_4_1_p.equals(syntax))
+				emit_XSubType_SemicolonKeyword_4_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XType_SemicolonKeyword_4_1_a.equals(syntax))
+				emit_XType_SemicolonKeyword_4_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XType_SemicolonKeyword_4_1_p.equals(syntax))
+				emit_XType_SemicolonKeyword_4_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XUnit_EqualsSignKeyword_1_0_1_0_a.equals(syntax))
+				emit_XUnit_EqualsSignKeyword_1_0_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XUnit_SemicolonKeyword_1_1_a.equals(syntax))
+				emit_XUnit_SemicolonKeyword_1_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_XUnit_SemicolonKeyword_1_1_p.equals(syntax))
+				emit_XUnit_SemicolonKeyword_1_1_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Ambiguous syntax:
-	 *     ','?
+	 *     ('(' | ')')*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) '(' (ambiguity) xenums+=ID
-	 *     xenums+=ID (ambiguity) xenums+=ID
+	 *     (rule start) 'array' (ambiguity) xrange=XTypeRef
+	 *     xrange=XTypeRef 'range' '<>' (ambiguity) 'of' xof=XTypeRef
+	 *     xrange=XTypeRef 'range' '<>' (ambiguity) xrange=XTypeRef
 	 */
-	protected void emit_XEnums_CommaKeyword_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     (ID | ''' | ID)+
+	 *     ('(' | ')')+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) 'array' (ambiguity) 'of' xof=XTypeRef
+	 */
+	protected void emit_XArray___LeftParenthesisKeyword_2_0_or_RightParenthesisKeyword_2_2__p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     (':' | ';')*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) 'attribute' (ambiguity) name=ID
+	 *     (rule start) 'attribute' (ambiguity) xtype=XTypeRef
+	 *     name=ID (ambiguity) (rule end)
+	 *     name=ID (ambiguity) name=ID
+	 *     name=ID (ambiguity) xtype=XTypeRef
+	 *     xtype=XTypeRef (ambiguity) (rule end)
+	 *     xtype=XTypeRef (ambiguity) name=ID
+	 *     xtype=XTypeRef (ambiguity) xtype=XTypeRef
+	 */
+	protected void emit_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     (':' | ';')+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) 'attribute' (ambiguity) (rule start)
+	 */
+	protected void emit_XAttribute___ColonKeyword_2_1_or_SemicolonKeyword_2_3__p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('(' | ',' | ')')*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) (rule start)
+	 *     (rule start) (ambiguity) xenums+=XEnum
+	 *     xenums+=XEnum (ambiguity) (rule end)
+	 *     xenums+=XEnum (ambiguity) xenums+=XEnum
+	 */
+	protected void emit_XEnums___CommaKeyword_1_1_0_or_LeftParenthesisKeyword_1_0_or_RightParenthesisKeyword_1_2__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) 'impure' xfunc=XFunctionRef
+	 *     xfunc=XFunctionRef (ambiguity) 'impure' xfunc=XFunctionRef
+	 *     xfunc=XFunctionRef (ambiguity) (rule end)
+	 */
+	protected void emit_XImpure_SemicolonKeyword_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'+
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) (rule start)
 	 */
-	protected void emit_XRangeValue___ApostropheKeyword_1_1_1_or_IDTerminalRuleCall_1_1_0_or_IDTerminalRuleCall_1_1_2__p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_XImpure_SemicolonKeyword_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     (';=' ID)?
+	 *     ';'*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     xtype=[XTypeRef|ID] (ambiguity) ';' (rule end)
+	 *     name=ID 'is' 'end' (ambiguity) xend=XPackageRef
+	 *     xend=XPackageRef (ambiguity) (rule end)
+	 *     xend=XPackageRef (ambiguity) xend=XPackageRef
+	 *     xis+=XElement 'end' (ambiguity) xend=XPackageRef
 	 */
-	protected void emit_XSignal___SemicolonEqualsSignKeyword_5_0_IDTerminalRuleCall_5_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_XPackage_SemicolonKeyword_5_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID 'is' 'end' (ambiguity) (rule end)
+	 *     xis+=XElement 'end' (ambiguity) (rule end)
+	 */
+	protected void emit_XPackage_SemicolonKeyword_5_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ((ID ''') | ID)+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) (rule start)
+	 */
+	protected void emit_XRangeValue___IDTerminalRuleCall_1_1_1_or___IDTerminalRuleCall_1_1_0_0_ApostropheKeyword_1_1_0_1____p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     (';=' | ID | ';')*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) 'signal' (ambiguity) ':' xtype=XTypeRef
+	 *     (rule start) 'signal' (ambiguity) (rule start)
+	 *     (rule start) 'signal' (ambiguity) name=ID
+	 *     name=ID (ambiguity) ':' xtype=XTypeRef
+	 *     name=ID (ambiguity) (rule end)
+	 *     name=ID (ambiguity) name=ID
+	 *     xtype=XTypeRef (ambiguity) ':' xtype=XTypeRef
+	 *     xtype=XTypeRef (ambiguity) (rule end)
+	 *     xtype=XTypeRef (ambiguity) name=ID
+	 */
+	protected void emit_XSignal___IDTerminalRuleCall_2_2_1_or_SemicolonEqualsSignKeyword_2_2_0_or_SemicolonKeyword_2_3__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID 'is' (ambiguity) xis=XTypeRef
+	 *     xis=XTypeRef (ambiguity) (rule end)
+	 *     xis=XTypeRef (ambiguity) xis=XTypeRef
+	 *     xrange=XRange (ambiguity) (rule end)
+	 *     xrange=XRange (ambiguity) xis=XTypeRef
+	 */
+	protected void emit_XSubType_SemicolonKeyword_4_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID 'is' (ambiguity) (rule end)
+	 */
+	protected void emit_XSubType_SemicolonKeyword_4_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID 'is' (ambiguity) xarray=XArray
+	 *     name=ID 'is' (ambiguity) xenums=XEnums
+	 *     name=ID 'is' (ambiguity) xrange=XRange
+	 *     xarray=XArray (ambiguity) (rule end)
+	 *     xarray=XArray (ambiguity) xarray=XArray
+	 *     xarray=XArray (ambiguity) xenums=XEnums
+	 *     xarray=XArray (ambiguity) xrange=XRange
+	 *     xenums=XEnums (ambiguity) (rule end)
+	 *     xenums=XEnums (ambiguity) xarray=XArray
+	 *     xenums=XEnums (ambiguity) xenums=XEnums
+	 *     xenums=XEnums (ambiguity) xrange=XRange
+	 *     xrange=XRange (ambiguity) (rule end)
+	 *     xrange=XRange (ambiguity) xarray=XArray
+	 *     xrange=XRange (ambiguity) xenums=XEnums
+	 *     xrange=XRange (ambiguity) xrange=XRange
+	 */
+	protected void emit_XType_SemicolonKeyword_4_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID 'is' (ambiguity) (rule end)
+	 */
+	protected void emit_XType_SemicolonKeyword_4_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '='*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID (ambiguity) ';'* (rule end)
+	 *     name=ID (ambiguity) ';'* name=ID
+	 *     name=ID (ambiguity) xvalue=INT
+	 *     xbased=XUnitRef (ambiguity) ';'* (rule end)
+	 *     xbased=XUnitRef (ambiguity) ';'* name=ID
+	 *     xbased=XUnitRef (ambiguity) xvalue=INT
+	 */
+	protected void emit_XUnit_EqualsSignKeyword_1_0_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) name=ID
+	 *     name=ID '='* (ambiguity) (rule end)
+	 *     name=ID '='* (ambiguity) name=ID
+	 *     xbased=XUnitRef '='* (ambiguity) (rule end)
+	 *     xbased=XUnitRef '='* (ambiguity) name=ID
+	 */
+	protected void emit_XUnit_SemicolonKeyword_1_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ';'+
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) (rule start)
+	 */
+	protected void emit_XUnit_SemicolonKeyword_1_1_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

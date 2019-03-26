@@ -4,6 +4,7 @@
 package xproject.xhdl.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -51,7 +52,7 @@ public class XSignalImpl extends XElementImpl implements XSignal
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getXtype() <em>Xtype</em>}' reference.
+   * The cached value of the '{@link #getXtype() <em>Xtype</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXtype()
@@ -111,16 +112,6 @@ public class XSignalImpl extends XElementImpl implements XSignal
    */
   public XTypeRef getXtype()
   {
-    if (xtype != null && xtype.eIsProxy())
-    {
-      InternalEObject oldXtype = (InternalEObject)xtype;
-      xtype = (XTypeRef)eResolveProxy(oldXtype);
-      if (xtype != oldXtype)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XSIGNAL__XTYPE, oldXtype, xtype));
-      }
-    }
     return xtype;
   }
 
@@ -129,9 +120,16 @@ public class XSignalImpl extends XElementImpl implements XSignal
    * <!-- end-user-doc -->
    * @generated
    */
-  public XTypeRef basicGetXtype()
+  public NotificationChain basicSetXtype(XTypeRef newXtype, NotificationChain msgs)
   {
-    return xtype;
+    XTypeRef oldXtype = xtype;
+    xtype = newXtype;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XSIGNAL__XTYPE, oldXtype, newXtype);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -141,10 +139,34 @@ public class XSignalImpl extends XElementImpl implements XSignal
    */
   public void setXtype(XTypeRef newXtype)
   {
-    XTypeRef oldXtype = xtype;
-    xtype = newXtype;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSIGNAL__XTYPE, oldXtype, xtype));
+    if (newXtype != xtype)
+    {
+      NotificationChain msgs = null;
+      if (xtype != null)
+        msgs = ((InternalEObject)xtype).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XSIGNAL__XTYPE, null, msgs);
+      if (newXtype != null)
+        msgs = ((InternalEObject)newXtype).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XSIGNAL__XTYPE, null, msgs);
+      msgs = basicSetXtype(newXtype, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSIGNAL__XTYPE, newXtype, newXtype));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSIGNAL__XTYPE:
+        return basicSetXtype(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -160,8 +182,7 @@ public class XSignalImpl extends XElementImpl implements XSignal
       case XhdlPackage.XSIGNAL__NAME:
         return getName();
       case XhdlPackage.XSIGNAL__XTYPE:
-        if (resolve) return getXtype();
-        return basicGetXtype();
+        return getXtype();
     }
     return super.eGet(featureID, resolve, coreType);
   }

@@ -96,6 +96,50 @@ rulexhdl returns [EObject current=null]
 	)*
 ;
 
+// Entry rule entryRuleXPackageRef
+entryRuleXPackageRef returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getXPackageRefRule()); }
+	iv_ruleXPackageRef=ruleXPackageRef
+	{ $current=$iv_ruleXPackageRef.current; }
+	EOF;
+
+// Rule XPackageRef
+ruleXPackageRef returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXPackageRefAccess().getXPackageRefAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getXPackageRefAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXPackageRefRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+	)
+;
+
 // Entry rule entryRuleXPackage
 entryRuleXPackage returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getXPackageRule()); }
@@ -112,22 +156,15 @@ ruleXPackage returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		(
-			{
-				$current = forceCreateModelElement(
-					grammarAccess.getXPackageAccess().getXPackageAction_0(),
-					$current);
-			}
-		)
-		otherlv_1='package'
+		otherlv_0='package'
 		{
-			newLeafNode(otherlv_1, grammarAccess.getXPackageAccess().getPackageKeyword_1());
+			newLeafNode(otherlv_0, grammarAccess.getXPackageAccess().getPackageKeyword_0());
 		}
 		(
 			(
-				lv_name_2_0=RULE_ID
+				lv_name_1_0=RULE_ID
 				{
-					newLeafNode(lv_name_2_0, grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_2_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getXPackageAccess().getNameIDTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
@@ -136,21 +173,21 @@ ruleXPackage returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_2_0,
+						lv_name_1_0,
 						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
-		otherlv_3='is'
+		otherlv_2='is'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getXPackageAccess().getIsKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getXPackageAccess().getIsKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getXPackageAccess().getXisXElementParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getXPackageAccess().getXisXElementParserRuleCall_3_0());
 				}
-				lv_xis_4_0=ruleXElement
+				lv_xis_3_0=ruleXElement
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getXPackageRule());
@@ -158,33 +195,118 @@ ruleXPackage returns [EObject current=null]
 					add(
 						$current,
 						"xis",
-						lv_xis_4_0,
+						lv_xis_3_0,
 						"xproject.XHDL.XElement");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_5='end'
+		otherlv_4='end'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getXPackageAccess().getEndKeyword_5());
+			newLeafNode(otherlv_4, grammarAccess.getXPackageAccess().getEndKeyword_4());
 		}
 		(
 			(
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXPackageAccess().getUnorderedGroup_5());
+				}
+				(
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXPackageAccess().getUnorderedGroup_5(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXPackageAccess().getUnorderedGroup_5(), 0);
+					}
+								({true}?=>((
+									{
+										newCompositeNode(grammarAccess.getXPackageAccess().getXendXPackageRefParserRuleCall_5_0_0());
+									}
+									lv_xend_6_0=ruleXPackageRef
+									{
+										if ($current==null) {
+											$current = createModelElementForParent(grammarAccess.getXPackageRule());
+										}
+										set(
+											$current,
+											"xend",
+											lv_xend_6_0,
+											"xproject.XHDL.XPackageRef");
+										afterParserOrEnumRuleCall();
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXPackageAccess().getUnorderedGroup_5());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXPackageAccess().getUnorderedGroup_5(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXPackageAccess().getUnorderedGroup_5(), 1);
+					}
+								({true}?=>(otherlv_7=';'
+								{
+									newLeafNode(otherlv_7, grammarAccess.getXPackageAccess().getSemicolonKeyword_5_1());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXPackageAccess().getUnorderedGroup_5());
+					}
+				)
+			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXPackageAccess().getUnorderedGroup_5())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXPackageAccess().getUnorderedGroup_5());
+				}
+		)
+	)
+;
+
+// Entry rule entryRuleXTypeRef
+entryRuleXTypeRef returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getXTypeRefRule()); }
+	iv_ruleXTypeRef=ruleXTypeRef
+	{ $current=$iv_ruleXTypeRef.current; }
+	EOF;
+
+// Rule XTypeRef
+ruleXTypeRef returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXTypeRefAccess().getXTypeRefAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getXTypeRefAccess().getNameIDTerminalRuleCall_1_0());
+				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXPackageRule());
+						$current = createModelElement(grammarAccess.getXTypeRefRule());
 					}
-				}
-				otherlv_6=RULE_ID
-				{
-					newLeafNode(otherlv_6, grammarAccess.getXPackageAccess().getXendXPackageRefCrossReference_6_0());
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
-		otherlv_7=';'
-		{
-			newLeafNode(otherlv_7, grammarAccess.getXPackageAccess().getSemicolonKeyword_7());
-		}
 	)
 ;
 
@@ -280,43 +402,104 @@ ruleXAttribute returns [EObject current=null]
 		}
 		(
 			(
-				lv_name_2_0=RULE_ID
-				{
-					newLeafNode(lv_name_2_0, grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXAttributeAccess().getUnorderedGroup_2());
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXAttributeRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_2_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_3=':'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getXAttributeAccess().getColonKeyword_3());
-		}
-		(
+				(
+					(
 			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXAttributeRule());
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 0);
 					}
-				}
-				otherlv_4=RULE_ID
-				{
-					newLeafNode(otherlv_4, grammarAccess.getXAttributeAccess().getXtypeXTypeRefCrossReference_4_0());
-				}
+								({true}?=>((
+									lv_name_3_0=RULE_ID
+									{
+										newLeafNode(lv_name_3_0, grammarAccess.getXAttributeAccess().getNameIDTerminalRuleCall_2_0_0());
+									}
+									{
+										if ($current==null) {
+											$current = createModelElement(grammarAccess.getXAttributeRule());
+										}
+										setWithLastConsumed(
+											$current,
+											"name",
+											lv_name_3_0,
+											"org.eclipse.xtext.common.Terminals.ID");
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXAttributeAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 1);
+					}
+								({true}?=>(otherlv_4=':'
+								{
+									newLeafNode(otherlv_4, grammarAccess.getXAttributeAccess().getColonKeyword_2_1());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXAttributeAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 2)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 2);
+					}
+								({true}?=>((
+									{
+										newCompositeNode(grammarAccess.getXAttributeAccess().getXtypeXTypeRefParserRuleCall_2_2_0());
+									}
+									lv_xtype_5_0=ruleXTypeRef
+									{
+										if ($current==null) {
+											$current = createModelElementForParent(grammarAccess.getXAttributeRule());
+										}
+										set(
+											$current,
+											"xtype",
+											lv_xtype_5_0,
+											"xproject.XHDL.XTypeRef");
+										afterParserOrEnumRuleCall();
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXAttributeAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 3)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXAttributeAccess().getUnorderedGroup_2(), 3);
+					}
+								({true}?=>(otherlv_6=';'
+								{
+									newLeafNode(otherlv_6, grammarAccess.getXAttributeAccess().getSemicolonKeyword_2_3());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXAttributeAccess().getUnorderedGroup_2());
+					}
+				)
 			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXAttributeAccess().getUnorderedGroup_2())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXAttributeAccess().getUnorderedGroup_2());
+				}
 		)
-		otherlv_5=';'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getXAttributeAccess().getSemicolonKeyword_5());
-		}
 	)
 ;
 
@@ -371,21 +554,83 @@ ruleXSubType returns [EObject current=null]
 		}
 		(
 			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXSubTypeRule());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4());
+				}
+				(
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4(), 0);
 					}
-				}
-				otherlv_4=RULE_ID
-				{
-					newLeafNode(otherlv_4, grammarAccess.getXSubTypeAccess().getXisXTypeRefCrossReference_4_0());
-				}
+								({true}?=>((
+									(
+										{
+											newCompositeNode(grammarAccess.getXSubTypeAccess().getXisXTypeRefParserRuleCall_4_0_0_0());
+										}
+										lv_xis_5_0=ruleXTypeRef
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXSubTypeRule());
+											}
+											set(
+												$current,
+												"xis",
+												lv_xis_5_0,
+												"xproject.XHDL.XTypeRef");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+								(
+									(
+										{
+											newCompositeNode(grammarAccess.getXSubTypeAccess().getXrangeXRangeParserRuleCall_4_0_1_0());
+										}
+										lv_xrange_6_0=ruleXRange
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXSubTypeRule());
+											}
+											set(
+												$current,
+												"xrange",
+												lv_xrange_6_0,
+												"xproject.XHDL.XRange");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)?
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4(), 1);
+					}
+								({true}?=>(otherlv_7=';'
+								{
+									newLeafNode(otherlv_7, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_4_1());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4());
+					}
+				)
 			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXSubTypeAccess().getUnorderedGroup_4());
+				}
 		)
-		otherlv_5=';'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getXSubTypeAccess().getSemicolonKeyword_5());
-		}
 	)
 ;
 
@@ -418,53 +663,149 @@ ruleXSignal returns [EObject current=null]
 		}
 		(
 			(
-				lv_name_2_0=RULE_ID
-				{
-					newLeafNode(lv_name_2_0, grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXSignalAccess().getUnorderedGroup_2());
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXSignalRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_2_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
-			)
-		)
-		otherlv_3=':'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getXSignalAccess().getColonKeyword_3());
-		}
-		(
+				(
+					(
 			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXSignalRule());
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 0);
 					}
-				}
-				otherlv_4=RULE_ID
-				{
-					newLeafNode(otherlv_4, grammarAccess.getXSignalAccess().getXtypeXTypeRefCrossReference_4_0());
-				}
+								({true}?=>((
+									lv_name_3_0=RULE_ID
+									{
+										newLeafNode(lv_name_3_0, grammarAccess.getXSignalAccess().getNameIDTerminalRuleCall_2_0_0());
+									}
+									{
+										if ($current==null) {
+											$current = createModelElement(grammarAccess.getXSignalRule());
+										}
+										setWithLastConsumed(
+											$current,
+											"name",
+											lv_name_3_0,
+											"org.eclipse.xtext.common.Terminals.ID");
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSignalAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 1);
+					}
+								({true}?=>(otherlv_4=':'
+								{
+									newLeafNode(otherlv_4, grammarAccess.getXSignalAccess().getColonKeyword_2_1_0());
+								}
+								(
+									(
+										{
+											newCompositeNode(grammarAccess.getXSignalAccess().getXtypeXTypeRefParserRuleCall_2_1_1_0());
+										}
+										lv_xtype_5_0=ruleXTypeRef
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXSignalRule());
+											}
+											set(
+												$current,
+												"xtype",
+												lv_xtype_5_0,
+												"xproject.XHDL.XTypeRef");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSignalAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 2)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 2);
+					}
+								({true}?=>((
+									{ 
+									  getUnorderedGroupHelper().enter(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2());
+									}
+									(
+										(
+								(
+									{getUnorderedGroupHelper().canSelect(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2(), 0)}?=>(
+										{
+											getUnorderedGroupHelper().select(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2(), 0);
+										}
+													({true}?=>(otherlv_7=';='
+													{
+														newLeafNode(otherlv_7, grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_2_2_0());
+													}
+													))
+										{ 
+											getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2());
+										}
+									)
+								)|
+								(
+									{getUnorderedGroupHelper().canSelect(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2(), 1)}?=>(
+										{
+											getUnorderedGroupHelper().select(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2(), 1);
+										}
+													({true}?=>(this_ID_8=RULE_ID
+													{
+														newLeafNode(this_ID_8, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_2_2_1());
+													}
+													))
+										{ 
+											getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2());
+										}
+									)
+								)
+										)+
+										{getUnorderedGroupHelper().canLeave(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2())}?
+									)
+								)
+									{ 
+									  getUnorderedGroupHelper().leave(grammarAccess.getXSignalAccess().getUnorderedGroup_2_2());
+									}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSignalAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 3)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXSignalAccess().getUnorderedGroup_2(), 3);
+					}
+								({true}?=>(otherlv_9=';'
+								{
+									newLeafNode(otherlv_9, grammarAccess.getXSignalAccess().getSemicolonKeyword_2_3());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXSignalAccess().getUnorderedGroup_2());
+					}
+				)
 			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXSignalAccess().getUnorderedGroup_2())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXSignalAccess().getUnorderedGroup_2());
+				}
 		)
-		(
-			otherlv_5=';='
-			{
-				newLeafNode(otherlv_5, grammarAccess.getXSignalAccess().getSemicolonEqualsSignKeyword_5_0());
-			}
-			this_ID_6=RULE_ID
-			{
-				newLeafNode(this_ID_6, grammarAccess.getXSignalAccess().getIDTerminalRuleCall_5_1());
-			}
-		)?
-		otherlv_7=';'
-		{
-			newLeafNode(otherlv_7, grammarAccess.getXSignalAccess().getSemicolonKeyword_6());
-		}
 	)
 ;
 
@@ -485,104 +826,137 @@ ruleXType returns [EObject current=null]
 }:
 	(
 		(
-			(
-				{
-					$current = forceCreateModelElement(
-						grammarAccess.getXTypeAccess().getXTypeAction_0_0(),
-						$current);
-				}
-			)
-			otherlv_1='type'
 			{
-				newLeafNode(otherlv_1, grammarAccess.getXTypeAccess().getTypeKeyword_0_1());
+				$current = forceCreateModelElement(
+					grammarAccess.getXTypeAccess().getXTypeAction_0(),
+					$current);
 			}
-			(
-				(
-					lv_name_2_0=RULE_ID
-					{
-						newLeafNode(lv_name_2_0, grammarAccess.getXTypeAccess().getNameIDTerminalRuleCall_0_2_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getXTypeRule());
-						}
-						setWithLastConsumed(
-							$current,
-							"name",
-							lv_name_2_0,
-							"org.eclipse.xtext.common.Terminals.ID");
-					}
-				)
-			)
-			otherlv_3='is'
-			{
-				newLeafNode(otherlv_3, grammarAccess.getXTypeAccess().getIsKeyword_0_3());
-			}
-			(
-				(
-					{
-						newCompositeNode(grammarAccess.getXTypeAccess().getXenumsXEnumsParserRuleCall_0_4_0());
-					}
-					lv_xenums_4_0=ruleXEnums
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getXTypeRule());
-						}
-						set(
-							$current,
-							"xenums",
-							lv_xenums_4_0,
-							"xproject.XHDL.XEnums");
-						afterParserOrEnumRuleCall();
-					}
-				)
-			)
 		)
-		    |
+		otherlv_1='type'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getXTypeAccess().getTypeKeyword_1());
+		}
 		(
 			(
+				lv_name_2_0=RULE_ID
 				{
-					newCompositeNode(grammarAccess.getXTypeAccess().getXrangeXRangeParserRuleCall_1_0());
+					newLeafNode(lv_name_2_0, grammarAccess.getXTypeAccess().getNameIDTerminalRuleCall_2_0());
 				}
-				lv_xrange_5_0=ruleXRange
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getXTypeRule());
+						$current = createModelElement(grammarAccess.getXTypeRule());
 					}
-					set(
+					setWithLastConsumed(
 						$current,
-						"xrange",
-						lv_xrange_5_0,
-						"xproject.XHDL.XRange");
-					afterParserOrEnumRuleCall();
+						"name",
+						lv_name_2_0,
+						"org.eclipse.xtext.common.Terminals.ID");
 				}
 			)
 		)
-		    |
+		otherlv_3='is'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getXTypeAccess().getIsKeyword_3());
+		}
 		(
 			(
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXTypeAccess().getUnorderedGroup_4());
+				}
 				(
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXTypeAccess().getUnorderedGroup_4(), 0)}?=>(
 					{
-						newCompositeNode(grammarAccess.getXTypeAccess().getXarrayXArrayParserRuleCall_2_0_0());
+						getUnorderedGroupHelper().select(grammarAccess.getXTypeAccess().getUnorderedGroup_4(), 0);
 					}
-					lv_xarray_6_0=ruleXArray
+								({true}?=>((
+									(
+										{
+											newCompositeNode(grammarAccess.getXTypeAccess().getXenumsXEnumsParserRuleCall_4_0_0_0());
+										}
+										lv_xenums_5_0=ruleXEnums
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXTypeRule());
+											}
+											set(
+												$current,
+												"xenums",
+												lv_xenums_5_0,
+												"xproject.XHDL.XEnums");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+								    |
+								(
+									(
+										{
+											newCompositeNode(grammarAccess.getXTypeAccess().getXrangeXRangeParserRuleCall_4_0_1_0());
+										}
+										lv_xrange_6_0=ruleXRange
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXTypeRule());
+											}
+											set(
+												$current,
+												"xrange",
+												lv_xrange_6_0,
+												"xproject.XHDL.XRange");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+								    |
+								(
+									(
+										{
+											newCompositeNode(grammarAccess.getXTypeAccess().getXarrayXArrayParserRuleCall_4_0_2_0());
+										}
+										lv_xarray_7_0=ruleXArray
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXTypeRule());
+											}
+											set(
+												$current,
+												"xarray",
+												lv_xarray_7_0,
+												"xproject.XHDL.XArray");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXTypeAccess().getUnorderedGroup_4());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXTypeAccess().getUnorderedGroup_4(), 1)}?=>(
 					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getXTypeRule());
-						}
-						set(
-							$current,
-							"xarray",
-							lv_xarray_6_0,
-							"xproject.XHDL.XArray");
-						afterParserOrEnumRuleCall();
+						getUnorderedGroupHelper().select(grammarAccess.getXTypeAccess().getUnorderedGroup_4(), 1);
+					}
+								({true}?=>(otherlv_8=';'
+								{
+									newLeafNode(otherlv_8, grammarAccess.getXTypeAccess().getSemicolonKeyword_4_1());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXTypeAccess().getUnorderedGroup_4());
 					}
 				)
 			)
-			otherlv_7=';'
-			{
-				newLeafNode(otherlv_7, grammarAccess.getXTypeAccess().getSemicolonKeyword_2_1());
-			}
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXTypeAccess().getUnorderedGroup_4())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXTypeAccess().getUnorderedGroup_4());
+				}
 		)
 	)
 ;
@@ -614,49 +988,109 @@ ruleXArray returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getXArrayAccess().getArrayKeyword_1());
 		}
-		otherlv_2='('
-		{
-			newLeafNode(otherlv_2, grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2());
-		}
 		(
 			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXArrayRule());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXArrayAccess().getUnorderedGroup_2());
+				}
+				(
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXArrayAccess().getUnorderedGroup_2(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXArrayAccess().getUnorderedGroup_2(), 0);
 					}
-				}
-				otherlv_3=RULE_ID
-				{
-					newLeafNode(otherlv_3, grammarAccess.getXArrayAccess().getXrangeXTypeRefCrossReference_3_0());
-				}
+								({true}?=>(otherlv_3='('
+								{
+									newLeafNode(otherlv_3, grammarAccess.getXArrayAccess().getLeftParenthesisKeyword_2_0());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXArrayAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXArrayAccess().getUnorderedGroup_2(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXArrayAccess().getUnorderedGroup_2(), 1);
+					}
+								({true}?=>((
+									(
+										{
+											newCompositeNode(grammarAccess.getXArrayAccess().getXrangeXTypeRefParserRuleCall_2_1_0_0());
+										}
+										lv_xrange_4_0=ruleXTypeRef
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getXArrayRule());
+											}
+											set(
+												$current,
+												"xrange",
+												lv_xrange_4_0,
+												"xproject.XHDL.XTypeRef");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+								otherlv_5='range'
+								{
+									newLeafNode(otherlv_5, grammarAccess.getXArrayAccess().getRangeKeyword_2_1_1());
+								}
+								otherlv_6='<>'
+								{
+									newLeafNode(otherlv_6, grammarAccess.getXArrayAccess().getLessThanSignGreaterThanSignKeyword_2_1_2());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXArrayAccess().getUnorderedGroup_2());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXArrayAccess().getUnorderedGroup_2(), 2)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXArrayAccess().getUnorderedGroup_2(), 2);
+					}
+								({true}?=>(otherlv_7=')'
+								{
+									newLeafNode(otherlv_7, grammarAccess.getXArrayAccess().getRightParenthesisKeyword_2_2());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXArrayAccess().getUnorderedGroup_2());
+					}
+				)
 			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXArrayAccess().getUnorderedGroup_2())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXArrayAccess().getUnorderedGroup_2());
+				}
 		)
-		otherlv_4='range'
+		otherlv_8='of'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getXArrayAccess().getRangeKeyword_4());
-		}
-		otherlv_5='<>'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getXArrayAccess().getLessThanSignGreaterThanSignKeyword_5());
-		}
-		otherlv_6=')'
-		{
-			newLeafNode(otherlv_6, grammarAccess.getXArrayAccess().getRightParenthesisKeyword_6());
-		}
-		otherlv_7='of'
-		{
-			newLeafNode(otherlv_7, grammarAccess.getXArrayAccess().getOfKeyword_7());
+			newLeafNode(otherlv_8, grammarAccess.getXArrayAccess().getOfKeyword_3());
 		}
 		(
 			(
 				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXArrayRule());
-					}
+					newCompositeNode(grammarAccess.getXArrayAccess().getXofXTypeRefParserRuleCall_4_0());
 				}
-				otherlv_8=RULE_ID
+				lv_xof_9_0=ruleXTypeRef
 				{
-					newLeafNode(otherlv_8, grammarAccess.getXArrayAccess().getXofXTypeRefCrossReference_8_0());
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getXArrayRule());
+					}
+					set(
+						$current,
+						"xof",
+						lv_xof_9_0,
+						"xproject.XHDL.XTypeRef");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -693,13 +1127,19 @@ ruleXRange returns [EObject current=null]
 		(
 			(
 				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXRangeRule());
-					}
+					newCompositeNode(grammarAccess.getXRangeAccess().getXfromXRangeValueParserRuleCall_2_0());
 				}
-				otherlv_2=RULE_ID
+				lv_xfrom_2_0=ruleXRangeValue
 				{
-					newLeafNode(otherlv_2, grammarAccess.getXRangeAccess().getXfromXRangeValueCrossReference_2_0());
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getXRangeRule());
+					}
+					set(
+						$current,
+						"xfrom",
+						lv_xfrom_2_0,
+						"xproject.XHDL.XRangeValue");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -710,13 +1150,19 @@ ruleXRange returns [EObject current=null]
 		(
 			(
 				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXRangeRule());
-					}
+					newCompositeNode(grammarAccess.getXRangeAccess().getXtoXRangeValueParserRuleCall_4_0());
 				}
-				otherlv_4=RULE_ID
+				lv_xto_4_0=ruleXRangeValue
 				{
-					newLeafNode(otherlv_4, grammarAccess.getXRangeAccess().getXtoXRangeValueCrossReference_4_0());
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getXRangeRule());
+					}
+					set(
+						$current,
+						"xto",
+						lv_xto_4_0,
+						"xproject.XHDL.XRangeValue");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -739,6 +1185,144 @@ ruleXRange returns [EObject current=null]
 				}
 			)
 		)?
+	)
+;
+
+// Entry rule entryRuleXRangeValue
+entryRuleXRangeValue returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getXRangeValueRule()); }
+	iv_ruleXRangeValue=ruleXRangeValue
+	{ $current=$iv_ruleXRangeValue.current; }
+	EOF;
+
+// Rule XRangeValue
+ruleXRangeValue returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXRangeValueAccess().getXRangeValueAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				(
+					(
+						(
+							lv_xlvalue_1_0=RULE_XLONG
+							{
+								newLeafNode(lv_xlvalue_1_0, grammarAccess.getXRangeValueAccess().getXlvalueXLONGTerminalRuleCall_1_0_0_0_0());
+							}
+							{
+								if ($current==null) {
+									$current = createModelElement(grammarAccess.getXRangeValueRule());
+								}
+								setWithLastConsumed(
+									$current,
+									"xlvalue",
+									lv_xlvalue_1_0,
+									"xproject.XHDL.XLONG");
+							}
+						)
+					)
+					    |
+					(
+						(
+							lv_xdvalue_2_0=RULE_XDOUBLE
+							{
+								newLeafNode(lv_xdvalue_2_0, grammarAccess.getXRangeValueAccess().getXdvalueXDOUBLETerminalRuleCall_1_0_0_1_0());
+							}
+							{
+								if ($current==null) {
+									$current = createModelElement(grammarAccess.getXRangeValueRule());
+								}
+								setWithLastConsumed(
+									$current,
+									"xdvalue",
+									lv_xdvalue_2_0,
+									"xproject.XHDL.XDOUBLE");
+							}
+						)
+					)
+				)
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getXRangeValueAccess().getXunitXUnitRefParserRuleCall_1_0_1_0());
+						}
+						lv_xunit_3_0=ruleXUnitRef
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getXRangeValueRule());
+							}
+							set(
+								$current,
+								"xunit",
+								lv_xunit_3_0,
+								"xproject.XHDL.XUnitRef");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)?
+			)
+			    |
+			(
+				(
+					{ 
+					  getUnorderedGroupHelper().enter(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1());
+					}
+					(
+						(
+				(
+					{getUnorderedGroupHelper().canSelect(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1(), 0)}?=>(
+						{
+							getUnorderedGroupHelper().select(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1(), 0);
+						}
+									({true}?=>(this_ID_5=RULE_ID
+									{
+										newLeafNode(this_ID_5, grammarAccess.getXRangeValueAccess().getIDTerminalRuleCall_1_1_0_0());
+									}
+									otherlv_6='\''
+									{
+										newLeafNode(otherlv_6, grammarAccess.getXRangeValueAccess().getApostropheKeyword_1_1_0_1());
+									}
+									))
+						{ 
+							getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1());
+						}
+					)
+				)|
+				(
+					{getUnorderedGroupHelper().canSelect(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1(), 1)}?=>(
+						{
+							getUnorderedGroupHelper().select(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1(), 1);
+						}
+									({true}?=>(this_ID_7=RULE_ID
+									{
+										newLeafNode(this_ID_7, grammarAccess.getXRangeValueAccess().getIDTerminalRuleCall_1_1_1());
+									}
+									))
+						{ 
+							getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1());
+						}
+					)
+				)
+						)+
+						{getUnorderedGroupHelper().canLeave(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1())}?
+					)
+				)
+					{ 
+					  getUnorderedGroupHelper().leave(grammarAccess.getXRangeValueAccess().getUnorderedGroup_1_1());
+					}
+			)
+		)
 	)
 ;
 
@@ -799,6 +1383,50 @@ ruleXUnits returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleXUnitRef
+entryRuleXUnitRef returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getXUnitRefRule()); }
+	iv_ruleXUnitRef=ruleXUnitRef
+	{ $current=$iv_ruleXUnitRef.current; }
+	EOF;
+
+// Rule XUnitRef
+ruleXUnitRef returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXUnitRefAccess().getXUnitRefAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				lv_name_1_0=RULE_ID
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getXUnitRefAccess().getNameIDTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXUnitRefRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+	)
+;
+
 // Entry rule entryRuleXUnit
 entryRuleXUnit returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getXUnitRule()); }
@@ -824,63 +1452,141 @@ ruleXUnit returns [EObject current=null]
 		)
 		(
 			(
-				lv_name_1_0=RULE_ID
-				{
-					newLeafNode(lv_name_1_0, grammarAccess.getXUnitAccess().getNameIDTerminalRuleCall_1_0());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXUnitAccess().getUnorderedGroup_1());
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXUnitRule());
+				(
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXUnitAccess().getUnorderedGroup_1(), 0)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXUnitAccess().getUnorderedGroup_1(), 0);
 					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_1_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
+								({true}?=>((
+									(
+										lv_name_2_0=RULE_ID
+										{
+											newLeafNode(lv_name_2_0, grammarAccess.getXUnitAccess().getNameIDTerminalRuleCall_1_0_0_0());
+										}
+										{
+											if ($current==null) {
+												$current = createModelElement(grammarAccess.getXUnitRule());
+											}
+											setWithLastConsumed(
+												$current,
+												"name",
+												lv_name_2_0,
+												"org.eclipse.xtext.common.Terminals.ID");
+										}
+									)
+								)
+								(
+									(
+										{ 
+										  getUnorderedGroupHelper().enter(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1());
+										}
+										(
+											(
+									(
+										{getUnorderedGroupHelper().canSelect(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1(), 0)}?=>(
+											{
+												getUnorderedGroupHelper().select(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1(), 0);
+											}
+														({true}?=>(otherlv_4='='
+														{
+															newLeafNode(otherlv_4, grammarAccess.getXUnitAccess().getEqualsSignKeyword_1_0_1_0());
+														}
+														))
+											{ 
+												getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1());
+											}
+										)
+									)|
+									(
+										{getUnorderedGroupHelper().canSelect(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1(), 1)}?=>(
+											{
+												getUnorderedGroupHelper().select(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1(), 1);
+											}
+														({true}?=>((
+															(
+																lv_xvalue_5_0=RULE_INT
+																{
+																	newLeafNode(lv_xvalue_5_0, grammarAccess.getXUnitAccess().getXvalueINTTerminalRuleCall_1_0_1_1_0_0());
+																}
+																{
+																	if ($current==null) {
+																		$current = createModelElement(grammarAccess.getXUnitRule());
+																	}
+																	setWithLastConsumed(
+																		$current,
+																		"xvalue",
+																		lv_xvalue_5_0,
+																		"org.eclipse.xtext.common.Terminals.INT");
+																}
+															)
+														)
+														(
+															(
+																{
+																	newCompositeNode(grammarAccess.getXUnitAccess().getXbasedXUnitRefParserRuleCall_1_0_1_1_1_0());
+																}
+																lv_xbased_6_0=ruleXUnitRef
+																{
+																	if ($current==null) {
+																		$current = createModelElementForParent(grammarAccess.getXUnitRule());
+																	}
+																	set(
+																		$current,
+																		"xbased",
+																		lv_xbased_6_0,
+																		"xproject.XHDL.XUnitRef");
+																	afterParserOrEnumRuleCall();
+																}
+															)
+														)
+														))
+											{ 
+												getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1());
+											}
+										)
+									)
+											)+
+											{getUnorderedGroupHelper().canLeave(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1())}?
+										)
+									)
+										{ 
+										  getUnorderedGroupHelper().leave(grammarAccess.getXUnitAccess().getUnorderedGroup_1_0_1());
+										}
+								)?
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXUnitAccess().getUnorderedGroup_1());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXUnitAccess().getUnorderedGroup_1(), 1)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXUnitAccess().getUnorderedGroup_1(), 1);
+					}
+								({true}?=>(otherlv_7=';'
+								{
+									newLeafNode(otherlv_7, grammarAccess.getXUnitAccess().getSemicolonKeyword_1_1());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXUnitAccess().getUnorderedGroup_1());
+					}
+				)
 			)
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXUnitAccess().getUnorderedGroup_1())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXUnitAccess().getUnorderedGroup_1());
+				}
 		)
-		(
-			otherlv_2='='
-			{
-				newLeafNode(otherlv_2, grammarAccess.getXUnitAccess().getEqualsSignKeyword_2_0());
-			}
-			(
-				(
-					lv_xvalue_3_0=RULE_INT
-					{
-						newLeafNode(lv_xvalue_3_0, grammarAccess.getXUnitAccess().getXvalueINTTerminalRuleCall_2_1_0());
-					}
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getXUnitRule());
-						}
-						setWithLastConsumed(
-							$current,
-							"xvalue",
-							lv_xvalue_3_0,
-							"org.eclipse.xtext.common.Terminals.INT");
-					}
-				)
-			)
-			(
-				(
-					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getXUnitRule());
-						}
-					}
-					otherlv_4=RULE_ID
-					{
-						newLeafNode(otherlv_4, grammarAccess.getXUnitAccess().getXbasedXUnitRefCrossReference_2_2_0());
-					}
-				)
-			)
-		)?
-		otherlv_5=';'
-		{
-			newLeafNode(otherlv_5, grammarAccess.getXUnitAccess().getSemicolonKeyword_3());
-		}
 	)
 ;
 
@@ -907,40 +1613,189 @@ ruleXEnums returns [EObject current=null]
 					$current);
 			}
 		)
-		otherlv_1='('
-		{
-			newLeafNode(otherlv_1, grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_1());
-		}
 		(
 			(
-				otherlv_2=','
-				{
-					newLeafNode(otherlv_2, grammarAccess.getXEnumsAccess().getCommaKeyword_2_0());
+				{ 
+				  getUnorderedGroupHelper().enter(grammarAccess.getXEnumsAccess().getUnorderedGroup_1());
 				}
-			)?
-			(
 				(
-					lv_xenums_3_0=RULE_ID
+					(
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXEnumsAccess().getUnorderedGroup_1(), 0)}?=>(
 					{
-						newLeafNode(lv_xenums_3_0, grammarAccess.getXEnumsAccess().getXenumsIDTerminalRuleCall_2_1_0());
+						getUnorderedGroupHelper().select(grammarAccess.getXEnumsAccess().getUnorderedGroup_1(), 0);
 					}
+								({true}?=>(otherlv_2='('
+								{
+									newLeafNode(otherlv_2, grammarAccess.getXEnumsAccess().getLeftParenthesisKeyword_1_0());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXEnumsAccess().getUnorderedGroup_1());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXEnumsAccess().getUnorderedGroup_1(), 1)}?=>(
 					{
-						if ($current==null) {
-							$current = createModelElement(grammarAccess.getXEnumsRule());
-						}
-						addWithLastConsumed(
-							$current,
-							"xenums",
-							lv_xenums_3_0,
-							"org.eclipse.xtext.common.Terminals.ID");
+						getUnorderedGroupHelper().select(grammarAccess.getXEnumsAccess().getUnorderedGroup_1(), 1);
+					}
+								({true}?=>((
+									{ 
+									  getUnorderedGroupHelper().enter(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1());
+									}
+									(
+										(
+								(
+									{getUnorderedGroupHelper().canSelect(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1(), 0)}?=>(
+										{
+											getUnorderedGroupHelper().select(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1(), 0);
+										}
+													({true}?=>(otherlv_4=','
+													{
+														newLeafNode(otherlv_4, grammarAccess.getXEnumsAccess().getCommaKeyword_1_1_0());
+													}
+													))
+										{ 
+											getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1());
+										}
+									)
+								)|
+								(
+									{getUnorderedGroupHelper().canSelect(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1(), 1)}?=>(
+										{
+											getUnorderedGroupHelper().select(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1(), 1);
+										}
+													({true}?=>((
+														{
+															newCompositeNode(grammarAccess.getXEnumsAccess().getXenumsXEnumParserRuleCall_1_1_1_0());
+														}
+														lv_xenums_5_0=ruleXEnum
+														{
+															if ($current==null) {
+																$current = createModelElementForParent(grammarAccess.getXEnumsRule());
+															}
+															add(
+																$current,
+																"xenums",
+																lv_xenums_5_0,
+																"xproject.XHDL.XEnum");
+															afterParserOrEnumRuleCall();
+														}
+													)
+													))
+										{ 
+											getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1());
+										}
+									)
+								)
+										)+
+										{getUnorderedGroupHelper().canLeave(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1())}?
+									)
+								)
+									{ 
+									  getUnorderedGroupHelper().leave(grammarAccess.getXEnumsAccess().getUnorderedGroup_1_1());
+									}
+								))+
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXEnumsAccess().getUnorderedGroup_1());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getXEnumsAccess().getUnorderedGroup_1(), 2)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getXEnumsAccess().getUnorderedGroup_1(), 2);
+					}
+								({true}?=>(otherlv_6=')'
+								{
+									newLeafNode(otherlv_6, grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_1_2());
+								}
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXEnumsAccess().getUnorderedGroup_1());
 					}
 				)
 			)
-		)*
-		otherlv_4=')'
+					)+
+					{getUnorderedGroupHelper().canLeave(grammarAccess.getXEnumsAccess().getUnorderedGroup_1())}?
+				)
+			)
+				{ 
+				  getUnorderedGroupHelper().leave(grammarAccess.getXEnumsAccess().getUnorderedGroup_1());
+				}
+		)
+	)
+;
+
+// Entry rule entryRuleXFunctionRef
+entryRuleXFunctionRef returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getXFunctionRefRule()); }
+	iv_ruleXFunctionRef=ruleXFunctionRef
+	{ $current=$iv_ruleXFunctionRef.current; }
+	EOF;
+
+// Rule XFunctionRef
+ruleXFunctionRef returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getXFunctionRefAccess().getXFunctionRefAction_0(),
+					$current);
+			}
+		)
+		otherlv_1='function'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getXEnumsAccess().getRightParenthesisKeyword_3());
+			newLeafNode(otherlv_1, grammarAccess.getXFunctionRefAccess().getFunctionKeyword_1());
 		}
+		(
+			(
+				lv_name_2_0=RULE_ID
+				{
+					newLeafNode(lv_name_2_0, grammarAccess.getXFunctionRefAccess().getNameIDTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getXFunctionRefRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_2_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		otherlv_3='return'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getXFunctionRefAccess().getReturnKeyword_3());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getXFunctionRefAccess().getXreturnXTypeRefParserRuleCall_4_0());
+				}
+				lv_xreturn_4_0=ruleXTypeRef
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getXFunctionRefRule());
+					}
+					set(
+						$current,
+						"xreturn",
+						lv_xreturn_4_0,
+						"xproject.XHDL.XTypeRef");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 
@@ -960,31 +1815,110 @@ ruleXImpure returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		otherlv_0='impure'
-		{
-			newLeafNode(otherlv_0, grammarAccess.getXImpureAccess().getImpureKeyword_0());
-		}
 		(
+			{ 
+			  getUnorderedGroupHelper().enter(grammarAccess.getXImpureAccess().getUnorderedGroup());
+			}
 			(
+				(
+		(
+			{getUnorderedGroupHelper().canSelect(grammarAccess.getXImpureAccess().getUnorderedGroup(), 0)}?=>(
 				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getXImpureRule());
-					}
+					getUnorderedGroupHelper().select(grammarAccess.getXImpureAccess().getUnorderedGroup(), 0);
 				}
-				otherlv_1=RULE_ID
+							({true}?=>(otherlv_1='impure'
+							{
+								newLeafNode(otherlv_1, grammarAccess.getXImpureAccess().getImpureKeyword_0_0());
+							}
+							(
+								(
+									{
+										newCompositeNode(grammarAccess.getXImpureAccess().getXfuncXFunctionRefParserRuleCall_0_1_0());
+									}
+									lv_xfunc_2_0=ruleXFunctionRef
+									{
+										if ($current==null) {
+											$current = createModelElementForParent(grammarAccess.getXImpureRule());
+										}
+										set(
+											$current,
+											"xfunc",
+											lv_xfunc_2_0,
+											"xproject.XHDL.XFunctionRef");
+										afterParserOrEnumRuleCall();
+									}
+								)
+							)
+							))
+				{ 
+					getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXImpureAccess().getUnorderedGroup());
+				}
+			)
+		)|
+		(
+			{getUnorderedGroupHelper().canSelect(grammarAccess.getXImpureAccess().getUnorderedGroup(), 1)}?=>(
 				{
-					newLeafNode(otherlv_1, grammarAccess.getXImpureAccess().getXfuncXFunctionRefCrossReference_1_0());
+					getUnorderedGroupHelper().select(grammarAccess.getXImpureAccess().getUnorderedGroup(), 1);
+				}
+							({true}?=>(otherlv_3=';'
+							{
+								newLeafNode(otherlv_3, grammarAccess.getXImpureAccess().getSemicolonKeyword_1());
+							}
+							))
+				{ 
+					getUnorderedGroupHelper().returnFromSelection(grammarAccess.getXImpureAccess().getUnorderedGroup());
 				}
 			)
 		)
-		otherlv_2=';'
+				)+
+				{getUnorderedGroupHelper().canLeave(grammarAccess.getXImpureAccess().getUnorderedGroup())}?
+			)
+		)
+			{ 
+			  getUnorderedGroupHelper().leave(grammarAccess.getXImpureAccess().getUnorderedGroup());
+			}
+	)
+;
+
+// Entry rule entryRuleXEnum
+entryRuleXEnum returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getXEnumRule()); }
+	iv_ruleXEnum=ruleXEnum
+	{ $current=$iv_ruleXEnum.current.getText(); }
+	EOF;
+
+// Rule XEnum
+ruleXEnum returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_ID_0=RULE_ID
 		{
-			newLeafNode(otherlv_2, grammarAccess.getXImpureAccess().getSemicolonKeyword_2());
+			$current.merge(this_ID_0);
+		}
+		{
+			newLeafNode(this_ID_0, grammarAccess.getXEnumAccess().getIDTerminalRuleCall_0());
+		}
+		    |
+		this_STRING_1=RULE_STRING
+		{
+			$current.merge(this_STRING_1);
+		}
+		{
+			newLeafNode(this_STRING_1, grammarAccess.getXEnumAccess().getSTRINGTerminalRuleCall_1());
 		}
 	)
 ;
 
 RULE_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_XLONG : '-'? ('0'..'9')+;
+
+RULE_XDOUBLE : '[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?';
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

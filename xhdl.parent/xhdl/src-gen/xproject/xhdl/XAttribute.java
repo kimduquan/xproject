@@ -50,26 +50,26 @@ public interface XAttribute extends XElement
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Xtype</b></em>' reference.
+   * Returns the value of the '<em><b>Xtype</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Xtype</em>' reference isn't clear,
+   * If the meaning of the '<em>Xtype</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Xtype</em>' reference.
+   * @return the value of the '<em>Xtype</em>' containment reference.
    * @see #setXtype(XTypeRef)
    * @see xproject.xhdl.XhdlPackage#getXAttribute_Xtype()
-   * @model
+   * @model containment="true"
    * @generated
    */
   XTypeRef getXtype();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XAttribute#getXtype <em>Xtype</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XAttribute#getXtype <em>Xtype</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Xtype</em>' reference.
+   * @param value the new value of the '<em>Xtype</em>' containment reference.
    * @see #getXtype()
    * @generated
    */

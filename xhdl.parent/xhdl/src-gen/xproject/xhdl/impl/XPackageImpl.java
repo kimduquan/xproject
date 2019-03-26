@@ -72,7 +72,7 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
   protected EList<XElement> xis;
 
   /**
-   * The cached value of the '{@link #getXend() <em>Xend</em>}' reference.
+   * The cached value of the '{@link #getXend() <em>Xend</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXend()
@@ -146,16 +146,6 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
    */
   public XPackageRef getXend()
   {
-    if (xend != null && xend.eIsProxy())
-    {
-      InternalEObject oldXend = (InternalEObject)xend;
-      xend = (XPackageRef)eResolveProxy(oldXend);
-      if (xend != oldXend)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XPACKAGE__XEND, oldXend, xend));
-      }
-    }
     return xend;
   }
 
@@ -164,9 +154,16 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public XPackageRef basicGetXend()
+  public NotificationChain basicSetXend(XPackageRef newXend, NotificationChain msgs)
   {
-    return xend;
+    XPackageRef oldXend = xend;
+    xend = newXend;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XPACKAGE__XEND, oldXend, newXend);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -176,10 +173,18 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
    */
   public void setXend(XPackageRef newXend)
   {
-    XPackageRef oldXend = xend;
-    xend = newXend;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XPACKAGE__XEND, oldXend, xend));
+    if (newXend != xend)
+    {
+      NotificationChain msgs = null;
+      if (xend != null)
+        msgs = ((InternalEObject)xend).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XPACKAGE__XEND, null, msgs);
+      if (newXend != null)
+        msgs = ((InternalEObject)newXend).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XPACKAGE__XEND, null, msgs);
+      msgs = basicSetXend(newXend, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XPACKAGE__XEND, newXend, newXend));
   }
 
   /**
@@ -194,6 +199,8 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
     {
       case XhdlPackage.XPACKAGE__XIS:
         return ((InternalEList<?>)getXis()).basicRemove(otherEnd, msgs);
+      case XhdlPackage.XPACKAGE__XEND:
+        return basicSetXend(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -213,8 +220,7 @@ public class XPackageImpl extends MinimalEObjectImpl.Container implements XPacka
       case XhdlPackage.XPACKAGE__XIS:
         return getXis();
       case XhdlPackage.XPACKAGE__XEND:
-        if (resolve) return getXend();
-        return basicGetXend();
+        return getXend();
     }
     return super.eGet(featureID, resolve, coreType);
   }

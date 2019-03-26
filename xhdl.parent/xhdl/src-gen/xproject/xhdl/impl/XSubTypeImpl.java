@@ -4,12 +4,14 @@
 package xproject.xhdl.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import xproject.xhdl.XRange;
 import xproject.xhdl.XSubType;
 import xproject.xhdl.XTypeRef;
 import xproject.xhdl.XhdlPackage;
@@ -24,6 +26,7 @@ import xproject.xhdl.XhdlPackage;
  * <ul>
  *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getXis <em>Xis</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XSubTypeImpl#getXrange <em>Xrange</em>}</li>
  * </ul>
  *
  * @generated
@@ -51,7 +54,7 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getXis() <em>Xis</em>}' reference.
+   * The cached value of the '{@link #getXis() <em>Xis</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXis()
@@ -59,6 +62,16 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    * @ordered
    */
   protected XTypeRef xis;
+
+  /**
+   * The cached value of the '{@link #getXrange() <em>Xrange</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXrange()
+   * @generated
+   * @ordered
+   */
+  protected XRange xrange;
 
   /**
    * <!-- begin-user-doc -->
@@ -111,16 +124,6 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    */
   public XTypeRef getXis()
   {
-    if (xis != null && xis.eIsProxy())
-    {
-      InternalEObject oldXis = (InternalEObject)xis;
-      xis = (XTypeRef)eResolveProxy(oldXis);
-      if (xis != oldXis)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XSUB_TYPE__XIS, oldXis, xis));
-      }
-    }
     return xis;
   }
 
@@ -129,9 +132,16 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    * <!-- end-user-doc -->
    * @generated
    */
-  public XTypeRef basicGetXis()
+  public NotificationChain basicSetXis(XTypeRef newXis, NotificationChain msgs)
   {
-    return xis;
+    XTypeRef oldXis = xis;
+    xis = newXis;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__XIS, oldXis, newXis);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -141,10 +151,84 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
    */
   public void setXis(XTypeRef newXis)
   {
-    XTypeRef oldXis = xis;
-    xis = newXis;
+    if (newXis != xis)
+    {
+      NotificationChain msgs = null;
+      if (xis != null)
+        msgs = ((InternalEObject)xis).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XSUB_TYPE__XIS, null, msgs);
+      if (newXis != null)
+        msgs = ((InternalEObject)newXis).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XSUB_TYPE__XIS, null, msgs);
+      msgs = basicSetXis(newXis, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__XIS, newXis, newXis));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XRange getXrange()
+  {
+    return xrange;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXrange(XRange newXrange, NotificationChain msgs)
+  {
+    XRange oldXrange = xrange;
+    xrange = newXrange;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__XIS, oldXis, xis));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__XRANGE, oldXrange, newXrange);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXrange(XRange newXrange)
+  {
+    if (newXrange != xrange)
+    {
+      NotificationChain msgs = null;
+      if (xrange != null)
+        msgs = ((InternalEObject)xrange).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XSUB_TYPE__XRANGE, null, msgs);
+      if (newXrange != null)
+        msgs = ((InternalEObject)newXrange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XSUB_TYPE__XRANGE, null, msgs);
+      msgs = basicSetXrange(newXrange, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XSUB_TYPE__XRANGE, newXrange, newXrange));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XSUB_TYPE__XIS:
+        return basicSetXis(null, msgs);
+      case XhdlPackage.XSUB_TYPE__XRANGE:
+        return basicSetXrange(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -160,8 +244,9 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
       case XhdlPackage.XSUB_TYPE__NAME:
         return getName();
       case XhdlPackage.XSUB_TYPE__XIS:
-        if (resolve) return getXis();
-        return basicGetXis();
+        return getXis();
+      case XhdlPackage.XSUB_TYPE__XRANGE:
+        return getXrange();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -181,6 +266,9 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
         return;
       case XhdlPackage.XSUB_TYPE__XIS:
         setXis((XTypeRef)newValue);
+        return;
+      case XhdlPackage.XSUB_TYPE__XRANGE:
+        setXrange((XRange)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -202,6 +290,9 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
       case XhdlPackage.XSUB_TYPE__XIS:
         setXis((XTypeRef)null);
         return;
+      case XhdlPackage.XSUB_TYPE__XRANGE:
+        setXrange((XRange)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -220,6 +311,8 @@ public class XSubTypeImpl extends XElementImpl implements XSubType
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case XhdlPackage.XSUB_TYPE__XIS:
         return xis != null;
+      case XhdlPackage.XSUB_TYPE__XRANGE:
+        return xrange != null;
     }
     return super.eIsSet(featureID);
   }

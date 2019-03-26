@@ -142,7 +142,7 @@ public interface XhdlPackage extends EPackage
   int XPACKAGE__XIS = 1;
 
   /**
-   * The feature id for the '<em><b>Xend</b></em>' reference.
+   * The feature id for the '<em><b>Xend</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -226,7 +226,7 @@ public interface XhdlPackage extends EPackage
   int XATTRIBUTE__NAME = XELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Xtype</b></em>' reference.
+   * The feature id for the '<em><b>Xtype</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -263,7 +263,7 @@ public interface XhdlPackage extends EPackage
   int XSUB_TYPE__NAME = XELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Xis</b></em>' reference.
+   * The feature id for the '<em><b>Xis</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -272,13 +272,22 @@ public interface XhdlPackage extends EPackage
   int XSUB_TYPE__XIS = XELEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Xrange</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XSUB_TYPE__XRANGE = XELEMENT_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>XSub Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XSUB_TYPE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 2;
+  int XSUB_TYPE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XSignalImpl <em>XSignal</em>}' class.
@@ -300,7 +309,7 @@ public interface XhdlPackage extends EPackage
   int XSIGNAL__NAME = XELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Xtype</b></em>' reference.
+   * The feature id for the '<em><b>Xtype</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -383,7 +392,7 @@ public interface XhdlPackage extends EPackage
   int XARRAY = 9;
 
   /**
-   * The feature id for the '<em><b>Xrange</b></em>' reference.
+   * The feature id for the '<em><b>Xrange</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -392,7 +401,7 @@ public interface XhdlPackage extends EPackage
   int XARRAY__XRANGE = 0;
 
   /**
-   * The feature id for the '<em><b>Xof</b></em>' reference.
+   * The feature id for the '<em><b>Xof</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -420,7 +429,7 @@ public interface XhdlPackage extends EPackage
   int XRANGE = 10;
 
   /**
-   * The feature id for the '<em><b>Xfrom</b></em>' reference.
+   * The feature id for the '<em><b>Xfrom</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -429,7 +438,7 @@ public interface XhdlPackage extends EPackage
   int XRANGE__XFROM = 0;
 
   /**
-   * The feature id for the '<em><b>Xto</b></em>' reference.
+   * The feature id for the '<em><b>Xto</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -466,22 +475,31 @@ public interface XhdlPackage extends EPackage
   int XRANGE_VALUE = 11;
 
   /**
-   * The feature id for the '<em><b>Xvalue</b></em>' attribute.
+   * The feature id for the '<em><b>Xlvalue</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XRANGE_VALUE__XVALUE = 0;
+  int XRANGE_VALUE__XLVALUE = 0;
 
   /**
-   * The feature id for the '<em><b>Xunit</b></em>' reference.
+   * The feature id for the '<em><b>Xdvalue</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XRANGE_VALUE__XUNIT = 1;
+  int XRANGE_VALUE__XDVALUE = 1;
+
+  /**
+   * The feature id for the '<em><b>Xunit</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XRANGE_VALUE__XUNIT = 2;
 
   /**
    * The number of structural features of the '<em>XRange Value</em>' class.
@@ -490,7 +508,7 @@ public interface XhdlPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XRANGE_VALUE_FEATURE_COUNT = 2;
+  int XRANGE_VALUE_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XUnitsImpl <em>XUnits</em>}' class.
@@ -577,7 +595,7 @@ public interface XhdlPackage extends EPackage
   int XUNIT__XVALUE = 1;
 
   /**
-   * The feature id for the '<em><b>Xbased</b></em>' reference.
+   * The feature id for the '<em><b>Xbased</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -642,7 +660,7 @@ public interface XhdlPackage extends EPackage
   int XFUNCTION_REF__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Xreturn</b></em>' reference.
+   * The feature id for the '<em><b>Xreturn</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -670,7 +688,7 @@ public interface XhdlPackage extends EPackage
   int XIMPURE = 17;
 
   /**
-   * The feature id for the '<em><b>Xfunc</b></em>' reference.
+   * The feature id for the '<em><b>Xfunc</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -763,10 +781,10 @@ public interface XhdlPackage extends EPackage
   EReference getXPackage_Xis();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XPackage#getXend <em>Xend</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XPackage#getXend <em>Xend</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xend</em>'.
+   * @return the meta object for the containment reference '<em>Xend</em>'.
    * @see xproject.xhdl.XPackage#getXend()
    * @see #getXPackage()
    * @generated
@@ -826,10 +844,10 @@ public interface XhdlPackage extends EPackage
   EAttribute getXAttribute_Name();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XAttribute#getXtype <em>Xtype</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XAttribute#getXtype <em>Xtype</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xtype</em>'.
+   * @return the meta object for the containment reference '<em>Xtype</em>'.
    * @see xproject.xhdl.XAttribute#getXtype()
    * @see #getXAttribute()
    * @generated
@@ -858,15 +876,26 @@ public interface XhdlPackage extends EPackage
   EAttribute getXSubType_Name();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xis</em>'.
+   * @return the meta object for the containment reference '<em>Xis</em>'.
    * @see xproject.xhdl.XSubType#getXis()
    * @see #getXSubType()
    * @generated
    */
   EReference getXSubType_Xis();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XSubType#getXrange <em>Xrange</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xrange</em>'.
+   * @see xproject.xhdl.XSubType#getXrange()
+   * @see #getXSubType()
+   * @generated
+   */
+  EReference getXSubType_Xrange();
 
   /**
    * Returns the meta object for class '{@link xproject.xhdl.XSignal <em>XSignal</em>}'.
@@ -890,10 +919,10 @@ public interface XhdlPackage extends EPackage
   EAttribute getXSignal_Name();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XSignal#getXtype <em>Xtype</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XSignal#getXtype <em>Xtype</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xtype</em>'.
+   * @return the meta object for the containment reference '<em>Xtype</em>'.
    * @see xproject.xhdl.XSignal#getXtype()
    * @see #getXSignal()
    * @generated
@@ -965,10 +994,10 @@ public interface XhdlPackage extends EPackage
   EClass getXArray();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XArray#getXrange <em>Xrange</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XArray#getXrange <em>Xrange</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xrange</em>'.
+   * @return the meta object for the containment reference '<em>Xrange</em>'.
    * @see xproject.xhdl.XArray#getXrange()
    * @see #getXArray()
    * @generated
@@ -976,10 +1005,10 @@ public interface XhdlPackage extends EPackage
   EReference getXArray_Xrange();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XArray#getXof <em>Xof</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XArray#getXof <em>Xof</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xof</em>'.
+   * @return the meta object for the containment reference '<em>Xof</em>'.
    * @see xproject.xhdl.XArray#getXof()
    * @see #getXArray()
    * @generated
@@ -997,10 +1026,10 @@ public interface XhdlPackage extends EPackage
   EClass getXRange();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XRange#getXfrom <em>Xfrom</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XRange#getXfrom <em>Xfrom</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xfrom</em>'.
+   * @return the meta object for the containment reference '<em>Xfrom</em>'.
    * @see xproject.xhdl.XRange#getXfrom()
    * @see #getXRange()
    * @generated
@@ -1008,10 +1037,10 @@ public interface XhdlPackage extends EPackage
   EReference getXRange_Xfrom();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XRange#getXto <em>Xto</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XRange#getXto <em>Xto</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xto</em>'.
+   * @return the meta object for the containment reference '<em>Xto</em>'.
    * @see xproject.xhdl.XRange#getXto()
    * @see #getXRange()
    * @generated
@@ -1040,21 +1069,32 @@ public interface XhdlPackage extends EPackage
   EClass getXRangeValue();
 
   /**
-   * Returns the meta object for the attribute '{@link xproject.xhdl.XRangeValue#getXvalue <em>Xvalue</em>}'.
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XRangeValue#getXlvalue <em>Xlvalue</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Xvalue</em>'.
-   * @see xproject.xhdl.XRangeValue#getXvalue()
+   * @return the meta object for the attribute '<em>Xlvalue</em>'.
+   * @see xproject.xhdl.XRangeValue#getXlvalue()
    * @see #getXRangeValue()
    * @generated
    */
-  EAttribute getXRangeValue_Xvalue();
+  EAttribute getXRangeValue_Xlvalue();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XRangeValue#getXunit <em>Xunit</em>}'.
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XRangeValue#getXdvalue <em>Xdvalue</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xunit</em>'.
+   * @return the meta object for the attribute '<em>Xdvalue</em>'.
+   * @see xproject.xhdl.XRangeValue#getXdvalue()
+   * @see #getXRangeValue()
+   * @generated
+   */
+  EAttribute getXRangeValue_Xdvalue();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XRangeValue#getXunit <em>Xunit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xunit</em>'.
    * @see xproject.xhdl.XRangeValue#getXunit()
    * @see #getXRangeValue()
    * @generated
@@ -1136,10 +1176,10 @@ public interface XhdlPackage extends EPackage
   EAttribute getXUnit_Xvalue();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XUnit#getXbased <em>Xbased</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XUnit#getXbased <em>Xbased</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xbased</em>'.
+   * @return the meta object for the containment reference '<em>Xbased</em>'.
    * @see xproject.xhdl.XUnit#getXbased()
    * @see #getXUnit()
    * @generated
@@ -1189,10 +1229,10 @@ public interface XhdlPackage extends EPackage
   EAttribute getXFunctionRef_Name();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XFunctionRef#getXreturn <em>Xreturn</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XFunctionRef#getXreturn <em>Xreturn</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xreturn</em>'.
+   * @return the meta object for the containment reference '<em>Xreturn</em>'.
    * @see xproject.xhdl.XFunctionRef#getXreturn()
    * @see #getXFunctionRef()
    * @generated
@@ -1210,10 +1250,10 @@ public interface XhdlPackage extends EPackage
   EClass getXImpure();
 
   /**
-   * Returns the meta object for the reference '{@link xproject.xhdl.XImpure#getXfunc <em>Xfunc</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XImpure#getXfunc <em>Xfunc</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Xfunc</em>'.
+   * @return the meta object for the containment reference '<em>Xfunc</em>'.
    * @see xproject.xhdl.XImpure#getXfunc()
    * @see #getXImpure()
    * @generated
@@ -1306,7 +1346,7 @@ public interface XhdlPackage extends EPackage
     EReference XPACKAGE__XIS = eINSTANCE.getXPackage_Xis();
 
     /**
-     * The meta object literal for the '<em><b>Xend</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xend</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1360,7 +1400,7 @@ public interface XhdlPackage extends EPackage
     EAttribute XATTRIBUTE__NAME = eINSTANCE.getXAttribute_Name();
 
     /**
-     * The meta object literal for the '<em><b>Xtype</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xtype</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1386,12 +1426,20 @@ public interface XhdlPackage extends EPackage
     EAttribute XSUB_TYPE__NAME = eINSTANCE.getXSubType_Name();
 
     /**
-     * The meta object literal for the '<em><b>Xis</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xis</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference XSUB_TYPE__XIS = eINSTANCE.getXSubType_Xis();
+
+    /**
+     * The meta object literal for the '<em><b>Xrange</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XSUB_TYPE__XRANGE = eINSTANCE.getXSubType_Xrange();
 
     /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XSignalImpl <em>XSignal</em>}' class.
@@ -1412,7 +1460,7 @@ public interface XhdlPackage extends EPackage
     EAttribute XSIGNAL__NAME = eINSTANCE.getXSignal_Name();
 
     /**
-     * The meta object literal for the '<em><b>Xtype</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xtype</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1472,7 +1520,7 @@ public interface XhdlPackage extends EPackage
     EClass XARRAY = eINSTANCE.getXArray();
 
     /**
-     * The meta object literal for the '<em><b>Xrange</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xrange</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1480,7 +1528,7 @@ public interface XhdlPackage extends EPackage
     EReference XARRAY__XRANGE = eINSTANCE.getXArray_Xrange();
 
     /**
-     * The meta object literal for the '<em><b>Xof</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xof</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1498,7 +1546,7 @@ public interface XhdlPackage extends EPackage
     EClass XRANGE = eINSTANCE.getXRange();
 
     /**
-     * The meta object literal for the '<em><b>Xfrom</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xfrom</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1506,7 +1554,7 @@ public interface XhdlPackage extends EPackage
     EReference XRANGE__XFROM = eINSTANCE.getXRange_Xfrom();
 
     /**
-     * The meta object literal for the '<em><b>Xto</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xto</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1532,15 +1580,23 @@ public interface XhdlPackage extends EPackage
     EClass XRANGE_VALUE = eINSTANCE.getXRangeValue();
 
     /**
-     * The meta object literal for the '<em><b>Xvalue</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Xlvalue</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute XRANGE_VALUE__XVALUE = eINSTANCE.getXRangeValue_Xvalue();
+    EAttribute XRANGE_VALUE__XLVALUE = eINSTANCE.getXRangeValue_Xlvalue();
 
     /**
-     * The meta object literal for the '<em><b>Xunit</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xdvalue</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XRANGE_VALUE__XDVALUE = eINSTANCE.getXRangeValue_Xdvalue();
+
+    /**
+     * The meta object literal for the '<em><b>Xunit</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1610,7 +1666,7 @@ public interface XhdlPackage extends EPackage
     EAttribute XUNIT__XVALUE = eINSTANCE.getXUnit_Xvalue();
 
     /**
-     * The meta object literal for the '<em><b>Xbased</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xbased</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1654,7 +1710,7 @@ public interface XhdlPackage extends EPackage
     EAttribute XFUNCTION_REF__NAME = eINSTANCE.getXFunctionRef_Name();
 
     /**
-     * The meta object literal for the '<em><b>Xreturn</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xreturn</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1672,7 +1728,7 @@ public interface XhdlPackage extends EPackage
     EClass XIMPURE = eINSTANCE.getXImpure();
 
     /**
-     * The meta object literal for the '<em><b>Xfunc</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Xfunc</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

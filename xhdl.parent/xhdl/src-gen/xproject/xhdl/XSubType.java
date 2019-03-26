@@ -15,6 +15,7 @@ package xproject.xhdl;
  * <ul>
  *   <li>{@link xproject.xhdl.XSubType#getName <em>Name</em>}</li>
  *   <li>{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}</li>
+ *   <li>{@link xproject.xhdl.XSubType#getXrange <em>Xrange</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXSubType()
@@ -50,29 +51,55 @@ public interface XSubType extends XElement
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Xis</b></em>' reference.
+   * Returns the value of the '<em><b>Xis</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Xis</em>' reference isn't clear,
+   * If the meaning of the '<em>Xis</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Xis</em>' reference.
+   * @return the value of the '<em>Xis</em>' containment reference.
    * @see #setXis(XTypeRef)
    * @see xproject.xhdl.XhdlPackage#getXSubType_Xis()
-   * @model
+   * @model containment="true"
    * @generated
    */
   XTypeRef getXis();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XSubType#getXis <em>Xis</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Xis</em>' reference.
+   * @param value the new value of the '<em>Xis</em>' containment reference.
    * @see #getXis()
    * @generated
    */
   void setXis(XTypeRef value);
+
+  /**
+   * Returns the value of the '<em><b>Xrange</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xrange</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xrange</em>' containment reference.
+   * @see #setXrange(XRange)
+   * @see xproject.xhdl.XhdlPackage#getXSubType_Xrange()
+   * @model containment="true"
+   * @generated
+   */
+  XRange getXrange();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XSubType#getXrange <em>Xrange</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xrange</em>' containment reference.
+   * @see #getXrange()
+   * @generated
+   */
+  void setXrange(XRange value);
 
 } // XSubType

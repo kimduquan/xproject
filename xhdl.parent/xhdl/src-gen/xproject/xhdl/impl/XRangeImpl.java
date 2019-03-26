@@ -35,7 +35,7 @@ import xproject.xhdl.XhdlPackage;
 public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
 {
   /**
-   * The cached value of the '{@link #getXfrom() <em>Xfrom</em>}' reference.
+   * The cached value of the '{@link #getXfrom() <em>Xfrom</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXfrom()
@@ -45,7 +45,7 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
   protected XRangeValue xfrom;
 
   /**
-   * The cached value of the '{@link #getXto() <em>Xto</em>}' reference.
+   * The cached value of the '{@link #getXto() <em>Xto</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXto()
@@ -92,16 +92,6 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
    */
   public XRangeValue getXfrom()
   {
-    if (xfrom != null && xfrom.eIsProxy())
-    {
-      InternalEObject oldXfrom = (InternalEObject)xfrom;
-      xfrom = (XRangeValue)eResolveProxy(oldXfrom);
-      if (xfrom != oldXfrom)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XRANGE__XFROM, oldXfrom, xfrom));
-      }
-    }
     return xfrom;
   }
 
@@ -110,9 +100,16 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
    * <!-- end-user-doc -->
    * @generated
    */
-  public XRangeValue basicGetXfrom()
+  public NotificationChain basicSetXfrom(XRangeValue newXfrom, NotificationChain msgs)
   {
-    return xfrom;
+    XRangeValue oldXfrom = xfrom;
+    xfrom = newXfrom;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XFROM, oldXfrom, newXfrom);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -122,10 +119,18 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
    */
   public void setXfrom(XRangeValue newXfrom)
   {
-    XRangeValue oldXfrom = xfrom;
-    xfrom = newXfrom;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XFROM, oldXfrom, xfrom));
+    if (newXfrom != xfrom)
+    {
+      NotificationChain msgs = null;
+      if (xfrom != null)
+        msgs = ((InternalEObject)xfrom).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XRANGE__XFROM, null, msgs);
+      if (newXfrom != null)
+        msgs = ((InternalEObject)newXfrom).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XRANGE__XFROM, null, msgs);
+      msgs = basicSetXfrom(newXfrom, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XFROM, newXfrom, newXfrom));
   }
 
   /**
@@ -135,16 +140,6 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
    */
   public XRangeValue getXto()
   {
-    if (xto != null && xto.eIsProxy())
-    {
-      InternalEObject oldXto = (InternalEObject)xto;
-      xto = (XRangeValue)eResolveProxy(oldXto);
-      if (xto != oldXto)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, XhdlPackage.XRANGE__XTO, oldXto, xto));
-      }
-    }
     return xto;
   }
 
@@ -153,9 +148,16 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
    * <!-- end-user-doc -->
    * @generated
    */
-  public XRangeValue basicGetXto()
+  public NotificationChain basicSetXto(XRangeValue newXto, NotificationChain msgs)
   {
-    return xto;
+    XRangeValue oldXto = xto;
+    xto = newXto;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XTO, oldXto, newXto);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -165,10 +167,18 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
    */
   public void setXto(XRangeValue newXto)
   {
-    XRangeValue oldXto = xto;
-    xto = newXto;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XTO, oldXto, xto));
+    if (newXto != xto)
+    {
+      NotificationChain msgs = null;
+      if (xto != null)
+        msgs = ((InternalEObject)xto).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XRANGE__XTO, null, msgs);
+      if (newXto != null)
+        msgs = ((InternalEObject)newXto).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XRANGE__XTO, null, msgs);
+      msgs = basicSetXto(newXto, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XRANGE__XTO, newXto, newXto));
   }
 
   /**
@@ -229,6 +239,10 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
   {
     switch (featureID)
     {
+      case XhdlPackage.XRANGE__XFROM:
+        return basicSetXfrom(null, msgs);
+      case XhdlPackage.XRANGE__XTO:
+        return basicSetXto(null, msgs);
       case XhdlPackage.XRANGE__XUNITS:
         return basicSetXunits(null, msgs);
     }
@@ -246,11 +260,9 @@ public class XRangeImpl extends MinimalEObjectImpl.Container implements XRange
     switch (featureID)
     {
       case XhdlPackage.XRANGE__XFROM:
-        if (resolve) return getXfrom();
-        return basicGetXfrom();
+        return getXfrom();
       case XhdlPackage.XRANGE__XTO:
-        if (resolve) return getXto();
-        return basicGetXto();
+        return getXto();
       case XhdlPackage.XRANGE__XUNITS:
         return getXunits();
     }

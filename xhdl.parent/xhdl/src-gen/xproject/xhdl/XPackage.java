@@ -70,26 +70,26 @@ public interface XPackage extends EObject
   EList<XElement> getXis();
 
   /**
-   * Returns the value of the '<em><b>Xend</b></em>' reference.
+   * Returns the value of the '<em><b>Xend</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Xend</em>' reference isn't clear,
+   * If the meaning of the '<em>Xend</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Xend</em>' reference.
+   * @return the value of the '<em>Xend</em>' containment reference.
    * @see #setXend(XPackageRef)
    * @see xproject.xhdl.XhdlPackage#getXPackage_Xend()
-   * @model
+   * @model containment="true"
    * @generated
    */
   XPackageRef getXend();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XPackage#getXend <em>Xend</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XPackage#getXend <em>Xend</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Xend</em>' reference.
+   * @param value the new value of the '<em>Xend</em>' containment reference.
    * @see #getXend()
    * @generated
    */

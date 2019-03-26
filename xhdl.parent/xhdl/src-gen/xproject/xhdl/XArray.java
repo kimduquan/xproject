@@ -25,52 +25,52 @@ import org.eclipse.emf.ecore.EObject;
 public interface XArray extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Xrange</b></em>' reference.
+   * Returns the value of the '<em><b>Xrange</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Xrange</em>' reference isn't clear,
+   * If the meaning of the '<em>Xrange</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Xrange</em>' reference.
+   * @return the value of the '<em>Xrange</em>' containment reference.
    * @see #setXrange(XTypeRef)
    * @see xproject.xhdl.XhdlPackage#getXArray_Xrange()
-   * @model
+   * @model containment="true"
    * @generated
    */
   XTypeRef getXrange();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XArray#getXrange <em>Xrange</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XArray#getXrange <em>Xrange</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Xrange</em>' reference.
+   * @param value the new value of the '<em>Xrange</em>' containment reference.
    * @see #getXrange()
    * @generated
    */
   void setXrange(XTypeRef value);
 
   /**
-   * Returns the value of the '<em><b>Xof</b></em>' reference.
+   * Returns the value of the '<em><b>Xof</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Xof</em>' reference isn't clear,
+   * If the meaning of the '<em>Xof</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Xof</em>' reference.
+   * @return the value of the '<em>Xof</em>' containment reference.
    * @see #setXof(XTypeRef)
    * @see xproject.xhdl.XhdlPackage#getXArray_Xof()
-   * @model
+   * @model containment="true"
    * @generated
    */
   XTypeRef getXof();
 
   /**
-   * Sets the value of the '{@link xproject.xhdl.XArray#getXof <em>Xof</em>}' reference.
+   * Sets the value of the '{@link xproject.xhdl.XArray#getXof <em>Xof</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Xof</em>' reference.
+   * @param value the new value of the '<em>Xof</em>' containment reference.
    * @see #getXof()
    * @generated
    */

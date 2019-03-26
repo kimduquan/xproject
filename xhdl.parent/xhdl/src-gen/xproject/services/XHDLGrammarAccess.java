@@ -9,7 +9,6 @@ import java.util.List;
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.GrammarUtil;
 import org.eclipse.xtext.Group;
@@ -42,79 +41,83 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class XPackageRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XPackageRef");
-		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cXPackageRefAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
 		//XPackageRef:
-		//	name=ID;
+		//	{XPackageRef} name=ID;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//{XPackageRef} name=ID
+		public Group getGroup() { return cGroup; }
+		
+		//{XPackageRef}
+		public Action getXPackageRefAction_0() { return cXPackageRefAction_0; }
+		
 		//name=ID
-		public Assignment getNameAssignment() { return cNameAssignment; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 	}
 	public class XPackageElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XPackage");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cXPackageAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cPackageKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cIsKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cXisAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cXisXElementParserRuleCall_4_0 = (RuleCall)cXisAssignment_4.eContents().get(0);
-		private final Keyword cEndKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cXendAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cXendXPackageRefCrossReference_6_0 = (CrossReference)cXendAssignment_6.eContents().get(0);
-		private final RuleCall cXendXPackageRefIDTerminalRuleCall_6_0_1 = (RuleCall)cXendXPackageRefCrossReference_6_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cPackageKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cIsKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cXisAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cXisXElementParserRuleCall_3_0 = (RuleCall)cXisAssignment_3.eContents().get(0);
+		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
+		private final Assignment cXendAssignment_5_0 = (Assignment)cUnorderedGroup_5.eContents().get(0);
+		private final RuleCall cXendXPackageRefParserRuleCall_5_0_0 = (RuleCall)cXendAssignment_5_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5_1 = (Keyword)cUnorderedGroup_5.eContents().get(1);
 		
 		//XPackage:
-		//	{XPackage} 'package' name=ID 'is'
+		//	'package' name=ID 'is'
 		//	xis+=XElement*
-		//	'end' xend=[XPackageRef] ';';
+		//	'end' (xend=XPackageRef & ';');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XPackage} 'package' name=ID 'is' xis+=XElement* 'end' xend=[XPackageRef] ';'
+		//'package' name=ID 'is' xis+=XElement* 'end' (xend=XPackageRef & ';')
 		public Group getGroup() { return cGroup; }
 		
-		//{XPackage}
-		public Action getXPackageAction_0() { return cXPackageAction_0; }
-		
 		//'package'
-		public Keyword getPackageKeyword_1() { return cPackageKeyword_1; }
+		public Keyword getPackageKeyword_0() { return cPackageKeyword_0; }
 		
 		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 		
 		//'is'
-		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
+		public Keyword getIsKeyword_2() { return cIsKeyword_2; }
 		
 		//xis+=XElement*
-		public Assignment getXisAssignment_4() { return cXisAssignment_4; }
+		public Assignment getXisAssignment_3() { return cXisAssignment_3; }
 		
 		//XElement
-		public RuleCall getXisXElementParserRuleCall_4_0() { return cXisXElementParserRuleCall_4_0; }
+		public RuleCall getXisXElementParserRuleCall_3_0() { return cXisXElementParserRuleCall_3_0; }
 		
 		//'end'
-		public Keyword getEndKeyword_5() { return cEndKeyword_5; }
+		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
 		
-		//xend=[XPackageRef]
-		public Assignment getXendAssignment_6() { return cXendAssignment_6; }
+		//xend=XPackageRef & ';'
+		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 		
-		//[XPackageRef]
-		public CrossReference getXendXPackageRefCrossReference_6_0() { return cXendXPackageRefCrossReference_6_0; }
+		//xend=XPackageRef
+		public Assignment getXendAssignment_5_0() { return cXendAssignment_5_0; }
 		
-		//ID
-		public RuleCall getXendXPackageRefIDTerminalRuleCall_6_0_1() { return cXendXPackageRefIDTerminalRuleCall_6_0_1; }
+		//XPackageRef
+		public RuleCall getXendXPackageRefParserRuleCall_5_0_0() { return cXendXPackageRefParserRuleCall_5_0_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+		public Keyword getSemicolonKeyword_5_1() { return cSemicolonKeyword_5_1; }
 	}
 	public class XTypeRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XTypeRef");
@@ -175,19 +178,19 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cXAttributeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cAttributeKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cXtypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cXtypeXTypeRefCrossReference_4_0 = (CrossReference)cXtypeAssignment_4.eContents().get(0);
-		private final RuleCall cXtypeXTypeRefIDTerminalRuleCall_4_0_1 = (RuleCall)cXtypeXTypeRefCrossReference_4_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_2_0 = (Assignment)cUnorderedGroup_2.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_2_0_0 = (RuleCall)cNameAssignment_2_0.eContents().get(0);
+		private final Keyword cColonKeyword_2_1 = (Keyword)cUnorderedGroup_2.eContents().get(1);
+		private final Assignment cXtypeAssignment_2_2 = (Assignment)cUnorderedGroup_2.eContents().get(2);
+		private final RuleCall cXtypeXTypeRefParserRuleCall_2_2_0 = (RuleCall)cXtypeAssignment_2_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_2_3 = (Keyword)cUnorderedGroup_2.eContents().get(3);
 		
 		//XAttribute:
-		//	{XAttribute} 'attribute' name=ID ':' xtype=[XTypeRef] ';';
+		//	{XAttribute} 'attribute' (name=ID & ':' & xtype=XTypeRef & ';');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XAttribute} 'attribute' name=ID ':' xtype=[XTypeRef] ';'
+		//{XAttribute} 'attribute' (name=ID & ':' & xtype=XTypeRef & ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{XAttribute}
@@ -196,26 +199,26 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'attribute'
 		public Keyword getAttributeKeyword_1() { return cAttributeKeyword_1; }
 		
+		//name=ID & ':' & xtype=XTypeRef & ';'
+		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
+		
 		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_2_0() { return cNameAssignment_2_0; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0_0() { return cNameIDTerminalRuleCall_2_0_0; }
 		
 		//':'
-		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
+		public Keyword getColonKeyword_2_1() { return cColonKeyword_2_1; }
 		
-		//xtype=[XTypeRef]
-		public Assignment getXtypeAssignment_4() { return cXtypeAssignment_4; }
+		//xtype=XTypeRef
+		public Assignment getXtypeAssignment_2_2() { return cXtypeAssignment_2_2; }
 		
-		//[XTypeRef]
-		public CrossReference getXtypeXTypeRefCrossReference_4_0() { return cXtypeXTypeRefCrossReference_4_0; }
-		
-		//ID
-		public RuleCall getXtypeXTypeRefIDTerminalRuleCall_4_0_1() { return cXtypeXTypeRefIDTerminalRuleCall_4_0_1; }
+		//XTypeRef
+		public RuleCall getXtypeXTypeRefParserRuleCall_2_2_0() { return cXtypeXTypeRefParserRuleCall_2_2_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_2_3() { return cSemicolonKeyword_2_3; }
 	}
 	public class XSubTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XSubType");
@@ -225,16 +228,19 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cIsKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cXisAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cXisXTypeRefCrossReference_4_0 = (CrossReference)cXisAssignment_4.eContents().get(0);
-		private final RuleCall cXisXTypeRefIDTerminalRuleCall_4_0_1 = (RuleCall)cXisXTypeRefCrossReference_4_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final UnorderedGroup cUnorderedGroup_4 = (UnorderedGroup)cGroup.eContents().get(4);
+		private final Group cGroup_4_0 = (Group)cUnorderedGroup_4.eContents().get(0);
+		private final Assignment cXisAssignment_4_0_0 = (Assignment)cGroup_4_0.eContents().get(0);
+		private final RuleCall cXisXTypeRefParserRuleCall_4_0_0_0 = (RuleCall)cXisAssignment_4_0_0.eContents().get(0);
+		private final Assignment cXrangeAssignment_4_0_1 = (Assignment)cGroup_4_0.eContents().get(1);
+		private final RuleCall cXrangeXRangeParserRuleCall_4_0_1_0 = (RuleCall)cXrangeAssignment_4_0_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1 = (Keyword)cUnorderedGroup_4.eContents().get(1);
 		
 		//XSubType:
-		//	{XSubType} 'subtype' name=ID 'is' xis=[XTypeRef] ';';
+		//	{XSubType} 'subtype' name=ID 'is' (xis=XTypeRef xrange=XRange? & ';');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XSubType} 'subtype' name=ID 'is' xis=[XTypeRef] ';'
+		//{XSubType} 'subtype' name=ID 'is' (xis=XTypeRef xrange=XRange? & ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{XSubType}
@@ -252,39 +258,49 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'is'
 		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
 		
-		//xis=[XTypeRef]
-		public Assignment getXisAssignment_4() { return cXisAssignment_4; }
+		//xis=XTypeRef xrange=XRange? & ';'
+		public UnorderedGroup getUnorderedGroup_4() { return cUnorderedGroup_4; }
 		
-		//[XTypeRef]
-		public CrossReference getXisXTypeRefCrossReference_4_0() { return cXisXTypeRefCrossReference_4_0; }
+		//xis=XTypeRef xrange=XRange?
+		public Group getGroup_4_0() { return cGroup_4_0; }
 		
-		//ID
-		public RuleCall getXisXTypeRefIDTerminalRuleCall_4_0_1() { return cXisXTypeRefIDTerminalRuleCall_4_0_1; }
+		//xis=XTypeRef
+		public Assignment getXisAssignment_4_0_0() { return cXisAssignment_4_0_0; }
+		
+		//XTypeRef
+		public RuleCall getXisXTypeRefParserRuleCall_4_0_0_0() { return cXisXTypeRefParserRuleCall_4_0_0_0; }
+		
+		//xrange=XRange?
+		public Assignment getXrangeAssignment_4_0_1() { return cXrangeAssignment_4_0_1; }
+		
+		//XRange
+		public RuleCall getXrangeXRangeParserRuleCall_4_0_1_0() { return cXrangeXRangeParserRuleCall_4_0_1_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_4_1() { return cSemicolonKeyword_4_1; }
 	}
 	public class XSignalElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XSignal");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cXSignalAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cSignalKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cXtypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cXtypeXTypeRefCrossReference_4_0 = (CrossReference)cXtypeAssignment_4.eContents().get(0);
-		private final RuleCall cXtypeXTypeRefIDTerminalRuleCall_4_0_1 = (RuleCall)cXtypeXTypeRefCrossReference_4_0.eContents().get(1);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cSemicolonEqualsSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_2_0 = (Assignment)cUnorderedGroup_2.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_2_0_0 = (RuleCall)cNameAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
+		private final Keyword cColonKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cXtypeAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cXtypeXTypeRefParserRuleCall_2_1_1_0 = (RuleCall)cXtypeAssignment_2_1_1.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_2_2 = (UnorderedGroup)cUnorderedGroup_2.eContents().get(2);
+		private final Keyword cSemicolonEqualsSignKeyword_2_2_0 = (Keyword)cUnorderedGroup_2_2.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_2_2_1 = (RuleCall)cUnorderedGroup_2_2.eContents().get(1);
+		private final Keyword cSemicolonKeyword_2_3 = (Keyword)cUnorderedGroup_2.eContents().get(3);
 		
 		//XSignal:
-		//	{XSignal} 'signal' name=ID ':' xtype=[XTypeRef] (';=' ID)? ';';
+		//	{XSignal} 'signal' (name=ID & ':' xtype=XTypeRef & (';=' & ID)? & ';');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XSignal} 'signal' name=ID ':' xtype=[XTypeRef] (';=' ID)? ';'
+		//{XSignal} 'signal' (name=ID & ':' xtype=XTypeRef & (';=' & ID)? & ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{XSignal}
@@ -293,125 +309,128 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'signal'
 		public Keyword getSignalKeyword_1() { return cSignalKeyword_1; }
 		
+		//name=ID & ':' xtype=XTypeRef & (';=' & ID)? & ';'
+		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
+		
+		//name=ID
+		public Assignment getNameAssignment_2_0() { return cNameAssignment_2_0; }
+		
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_0_0() { return cNameIDTerminalRuleCall_2_0_0; }
+		
+		//':' xtype=XTypeRef
+		public Group getGroup_2_1() { return cGroup_2_1; }
+		
+		//':'
+		public Keyword getColonKeyword_2_1_0() { return cColonKeyword_2_1_0; }
+		
+		//xtype=XTypeRef
+		public Assignment getXtypeAssignment_2_1_1() { return cXtypeAssignment_2_1_1; }
+		
+		//XTypeRef
+		public RuleCall getXtypeXTypeRefParserRuleCall_2_1_1_0() { return cXtypeXTypeRefParserRuleCall_2_1_1_0; }
+		
+		//(';=' & ID)?
+		public UnorderedGroup getUnorderedGroup_2_2() { return cUnorderedGroup_2_2; }
+		
+		//';='
+		public Keyword getSemicolonEqualsSignKeyword_2_2_0() { return cSemicolonEqualsSignKeyword_2_2_0; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_2_2_1() { return cIDTerminalRuleCall_2_2_1; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_2_3() { return cSemicolonKeyword_2_3; }
+	}
+	public class XTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cXTypeAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cTypeKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cIsKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final UnorderedGroup cUnorderedGroup_4 = (UnorderedGroup)cGroup.eContents().get(4);
+		private final Alternatives cAlternatives_4_0 = (Alternatives)cUnorderedGroup_4.eContents().get(0);
+		private final Assignment cXenumsAssignment_4_0_0 = (Assignment)cAlternatives_4_0.eContents().get(0);
+		private final RuleCall cXenumsXEnumsParserRuleCall_4_0_0_0 = (RuleCall)cXenumsAssignment_4_0_0.eContents().get(0);
+		private final Assignment cXrangeAssignment_4_0_1 = (Assignment)cAlternatives_4_0.eContents().get(1);
+		private final RuleCall cXrangeXRangeParserRuleCall_4_0_1_0 = (RuleCall)cXrangeAssignment_4_0_1.eContents().get(0);
+		private final Assignment cXarrayAssignment_4_0_2 = (Assignment)cAlternatives_4_0.eContents().get(2);
+		private final RuleCall cXarrayXArrayParserRuleCall_4_0_2_0 = (RuleCall)cXarrayAssignment_4_0_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1 = (Keyword)cUnorderedGroup_4.eContents().get(1);
+		
+		//XType:
+		//	{XType} 'type' name=ID 'is' ((xenums=XEnums | xrange=XRange | xarray=XArray) & ';');
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{XType} 'type' name=ID 'is' ((xenums=XEnums | xrange=XRange | xarray=XArray) & ';')
+		public Group getGroup() { return cGroup; }
+		
+		//{XType}
+		public Action getXTypeAction_0() { return cXTypeAction_0; }
+		
+		//'type'
+		public Keyword getTypeKeyword_1() { return cTypeKeyword_1; }
+		
 		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 		
-		//':'
-		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
-		
-		//xtype=[XTypeRef]
-		public Assignment getXtypeAssignment_4() { return cXtypeAssignment_4; }
-		
-		//[XTypeRef]
-		public CrossReference getXtypeXTypeRefCrossReference_4_0() { return cXtypeXTypeRefCrossReference_4_0; }
-		
-		//ID
-		public RuleCall getXtypeXTypeRefIDTerminalRuleCall_4_0_1() { return cXtypeXTypeRefIDTerminalRuleCall_4_0_1; }
-		
-		//(';=' ID)?
-		public Group getGroup_5() { return cGroup_5; }
-		
-		//';='
-		public Keyword getSemicolonEqualsSignKeyword_5_0() { return cSemicolonEqualsSignKeyword_5_0; }
-		
-		//ID
-		public RuleCall getIDTerminalRuleCall_5_1() { return cIDTerminalRuleCall_5_1; }
-		
-		//';'
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
-	}
-	public class XTypeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cXTypeAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Keyword cTypeKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cNameAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_0_2_0 = (RuleCall)cNameAssignment_0_2.eContents().get(0);
-		private final Keyword cIsKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
-		private final Assignment cXenumsAssignment_0_4 = (Assignment)cGroup_0.eContents().get(4);
-		private final RuleCall cXenumsXEnumsParserRuleCall_0_4_0 = (RuleCall)cXenumsAssignment_0_4.eContents().get(0);
-		private final Assignment cXrangeAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cXrangeXRangeParserRuleCall_1_0 = (RuleCall)cXrangeAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Assignment cXarrayAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cXarrayXArrayParserRuleCall_2_0_0 = (RuleCall)cXarrayAssignment_2_0.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
-		
-		//XType:
-		//	{XType} 'type' name=ID 'is' xenums=XEnums | xrange=XRange | xarray=XArray ';';
-		@Override public ParserRule getRule() { return rule; }
-		
-		//{XType} 'type' name=ID 'is' xenums=XEnums | xrange=XRange | xarray=XArray ';'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//{XType} 'type' name=ID 'is' xenums=XEnums
-		public Group getGroup_0() { return cGroup_0; }
-		
-		//{XType}
-		public Action getXTypeAction_0_0() { return cXTypeAction_0_0; }
-		
-		//'type'
-		public Keyword getTypeKeyword_0_1() { return cTypeKeyword_0_1; }
-		
-		//name=ID
-		public Assignment getNameAssignment_0_2() { return cNameAssignment_0_2; }
-		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_2_0() { return cNameIDTerminalRuleCall_0_2_0; }
-		
 		//'is'
-		public Keyword getIsKeyword_0_3() { return cIsKeyword_0_3; }
+		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
+		
+		//(xenums=XEnums | xrange=XRange | xarray=XArray) & ';'
+		public UnorderedGroup getUnorderedGroup_4() { return cUnorderedGroup_4; }
+		
+		//(xenums=XEnums | xrange=XRange | xarray=XArray)
+		public Alternatives getAlternatives_4_0() { return cAlternatives_4_0; }
 		
 		//xenums=XEnums
-		public Assignment getXenumsAssignment_0_4() { return cXenumsAssignment_0_4; }
+		public Assignment getXenumsAssignment_4_0_0() { return cXenumsAssignment_4_0_0; }
 		
 		//XEnums
-		public RuleCall getXenumsXEnumsParserRuleCall_0_4_0() { return cXenumsXEnumsParserRuleCall_0_4_0; }
+		public RuleCall getXenumsXEnumsParserRuleCall_4_0_0_0() { return cXenumsXEnumsParserRuleCall_4_0_0_0; }
 		
 		//xrange=XRange
-		public Assignment getXrangeAssignment_1() { return cXrangeAssignment_1; }
+		public Assignment getXrangeAssignment_4_0_1() { return cXrangeAssignment_4_0_1; }
 		
 		//XRange
-		public RuleCall getXrangeXRangeParserRuleCall_1_0() { return cXrangeXRangeParserRuleCall_1_0; }
-		
-		//xarray=XArray ';'
-		public Group getGroup_2() { return cGroup_2; }
+		public RuleCall getXrangeXRangeParserRuleCall_4_0_1_0() { return cXrangeXRangeParserRuleCall_4_0_1_0; }
 		
 		//xarray=XArray
-		public Assignment getXarrayAssignment_2_0() { return cXarrayAssignment_2_0; }
+		public Assignment getXarrayAssignment_4_0_2() { return cXarrayAssignment_4_0_2; }
 		
 		//XArray
-		public RuleCall getXarrayXArrayParserRuleCall_2_0_0() { return cXarrayXArrayParserRuleCall_2_0_0; }
+		public RuleCall getXarrayXArrayParserRuleCall_4_0_2_0() { return cXarrayXArrayParserRuleCall_4_0_2_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_2_1() { return cSemicolonKeyword_2_1; }
+		public Keyword getSemicolonKeyword_4_1() { return cSemicolonKeyword_4_1; }
 	}
 	public class XArrayElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XArray");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cXArrayAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cArrayKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cXrangeAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cXrangeXTypeRefCrossReference_3_0 = (CrossReference)cXrangeAssignment_3.eContents().get(0);
-		private final RuleCall cXrangeXTypeRefIDTerminalRuleCall_3_0_1 = (RuleCall)cXrangeXTypeRefCrossReference_3_0.eContents().get(1);
-		private final Keyword cRangeKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Keyword cLessThanSignGreaterThanSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Keyword cOfKeyword_7 = (Keyword)cGroup.eContents().get(7);
-		private final Assignment cXofAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final CrossReference cXofXTypeRefCrossReference_8_0 = (CrossReference)cXofAssignment_8.eContents().get(0);
-		private final RuleCall cXofXTypeRefIDTerminalRuleCall_8_0_1 = (RuleCall)cXofXTypeRefCrossReference_8_0.eContents().get(1);
+		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cUnorderedGroup_2.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
+		private final Assignment cXrangeAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
+		private final RuleCall cXrangeXTypeRefParserRuleCall_2_1_0_0 = (RuleCall)cXrangeAssignment_2_1_0.eContents().get(0);
+		private final Keyword cRangeKeyword_2_1_1 = (Keyword)cGroup_2_1.eContents().get(1);
+		private final Keyword cLessThanSignGreaterThanSignKeyword_2_1_2 = (Keyword)cGroup_2_1.eContents().get(2);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cUnorderedGroup_2.eContents().get(2);
+		private final Keyword cOfKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cXofAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cXofXTypeRefParserRuleCall_4_0 = (RuleCall)cXofAssignment_4.eContents().get(0);
 		
 		//XArray:
-		//	{XArray} 'array' '(' xrange=[XTypeRef] 'range' '<>' ')' 'of' xof=[XTypeRef];
+		//	{XArray} 'array' ('(' & xrange=XTypeRef 'range' '<>' & ')') 'of' xof=XTypeRef;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XArray} 'array' '(' xrange=[XTypeRef] 'range' '<>' ')' 'of' xof=[XTypeRef]
+		//{XArray} 'array' ('(' & xrange=XTypeRef 'range' '<>' & ')') 'of' xof=XTypeRef
 		public Group getGroup() { return cGroup; }
 		
 		//{XArray}
@@ -420,38 +439,38 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'array'
 		public Keyword getArrayKeyword_1() { return cArrayKeyword_1; }
 		
+		//'(' & xrange=XTypeRef 'range' '<>' & ')'
+		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
+		
 		//'('
-		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
+		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 		
-		//xrange=[XTypeRef]
-		public Assignment getXrangeAssignment_3() { return cXrangeAssignment_3; }
+		//xrange=XTypeRef 'range' '<>'
+		public Group getGroup_2_1() { return cGroup_2_1; }
 		
-		//[XTypeRef]
-		public CrossReference getXrangeXTypeRefCrossReference_3_0() { return cXrangeXTypeRefCrossReference_3_0; }
+		//xrange=XTypeRef
+		public Assignment getXrangeAssignment_2_1_0() { return cXrangeAssignment_2_1_0; }
 		
-		//ID
-		public RuleCall getXrangeXTypeRefIDTerminalRuleCall_3_0_1() { return cXrangeXTypeRefIDTerminalRuleCall_3_0_1; }
+		//XTypeRef
+		public RuleCall getXrangeXTypeRefParserRuleCall_2_1_0_0() { return cXrangeXTypeRefParserRuleCall_2_1_0_0; }
 		
 		//'range'
-		public Keyword getRangeKeyword_4() { return cRangeKeyword_4; }
+		public Keyword getRangeKeyword_2_1_1() { return cRangeKeyword_2_1_1; }
 		
 		//'<>'
-		public Keyword getLessThanSignGreaterThanSignKeyword_5() { return cLessThanSignGreaterThanSignKeyword_5; }
+		public Keyword getLessThanSignGreaterThanSignKeyword_2_1_2() { return cLessThanSignGreaterThanSignKeyword_2_1_2; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 		
 		//'of'
-		public Keyword getOfKeyword_7() { return cOfKeyword_7; }
+		public Keyword getOfKeyword_3() { return cOfKeyword_3; }
 		
-		//xof=[XTypeRef]
-		public Assignment getXofAssignment_8() { return cXofAssignment_8; }
+		//xof=XTypeRef
+		public Assignment getXofAssignment_4() { return cXofAssignment_4; }
 		
-		//[XTypeRef]
-		public CrossReference getXofXTypeRefCrossReference_8_0() { return cXofXTypeRefCrossReference_8_0; }
-		
-		//ID
-		public RuleCall getXofXTypeRefIDTerminalRuleCall_8_0_1() { return cXofXTypeRefIDTerminalRuleCall_8_0_1; }
+		//XTypeRef
+		public RuleCall getXofXTypeRefParserRuleCall_4_0() { return cXofXTypeRefParserRuleCall_4_0; }
 	}
 	public class XRangeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XRange");
@@ -459,20 +478,18 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cXRangeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cRangeKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cXfromAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final CrossReference cXfromXRangeValueCrossReference_2_0 = (CrossReference)cXfromAssignment_2.eContents().get(0);
-		private final RuleCall cXfromXRangeValueIDTerminalRuleCall_2_0_1 = (RuleCall)cXfromXRangeValueCrossReference_2_0.eContents().get(1);
+		private final RuleCall cXfromXRangeValueParserRuleCall_2_0 = (RuleCall)cXfromAssignment_2.eContents().get(0);
 		private final Keyword cToKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cXtoAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cXtoXRangeValueCrossReference_4_0 = (CrossReference)cXtoAssignment_4.eContents().get(0);
-		private final RuleCall cXtoXRangeValueIDTerminalRuleCall_4_0_1 = (RuleCall)cXtoXRangeValueCrossReference_4_0.eContents().get(1);
+		private final RuleCall cXtoXRangeValueParserRuleCall_4_0 = (RuleCall)cXtoAssignment_4.eContents().get(0);
 		private final Assignment cXunitsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cXunitsXUnitsParserRuleCall_5_0 = (RuleCall)cXunitsAssignment_5.eContents().get(0);
 		
 		//XRange:
-		//	{XRange} 'range' xfrom=[XRangeValue] 'to' xto=[XRangeValue] xunits=XUnits?;
+		//	{XRange} 'range' xfrom=XRangeValue 'to' xto=XRangeValue xunits=XUnits?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XRange} 'range' xfrom=[XRangeValue] 'to' xto=[XRangeValue] xunits=XUnits?
+		//{XRange} 'range' xfrom=XRangeValue 'to' xto=XRangeValue xunits=XUnits?
 		public Group getGroup() { return cGroup; }
 		
 		//{XRange}
@@ -481,26 +498,20 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'range'
 		public Keyword getRangeKeyword_1() { return cRangeKeyword_1; }
 		
-		//xfrom=[XRangeValue]
+		//xfrom=XRangeValue
 		public Assignment getXfromAssignment_2() { return cXfromAssignment_2; }
 		
-		//[XRangeValue]
-		public CrossReference getXfromXRangeValueCrossReference_2_0() { return cXfromXRangeValueCrossReference_2_0; }
-		
-		//ID
-		public RuleCall getXfromXRangeValueIDTerminalRuleCall_2_0_1() { return cXfromXRangeValueIDTerminalRuleCall_2_0_1; }
+		//XRangeValue
+		public RuleCall getXfromXRangeValueParserRuleCall_2_0() { return cXfromXRangeValueParserRuleCall_2_0; }
 		
 		//'to'
 		public Keyword getToKeyword_3() { return cToKeyword_3; }
 		
-		//xto=[XRangeValue]
+		//xto=XRangeValue
 		public Assignment getXtoAssignment_4() { return cXtoAssignment_4; }
 		
-		//[XRangeValue]
-		public CrossReference getXtoXRangeValueCrossReference_4_0() { return cXtoXRangeValueCrossReference_4_0; }
-		
-		//ID
-		public RuleCall getXtoXRangeValueIDTerminalRuleCall_4_0_1() { return cXtoXRangeValueIDTerminalRuleCall_4_0_1; }
+		//XRangeValue
+		public RuleCall getXtoXRangeValueParserRuleCall_4_0() { return cXtoXRangeValueParserRuleCall_4_0; }
 		
 		//xunits=XUnits?
 		public Assignment getXunitsAssignment_5() { return cXunitsAssignment_5; }
@@ -510,70 +521,74 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	public class XRangeValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XRangeValue");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cXRangeValueAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
-		private final Assignment cXvalueAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
-		private final RuleCall cXvalueINTTerminalRuleCall_0_1_0_0 = (RuleCall)cXvalueAssignment_0_1_0.eContents().get(0);
-		private final Assignment cXunitAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final CrossReference cXunitXUnitRefCrossReference_0_1_1_0 = (CrossReference)cXunitAssignment_0_1_1.eContents().get(0);
-		private final RuleCall cXunitXUnitRefIDTerminalRuleCall_0_1_1_0_1 = (RuleCall)cXunitXUnitRefCrossReference_0_1_1_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Action cXRangeValueAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final UnorderedGroup cUnorderedGroup_1_1 = (UnorderedGroup)cGroup_1.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_1_1_0 = (RuleCall)cUnorderedGroup_1_1.eContents().get(0);
-		private final Keyword cApostropheKeyword_1_1_1 = (Keyword)cUnorderedGroup_1_1.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_1_1_2 = (RuleCall)cUnorderedGroup_1_1.eContents().get(2);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cXRangeValueAction_0 = (Action)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Alternatives cAlternatives_1_0_0 = (Alternatives)cGroup_1_0.eContents().get(0);
+		private final Assignment cXlvalueAssignment_1_0_0_0 = (Assignment)cAlternatives_1_0_0.eContents().get(0);
+		private final RuleCall cXlvalueXLONGTerminalRuleCall_1_0_0_0_0 = (RuleCall)cXlvalueAssignment_1_0_0_0.eContents().get(0);
+		private final Assignment cXdvalueAssignment_1_0_0_1 = (Assignment)cAlternatives_1_0_0.eContents().get(1);
+		private final RuleCall cXdvalueXDOUBLETerminalRuleCall_1_0_0_1_0 = (RuleCall)cXdvalueAssignment_1_0_0_1.eContents().get(0);
+		private final Assignment cXunitAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cXunitXUnitRefParserRuleCall_1_0_1_0 = (RuleCall)cXunitAssignment_1_0_1.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_1_1 = (UnorderedGroup)cAlternatives_1.eContents().get(1);
+		private final Group cGroup_1_1_0 = (Group)cUnorderedGroup_1_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1_0_0 = (RuleCall)cGroup_1_1_0.eContents().get(0);
+		private final Keyword cApostropheKeyword_1_1_0_1 = (Keyword)cGroup_1_1_0.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1_1_1 = (RuleCall)cUnorderedGroup_1_1.eContents().get(1);
 		
 		//XRangeValue:
-		//	{XRangeValue} (xvalue=INT xunit=[XUnitRef]?) | {XRangeValue} (ID & '\'' & ID);
+		//	{XRangeValue} ((xlvalue=XLONG | xdvalue=XDOUBLE) xunit=XUnitRef? | ID '\'' & ID);
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XRangeValue} (xvalue=INT xunit=[XUnitRef]?) | {XRangeValue} (ID & '\'' & ID)
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//{XRangeValue} (xvalue=INT xunit=[XUnitRef]?)
-		public Group getGroup_0() { return cGroup_0; }
+		//{XRangeValue} ((xlvalue=XLONG | xdvalue=XDOUBLE) xunit=XUnitRef? | ID '\'' & ID)
+		public Group getGroup() { return cGroup; }
 		
 		//{XRangeValue}
-		public Action getXRangeValueAction_0_0() { return cXRangeValueAction_0_0; }
+		public Action getXRangeValueAction_0() { return cXRangeValueAction_0; }
 		
-		//xvalue=INT xunit=[XUnitRef]?
-		public Group getGroup_0_1() { return cGroup_0_1; }
+		//(xlvalue=XLONG | xdvalue=XDOUBLE) xunit=XUnitRef? | ID '\'' & ID
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
-		//xvalue=INT
-		public Assignment getXvalueAssignment_0_1_0() { return cXvalueAssignment_0_1_0; }
+		//(xlvalue=XLONG | xdvalue=XDOUBLE) xunit=XUnitRef?
+		public Group getGroup_1_0() { return cGroup_1_0; }
 		
-		//INT
-		public RuleCall getXvalueINTTerminalRuleCall_0_1_0_0() { return cXvalueINTTerminalRuleCall_0_1_0_0; }
+		//xlvalue=XLONG | xdvalue=XDOUBLE
+		public Alternatives getAlternatives_1_0_0() { return cAlternatives_1_0_0; }
 		
-		//xunit=[XUnitRef]?
-		public Assignment getXunitAssignment_0_1_1() { return cXunitAssignment_0_1_1; }
+		//xlvalue=XLONG
+		public Assignment getXlvalueAssignment_1_0_0_0() { return cXlvalueAssignment_1_0_0_0; }
 		
-		//[XUnitRef]
-		public CrossReference getXunitXUnitRefCrossReference_0_1_1_0() { return cXunitXUnitRefCrossReference_0_1_1_0; }
+		//XLONG
+		public RuleCall getXlvalueXLONGTerminalRuleCall_1_0_0_0_0() { return cXlvalueXLONGTerminalRuleCall_1_0_0_0_0; }
 		
-		//ID
-		public RuleCall getXunitXUnitRefIDTerminalRuleCall_0_1_1_0_1() { return cXunitXUnitRefIDTerminalRuleCall_0_1_1_0_1; }
+		//xdvalue=XDOUBLE
+		public Assignment getXdvalueAssignment_1_0_0_1() { return cXdvalueAssignment_1_0_0_1; }
 		
-		//{XRangeValue} (ID & '\'' & ID)
-		public Group getGroup_1() { return cGroup_1; }
+		//XDOUBLE
+		public RuleCall getXdvalueXDOUBLETerminalRuleCall_1_0_0_1_0() { return cXdvalueXDOUBLETerminalRuleCall_1_0_0_1_0; }
 		
-		//{XRangeValue}
-		public Action getXRangeValueAction_1_0() { return cXRangeValueAction_1_0; }
+		//xunit=XUnitRef?
+		public Assignment getXunitAssignment_1_0_1() { return cXunitAssignment_1_0_1; }
 		
-		//ID & '\'' & ID
+		//XUnitRef
+		public RuleCall getXunitXUnitRefParserRuleCall_1_0_1_0() { return cXunitXUnitRefParserRuleCall_1_0_1_0; }
+		
+		//ID '\'' & ID
 		public UnorderedGroup getUnorderedGroup_1_1() { return cUnorderedGroup_1_1; }
 		
+		//ID '\''
+		public Group getGroup_1_1_0() { return cGroup_1_1_0; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall_1_1_0() { return cIDTerminalRuleCall_1_1_0; }
+		public RuleCall getIDTerminalRuleCall_1_1_0_0() { return cIDTerminalRuleCall_1_1_0_0; }
 		
 		//'\''
-		public Keyword getApostropheKeyword_1_1_1() { return cApostropheKeyword_1_1_1; }
+		public Keyword getApostropheKeyword_1_1_0_1() { return cApostropheKeyword_1_1_0_1; }
 		
 		//ID
-		public RuleCall getIDTerminalRuleCall_1_1_2() { return cIDTerminalRuleCall_1_1_2; }
+		public RuleCall getIDTerminalRuleCall_1_1_1() { return cIDTerminalRuleCall_1_1_1; }
 	}
 	public class XUnitsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XUnits");
@@ -637,95 +652,107 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XUnit");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cXUnitAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cEqualsSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cXvalueAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cXvalueINTTerminalRuleCall_2_1_0 = (RuleCall)cXvalueAssignment_2_1.eContents().get(0);
-		private final Assignment cXbasedAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
-		private final CrossReference cXbasedXUnitRefCrossReference_2_2_0 = (CrossReference)cXbasedAssignment_2_2.eContents().get(0);
-		private final RuleCall cXbasedXUnitRefIDTerminalRuleCall_2_2_0_1 = (RuleCall)cXbasedXUnitRefCrossReference_2_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final UnorderedGroup cUnorderedGroup_1 = (UnorderedGroup)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cUnorderedGroup_1.eContents().get(0);
+		private final Assignment cNameAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_1_0_0_0 = (RuleCall)cNameAssignment_1_0_0.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_1_0_1 = (UnorderedGroup)cGroup_1_0.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_1_0_1_0 = (Keyword)cUnorderedGroup_1_0_1.eContents().get(0);
+		private final Group cGroup_1_0_1_1 = (Group)cUnorderedGroup_1_0_1.eContents().get(1);
+		private final Assignment cXvalueAssignment_1_0_1_1_0 = (Assignment)cGroup_1_0_1_1.eContents().get(0);
+		private final RuleCall cXvalueINTTerminalRuleCall_1_0_1_1_0_0 = (RuleCall)cXvalueAssignment_1_0_1_1_0.eContents().get(0);
+		private final Assignment cXbasedAssignment_1_0_1_1_1 = (Assignment)cGroup_1_0_1_1.eContents().get(1);
+		private final RuleCall cXbasedXUnitRefParserRuleCall_1_0_1_1_1_0 = (RuleCall)cXbasedAssignment_1_0_1_1_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_1_1 = (Keyword)cUnorderedGroup_1.eContents().get(1);
 		
 		//XUnit:
-		//	{XUnit} name=ID ('=' xvalue=INT xbased=[XUnitRef])? ';';
+		//	{XUnit} (name=ID ('=' & xvalue=INT xbased=XUnitRef)? & ';');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XUnit} name=ID ('=' xvalue=INT xbased=[XUnitRef])? ';'
+		//{XUnit} (name=ID ('=' & xvalue=INT xbased=XUnitRef)? & ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{XUnit}
 		public Action getXUnitAction_0() { return cXUnitAction_0; }
 		
+		//name=ID ('=' & xvalue=INT xbased=XUnitRef)? & ';'
+		public UnorderedGroup getUnorderedGroup_1() { return cUnorderedGroup_1; }
+		
+		//name=ID ('=' & xvalue=INT xbased=XUnitRef)?
+		public Group getGroup_1_0() { return cGroup_1_0; }
+		
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_1_0_0() { return cNameAssignment_1_0_0; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0_0_0() { return cNameIDTerminalRuleCall_1_0_0_0; }
 		
-		//('=' xvalue=INT xbased=[XUnitRef])?
-		public Group getGroup_2() { return cGroup_2; }
+		//('=' & xvalue=INT xbased=XUnitRef)?
+		public UnorderedGroup getUnorderedGroup_1_0_1() { return cUnorderedGroup_1_0_1; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_2_0() { return cEqualsSignKeyword_2_0; }
+		public Keyword getEqualsSignKeyword_1_0_1_0() { return cEqualsSignKeyword_1_0_1_0; }
+		
+		//xvalue=INT xbased=XUnitRef
+		public Group getGroup_1_0_1_1() { return cGroup_1_0_1_1; }
 		
 		//xvalue=INT
-		public Assignment getXvalueAssignment_2_1() { return cXvalueAssignment_2_1; }
+		public Assignment getXvalueAssignment_1_0_1_1_0() { return cXvalueAssignment_1_0_1_1_0; }
 		
 		//INT
-		public RuleCall getXvalueINTTerminalRuleCall_2_1_0() { return cXvalueINTTerminalRuleCall_2_1_0; }
+		public RuleCall getXvalueINTTerminalRuleCall_1_0_1_1_0_0() { return cXvalueINTTerminalRuleCall_1_0_1_1_0_0; }
 		
-		//xbased=[XUnitRef]
-		public Assignment getXbasedAssignment_2_2() { return cXbasedAssignment_2_2; }
+		//xbased=XUnitRef
+		public Assignment getXbasedAssignment_1_0_1_1_1() { return cXbasedAssignment_1_0_1_1_1; }
 		
-		//[XUnitRef]
-		public CrossReference getXbasedXUnitRefCrossReference_2_2_0() { return cXbasedXUnitRefCrossReference_2_2_0; }
-		
-		//ID
-		public RuleCall getXbasedXUnitRefIDTerminalRuleCall_2_2_0_1() { return cXbasedXUnitRefIDTerminalRuleCall_2_2_0_1; }
+		//XUnitRef
+		public RuleCall getXbasedXUnitRefParserRuleCall_1_0_1_1_1_0() { return cXbasedXUnitRefParserRuleCall_1_0_1_1_1_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_1_1() { return cSemicolonKeyword_1_1; }
 	}
 	public class XEnumsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XEnums");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cXEnumsAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cXenumsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cXenumsIDTerminalRuleCall_2_1_0 = (RuleCall)cXenumsAssignment_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final UnorderedGroup cUnorderedGroup_1 = (UnorderedGroup)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cUnorderedGroup_1.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_1_1 = (UnorderedGroup)cUnorderedGroup_1.eContents().get(1);
+		private final Keyword cCommaKeyword_1_1_0 = (Keyword)cUnorderedGroup_1_1.eContents().get(0);
+		private final Assignment cXenumsAssignment_1_1_1 = (Assignment)cUnorderedGroup_1_1.eContents().get(1);
+		private final RuleCall cXenumsXEnumParserRuleCall_1_1_1_0 = (RuleCall)cXenumsAssignment_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cUnorderedGroup_1.eContents().get(2);
 		
 		//XEnums:
-		//	{XEnums} '(' (','? xenums+=ID)* ')';
+		//	{XEnums} ('(' & (','? & xenums+=XEnum)* & ')');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XEnums} '(' (','? xenums+=ID)* ')'
+		//{XEnums} ('(' & (','? & xenums+=XEnum)* & ')')
 		public Group getGroup() { return cGroup; }
 		
 		//{XEnums}
 		public Action getXEnumsAction_0() { return cXEnumsAction_0; }
 		
-		//'('
-		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		//'(' & (','? & xenums+=XEnum)* & ')'
+		public UnorderedGroup getUnorderedGroup_1() { return cUnorderedGroup_1; }
 		
-		//(','? xenums+=ID)*
-		public Group getGroup_2() { return cGroup_2; }
+		//'('
+		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
+		
+		//(','? & xenums+=XEnum)*
+		public UnorderedGroup getUnorderedGroup_1_1() { return cUnorderedGroup_1_1; }
 		
 		//','?
-		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
+		public Keyword getCommaKeyword_1_1_0() { return cCommaKeyword_1_1_0; }
 		
-		//xenums+=ID
-		public Assignment getXenumsAssignment_2_1() { return cXenumsAssignment_2_1; }
+		//xenums+=XEnum
+		public Assignment getXenumsAssignment_1_1_1() { return cXenumsAssignment_1_1_1; }
 		
-		//ID
-		public RuleCall getXenumsIDTerminalRuleCall_2_1_0() { return cXenumsIDTerminalRuleCall_2_1_0; }
+		//XEnum
+		public RuleCall getXenumsXEnumParserRuleCall_1_1_1_0() { return cXenumsXEnumParserRuleCall_1_1_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
 	}
 	public class XFunctionRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XFunctionRef");
@@ -736,14 +763,13 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cReturnKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cXreturnAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cXreturnXTypeRefCrossReference_4_0 = (CrossReference)cXreturnAssignment_4.eContents().get(0);
-		private final RuleCall cXreturnXTypeRefIDTerminalRuleCall_4_0_1 = (RuleCall)cXreturnXTypeRefCrossReference_4_0.eContents().get(1);
+		private final RuleCall cXreturnXTypeRefParserRuleCall_4_0 = (RuleCall)cXreturnAssignment_4.eContents().get(0);
 		
 		//XFunctionRef:
-		//	{XFunctionRef} 'function' name=ID 'return' xreturn=[XTypeRef];
+		//	{XFunctionRef} 'function' name=ID 'return' xreturn=XTypeRef;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{XFunctionRef} 'function' name=ID 'return' xreturn=[XTypeRef]
+		//{XFunctionRef} 'function' name=ID 'return' xreturn=XTypeRef
 		public Group getGroup() { return cGroup; }
 		
 		//{XFunctionRef}
@@ -761,50 +787,68 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		//'return'
 		public Keyword getReturnKeyword_3() { return cReturnKeyword_3; }
 		
-		//xreturn=[XTypeRef]
+		//xreturn=XTypeRef
 		public Assignment getXreturnAssignment_4() { return cXreturnAssignment_4; }
 		
-		//[XTypeRef]
-		public CrossReference getXreturnXTypeRefCrossReference_4_0() { return cXreturnXTypeRefCrossReference_4_0; }
-		
-		//ID
-		public RuleCall getXreturnXTypeRefIDTerminalRuleCall_4_0_1() { return cXreturnXTypeRefIDTerminalRuleCall_4_0_1; }
+		//XTypeRef
+		public RuleCall getXreturnXTypeRefParserRuleCall_4_0() { return cXreturnXTypeRefParserRuleCall_4_0; }
 	}
 	public class XImpureElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XImpure");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cImpureKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cXfuncAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cXfuncXFunctionRefCrossReference_1_0 = (CrossReference)cXfuncAssignment_1.eContents().get(0);
-		private final RuleCall cXfuncXFunctionRefIDTerminalRuleCall_1_0_1 = (RuleCall)cXfuncXFunctionRefCrossReference_1_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final UnorderedGroup cUnorderedGroup = (UnorderedGroup)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cUnorderedGroup.eContents().get(0);
+		private final Keyword cImpureKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final Assignment cXfuncAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cXfuncXFunctionRefParserRuleCall_0_1_0 = (RuleCall)cXfuncAssignment_0_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_1 = (Keyword)cUnorderedGroup.eContents().get(1);
 		
 		//XImpure:
-		//	'impure' xfunc=[XFunctionRef] ';';
+		//	'impure' xfunc=XFunctionRef & ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'impure' xfunc=[XFunctionRef] ';'
-		public Group getGroup() { return cGroup; }
+		//'impure' xfunc=XFunctionRef & ';'
+		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
+		
+		//'impure' xfunc=XFunctionRef
+		public Group getGroup_0() { return cGroup_0; }
 		
 		//'impure'
-		public Keyword getImpureKeyword_0() { return cImpureKeyword_0; }
+		public Keyword getImpureKeyword_0_0() { return cImpureKeyword_0_0; }
 		
-		//xfunc=[XFunctionRef]
-		public Assignment getXfuncAssignment_1() { return cXfuncAssignment_1; }
+		//xfunc=XFunctionRef
+		public Assignment getXfuncAssignment_0_1() { return cXfuncAssignment_0_1; }
 		
-		//[XFunctionRef]
-		public CrossReference getXfuncXFunctionRefCrossReference_1_0() { return cXfuncXFunctionRefCrossReference_1_0; }
-		
-		//ID
-		public RuleCall getXfuncXFunctionRefIDTerminalRuleCall_1_0_1() { return cXfuncXFunctionRefIDTerminalRuleCall_1_0_1; }
+		//XFunctionRef
+		public RuleCall getXfuncXFunctionRefParserRuleCall_0_1_0() { return cXfuncXFunctionRefParserRuleCall_0_1_0; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
+	}
+	public class XEnumElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XEnum");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cSTRINGTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//XEnum:
+		//	ID | STRING;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID | STRING
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_1() { return cSTRINGTerminalRuleCall_1; }
 	}
 	
 	
 	private final XhdlElements pXhdl;
 	private final TerminalRule tCOMMENT;
+	private final TerminalRule tXLONG;
+	private final TerminalRule tXDOUBLE;
 	private final XPackageRefElements pXPackageRef;
 	private final XPackageElements pXPackage;
 	private final XTypeRefElements pXTypeRef;
@@ -822,6 +866,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	private final XEnumsElements pXEnums;
 	private final XFunctionRefElements pXFunctionRef;
 	private final XImpureElements pXImpure;
+	private final XEnumElements pXEnum;
 	
 	private final Grammar grammar;
 	
@@ -834,6 +879,8 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaTerminals = gaTerminals;
 		this.pXhdl = new XhdlElements();
 		this.tCOMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.COMMENT");
+		this.tXLONG = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XLONG");
+		this.tXDOUBLE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "xproject.XHDL.XDOUBLE");
 		this.pXPackageRef = new XPackageRefElements();
 		this.pXPackage = new XPackageElements();
 		this.pXTypeRef = new XTypeRefElements();
@@ -851,6 +898,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pXEnums = new XEnumsElements();
 		this.pXFunctionRef = new XFunctionRefElements();
 		this.pXImpure = new XImpureElements();
+		this.pXEnum = new XEnumElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -896,8 +944,20 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 		return tCOMMENT;
 	}
 	
+	//terminal XLONG returns ecore::ELong:
+	//	'-'? '0'..'9'+;
+	public TerminalRule getXLONGRule() {
+		return tXLONG;
+	}
+	
+	//terminal XDOUBLE returns ecore::EDouble:
+	//	'[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?';
+	public TerminalRule getXDOUBLERule() {
+		return tXDOUBLE;
+	}
+	
 	//XPackageRef:
-	//	name=ID;
+	//	{XPackageRef} name=ID;
 	public XPackageRefElements getXPackageRefAccess() {
 		return pXPackageRef;
 	}
@@ -907,9 +967,9 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XPackage:
-	//	{XPackage} 'package' name=ID 'is'
+	//	'package' name=ID 'is'
 	//	xis+=XElement*
-	//	'end' xend=[XPackageRef] ';';
+	//	'end' (xend=XPackageRef & ';');
 	public XPackageElements getXPackageAccess() {
 		return pXPackage;
 	}
@@ -939,7 +999,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XAttribute:
-	//	{XAttribute} 'attribute' name=ID ':' xtype=[XTypeRef] ';';
+	//	{XAttribute} 'attribute' (name=ID & ':' & xtype=XTypeRef & ';');
 	public XAttributeElements getXAttributeAccess() {
 		return pXAttribute;
 	}
@@ -949,7 +1009,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XSubType:
-	//	{XSubType} 'subtype' name=ID 'is' xis=[XTypeRef] ';';
+	//	{XSubType} 'subtype' name=ID 'is' (xis=XTypeRef xrange=XRange? & ';');
 	public XSubTypeElements getXSubTypeAccess() {
 		return pXSubType;
 	}
@@ -959,7 +1019,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XSignal:
-	//	{XSignal} 'signal' name=ID ':' xtype=[XTypeRef] (';=' ID)? ';';
+	//	{XSignal} 'signal' (name=ID & ':' xtype=XTypeRef & (';=' & ID)? & ';');
 	public XSignalElements getXSignalAccess() {
 		return pXSignal;
 	}
@@ -969,7 +1029,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XType:
-	//	{XType} 'type' name=ID 'is' xenums=XEnums | xrange=XRange | xarray=XArray ';';
+	//	{XType} 'type' name=ID 'is' ((xenums=XEnums | xrange=XRange | xarray=XArray) & ';');
 	public XTypeElements getXTypeAccess() {
 		return pXType;
 	}
@@ -979,7 +1039,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XArray:
-	//	{XArray} 'array' '(' xrange=[XTypeRef] 'range' '<>' ')' 'of' xof=[XTypeRef];
+	//	{XArray} 'array' ('(' & xrange=XTypeRef 'range' '<>' & ')') 'of' xof=XTypeRef;
 	public XArrayElements getXArrayAccess() {
 		return pXArray;
 	}
@@ -989,7 +1049,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XRange:
-	//	{XRange} 'range' xfrom=[XRangeValue] 'to' xto=[XRangeValue] xunits=XUnits?;
+	//	{XRange} 'range' xfrom=XRangeValue 'to' xto=XRangeValue xunits=XUnits?;
 	public XRangeElements getXRangeAccess() {
 		return pXRange;
 	}
@@ -999,7 +1059,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XRangeValue:
-	//	{XRangeValue} (xvalue=INT xunit=[XUnitRef]?) | {XRangeValue} (ID & '\'' & ID);
+	//	{XRangeValue} ((xlvalue=XLONG | xdvalue=XDOUBLE) xunit=XUnitRef? | ID '\'' & ID);
 	public XRangeValueElements getXRangeValueAccess() {
 		return pXRangeValue;
 	}
@@ -1029,7 +1089,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XUnit:
-	//	{XUnit} name=ID ('=' xvalue=INT xbased=[XUnitRef])? ';';
+	//	{XUnit} (name=ID ('=' & xvalue=INT xbased=XUnitRef)? & ';');
 	public XUnitElements getXUnitAccess() {
 		return pXUnit;
 	}
@@ -1039,7 +1099,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XEnums:
-	//	{XEnums} '(' (','? xenums+=ID)* ')';
+	//	{XEnums} ('(' & (','? & xenums+=XEnum)* & ')');
 	public XEnumsElements getXEnumsAccess() {
 		return pXEnums;
 	}
@@ -1049,7 +1109,7 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XFunctionRef:
-	//	{XFunctionRef} 'function' name=ID 'return' xreturn=[XTypeRef];
+	//	{XFunctionRef} 'function' name=ID 'return' xreturn=XTypeRef;
 	public XFunctionRefElements getXFunctionRefAccess() {
 		return pXFunctionRef;
 	}
@@ -1059,13 +1119,23 @@ public class XHDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//XImpure:
-	//	'impure' xfunc=[XFunctionRef] ';';
+	//	'impure' xfunc=XFunctionRef & ';';
 	public XImpureElements getXImpureAccess() {
 		return pXImpure;
 	}
 	
 	public ParserRule getXImpureRule() {
 		return getXImpureAccess().getRule();
+	}
+	
+	//XEnum:
+	//	ID | STRING;
+	public XEnumElements getXEnumAccess() {
+		return pXEnum;
+	}
+	
+	public ParserRule getXEnumRule() {
+		return getXEnumAccess().getRule();
 	}
 	
 	//terminal ID:
