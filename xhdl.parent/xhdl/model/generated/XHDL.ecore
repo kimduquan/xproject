@@ -44,6 +44,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="xarray" eType="#//XArray"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xaccess" eType="#//XAccess"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xfileOf" eType="#//XFileOf"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XArray">
     <eStructuralFeatures xsi:type="ecore:EReference" name="xrange" eType="#//XTypeRef"
@@ -79,16 +83,59 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XEnums">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xenums" unique="false"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xenums" upperBound="-1"
+        eType="#//XEnum" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="XFunctionRef">
+  <eClassifiers xsi:type="ecore:EClass" name="XFunction" eSuperTypes="#//XElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xparameters" eType="#//XParameters"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="xreturn" eType="#//XTypeRef"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XImpure" eSuperTypes="#//XElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="xfunc" eType="#//XFunctionRef"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xfunc" eType="#//XFunction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XEnum">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XAccess">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xtype" eType="#//XTypeRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XFileOf"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XParameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xtype" eType="#//XTypeRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xdefaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XProcedure" eSuperTypes="#//XElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xinputs" eType="#//XInputs"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xinout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xtyp" eType="#//XTypeRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XFileRef" eSuperTypes="#//XInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xtype" eType="#//XTypeRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XInputs">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xinputs" upperBound="-1"
+        eType="#//XInput" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XParameters">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xparameters" upperBound="-1"
+        eType="#//XParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XFile" eSuperTypes="#//XFileOf">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xtype" eType="#//XTypeRef"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -15,13 +15,22 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import xproject.services.XHDLGrammarAccess;
+import xproject.xhdl.XAccess;
 import xproject.xhdl.XArray;
 import xproject.xhdl.XAttribute;
+import xproject.xhdl.XEnum;
 import xproject.xhdl.XEnums;
-import xproject.xhdl.XFunctionRef;
+import xproject.xhdl.XFile;
+import xproject.xhdl.XFileRef;
+import xproject.xhdl.XFunction;
 import xproject.xhdl.XImpure;
+import xproject.xhdl.XInput;
+import xproject.xhdl.XInputs;
 import xproject.xhdl.XPackage;
 import xproject.xhdl.XPackageRef;
+import xproject.xhdl.XParameter;
+import xproject.xhdl.XParameters;
+import xproject.xhdl.XProcedure;
 import xproject.xhdl.XRange;
 import xproject.xhdl.XRangeValue;
 import xproject.xhdl.XSignal;
@@ -48,26 +57,53 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == XhdlPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case XhdlPackage.XACCESS:
+				sequence_XAccess(context, (XAccess) semanticObject); 
+				return; 
 			case XhdlPackage.XARRAY:
 				sequence_XArray(context, (XArray) semanticObject); 
 				return; 
 			case XhdlPackage.XATTRIBUTE:
 				sequence_XAttribute(context, (XAttribute) semanticObject); 
 				return; 
+			case XhdlPackage.XENUM:
+				sequence_XEnum(context, (XEnum) semanticObject); 
+				return; 
 			case XhdlPackage.XENUMS:
 				sequence_XEnums(context, (XEnums) semanticObject); 
 				return; 
-			case XhdlPackage.XFUNCTION_REF:
-				sequence_XFunctionRef(context, (XFunctionRef) semanticObject); 
+			case XhdlPackage.XFILE:
+				sequence_XFileOf(context, (XFile) semanticObject); 
+				return; 
+			case XhdlPackage.XFILE_REF:
+				sequence_XFileRef(context, (XFileRef) semanticObject); 
+				return; 
+			case XhdlPackage.XFUNCTION:
+				sequence_XFunction(context, (XFunction) semanticObject); 
 				return; 
 			case XhdlPackage.XIMPURE:
 				sequence_XImpure(context, (XImpure) semanticObject); 
+				return; 
+			case XhdlPackage.XINPUT:
+				sequence_XInput(context, (XInput) semanticObject); 
+				return; 
+			case XhdlPackage.XINPUTS:
+				sequence_XInputs(context, (XInputs) semanticObject); 
 				return; 
 			case XhdlPackage.XPACKAGE:
 				sequence_XPackage(context, (XPackage) semanticObject); 
 				return; 
 			case XhdlPackage.XPACKAGE_REF:
 				sequence_XPackageRef(context, (XPackageRef) semanticObject); 
+				return; 
+			case XhdlPackage.XPARAMETER:
+				sequence_XParameter(context, (XParameter) semanticObject); 
+				return; 
+			case XhdlPackage.XPARAMETERS:
+				sequence_XParameters(context, (XParameters) semanticObject); 
+				return; 
+			case XhdlPackage.XPROCEDURE:
+				sequence_XProcedure(context, (XProcedure) semanticObject); 
 				return; 
 			case XhdlPackage.XRANGE:
 				sequence_XRange(context, (XRange) semanticObject); 
@@ -106,6 +142,24 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     XAccess returns XAccess
+	 *
+	 * Constraint:
+	 *     xtype=XTypeRef
+	 */
+	protected void sequence_XAccess(ISerializationContext context, XAccess semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XACCESS__XTYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XACCESS__XTYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getXAccessAccess().getXtypeXTypeRefParserRuleCall_2_0(), semanticObject.getXtype());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     XArray returns XArray
 	 *
 	 * Constraint:
@@ -131,6 +185,18 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     XEnum returns XEnum
+	 *
+	 * Constraint:
+	 *     (name=ID | name=STRING)
+	 */
+	protected void sequence_XEnum(ISerializationContext context, XEnum semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     XEnums returns XEnums
 	 *
 	 * Constraint:
@@ -143,22 +209,39 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     XFunctionRef returns XFunctionRef
+	 *     XFileOf returns XFile
 	 *
 	 * Constraint:
-	 *     (name=ID xreturn=XTypeRef)
+	 *     xtype=XTypeRef*
 	 */
-	protected void sequence_XFunctionRef(ISerializationContext context, XFunctionRef semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XFUNCTION_REF__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XFUNCTION_REF__NAME));
-			if (transientValues.isValueTransient(semanticObject, XhdlPackage.Literals.XFUNCTION_REF__XRETURN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, XhdlPackage.Literals.XFUNCTION_REF__XRETURN));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getXFunctionRefAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getXFunctionRefAccess().getXreturnXTypeRefParserRuleCall_4_0(), semanticObject.getXreturn());
-		feeder.finish();
+	protected void sequence_XFileOf(ISerializationContext context, XFile semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XInput returns XFileRef
+	 *     XFileRef returns XFileRef
+	 *
+	 * Constraint:
+	 *     (name=ID | xtype=XTypeRef)*
+	 */
+	protected void sequence_XFileRef(ISerializationContext context, XFileRef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XElement returns XFunction
+	 *     XFunction returns XFunction
+	 *
+	 * Constraint:
+	 *     (name=ID | xparameters=XParameters | xreturn=XTypeRef)*
+	 */
+	protected void sequence_XFunction(ISerializationContext context, XFunction semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -168,9 +251,33 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     XImpure returns XImpure
 	 *
 	 * Constraint:
-	 *     xfunc=XFunctionRef*
+	 *     xfunc=XFunction*
 	 */
 	protected void sequence_XImpure(ISerializationContext context, XImpure semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XInput returns XInput
+	 *
+	 * Constraint:
+	 *     (name=ID? ((xinout='in' | xinout='inout' | xinout='out')? xtyp=XTypeRef)?)+
+	 */
+	protected void sequence_XInput(ISerializationContext context, XInput semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XInputs returns XInputs
+	 *
+	 * Constraint:
+	 *     xinputs+=XInput*
+	 */
+	protected void sequence_XInputs(ISerializationContext context, XInputs semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -201,6 +308,43 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (name=ID xis+=XElement* xend=XPackageRef*)
 	 */
 	protected void sequence_XPackage(ISerializationContext context, XPackage semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XParameter returns XParameter
+	 *
+	 * Constraint:
+	 *     (name=ID | xtype=XTypeRef | xdefaultValue=ID)*
+	 */
+	protected void sequence_XParameter(ISerializationContext context, XParameter semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XParameters returns XParameters
+	 *
+	 * Constraint:
+	 *     xparameters+=XParameter*
+	 */
+	protected void sequence_XParameters(ISerializationContext context, XParameters semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     XElement returns XProcedure
+	 *     XProcedure returns XProcedure
+	 *
+	 * Constraint:
+	 *     (name=ID | xinputs=XInputs)*
+	 */
+	protected void sequence_XProcedure(ISerializationContext context, XProcedure semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -279,7 +423,7 @@ public class XHDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     XType returns XType
 	 *
 	 * Constraint:
-	 *     (name=ID (xenums=XEnums | xrange=XRange | xarray=XArray)*)
+	 *     (name=ID (xenums=XEnums | xrange=XRange | xarray=XArray | xaccess=XAccess | xfileOf=XFileOf)*)
 	 */
 	protected void sequence_XType(ISerializationContext context, XType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

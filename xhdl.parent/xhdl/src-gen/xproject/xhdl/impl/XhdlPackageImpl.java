@@ -10,14 +10,24 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import xproject.xhdl.XAccess;
 import xproject.xhdl.XArray;
 import xproject.xhdl.XAttribute;
 import xproject.xhdl.XElement;
+import xproject.xhdl.XEnum;
 import xproject.xhdl.XEnums;
-import xproject.xhdl.XFunctionRef;
+import xproject.xhdl.XFile;
+import xproject.xhdl.XFileOf;
+import xproject.xhdl.XFileRef;
+import xproject.xhdl.XFunction;
 import xproject.xhdl.XImpure;
+import xproject.xhdl.XInput;
+import xproject.xhdl.XInputs;
 import xproject.xhdl.XPackage;
 import xproject.xhdl.XPackageRef;
+import xproject.xhdl.XParameter;
+import xproject.xhdl.XParameters;
+import xproject.xhdl.XProcedure;
 import xproject.xhdl.XRange;
 import xproject.xhdl.XRangeValue;
 import xproject.xhdl.XSignal;
@@ -156,7 +166,7 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass xFunctionRefEClass = null;
+  private EClass xFunctionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -164,6 +174,76 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * @generated
    */
   private EClass xImpureEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xEnumEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xAccessEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xFileOfEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xParameterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xProcedureEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xInputEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xFileRefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xInputsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xParametersEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xFileEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -493,6 +573,26 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getXType_Xaccess()
+  {
+    return (EReference)xTypeEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXType_XfileOf()
+  {
+    return (EReference)xTypeEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getXArray()
   {
     return xArrayEClass;
@@ -693,9 +793,9 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXEnums_Xenums()
+  public EReference getXEnums_Xenums()
   {
-    return (EAttribute)xEnumsEClass.getEStructuralFeatures().get(0);
+    return (EReference)xEnumsEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -703,9 +803,9 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getXFunctionRef()
+  public EClass getXFunction()
   {
-    return xFunctionRefEClass;
+    return xFunctionEClass;
   }
 
   /**
@@ -713,9 +813,9 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXFunctionRef_Name()
+  public EAttribute getXFunction_Name()
   {
-    return (EAttribute)xFunctionRefEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)xFunctionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -723,9 +823,19 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXFunctionRef_Xreturn()
+  public EReference getXFunction_Xparameters()
   {
-    return (EReference)xFunctionRefEClass.getEStructuralFeatures().get(1);
+    return (EReference)xFunctionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXFunction_Xreturn()
+  {
+    return (EReference)xFunctionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -746,6 +856,246 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
   public EReference getXImpure_Xfunc()
   {
     return (EReference)xImpureEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXEnum()
+  {
+    return xEnumEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXEnum_Name()
+  {
+    return (EAttribute)xEnumEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXAccess()
+  {
+    return xAccessEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXAccess_Xtype()
+  {
+    return (EReference)xAccessEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXFileOf()
+  {
+    return xFileOfEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXParameter()
+  {
+    return xParameterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXParameter_Name()
+  {
+    return (EAttribute)xParameterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXParameter_Xtype()
+  {
+    return (EReference)xParameterEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXParameter_XdefaultValue()
+  {
+    return (EAttribute)xParameterEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXProcedure()
+  {
+    return xProcedureEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXProcedure_Name()
+  {
+    return (EAttribute)xProcedureEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXProcedure_Xinputs()
+  {
+    return (EReference)xProcedureEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXInput()
+  {
+    return xInputEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXInput_Name()
+  {
+    return (EAttribute)xInputEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXInput_Xinout()
+  {
+    return (EAttribute)xInputEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXInput_Xtyp()
+  {
+    return (EReference)xInputEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXFileRef()
+  {
+    return xFileRefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXFileRef_Xtype()
+  {
+    return (EReference)xFileRefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXInputs()
+  {
+    return xInputsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXInputs_Xinputs()
+  {
+    return (EReference)xInputsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXParameters()
+  {
+    return xParametersEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXParameters_Xparameters()
+  {
+    return (EReference)xParametersEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXFile()
+  {
+    return xFileEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXFile_Xtype()
+  {
+    return (EReference)xFileEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -812,6 +1162,8 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     createEReference(xTypeEClass, XTYPE__XENUMS);
     createEReference(xTypeEClass, XTYPE__XRANGE);
     createEReference(xTypeEClass, XTYPE__XARRAY);
+    createEReference(xTypeEClass, XTYPE__XACCESS);
+    createEReference(xTypeEClass, XTYPE__XFILE_OF);
 
     xArrayEClass = createEClass(XARRAY);
     createEReference(xArrayEClass, XARRAY__XRANGE);
@@ -839,14 +1191,49 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     createEReference(xUnitEClass, XUNIT__XBASED);
 
     xEnumsEClass = createEClass(XENUMS);
-    createEAttribute(xEnumsEClass, XENUMS__XENUMS);
+    createEReference(xEnumsEClass, XENUMS__XENUMS);
 
-    xFunctionRefEClass = createEClass(XFUNCTION_REF);
-    createEAttribute(xFunctionRefEClass, XFUNCTION_REF__NAME);
-    createEReference(xFunctionRefEClass, XFUNCTION_REF__XRETURN);
+    xFunctionEClass = createEClass(XFUNCTION);
+    createEAttribute(xFunctionEClass, XFUNCTION__NAME);
+    createEReference(xFunctionEClass, XFUNCTION__XPARAMETERS);
+    createEReference(xFunctionEClass, XFUNCTION__XRETURN);
 
     xImpureEClass = createEClass(XIMPURE);
     createEReference(xImpureEClass, XIMPURE__XFUNC);
+
+    xEnumEClass = createEClass(XENUM);
+    createEAttribute(xEnumEClass, XENUM__NAME);
+
+    xAccessEClass = createEClass(XACCESS);
+    createEReference(xAccessEClass, XACCESS__XTYPE);
+
+    xFileOfEClass = createEClass(XFILE_OF);
+
+    xParameterEClass = createEClass(XPARAMETER);
+    createEAttribute(xParameterEClass, XPARAMETER__NAME);
+    createEReference(xParameterEClass, XPARAMETER__XTYPE);
+    createEAttribute(xParameterEClass, XPARAMETER__XDEFAULT_VALUE);
+
+    xProcedureEClass = createEClass(XPROCEDURE);
+    createEAttribute(xProcedureEClass, XPROCEDURE__NAME);
+    createEReference(xProcedureEClass, XPROCEDURE__XINPUTS);
+
+    xInputEClass = createEClass(XINPUT);
+    createEAttribute(xInputEClass, XINPUT__NAME);
+    createEAttribute(xInputEClass, XINPUT__XINOUT);
+    createEReference(xInputEClass, XINPUT__XTYP);
+
+    xFileRefEClass = createEClass(XFILE_REF);
+    createEReference(xFileRefEClass, XFILE_REF__XTYPE);
+
+    xInputsEClass = createEClass(XINPUTS);
+    createEReference(xInputsEClass, XINPUTS__XINPUTS);
+
+    xParametersEClass = createEClass(XPARAMETERS);
+    createEReference(xParametersEClass, XPARAMETERS__XPARAMETERS);
+
+    xFileEClass = createEClass(XFILE);
+    createEReference(xFileEClass, XFILE__XTYPE);
   }
 
   /**
@@ -882,7 +1269,11 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     xSubTypeEClass.getESuperTypes().add(this.getXElement());
     xSignalEClass.getESuperTypes().add(this.getXElement());
     xTypeEClass.getESuperTypes().add(this.getXElement());
+    xFunctionEClass.getESuperTypes().add(this.getXElement());
     xImpureEClass.getESuperTypes().add(this.getXElement());
+    xProcedureEClass.getESuperTypes().add(this.getXElement());
+    xFileRefEClass.getESuperTypes().add(this.getXInput());
+    xFileEClass.getESuperTypes().add(this.getXFileOf());
 
     // Initialize classes and features; add operations and parameters
     initEClass(xhdlEClass, xhdl.class, "xhdl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -919,6 +1310,8 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     initEReference(getXType_Xenums(), this.getXEnums(), null, "xenums", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getXType_Xrange(), this.getXRange(), null, "xrange", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getXType_Xarray(), this.getXArray(), null, "xarray", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXType_Xaccess(), this.getXAccess(), null, "xaccess", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXType_XfileOf(), this.getXFileOf(), null, "xfileOf", null, 0, 1, XType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xArrayEClass, XArray.class, "XArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getXArray_Xrange(), this.getXTypeRef(), null, "xrange", null, 0, 1, XArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -946,14 +1339,49 @@ public class XhdlPackageImpl extends EPackageImpl implements XhdlPackage
     initEReference(getXUnit_Xbased(), this.getXUnitRef(), null, "xbased", null, 0, 1, XUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xEnumsEClass, XEnums.class, "XEnums", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXEnums_Xenums(), ecorePackage.getEString(), "xenums", null, 0, -1, XEnums.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXEnums_Xenums(), this.getXEnum(), null, "xenums", null, 0, -1, XEnums.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(xFunctionRefEClass, XFunctionRef.class, "XFunctionRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXFunctionRef_Name(), ecorePackage.getEString(), "name", null, 0, 1, XFunctionRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getXFunctionRef_Xreturn(), this.getXTypeRef(), null, "xreturn", null, 0, 1, XFunctionRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(xFunctionEClass, XFunction.class, "XFunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXFunction_Name(), ecorePackage.getEString(), "name", null, 0, 1, XFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXFunction_Xparameters(), this.getXParameters(), null, "xparameters", null, 0, 1, XFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXFunction_Xreturn(), this.getXTypeRef(), null, "xreturn", null, 0, 1, XFunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xImpureEClass, XImpure.class, "XImpure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXImpure_Xfunc(), this.getXFunctionRef(), null, "xfunc", null, 0, 1, XImpure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXImpure_Xfunc(), this.getXFunction(), null, "xfunc", null, 0, 1, XImpure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xEnumEClass, XEnum.class, "XEnum", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXEnum_Name(), ecorePackage.getEString(), "name", null, 0, 1, XEnum.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xAccessEClass, XAccess.class, "XAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXAccess_Xtype(), this.getXTypeRef(), null, "xtype", null, 0, 1, XAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xFileOfEClass, XFileOf.class, "XFileOf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(xParameterEClass, XParameter.class, "XParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, XParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXParameter_Xtype(), this.getXTypeRef(), null, "xtype", null, 0, 1, XParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getXParameter_XdefaultValue(), ecorePackage.getEString(), "xdefaultValue", null, 0, 1, XParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xProcedureEClass, XProcedure.class, "XProcedure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXProcedure_Name(), ecorePackage.getEString(), "name", null, 0, 1, XProcedure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXProcedure_Xinputs(), this.getXInputs(), null, "xinputs", null, 0, 1, XProcedure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xInputEClass, XInput.class, "XInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXInput_Name(), ecorePackage.getEString(), "name", null, 0, 1, XInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getXInput_Xinout(), ecorePackage.getEString(), "xinout", null, 0, 1, XInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXInput_Xtyp(), this.getXTypeRef(), null, "xtyp", null, 0, 1, XInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xFileRefEClass, XFileRef.class, "XFileRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXFileRef_Xtype(), this.getXTypeRef(), null, "xtype", null, 0, 1, XFileRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xInputsEClass, XInputs.class, "XInputs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXInputs_Xinputs(), this.getXInput(), null, "xinputs", null, 0, -1, XInputs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xParametersEClass, XParameters.class, "XParameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXParameters_Xparameters(), this.getXParameter(), null, "xparameters", null, 0, -1, XParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xFileEClass, XFile.class, "XFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXFile_Xtype(), this.getXTypeRef(), null, "xtype", null, 0, 1, XFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

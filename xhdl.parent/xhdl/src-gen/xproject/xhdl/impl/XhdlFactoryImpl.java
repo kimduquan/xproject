@@ -81,8 +81,18 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
       case XhdlPackage.XUNIT_REF: return createXUnitRef();
       case XhdlPackage.XUNIT: return createXUnit();
       case XhdlPackage.XENUMS: return createXEnums();
-      case XhdlPackage.XFUNCTION_REF: return createXFunctionRef();
+      case XhdlPackage.XFUNCTION: return createXFunction();
       case XhdlPackage.XIMPURE: return createXImpure();
+      case XhdlPackage.XENUM: return createXEnum();
+      case XhdlPackage.XACCESS: return createXAccess();
+      case XhdlPackage.XFILE_OF: return createXFileOf();
+      case XhdlPackage.XPARAMETER: return createXParameter();
+      case XhdlPackage.XPROCEDURE: return createXProcedure();
+      case XhdlPackage.XINPUT: return createXInput();
+      case XhdlPackage.XFILE_REF: return createXFileRef();
+      case XhdlPackage.XINPUTS: return createXInputs();
+      case XhdlPackage.XPARAMETERS: return createXParameters();
+      case XhdlPackage.XFILE: return createXFile();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -269,10 +279,10 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public XFunctionRef createXFunctionRef()
+  public XFunction createXFunction()
   {
-    XFunctionRefImpl xFunctionRef = new XFunctionRefImpl();
-    return xFunctionRef;
+    XFunctionImpl xFunction = new XFunctionImpl();
+    return xFunction;
   }
 
   /**
@@ -284,6 +294,116 @@ public class XhdlFactoryImpl extends EFactoryImpl implements XhdlFactory
   {
     XImpureImpl xImpure = new XImpureImpl();
     return xImpure;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XEnum createXEnum()
+  {
+    XEnumImpl xEnum = new XEnumImpl();
+    return xEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XAccess createXAccess()
+  {
+    XAccessImpl xAccess = new XAccessImpl();
+    return xAccess;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XFileOf createXFileOf()
+  {
+    XFileOfImpl xFileOf = new XFileOfImpl();
+    return xFileOf;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XParameter createXParameter()
+  {
+    XParameterImpl xParameter = new XParameterImpl();
+    return xParameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XProcedure createXProcedure()
+  {
+    XProcedureImpl xProcedure = new XProcedureImpl();
+    return xProcedure;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XInput createXInput()
+  {
+    XInputImpl xInput = new XInputImpl();
+    return xInput;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XFileRef createXFileRef()
+  {
+    XFileRefImpl xFileRef = new XFileRefImpl();
+    return xFileRef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XInputs createXInputs()
+  {
+    XInputsImpl xInputs = new XInputsImpl();
+    return xInputs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XParameters createXParameters()
+  {
+    XParametersImpl xParameters = new XParametersImpl();
+    return xParameters;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XFile createXFile()
+  {
+    XFileImpl xFile = new XFileImpl();
+    return xFile;
   }
 
   /**

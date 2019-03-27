@@ -11,8 +11,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import xproject.xhdl.XAccess;
 import xproject.xhdl.XArray;
 import xproject.xhdl.XEnums;
+import xproject.xhdl.XFileOf;
 import xproject.xhdl.XRange;
 import xproject.xhdl.XType;
 import xproject.xhdl.XhdlPackage;
@@ -29,6 +31,8 @@ import xproject.xhdl.XhdlPackage;
  *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXenums <em>Xenums</em>}</li>
  *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXrange <em>Xrange</em>}</li>
  *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXarray <em>Xarray</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXaccess <em>Xaccess</em>}</li>
+ *   <li>{@link xproject.xhdl.impl.XTypeImpl#getXfileOf <em>Xfile Of</em>}</li>
  * </ul>
  *
  * @generated
@@ -84,6 +88,26 @@ public class XTypeImpl extends XElementImpl implements XType
    * @ordered
    */
   protected XArray xarray;
+
+  /**
+   * The cached value of the '{@link #getXaccess() <em>Xaccess</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXaccess()
+   * @generated
+   * @ordered
+   */
+  protected XAccess xaccess;
+
+  /**
+   * The cached value of the '{@link #getXfileOf() <em>Xfile Of</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getXfileOf()
+   * @generated
+   * @ordered
+   */
+  protected XFileOf xfileOf;
 
   /**
    * <!-- begin-user-doc -->
@@ -278,6 +302,102 @@ public class XTypeImpl extends XElementImpl implements XType
    * <!-- end-user-doc -->
    * @generated
    */
+  public XAccess getXaccess()
+  {
+    return xaccess;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXaccess(XAccess newXaccess, NotificationChain msgs)
+  {
+    XAccess oldXaccess = xaccess;
+    xaccess = newXaccess;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XACCESS, oldXaccess, newXaccess);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXaccess(XAccess newXaccess)
+  {
+    if (newXaccess != xaccess)
+    {
+      NotificationChain msgs = null;
+      if (xaccess != null)
+        msgs = ((InternalEObject)xaccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XACCESS, null, msgs);
+      if (newXaccess != null)
+        msgs = ((InternalEObject)newXaccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XACCESS, null, msgs);
+      msgs = basicSetXaccess(newXaccess, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XACCESS, newXaccess, newXaccess));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XFileOf getXfileOf()
+  {
+    return xfileOf;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetXfileOf(XFileOf newXfileOf, NotificationChain msgs)
+  {
+    XFileOf oldXfileOf = xfileOf;
+    xfileOf = newXfileOf;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XFILE_OF, oldXfileOf, newXfileOf);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXfileOf(XFileOf newXfileOf)
+  {
+    if (newXfileOf != xfileOf)
+    {
+      NotificationChain msgs = null;
+      if (xfileOf != null)
+        msgs = ((InternalEObject)xfileOf).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XFILE_OF, null, msgs);
+      if (newXfileOf != null)
+        msgs = ((InternalEObject)newXfileOf).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XhdlPackage.XTYPE__XFILE_OF, null, msgs);
+      msgs = basicSetXfileOf(newXfileOf, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, XhdlPackage.XTYPE__XFILE_OF, newXfileOf, newXfileOf));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -289,6 +409,10 @@ public class XTypeImpl extends XElementImpl implements XType
         return basicSetXrange(null, msgs);
       case XhdlPackage.XTYPE__XARRAY:
         return basicSetXarray(null, msgs);
+      case XhdlPackage.XTYPE__XACCESS:
+        return basicSetXaccess(null, msgs);
+      case XhdlPackage.XTYPE__XFILE_OF:
+        return basicSetXfileOf(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -311,6 +435,10 @@ public class XTypeImpl extends XElementImpl implements XType
         return getXrange();
       case XhdlPackage.XTYPE__XARRAY:
         return getXarray();
+      case XhdlPackage.XTYPE__XACCESS:
+        return getXaccess();
+      case XhdlPackage.XTYPE__XFILE_OF:
+        return getXfileOf();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -336,6 +464,12 @@ public class XTypeImpl extends XElementImpl implements XType
         return;
       case XhdlPackage.XTYPE__XARRAY:
         setXarray((XArray)newValue);
+        return;
+      case XhdlPackage.XTYPE__XACCESS:
+        setXaccess((XAccess)newValue);
+        return;
+      case XhdlPackage.XTYPE__XFILE_OF:
+        setXfileOf((XFileOf)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -363,6 +497,12 @@ public class XTypeImpl extends XElementImpl implements XType
       case XhdlPackage.XTYPE__XARRAY:
         setXarray((XArray)null);
         return;
+      case XhdlPackage.XTYPE__XACCESS:
+        setXaccess((XAccess)null);
+        return;
+      case XhdlPackage.XTYPE__XFILE_OF:
+        setXfileOf((XFileOf)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -385,6 +525,10 @@ public class XTypeImpl extends XElementImpl implements XType
         return xrange != null;
       case XhdlPackage.XTYPE__XARRAY:
         return xarray != null;
+      case XhdlPackage.XTYPE__XACCESS:
+        return xaccess != null;
+      case XhdlPackage.XTYPE__XFILE_OF:
+        return xfileOf != null;
     }
     return super.eIsSet(featureID);
   }

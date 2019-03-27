@@ -31,12 +31,12 @@ public interface XImpure extends XElement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xfunc</em>' containment reference.
-   * @see #setXfunc(XFunctionRef)
+   * @see #setXfunc(XFunction)
    * @see xproject.xhdl.XhdlPackage#getXImpure_Xfunc()
    * @model containment="true"
    * @generated
    */
-  XFunctionRef getXfunc();
+  XFunction getXfunc();
 
   /**
    * Sets the value of the '{@link xproject.xhdl.XImpure#getXfunc <em>Xfunc</em>}' containment reference.
@@ -46,6 +46,6 @@ public interface XImpure extends XElement
    * @see #getXfunc()
    * @generated
    */
-  void setXfunc(XFunctionRef value);
+  void setXfunc(XFunction value);
 
 } // XImpure

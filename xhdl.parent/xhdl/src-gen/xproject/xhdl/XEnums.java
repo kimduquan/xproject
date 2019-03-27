@@ -26,19 +26,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface XEnums extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Xenums</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Xenums</b></em>' containment reference list.
+   * The list contents are of type {@link xproject.xhdl.XEnum}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Xenums</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Xenums</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Xenums</em>' attribute list.
+   * @return the value of the '<em>Xenums</em>' containment reference list.
    * @see xproject.xhdl.XhdlPackage#getXEnums_Xenums()
-   * @model unique="false"
+   * @model containment="true"
    * @generated
    */
-  EList<String> getXenums();
+  EList<XEnum> getXenums();
 
 } // XEnums

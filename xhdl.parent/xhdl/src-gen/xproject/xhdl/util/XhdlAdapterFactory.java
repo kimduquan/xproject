@@ -156,14 +156,64 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
         return createXEnumsAdapter();
       }
       @Override
-      public Adapter caseXFunctionRef(XFunctionRef object)
+      public Adapter caseXFunction(XFunction object)
       {
-        return createXFunctionRefAdapter();
+        return createXFunctionAdapter();
       }
       @Override
       public Adapter caseXImpure(XImpure object)
       {
         return createXImpureAdapter();
+      }
+      @Override
+      public Adapter caseXEnum(XEnum object)
+      {
+        return createXEnumAdapter();
+      }
+      @Override
+      public Adapter caseXAccess(XAccess object)
+      {
+        return createXAccessAdapter();
+      }
+      @Override
+      public Adapter caseXFileOf(XFileOf object)
+      {
+        return createXFileOfAdapter();
+      }
+      @Override
+      public Adapter caseXParameter(XParameter object)
+      {
+        return createXParameterAdapter();
+      }
+      @Override
+      public Adapter caseXProcedure(XProcedure object)
+      {
+        return createXProcedureAdapter();
+      }
+      @Override
+      public Adapter caseXInput(XInput object)
+      {
+        return createXInputAdapter();
+      }
+      @Override
+      public Adapter caseXFileRef(XFileRef object)
+      {
+        return createXFileRefAdapter();
+      }
+      @Override
+      public Adapter caseXInputs(XInputs object)
+      {
+        return createXInputsAdapter();
+      }
+      @Override
+      public Adapter caseXParameters(XParameters object)
+      {
+        return createXParametersAdapter();
+      }
+      @Override
+      public Adapter caseXFile(XFile object)
+      {
+        return createXFileAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -428,16 +478,16 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link xproject.xhdl.XFunctionRef <em>XFunction Ref</em>}'.
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XFunction <em>XFunction</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see xproject.xhdl.XFunctionRef
+   * @see xproject.xhdl.XFunction
    * @generated
    */
-  public Adapter createXFunctionRefAdapter()
+  public Adapter createXFunctionAdapter()
   {
     return null;
   }
@@ -453,6 +503,156 @@ public class XhdlAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createXImpureAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XEnum <em>XEnum</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XEnum
+   * @generated
+   */
+  public Adapter createXEnumAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XAccess <em>XAccess</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XAccess
+   * @generated
+   */
+  public Adapter createXAccessAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XFileOf <em>XFile Of</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XFileOf
+   * @generated
+   */
+  public Adapter createXFileOfAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XParameter <em>XParameter</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XParameter
+   * @generated
+   */
+  public Adapter createXParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XProcedure <em>XProcedure</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XProcedure
+   * @generated
+   */
+  public Adapter createXProcedureAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XInput <em>XInput</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XInput
+   * @generated
+   */
+  public Adapter createXInputAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XFileRef <em>XFile Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XFileRef
+   * @generated
+   */
+  public Adapter createXFileRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XInputs <em>XInputs</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XInputs
+   * @generated
+   */
+  public Adapter createXInputsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XParameters <em>XParameters</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XParameters
+   * @generated
+   */
+  public Adapter createXParametersAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link xproject.xhdl.XFile <em>XFile</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see xproject.xhdl.XFile
+   * @generated
+   */
+  public Adapter createXFileAdapter()
   {
     return null;
   }

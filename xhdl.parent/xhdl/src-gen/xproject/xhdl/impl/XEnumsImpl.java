@@ -5,14 +5,19 @@ package xproject.xhdl.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
+import xproject.xhdl.XEnum;
 import xproject.xhdl.XEnums;
 import xproject.xhdl.XhdlPackage;
 
@@ -32,14 +37,14 @@ import xproject.xhdl.XhdlPackage;
 public class XEnumsImpl extends MinimalEObjectImpl.Container implements XEnums
 {
   /**
-   * The cached value of the '{@link #getXenums() <em>Xenums</em>}' attribute list.
+   * The cached value of the '{@link #getXenums() <em>Xenums</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getXenums()
    * @generated
    * @ordered
    */
-  protected EList<String> xenums;
+  protected EList<XEnum> xenums;
 
   /**
    * <!-- begin-user-doc -->
@@ -67,13 +72,29 @@ public class XEnumsImpl extends MinimalEObjectImpl.Container implements XEnums
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getXenums()
+  public EList<XEnum> getXenums()
   {
     if (xenums == null)
     {
-      xenums = new EDataTypeEList<String>(String.class, this, XhdlPackage.XENUMS__XENUMS);
+      xenums = new EObjectContainmentEList<XEnum>(XEnum.class, this, XhdlPackage.XENUMS__XENUMS);
     }
     return xenums;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case XhdlPackage.XENUMS__XENUMS:
+        return ((InternalEList<?>)getXenums()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -105,7 +126,7 @@ public class XEnumsImpl extends MinimalEObjectImpl.Container implements XEnums
     {
       case XhdlPackage.XENUMS__XENUMS:
         getXenums().clear();
-        getXenums().addAll((Collection<? extends String>)newValue);
+        getXenums().addAll((Collection<? extends XEnum>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -142,23 +163,6 @@ public class XEnumsImpl extends MinimalEObjectImpl.Container implements XEnums
         return xenums != null && !xenums.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (xenums: ");
-    result.append(xenums);
-    result.append(')');
-    return result.toString();
   }
 
 } //XEnumsImpl

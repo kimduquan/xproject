@@ -39,6 +39,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xenums"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xrange"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xarray"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xaccess"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XType/xfileOf"/>
     </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XArray">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XArray/xrange"/>
@@ -66,14 +68,48 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XUnit/xbased"/>
     </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XEnums">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XEnums/xenums"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XEnums/xenums"/>
     </genClasses>
-    <genClasses ecoreClass="XHDL.ecore#//XFunctionRef">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XFunctionRef/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XFunctionRef/xreturn"/>
+    <genClasses ecoreClass="XHDL.ecore#//XFunction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XFunction/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XFunction/xparameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XFunction/xreturn"/>
     </genClasses>
     <genClasses ecoreClass="XHDL.ecore#//XImpure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XImpure/xfunc"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XEnum">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XEnum/name"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XAccess/xtype"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XFileOf"/>
+    <genClasses ecoreClass="XHDL.ecore#//XParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XParameter/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XParameter/xtype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XParameter/xdefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XProcedure">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XProcedure/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XProcedure/xinputs"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XInput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XInput/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XHDL.ecore#//XInput/xinout"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XInput/xtyp"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XFileRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XFileRef/xtype"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XInputs">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XInputs/xinputs"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XParameters">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XParameters/xparameters"/>
+    </genClasses>
+    <genClasses ecoreClass="XHDL.ecore#//XFile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XHDL.ecore#//XFile/xtype"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

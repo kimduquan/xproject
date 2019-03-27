@@ -17,6 +17,8 @@ package xproject.xhdl;
  *   <li>{@link xproject.xhdl.XType#getXenums <em>Xenums</em>}</li>
  *   <li>{@link xproject.xhdl.XType#getXrange <em>Xrange</em>}</li>
  *   <li>{@link xproject.xhdl.XType#getXarray <em>Xarray</em>}</li>
+ *   <li>{@link xproject.xhdl.XType#getXaccess <em>Xaccess</em>}</li>
+ *   <li>{@link xproject.xhdl.XType#getXfileOf <em>Xfile Of</em>}</li>
  * </ul>
  *
  * @see xproject.xhdl.XhdlPackage#getXType()
@@ -128,5 +130,57 @@ public interface XType extends XElement
    * @generated
    */
   void setXarray(XArray value);
+
+  /**
+   * Returns the value of the '<em><b>Xaccess</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xaccess</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xaccess</em>' containment reference.
+   * @see #setXaccess(XAccess)
+   * @see xproject.xhdl.XhdlPackage#getXType_Xaccess()
+   * @model containment="true"
+   * @generated
+   */
+  XAccess getXaccess();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XType#getXaccess <em>Xaccess</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xaccess</em>' containment reference.
+   * @see #getXaccess()
+   * @generated
+   */
+  void setXaccess(XAccess value);
+
+  /**
+   * Returns the value of the '<em><b>Xfile Of</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Xfile Of</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Xfile Of</em>' containment reference.
+   * @see #setXfileOf(XFileOf)
+   * @see xproject.xhdl.XhdlPackage#getXType_XfileOf()
+   * @model containment="true"
+   * @generated
+   */
+  XFileOf getXfileOf();
+
+  /**
+   * Sets the value of the '{@link xproject.xhdl.XType#getXfileOf <em>Xfile Of</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Xfile Of</em>' containment reference.
+   * @see #getXfileOf()
+   * @generated
+   */
+  void setXfileOf(XFileOf value);
 
 } // XType

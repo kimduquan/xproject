@@ -168,13 +168,13 @@ public interface XhdlFactory extends EFactory
   XEnums createXEnums();
 
   /**
-   * Returns a new object of class '<em>XFunction Ref</em>'.
+   * Returns a new object of class '<em>XFunction</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>XFunction Ref</em>'.
+   * @return a new object of class '<em>XFunction</em>'.
    * @generated
    */
-  XFunctionRef createXFunctionRef();
+  XFunction createXFunction();
 
   /**
    * Returns a new object of class '<em>XImpure</em>'.
@@ -184,6 +184,96 @@ public interface XhdlFactory extends EFactory
    * @generated
    */
   XImpure createXImpure();
+
+  /**
+   * Returns a new object of class '<em>XEnum</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XEnum</em>'.
+   * @generated
+   */
+  XEnum createXEnum();
+
+  /**
+   * Returns a new object of class '<em>XAccess</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XAccess</em>'.
+   * @generated
+   */
+  XAccess createXAccess();
+
+  /**
+   * Returns a new object of class '<em>XFile Of</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XFile Of</em>'.
+   * @generated
+   */
+  XFileOf createXFileOf();
+
+  /**
+   * Returns a new object of class '<em>XParameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XParameter</em>'.
+   * @generated
+   */
+  XParameter createXParameter();
+
+  /**
+   * Returns a new object of class '<em>XProcedure</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XProcedure</em>'.
+   * @generated
+   */
+  XProcedure createXProcedure();
+
+  /**
+   * Returns a new object of class '<em>XInput</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XInput</em>'.
+   * @generated
+   */
+  XInput createXInput();
+
+  /**
+   * Returns a new object of class '<em>XFile Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XFile Ref</em>'.
+   * @generated
+   */
+  XFileRef createXFileRef();
+
+  /**
+   * Returns a new object of class '<em>XInputs</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XInputs</em>'.
+   * @generated
+   */
+  XInputs createXInputs();
+
+  /**
+   * Returns a new object of class '<em>XParameters</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XParameters</em>'.
+   * @generated
+   */
+  XParameters createXParameters();
+
+  /**
+   * Returns a new object of class '<em>XFile</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XFile</em>'.
+   * @generated
+   */
+  XFile createXFile();
 
   /**
    * Returns the package supported by this factory.

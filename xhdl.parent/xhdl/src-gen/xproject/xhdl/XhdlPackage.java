@@ -373,13 +373,31 @@ public interface XhdlPackage extends EPackage
   int XTYPE__XARRAY = XELEMENT_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Xaccess</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XTYPE__XACCESS = XELEMENT_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Xfile Of</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XTYPE__XFILE_OF = XELEMENT_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>XType</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XTYPE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 4;
+  int XTYPE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XArrayImpl <em>XArray</em>}' class.
@@ -623,7 +641,7 @@ public interface XhdlPackage extends EPackage
   int XENUMS = 15;
 
   /**
-   * The feature id for the '<em><b>Xenums</b></em>' attribute list.
+   * The feature id for the '<em><b>Xenums</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -641,14 +659,14 @@ public interface XhdlPackage extends EPackage
   int XENUMS_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link xproject.xhdl.impl.XFunctionRefImpl <em>XFunction Ref</em>}' class.
+   * The meta object id for the '{@link xproject.xhdl.impl.XFunctionImpl <em>XFunction</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see xproject.xhdl.impl.XFunctionRefImpl
-   * @see xproject.xhdl.impl.XhdlPackageImpl#getXFunctionRef()
+   * @see xproject.xhdl.impl.XFunctionImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXFunction()
    * @generated
    */
-  int XFUNCTION_REF = 16;
+  int XFUNCTION = 16;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -657,7 +675,16 @@ public interface XhdlPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XFUNCTION_REF__NAME = 0;
+  int XFUNCTION__NAME = XELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Xparameters</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFUNCTION__XPARAMETERS = XELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Xreturn</b></em>' containment reference.
@@ -666,16 +693,16 @@ public interface XhdlPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XFUNCTION_REF__XRETURN = 1;
+  int XFUNCTION__XRETURN = XELEMENT_FEATURE_COUNT + 2;
 
   /**
-   * The number of structural features of the '<em>XFunction Ref</em>' class.
+   * The number of structural features of the '<em>XFunction</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XFUNCTION_REF_FEATURE_COUNT = 2;
+  int XFUNCTION_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link xproject.xhdl.impl.XImpureImpl <em>XImpure</em>}' class.
@@ -704,6 +731,349 @@ public interface XhdlPackage extends EPackage
    * @ordered
    */
   int XIMPURE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XEnumImpl <em>XEnum</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XEnumImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXEnum()
+   * @generated
+   */
+  int XENUM = 18;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XENUM__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>XEnum</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XENUM_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XAccessImpl <em>XAccess</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XAccessImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXAccess()
+   * @generated
+   */
+  int XACCESS = 19;
+
+  /**
+   * The feature id for the '<em><b>Xtype</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XACCESS__XTYPE = 0;
+
+  /**
+   * The number of structural features of the '<em>XAccess</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XACCESS_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XFileOfImpl <em>XFile Of</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XFileOfImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXFileOf()
+   * @generated
+   */
+  int XFILE_OF = 20;
+
+  /**
+   * The number of structural features of the '<em>XFile Of</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_OF_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XParameterImpl <em>XParameter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XParameterImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXParameter()
+   * @generated
+   */
+  int XPARAMETER = 21;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPARAMETER__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Xtype</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPARAMETER__XTYPE = 1;
+
+  /**
+   * The feature id for the '<em><b>Xdefault Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPARAMETER__XDEFAULT_VALUE = 2;
+
+  /**
+   * The number of structural features of the '<em>XParameter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPARAMETER_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XProcedureImpl <em>XProcedure</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XProcedureImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXProcedure()
+   * @generated
+   */
+  int XPROCEDURE = 22;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPROCEDURE__NAME = XELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Xinputs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPROCEDURE__XINPUTS = XELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>XProcedure</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPROCEDURE_FEATURE_COUNT = XELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XInputImpl <em>XInput</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XInputImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXInput()
+   * @generated
+   */
+  int XINPUT = 23;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XINPUT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Xinout</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XINPUT__XINOUT = 1;
+
+  /**
+   * The feature id for the '<em><b>Xtyp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XINPUT__XTYP = 2;
+
+  /**
+   * The number of structural features of the '<em>XInput</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XINPUT_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XFileRefImpl <em>XFile Ref</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XFileRefImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXFileRef()
+   * @generated
+   */
+  int XFILE_REF = 24;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_REF__NAME = XINPUT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Xinout</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_REF__XINOUT = XINPUT__XINOUT;
+
+  /**
+   * The feature id for the '<em><b>Xtyp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_REF__XTYP = XINPUT__XTYP;
+
+  /**
+   * The feature id for the '<em><b>Xtype</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_REF__XTYPE = XINPUT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>XFile Ref</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_REF_FEATURE_COUNT = XINPUT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XInputsImpl <em>XInputs</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XInputsImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXInputs()
+   * @generated
+   */
+  int XINPUTS = 25;
+
+  /**
+   * The feature id for the '<em><b>Xinputs</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XINPUTS__XINPUTS = 0;
+
+  /**
+   * The number of structural features of the '<em>XInputs</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XINPUTS_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XParametersImpl <em>XParameters</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XParametersImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXParameters()
+   * @generated
+   */
+  int XPARAMETERS = 26;
+
+  /**
+   * The feature id for the '<em><b>Xparameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPARAMETERS__XPARAMETERS = 0;
+
+  /**
+   * The number of structural features of the '<em>XParameters</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPARAMETERS_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link xproject.xhdl.impl.XFileImpl <em>XFile</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see xproject.xhdl.impl.XFileImpl
+   * @see xproject.xhdl.impl.XhdlPackageImpl#getXFile()
+   * @generated
+   */
+  int XFILE = 27;
+
+  /**
+   * The feature id for the '<em><b>Xtype</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE__XTYPE = XFILE_OF_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>XFile</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XFILE_FEATURE_COUNT = XFILE_OF_FEATURE_COUNT + 1;
 
 
   /**
@@ -984,6 +1354,28 @@ public interface XhdlPackage extends EPackage
   EReference getXType_Xarray();
 
   /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XType#getXaccess <em>Xaccess</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xaccess</em>'.
+   * @see xproject.xhdl.XType#getXaccess()
+   * @see #getXType()
+   * @generated
+   */
+  EReference getXType_Xaccess();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XType#getXfileOf <em>Xfile Of</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xfile Of</em>'.
+   * @see xproject.xhdl.XType#getXfileOf()
+   * @see #getXType()
+   * @generated
+   */
+  EReference getXType_XfileOf();
+
+  /**
    * Returns the meta object for class '{@link xproject.xhdl.XArray <em>XArray</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1197,47 +1589,58 @@ public interface XhdlPackage extends EPackage
   EClass getXEnums();
 
   /**
-   * Returns the meta object for the attribute list '{@link xproject.xhdl.XEnums#getXenums <em>Xenums</em>}'.
+   * Returns the meta object for the containment reference list '{@link xproject.xhdl.XEnums#getXenums <em>Xenums</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Xenums</em>'.
+   * @return the meta object for the containment reference list '<em>Xenums</em>'.
    * @see xproject.xhdl.XEnums#getXenums()
    * @see #getXEnums()
    * @generated
    */
-  EAttribute getXEnums_Xenums();
+  EReference getXEnums_Xenums();
 
   /**
-   * Returns the meta object for class '{@link xproject.xhdl.XFunctionRef <em>XFunction Ref</em>}'.
+   * Returns the meta object for class '{@link xproject.xhdl.XFunction <em>XFunction</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>XFunction Ref</em>'.
-   * @see xproject.xhdl.XFunctionRef
+   * @return the meta object for class '<em>XFunction</em>'.
+   * @see xproject.xhdl.XFunction
    * @generated
    */
-  EClass getXFunctionRef();
+  EClass getXFunction();
 
   /**
-   * Returns the meta object for the attribute '{@link xproject.xhdl.XFunctionRef#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XFunction#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see xproject.xhdl.XFunctionRef#getName()
-   * @see #getXFunctionRef()
+   * @see xproject.xhdl.XFunction#getName()
+   * @see #getXFunction()
    * @generated
    */
-  EAttribute getXFunctionRef_Name();
+  EAttribute getXFunction_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link xproject.xhdl.XFunctionRef#getXreturn <em>Xreturn</em>}'.
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XFunction#getXparameters <em>Xparameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xparameters</em>'.
+   * @see xproject.xhdl.XFunction#getXparameters()
+   * @see #getXFunction()
+   * @generated
+   */
+  EReference getXFunction_Xparameters();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XFunction#getXreturn <em>Xreturn</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Xreturn</em>'.
-   * @see xproject.xhdl.XFunctionRef#getXreturn()
-   * @see #getXFunctionRef()
+   * @see xproject.xhdl.XFunction#getXreturn()
+   * @see #getXFunction()
    * @generated
    */
-  EReference getXFunctionRef_Xreturn();
+  EReference getXFunction_Xreturn();
 
   /**
    * Returns the meta object for class '{@link xproject.xhdl.XImpure <em>XImpure</em>}'.
@@ -1259,6 +1662,260 @@ public interface XhdlPackage extends EPackage
    * @generated
    */
   EReference getXImpure_Xfunc();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XEnum <em>XEnum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XEnum</em>'.
+   * @see xproject.xhdl.XEnum
+   * @generated
+   */
+  EClass getXEnum();
+
+  /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XEnum#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see xproject.xhdl.XEnum#getName()
+   * @see #getXEnum()
+   * @generated
+   */
+  EAttribute getXEnum_Name();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XAccess <em>XAccess</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XAccess</em>'.
+   * @see xproject.xhdl.XAccess
+   * @generated
+   */
+  EClass getXAccess();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XAccess#getXtype <em>Xtype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xtype</em>'.
+   * @see xproject.xhdl.XAccess#getXtype()
+   * @see #getXAccess()
+   * @generated
+   */
+  EReference getXAccess_Xtype();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XFileOf <em>XFile Of</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XFile Of</em>'.
+   * @see xproject.xhdl.XFileOf
+   * @generated
+   */
+  EClass getXFileOf();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XParameter <em>XParameter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XParameter</em>'.
+   * @see xproject.xhdl.XParameter
+   * @generated
+   */
+  EClass getXParameter();
+
+  /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XParameter#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see xproject.xhdl.XParameter#getName()
+   * @see #getXParameter()
+   * @generated
+   */
+  EAttribute getXParameter_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XParameter#getXtype <em>Xtype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xtype</em>'.
+   * @see xproject.xhdl.XParameter#getXtype()
+   * @see #getXParameter()
+   * @generated
+   */
+  EReference getXParameter_Xtype();
+
+  /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XParameter#getXdefaultValue <em>Xdefault Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Xdefault Value</em>'.
+   * @see xproject.xhdl.XParameter#getXdefaultValue()
+   * @see #getXParameter()
+   * @generated
+   */
+  EAttribute getXParameter_XdefaultValue();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XProcedure <em>XProcedure</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XProcedure</em>'.
+   * @see xproject.xhdl.XProcedure
+   * @generated
+   */
+  EClass getXProcedure();
+
+  /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XProcedure#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see xproject.xhdl.XProcedure#getName()
+   * @see #getXProcedure()
+   * @generated
+   */
+  EAttribute getXProcedure_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XProcedure#getXinputs <em>Xinputs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xinputs</em>'.
+   * @see xproject.xhdl.XProcedure#getXinputs()
+   * @see #getXProcedure()
+   * @generated
+   */
+  EReference getXProcedure_Xinputs();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XInput <em>XInput</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XInput</em>'.
+   * @see xproject.xhdl.XInput
+   * @generated
+   */
+  EClass getXInput();
+
+  /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XInput#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see xproject.xhdl.XInput#getName()
+   * @see #getXInput()
+   * @generated
+   */
+  EAttribute getXInput_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link xproject.xhdl.XInput#getXinout <em>Xinout</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Xinout</em>'.
+   * @see xproject.xhdl.XInput#getXinout()
+   * @see #getXInput()
+   * @generated
+   */
+  EAttribute getXInput_Xinout();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XInput#getXtyp <em>Xtyp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xtyp</em>'.
+   * @see xproject.xhdl.XInput#getXtyp()
+   * @see #getXInput()
+   * @generated
+   */
+  EReference getXInput_Xtyp();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XFileRef <em>XFile Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XFile Ref</em>'.
+   * @see xproject.xhdl.XFileRef
+   * @generated
+   */
+  EClass getXFileRef();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XFileRef#getXtype <em>Xtype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xtype</em>'.
+   * @see xproject.xhdl.XFileRef#getXtype()
+   * @see #getXFileRef()
+   * @generated
+   */
+  EReference getXFileRef_Xtype();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XInputs <em>XInputs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XInputs</em>'.
+   * @see xproject.xhdl.XInputs
+   * @generated
+   */
+  EClass getXInputs();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link xproject.xhdl.XInputs#getXinputs <em>Xinputs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Xinputs</em>'.
+   * @see xproject.xhdl.XInputs#getXinputs()
+   * @see #getXInputs()
+   * @generated
+   */
+  EReference getXInputs_Xinputs();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XParameters <em>XParameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XParameters</em>'.
+   * @see xproject.xhdl.XParameters
+   * @generated
+   */
+  EClass getXParameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link xproject.xhdl.XParameters#getXparameters <em>Xparameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Xparameters</em>'.
+   * @see xproject.xhdl.XParameters#getXparameters()
+   * @see #getXParameters()
+   * @generated
+   */
+  EReference getXParameters_Xparameters();
+
+  /**
+   * Returns the meta object for class '{@link xproject.xhdl.XFile <em>XFile</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XFile</em>'.
+   * @see xproject.xhdl.XFile
+   * @generated
+   */
+  EClass getXFile();
+
+  /**
+   * Returns the meta object for the containment reference '{@link xproject.xhdl.XFile#getXtype <em>Xtype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Xtype</em>'.
+   * @see xproject.xhdl.XFile#getXtype()
+   * @see #getXFile()
+   * @generated
+   */
+  EReference getXFile_Xtype();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1510,6 +2167,22 @@ public interface XhdlPackage extends EPackage
     EReference XTYPE__XARRAY = eINSTANCE.getXType_Xarray();
 
     /**
+     * The meta object literal for the '<em><b>Xaccess</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XTYPE__XACCESS = eINSTANCE.getXType_Xaccess();
+
+    /**
+     * The meta object literal for the '<em><b>Xfile Of</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XTYPE__XFILE_OF = eINSTANCE.getXType_XfileOf();
+
+    /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XArrayImpl <em>XArray</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1684,22 +2357,22 @@ public interface XhdlPackage extends EPackage
     EClass XENUMS = eINSTANCE.getXEnums();
 
     /**
-     * The meta object literal for the '<em><b>Xenums</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Xenums</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute XENUMS__XENUMS = eINSTANCE.getXEnums_Xenums();
+    EReference XENUMS__XENUMS = eINSTANCE.getXEnums_Xenums();
 
     /**
-     * The meta object literal for the '{@link xproject.xhdl.impl.XFunctionRefImpl <em>XFunction Ref</em>}' class.
+     * The meta object literal for the '{@link xproject.xhdl.impl.XFunctionImpl <em>XFunction</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see xproject.xhdl.impl.XFunctionRefImpl
-     * @see xproject.xhdl.impl.XhdlPackageImpl#getXFunctionRef()
+     * @see xproject.xhdl.impl.XFunctionImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXFunction()
      * @generated
      */
-    EClass XFUNCTION_REF = eINSTANCE.getXFunctionRef();
+    EClass XFUNCTION = eINSTANCE.getXFunction();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1707,7 +2380,15 @@ public interface XhdlPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute XFUNCTION_REF__NAME = eINSTANCE.getXFunctionRef_Name();
+    EAttribute XFUNCTION__NAME = eINSTANCE.getXFunction_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Xparameters</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XFUNCTION__XPARAMETERS = eINSTANCE.getXFunction_Xparameters();
 
     /**
      * The meta object literal for the '<em><b>Xreturn</b></em>' containment reference feature.
@@ -1715,7 +2396,7 @@ public interface XhdlPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference XFUNCTION_REF__XRETURN = eINSTANCE.getXFunctionRef_Xreturn();
+    EReference XFUNCTION__XRETURN = eINSTANCE.getXFunction_Xreturn();
 
     /**
      * The meta object literal for the '{@link xproject.xhdl.impl.XImpureImpl <em>XImpure</em>}' class.
@@ -1734,6 +2415,218 @@ public interface XhdlPackage extends EPackage
      * @generated
      */
     EReference XIMPURE__XFUNC = eINSTANCE.getXImpure_Xfunc();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XEnumImpl <em>XEnum</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XEnumImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXEnum()
+     * @generated
+     */
+    EClass XENUM = eINSTANCE.getXEnum();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XENUM__NAME = eINSTANCE.getXEnum_Name();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XAccessImpl <em>XAccess</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XAccessImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXAccess()
+     * @generated
+     */
+    EClass XACCESS = eINSTANCE.getXAccess();
+
+    /**
+     * The meta object literal for the '<em><b>Xtype</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XACCESS__XTYPE = eINSTANCE.getXAccess_Xtype();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XFileOfImpl <em>XFile Of</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XFileOfImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXFileOf()
+     * @generated
+     */
+    EClass XFILE_OF = eINSTANCE.getXFileOf();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XParameterImpl <em>XParameter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XParameterImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXParameter()
+     * @generated
+     */
+    EClass XPARAMETER = eINSTANCE.getXParameter();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XPARAMETER__NAME = eINSTANCE.getXParameter_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Xtype</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XPARAMETER__XTYPE = eINSTANCE.getXParameter_Xtype();
+
+    /**
+     * The meta object literal for the '<em><b>Xdefault Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XPARAMETER__XDEFAULT_VALUE = eINSTANCE.getXParameter_XdefaultValue();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XProcedureImpl <em>XProcedure</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XProcedureImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXProcedure()
+     * @generated
+     */
+    EClass XPROCEDURE = eINSTANCE.getXProcedure();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XPROCEDURE__NAME = eINSTANCE.getXProcedure_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Xinputs</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XPROCEDURE__XINPUTS = eINSTANCE.getXProcedure_Xinputs();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XInputImpl <em>XInput</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XInputImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXInput()
+     * @generated
+     */
+    EClass XINPUT = eINSTANCE.getXInput();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XINPUT__NAME = eINSTANCE.getXInput_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Xinout</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XINPUT__XINOUT = eINSTANCE.getXInput_Xinout();
+
+    /**
+     * The meta object literal for the '<em><b>Xtyp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XINPUT__XTYP = eINSTANCE.getXInput_Xtyp();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XFileRefImpl <em>XFile Ref</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XFileRefImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXFileRef()
+     * @generated
+     */
+    EClass XFILE_REF = eINSTANCE.getXFileRef();
+
+    /**
+     * The meta object literal for the '<em><b>Xtype</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XFILE_REF__XTYPE = eINSTANCE.getXFileRef_Xtype();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XInputsImpl <em>XInputs</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XInputsImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXInputs()
+     * @generated
+     */
+    EClass XINPUTS = eINSTANCE.getXInputs();
+
+    /**
+     * The meta object literal for the '<em><b>Xinputs</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XINPUTS__XINPUTS = eINSTANCE.getXInputs_Xinputs();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XParametersImpl <em>XParameters</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XParametersImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXParameters()
+     * @generated
+     */
+    EClass XPARAMETERS = eINSTANCE.getXParameters();
+
+    /**
+     * The meta object literal for the '<em><b>Xparameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XPARAMETERS__XPARAMETERS = eINSTANCE.getXParameters_Xparameters();
+
+    /**
+     * The meta object literal for the '{@link xproject.xhdl.impl.XFileImpl <em>XFile</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see xproject.xhdl.impl.XFileImpl
+     * @see xproject.xhdl.impl.XhdlPackageImpl#getXFile()
+     * @generated
+     */
+    EClass XFILE = eINSTANCE.getXFile();
+
+    /**
+     * The meta object literal for the '<em><b>Xtype</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XFILE__XTYPE = eINSTANCE.getXFile_Xtype();
 
   }
 

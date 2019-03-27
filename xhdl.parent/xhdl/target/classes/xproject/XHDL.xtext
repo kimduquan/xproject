@@ -27,7 +27,7 @@ XTypeRef:
 ;
 
 XElement:
-	XType | XSignal | XSubType | XAttribute | XImpure
+	XType | XSignal | XSubType | XAttribute | XImpure | XFunction | XProcedure
 ;
 
 XAttribute:
@@ -43,7 +43,7 @@ XSignal:
 ;
 
 XType:
-	{XType} 'type' name=ID 'is' ((xenums=XEnums | xrange=XRange | xarray=XArray) & ';')
+	{XType} 'type' name=ID 'is' ((xenums=XEnums | xrange=XRange | xarray=XArray | xaccess=XAccess | xfileOf=XFileOf) & ';')
 ;
 
 XArray:
@@ -74,14 +74,46 @@ XEnums:
 	{XEnums} ('(' & ( ','? & xenums+=XEnum)* & ')')
 ;
 
-XFunctionRef:
-	{XFunctionRef} 'function' name=ID 'return' xreturn=XTypeRef
+XFunction:
+	{XFunction} 'function' (name=ID & xparameters=XParameters & 'return' xreturn=XTypeRef & ';')
 ;
 
 XImpure:
-	'impure' xfunc=XFunctionRef & ';'
+	'impure' & xfunc=XFunction
 ;
 
 XEnum:
-	ID | STRING
+	name=ID | name=STRING
+;
+
+XAccess:
+	{XAccess} 'access' xtype=XTypeRef
+;
+
+XFileOf:
+	{XFile} ('file' & 'of' xtype=XTypeRef)
+;
+
+XParameter:
+	{XParameter} (name=ID & ':'& xtype=XTypeRef & (':=' & xdefaultValue=ID )? )
+;
+
+XProcedure:
+	{XProcedure} 'procedure' (name=ID & xinputs=XInputs & ';')
+;
+
+XInput:
+	{XInput} (name=ID & ':' & (xinout='in' | xinout='inout' | xinout='out')? xtyp=XTypeRef) | XFileRef
+;
+
+XFileRef:
+	{XFileRef} 'file' (name=ID & ':' & xtype=XTypeRef)
+;
+
+XInputs:
+	{XInputs} ( '(' & ( ';'? & xinputs+=XInput)* & ')' )
+;
+
+XParameters:
+	{XParameters} ( '(' & ( ';'? & xparameters+=XParameter)* & ')' )
 ;

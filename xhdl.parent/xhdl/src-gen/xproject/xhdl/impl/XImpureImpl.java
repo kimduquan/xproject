@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import xproject.xhdl.XFunctionRef;
+import xproject.xhdl.XFunction;
 import xproject.xhdl.XImpure;
 import xproject.xhdl.XhdlPackage;
 
@@ -38,7 +38,7 @@ public class XImpureImpl extends XElementImpl implements XImpure
    * @generated
    * @ordered
    */
-  protected XFunctionRef xfunc;
+  protected XFunction xfunc;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class XImpureImpl extends XElementImpl implements XImpure
    * <!-- end-user-doc -->
    * @generated
    */
-  public XFunctionRef getXfunc()
+  public XFunction getXfunc()
   {
     return xfunc;
   }
@@ -76,9 +76,9 @@ public class XImpureImpl extends XElementImpl implements XImpure
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetXfunc(XFunctionRef newXfunc, NotificationChain msgs)
+  public NotificationChain basicSetXfunc(XFunction newXfunc, NotificationChain msgs)
   {
-    XFunctionRef oldXfunc = xfunc;
+    XFunction oldXfunc = xfunc;
     xfunc = newXfunc;
     if (eNotificationRequired())
     {
@@ -93,7 +93,7 @@ public class XImpureImpl extends XElementImpl implements XImpure
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setXfunc(XFunctionRef newXfunc)
+  public void setXfunc(XFunction newXfunc)
   {
     if (newXfunc != xfunc)
     {
@@ -152,7 +152,7 @@ public class XImpureImpl extends XElementImpl implements XImpure
     switch (featureID)
     {
       case XhdlPackage.XIMPURE__XFUNC:
-        setXfunc((XFunctionRef)newValue);
+        setXfunc((XFunction)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -169,7 +169,7 @@ public class XImpureImpl extends XElementImpl implements XImpure
     switch (featureID)
     {
       case XhdlPackage.XIMPURE__XFUNC:
-        setXfunc((XFunctionRef)null);
+        setXfunc((XFunction)null);
         return;
     }
     super.eUnset(featureID);
