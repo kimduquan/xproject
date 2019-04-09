@@ -657,5 +657,20 @@ namespace XWebApplication
                 }
             }
         }
+
+        public static void XFromReturnUrl(IQueryCollection query, out XType xtype, out string url)
+        {
+            xtype = null;
+            StringValues returnUrl;
+            query.TryGetValue("ReturnUrl", out returnUrl);
+            url = returnUrl.ToString();
+            string[] path = url.Split("/");
+            if(path.Length > 3)
+            {
+                string dll = path[1];
+                string ns = string.Join(".", path, 1, path.Length - 1).Replace('-', '.');
+                xtype = X.XGetType(ns + "," + dll);
+            }
+        }
     }
 }

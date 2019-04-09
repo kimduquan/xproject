@@ -1,0 +1,13 @@
+﻿@page "/using/"
+@model  XUsingModel
+@{
+    if(Model.XType != null)
+    {
+        ViewData["Title"] = Util.XToDisplayString(Model.XType);
+        ViewData["Application"] = Util.XToDisplayString(Model.XType.XAssembly);
+    }
+}
+<form>
+    <input name="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
+    <input type="submit" title="Sign in" />
+</form>
