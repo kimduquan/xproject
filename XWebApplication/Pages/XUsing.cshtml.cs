@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using System.Security.Claims;
 using XSystem;
-using XSystem.XReflection;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace XWebApplication.Pages
 {
@@ -36,27 +35,26 @@ namespace XWebApplication.Pages
             }
         }
 
-        public void OnPost()
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            List<Claim> claims = new List<Claim>()
+            if(ModelState.IsValid)
             {
-                new Claim(ClaimTypes.Name, "abc"),
-            };
-            List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
-            {
-                new ClaimsIdentity
-                (
-                    claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme
-                )
-            };
-            ClaimsPrincipal principal = new ClaimsPrincipal(identities);
-            SignIn(principal, CookieAuthenticationDefaults.AuthenticationScheme).ExecuteResult(PageContext);
-            StringValues url;
-            if(Request.Form.TryGetValue("ReturnUrl", out url))
-            {
-                //Redirect(url.ToString());
+                List<Claim> claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Name, "abc"),
+                };
+                    List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
+                {
+                    new ClaimsIdentity
+                    (
+                        claims,
+                        CookieAuthenticationDefaults.AuthenticationScheme
+                    )
+                };
+                ClaimsPrincipal principal = new ClaimsPrincipal(identities);
+                return SignIn(principal, CookieAuthenticationDefaults.AuthenticationScheme);
             }
+            return Page();
         }
     }
 }

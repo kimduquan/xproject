@@ -7,7 +7,7 @@
         ViewData["Application"] = Util.XToDisplayString(Model.XType.XAssembly);
     }
 }
-<form>
+<form method="post">
     <input name="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
-    <input type="submit" title="Sign in" />
+    <input type="submit" value="Sign in" />
 </form>
