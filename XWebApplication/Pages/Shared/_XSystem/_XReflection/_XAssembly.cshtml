@@ -6,7 +6,7 @@
     Dictionary<string, List<string>> childNSs;
     Dictionary<string, List<XType>> childTypes;
     Stack<IEnumerator<string>> stackNS = new Stack<IEnumerator<string>>();
-    Util.XToHiearchy(it, out childNSs, out childTypes);
+    XUtil.XToHiearchy(it, out childNSs, out childTypes);
     IEnumerator<string> current = childNSs.Keys.GetEnumerator();
     List<string> path = new List<string>();
     current.MoveNext();
@@ -39,7 +39,7 @@
         }
 
         @Html.Raw(tag)
-        @Util.XToDisplayString(current.Current)
+        @XUtil.XToDisplayString(current.Current)
 
         @if (childTypes.ContainsKey(ns))
         {
@@ -52,9 +52,9 @@
 
                 @foreach (XType type in childType)
                 {
-                    var route = Util.XToRoute(type);
-                    var css = Util.XToCSSClass(type);
-                    <li class="type"><a class="@css" href="@route">@Util.XToDisplayString(type)</a></li>
+                    var route = XUtil.XToRoute(type);
+                    var css = XUtil.XToCSSClass(type);
+                    <li class="type"><a class="@css" href="@route">@XUtil.XToDisplayString(type)</a></li>
                 }
 
                 tag = "</ul>";
@@ -97,11 +97,11 @@
 </ul>
 @{ 
     Dictionary<string, string> about = null;
-    Util.XToAbout(Model, out about);
+    XUtil.XToAbout(Model, out about);
 }
 @foreach (KeyValuePair<string, string> v in about)
 {
-    @Util.XToDisplayString(v.Key)
+    @XUtil.XToDisplayString(v.Key)
     
     @v.Value
 }

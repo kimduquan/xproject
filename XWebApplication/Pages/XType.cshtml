@@ -1,10 +1,10 @@
 ﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}"
 @model XTypeModel
 @{
-    ViewData["Title"] = Util.XToDisplayString(Model.XType);
-    ViewData["Application"] = Util.XToDisplayString(Model.XType.XAssembly);
-    Util.XToViewData(Model.XType, ViewData);
-    Util.XToViewData(Model.XType.XAssembly, ViewData);
+    ViewData["Title"] = XUtil.XToDisplayString(Model.XType);
+    ViewData["Application"] = XUtil.XToDisplayString(Model.XType.XAssembly);
+    XUtil.XToViewData(Model.XType, ViewData);
+    XUtil.XToViewData(Model.XType.XAssembly, ViewData);
 }
 
 <nav>

@@ -29,7 +29,7 @@ namespace XWebApplication
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddDistributedMemoryCache();
             services.AddMemoryCache();
             services.AddDirectoryBrowser();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -38,6 +38,11 @@ namespace XWebApplication
             {
                 options.LoginPath = "/using";
                 options.LogoutPath = "/return";
+                options.AccessDeniedPath = "/";
+            });
+            services.AddSession(options =>
+            {
+                options.Cookie.IsEssential = true;
             });
         }
 
@@ -76,6 +81,7 @@ namespace XWebApplication
                 routes.MapHub<XObjectHub>("/Syxtem/Object");
             });
             app.UseAuthentication();
+            app.UseSession();
             app.UseMvc();
         }
     }

@@ -1,11 +1,11 @@
 ﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}/{hashCode:int}"
 @model XObjectModel
 @{
-    ViewData["Title"] = Util.XToDisplayString(Model.XObject);
-    ViewData["Application"] = Util.XToDisplayString(Model.XObject.XGetType().XAssembly);
-    Util.XToViewData(Model.XObject, ViewData);
-    Util.XToViewData(Model.XObject.XGetType(), ViewData);
-    Util.XToViewData(Model.XObject.XGetType().XAssembly, ViewData);
+    ViewData["Title"] = XUtil.XToDisplayString(Model.XObject);
+    ViewData["Application"] = XUtil.XToDisplayString(Model.XObject.XGetType().XAssembly);
+    XUtil.XToViewData(Model.XObject, ViewData);
+    XUtil.XToViewData(Model.XObject.XGetType(), ViewData);
+    XUtil.XToViewData(Model.XObject.XGetType().XAssembly, ViewData);
 }
 
 @await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XObject.XGetType().XAssembly);

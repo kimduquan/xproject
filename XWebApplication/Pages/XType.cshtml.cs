@@ -40,7 +40,7 @@ namespace XWebApplication.Pages
             {
                 if (xtype == null)
                 {
-                    Util.XFromRoute(out xtype, RouteData);
+                    XUtil.XFromRoute(out xtype, RouteData);
                 }
                 return xtype;
             }

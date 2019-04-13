@@ -1,11 +1,14 @@
 ﻿@page "/this/"
 @model XWebApplication.Pages.XThisModel
 @{
-    ViewData["Title"] = "XThis";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = XUtil.XToDisplayString(Model.XThis);
+    ViewData["Application"] = XUtil.XToDisplayString(Model.XThis.XGetType().XAssembly);
+    XUtil.XToViewData(Model.XThis, ViewData);
+    XUtil.XToViewData(Model.XThis.XGetType(), ViewData);
+    XUtil.XToViewData(Model.XThis.XGetType().XAssembly, ViewData);
 }
 
-<form method="post">
-    <input type="submit" value="Sign out" />
-</form>
+@await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XThis.XGetType().XAssembly);
+@await Html.PartialAsync("_XSystem/_XObject", Model.XThis);
+
 

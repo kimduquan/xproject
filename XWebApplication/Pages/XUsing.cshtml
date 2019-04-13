@@ -3,11 +3,10 @@
 @{
     if(Model.XType != null)
     {
-        ViewData["Title"] = Util.XToDisplayString(Model.XType);
-        ViewData["Application"] = Util.XToDisplayString(Model.XType.XAssembly);
+        ViewData["Title"] = XUtil.XToDisplayString(Model.XType);
+        ViewData["Application"] = XUtil.XToDisplayString(Model.XType.XAssembly);
     }
 }
 <form method="post">
-    <input name="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
     <input type="submit" value="Sign in" />
 </form>

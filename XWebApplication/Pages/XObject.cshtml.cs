@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using XSystem;
-using XSystem.XInternal;
 
 namespace XWebApplication.Pages
 {
+    [Authorize]
     public class XObjectModel : PageModel
     {
         private XObject xobject = null;
@@ -21,7 +17,11 @@ namespace XWebApplication.Pages
             {
                 if(xobject == null)
                 {
-                    Util.XFromRoute(out xobject, RouteData, cache);
+                    XType xtype = null;
+                    XUtil.XFromRoute(out xtype, RouteData);
+                    object hashCode = 0;
+                    RouteData.Values.TryGetValue("hashCode", out hashCode);
+                    XUtil.XFromCache(out xobject, cache, HttpContext.Session, xtype.XFullName, (int)hashCode);
                 }
                 return xobject;
             }

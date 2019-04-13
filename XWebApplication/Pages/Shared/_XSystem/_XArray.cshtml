@@ -17,18 +17,18 @@
     string accessKey = "";
     XArray xarray = null;
     XObject xobject = null;
-    Util.XFromViewData(out xobject, ViewData);
+    XUtil.XFromViewData(out xobject, ViewData);
     bool isStatic = xobject == null;
     if ((Model as XFieldInfo) != null)
     {
         xtype = ((XFieldInfo)Model).XFieldType.XGetElementType();
-        name = Util.XToName((XFieldInfo)Model);
-        text = Util.XToDisplayString((XFieldInfo)Model);
-        css = Util.XToCSSClass((XFieldInfo)Model);
-        data = string.Format("data-{0}={1}", Util.XToData((XFieldInfo)Model), Util.XToName((XFieldInfo)Model));
+        name = XUtil.XToName((XFieldInfo)Model);
+        text = XUtil.XToDisplayString((XFieldInfo)Model);
+        css = XUtil.XToCSSClass((XFieldInfo)Model);
+        data = string.Format("data-{0}={1}", XUtil.XToData((XFieldInfo)Model), XUtil.XToName((XFieldInfo)Model));
         id = "" + ((XFieldInfo)Model).XGetHashCode();
-        accessKey = Util.XToAccessKey((XFieldInfo)Model, ViewData);
-        tabIndex = Util.XToTabIndex((XFieldInfo)Model, ViewData);
+        accessKey = XUtil.XToAccessKey((XFieldInfo)Model, ViewData);
+        tabIndex = XUtil.XToTabIndex((XFieldInfo)Model, ViewData);
         if(isStatic)
         {
             xarray = ((XFieldInfo)Model).XGetValue(null) as XArray;
@@ -41,13 +41,13 @@
     else if ((Model as XPropertyInfo) != null)
     {
         xtype = ((XPropertyInfo)Model).XPropertyType.XGetElementType();
-        name = Util.XToName((XPropertyInfo)Model);
-        text = Util.XToDisplayString((XPropertyInfo)Model);
-        css = Util.XToCSSClass((XPropertyInfo)Model);
-        data = string.Format("data-{0}={1}", Util.XToData((XPropertyInfo)Model), Util.XToName((XPropertyInfo)Model));
+        name = XUtil.XToName((XPropertyInfo)Model);
+        text = XUtil.XToDisplayString((XPropertyInfo)Model);
+        css = XUtil.XToCSSClass((XPropertyInfo)Model);
+        data = string.Format("data-{0}={1}", XUtil.XToData((XPropertyInfo)Model), XUtil.XToName((XPropertyInfo)Model));
         id = "" + ((XPropertyInfo)Model).XGetHashCode();
-        accessKey = Util.XToAccessKey((XPropertyInfo)Model, ViewData);
-        tabIndex = Util.XToTabIndex((XPropertyInfo)Model, ViewData);
+        accessKey = XUtil.XToAccessKey((XPropertyInfo)Model, ViewData);
+        tabIndex = XUtil.XToTabIndex((XPropertyInfo)Model, ViewData);
         if (isStatic)
         {
             xarray = ((XPropertyInfo)Model).XGetValue(null) as XArray;
@@ -57,16 +57,16 @@
             xarray = ((XPropertyInfo)Model).XGetValue(xobject) as XArray;
         }
     }
-    data += (" data-namespace=" + Util.XToName(xtype.XNamespace));
-    data += (" data-type=" + Util.XToName(xtype));
+    data += (" data-namespace=" + XUtil.XToName(xtype.XNamespace));
+    data += (" data-type=" + XUtil.XToName(xtype));
 
     int index = text.IndexOf(accessKey, StringComparison.OrdinalIgnoreCase);
     List<XType> xtypes = null;
     Dictionary<string, List<XFieldInfo>> xfieldSet = null;
-    Util.XToFieldSet(xtype.XGetFields(), out xtypes, out xfieldSet, false);
+    XUtil.XToFieldSet(xtype.XGetFields(), out xtypes, out xfieldSet, false);
     List<XType> xtypes2 = null;
     Dictionary<string, List<XPropertyInfo>> xpropSet = null;
-    Util.XToPropertySet(xtype.XGetProperties(), out xtypes2, out xpropSet, false);
+    XUtil.XToPropertySet(xtype.XGetProperties(), out xtypes2, out xpropSet, false);
 }
 
 <table class="@css" @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey">
@@ -95,13 +95,13 @@
                 @foreach (XFieldInfo f in xfieldSet[t.XFullName])
                 {
                     <th>
-                        @Util.XToDisplayString(f);
+                        @XUtil.XToDisplayString(f);
                     </th>
                 }
                 @foreach (XPropertyInfo p in xpropSet[t.XFullName])
                 {
                     <th>
-                        @Util.XToDisplayString(p);
+                        @XUtil.XToDisplayString(p);
                     </th>
                 }
             }
@@ -118,14 +118,14 @@
                     {
                         XObject value = f.XGetValue(item);
                         <td>
-                            @Util.XToDisplayString(value);
+                            @XUtil.XToDisplayString(value);
                         </td>
                     }
                     @foreach (XPropertyInfo p in xpropSet[t.XFullName])
                     {
                         XObject value = p.XGetValue(item);
                         <td>
-                            @Util.XToDisplayString(value);
+                            @XUtil.XToDisplayString(value);
                         </td>
                     }
                 }

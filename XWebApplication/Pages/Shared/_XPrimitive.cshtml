@@ -19,38 +19,38 @@
     if ((Model as XParameterInfo) != null)
     {
         xtype = ((XParameterInfo)Model).XParameterType;
-        name = Util.XToName((XParameterInfo)Model);
-        text = Util.XToDisplayString((XParameterInfo)Model);
-        css = Util.XToCSSClass((XParameterInfo)Model);
-        data = string.Format("data-{0}={1}", Util.XToData((XParameterInfo)Model), Util.XToName((XParameterInfo)Model));
+        name = XUtil.XToName((XParameterInfo)Model);
+        text = XUtil.XToDisplayString((XParameterInfo)Model);
+        css = XUtil.XToCSSClass((XParameterInfo)Model);
+        data = string.Format("data-{0}={1}", XUtil.XToData((XParameterInfo)Model), XUtil.XToName((XParameterInfo)Model));
         id = "" + ((XParameterInfo)Model).XPosition;
         tabIndex = "" + ((XParameterInfo)Model).XPosition;
-        accessKey = Util.XToAccessKey((XParameterInfo)Model, ViewData);
+        accessKey = XUtil.XToAccessKey((XParameterInfo)Model, ViewData);
     }
     else if ((Model as XFieldInfo) != null)
     {
         xtype = ((XFieldInfo)Model).XFieldType;
-        name = Util.XToName((XFieldInfo)Model);
-        text = Util.XToDisplayString((XFieldInfo)Model);
-        css = Util.XToCSSClass((XFieldInfo)Model);
-        data = string.Format("data-{0}={1}", Util.XToData((XFieldInfo)Model), Util.XToName((XFieldInfo)Model));
+        name = XUtil.XToName((XFieldInfo)Model);
+        text = XUtil.XToDisplayString((XFieldInfo)Model);
+        css = XUtil.XToCSSClass((XFieldInfo)Model);
+        data = string.Format("data-{0}={1}", XUtil.XToData((XFieldInfo)Model), XUtil.XToName((XFieldInfo)Model));
         id = "" + ((XFieldInfo)Model).XGetHashCode();
-        accessKey = Util.XToAccessKey((XFieldInfo)Model, ViewData);
-        tabIndex = Util.XToTabIndex((XFieldInfo)Model, ViewData);
+        accessKey = XUtil.XToAccessKey((XFieldInfo)Model, ViewData);
+        tabIndex = XUtil.XToTabIndex((XFieldInfo)Model, ViewData);
     }
     else if ((Model as XPropertyInfo) != null)
     {
         xtype = ((XPropertyInfo)Model).XPropertyType;
-        name = Util.XToName((XPropertyInfo)Model);
-        text = Util.XToDisplayString((XPropertyInfo)Model);
-        css = Util.XToCSSClass((XPropertyInfo)Model);
-        data = string.Format("data-{0}={1}", Util.XToData((XPropertyInfo)Model), Util.XToName((XPropertyInfo)Model));
+        name = XUtil.XToName((XPropertyInfo)Model);
+        text = XUtil.XToDisplayString((XPropertyInfo)Model);
+        css = XUtil.XToCSSClass((XPropertyInfo)Model);
+        data = string.Format("data-{0}={1}", XUtil.XToData((XPropertyInfo)Model), XUtil.XToName((XPropertyInfo)Model));
         id = "" + ((XPropertyInfo)Model).XGetHashCode();
-        accessKey = Util.XToAccessKey((XPropertyInfo)Model, ViewData);
-        tabIndex = Util.XToTabIndex((XPropertyInfo)Model, ViewData);
+        accessKey = XUtil.XToAccessKey((XPropertyInfo)Model, ViewData);
+        tabIndex = XUtil.XToTabIndex((XPropertyInfo)Model, ViewData);
     }
-    data += (" data-namespace=" + Util.XToName(xtype.XNamespace));
-    data += (" data-type=" + Util.XToName(xtype));
+    data += (" data-namespace=" + XUtil.XToName(xtype.XNamespace));
+    data += (" data-type=" + XUtil.XToName(xtype));
 
     int index = text.IndexOf(accessKey, StringComparison.OrdinalIgnoreCase);
 }
@@ -61,10 +61,10 @@
 @if (xtype.XIsEnum)
 {
     <select class="@css" name="@name" @required @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey">
-        <optgroup label="@Util.XToDisplayString(xtype)">
+        <optgroup label="@XUtil.XToDisplayString(xtype)">
             @foreach (string enumName in xtype.XGetEnumNames())
             {
-                <option value="@Util.XToName(enumName)">@Util.XToDisplayString(enumName)</option>
+                <option value="@XUtil.XToName(enumName)">@XUtil.XToDisplayString(enumName)</option>
             }
         </optgroup>
     </select>

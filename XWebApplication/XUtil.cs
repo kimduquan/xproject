@@ -14,7 +14,7 @@ using XSystem.XReflection.XInternal;
 
 namespace XWebApplication
 {
-    public class Util
+    public class XUtil
     {
         private static X x = null;
 
@@ -277,15 +277,6 @@ namespace XWebApplication
             return ns.ToLower().Replace('_', '-');
         }
 
-        public static void XFromRoute(out XObject obj,  RouteData data, IMemoryCache cache)
-        {
-            XType xtype = null;
-            XFromRoute(out xtype, data);
-            int hashCode = (int)data.Values["hashCode"];
-            string key = xtype.XNamespace + "." + "@" + hashCode;
-            cache.TryGetValue<XObject>(key, out obj);
-        }
-
         public static void XFromQuery(out List<XType> xtypes, IQueryCollection query)
         {
             xtypes = new List<XType>();
@@ -316,10 +307,41 @@ namespace XWebApplication
             }
         }
 
-        public static void XToCache(XObject obj, IMemoryCache cache)
+        public static void XToCache(XObject obj, IMemoryCache cache, ISession session)
         {
+            Dictionary<string, XObject> xobjects = null;
+            XGetCache(cache, session, out xobjects);
             string key = obj.XGetType().XFullName + "@" + obj.XGetHashCode();
-            cache.Set<XObject>(key, obj);
+            xobjects.TryAdd(key, obj);
+        }
+
+        protected static void XGetCache(IMemoryCache cache, ISession session, out Dictionary<string, XObject> xobjects)
+        {
+            string xthis = session.GetString("this");
+            if (cache.TryGetValue(xthis, out xobjects) == false)
+            {
+                xobjects = new Dictionary<string, XObject>();
+                using (ICacheEntry entry = cache.CreateEntry(xthis))
+                {
+                    entry.SetValue(xobjects);
+                }
+            }
+        }
+
+        public static void XFromCache(out XObject obj, IMemoryCache cache, ISession session, string type, int hashCode)
+        {
+            Dictionary<string, XObject> xobjects = null;
+            XGetCache(cache, session, out xobjects);
+            string key = type + "@" + hashCode;
+            xobjects.TryGetValue(key, out obj);
+        }
+
+        public static void XFromCache(out XObject obj, IMemoryCache cache, ISession session)
+        {
+            Dictionary<string, XObject> xobjects = null;
+            XGetCache(cache, session, out xobjects);
+            string xthis = session.GetString("this");
+            xobjects.TryGetValue(xthis, out obj);
         }
 
         public static void XToAccessKeyMap(XFieldInfo[] xfields, XPropertyInfo[] xproperties, ViewDataDictionary data)

@@ -13,7 +13,6 @@ namespace XWebApplication.Pages
     public class XUsingModel : PageModel
     {
         private XType xtype = null;
-        private string returnUrl = null;
 
         public XType XType
         {
@@ -21,17 +20,10 @@ namespace XWebApplication.Pages
             {
                 if (xtype == null)
                 {
-                    Util.XFromReturnUrl(Request.Query, out xtype, out returnUrl);
+                    string url = "";
+                    XUtil.XFromReturnUrl(Request.Query, out xtype, out url);
                 }
                 return xtype;
-            }
-        }
-
-        public string ReturnUrl
-        {
-            get
-            {
-                return returnUrl;
             }
         }
 
@@ -41,9 +33,9 @@ namespace XWebApplication.Pages
             {
                 List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Name, "abc"),
                 };
-                    List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
+
+                List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
                 {
                     new ClaimsIdentity
                     (

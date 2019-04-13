@@ -1,8 +1,8 @@
 ﻿@model XSystem.XReflection.XMethodInfo
 
 @{
-    Util.XToViewData(Model, ViewData);
-    Util.XToAccessKeyMap(Model.XGetParameters(), ViewData);
+    XUtil.XToViewData(Model, ViewData);
+    XUtil.XToAccessKeyMap(Model.XGetParameters(), ViewData);
 }
 @foreach (var xparameter in Model.XGetParameters())
 {

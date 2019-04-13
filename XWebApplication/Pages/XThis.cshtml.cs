@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using XSystem;
 
 namespace XWebApplication.Pages
@@ -10,14 +8,24 @@ namespace XWebApplication.Pages
     [Authorize]
     public class XThisModel : PageModel
     {
-        public void OnGet()
-        {
+        private IMemoryCache cache = null;
+        private XObject xthis = null;
 
+        public XObject XThis
+        {
+            get
+            {
+                if(xthis == null)
+                {
+                    XUtil.XFromCache(out xthis, cache, HttpContext.Session);
+                }
+                return xthis;
+            }
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public XThisModel(IMemoryCache memory)
         {
-            return SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
+            cache = memory;
         }
     }
 }

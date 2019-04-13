@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
 using XSystem;
-using XSystem.XComponentModel;
-using XSystem.XComponentModel.XInternal;
-using XSystem.XInternal;
 using XSystem.XReflection;
-using xsystem = XSystem.XInternal.XInternal;
 
 namespace XWebApplication.Pages
 {
+    [Authorize]
     public class XNewModel : PageModel
     {
         private IMemoryCache cache = null;
@@ -43,7 +34,7 @@ namespace XWebApplication.Pages
             {
                 if(xtype == null)
                 {
-                    Util.XFromRoute(out xtype, RouteData);
+                    XUtil.XFromRoute(out xtype, RouteData);
                 }
                 return xtype;
             }
@@ -55,7 +46,7 @@ namespace XWebApplication.Pages
             {
                 if(xparameterTypes == null)
                 {
-                    Util.XFromQuery(out xparameterTypes, Request.Query);
+                    XUtil.XFromQuery(out xparameterTypes, Request.Query);
                 }
                 return xparameterTypes.ToArray();
             }
@@ -68,7 +59,7 @@ namespace XWebApplication.Pages
                 if(xparameterValues == null)
                 {
                     XParameterInfo[] xparameters = XConstructor.XGetParameters();
-                    Util.XFromForm(out xparameterValues, xparameters, Request.Form);
+                    XUtil.XFromForm(out xparameterValues, xparameters, Request.Form);
                 }
                 return xparameterValues.ToArray();
             }
@@ -87,7 +78,7 @@ namespace XWebApplication.Pages
         public void OnPost()
         {
             XObject xobject = XConstructor.XInvoke(XParameterValues);
-            Util.XToCache(xobject, cache);
+            XUtil.XToCache(xobject, cache, HttpContext.Session);
         }
     }
 }
