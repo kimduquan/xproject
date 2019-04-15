@@ -9,6 +9,8 @@ namespace XSystem.XReflection.XInternal
     {
         private MethodInfo method = null;
         private List<XParameterInfo> xparameters = null;
+        private XType xreturnType = null;
+        private XType xdeclaringType = null;
 
         public XMethodInfoInternal(MethodInfo m, X x) : base(x)
         {
@@ -17,6 +19,33 @@ namespace XSystem.XReflection.XInternal
 
         public string XName => method.Name;
         public bool XIsStatic => method.IsStatic;
+
+        public XType XReturnType
+        {
+            get
+            {
+                if(xreturnType == null)
+                {
+                    if(method.ReturnType != null)
+                    {
+                        xreturnType = X().XTypeOf(method.ReturnType);
+                    }
+                }
+                return xreturnType;
+            }
+        }
+
+        public XType XDeclaringType
+        {
+            get
+            {
+                if(xdeclaringType == null)
+                {
+                    xdeclaringType = X().XTypeOf(method.DeclaringType);
+                }
+                return xdeclaringType;
+            }
+        }
 
         public XParameterInfo[] XGetParameters()
         {

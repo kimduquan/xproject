@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 using XSystem;
 using XSystem.XComponentModel;
@@ -20,7 +21,25 @@ namespace XWebApplication.Pages
         private XFieldInfo[] xstaticFields = null;
         private XMethodInfo[] xstaticMethods = null;
         private XFieldInfo[] xarrayFields = null;
-        private XJSONConverter xjsonConverter = null;
+        private IMemoryCache cache = null;
+        private XObject xthis = null;
+
+        public XTypeModel(IMemoryCache memory)
+        {
+            cache = memory;
+        }
+
+        public XObject XThis
+        {
+            get
+            {
+                if(xthis == null)
+                {
+                    XUtil.XFromCache(out xthis, cache, HttpContext.Session);
+                }
+                return xthis;
+            }
+        }
 
         public X X
         {
@@ -130,13 +149,7 @@ namespace XWebApplication.Pages
             return XConverter.XConvertToString(value);
         }
 
-        public XJSONConverter XJsonConverter
-        {
-            get
-            {
-                return xjsonConverter;
-            }
-        }
+        public XJSONConverter XJsonConverter { get; } = null;
 
         public void OnGet()
         {

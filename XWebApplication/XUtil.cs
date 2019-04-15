@@ -307,6 +307,11 @@ namespace XWebApplication
             }
         }
 
+        public static void XToSession(XObject xobject, ISession session)
+        {
+            session.SetString("this", xobject.XGetType().XFullName + "@" + xobject.XGetHashCode());
+        }
+
         public static void XToCache(XObject obj, IMemoryCache cache, ISession session)
         {
             Dictionary<string, XObject> xobjects = null;
@@ -693,6 +698,55 @@ namespace XWebApplication
                 string ns = string.Join(".", path, 1, path.Length - 1).Replace('-', '.');
                 xtype = X.XGetType(ns + "," + dll);
             }
+        }
+
+        public static void XGetEntryType(XAssembly xassembly, out XType xtype)
+        {
+            xtype = null;
+            foreach (XType t in xassembly.XExportedTypes)
+            {
+                if(t.XName == t.XNamespace && t.XName == t.XAssembly.XFullName.Split(',')[0])
+                {
+                    xtype = t;
+                    break;
+                }
+            }
+        }
+
+        public static void XGetEntryMethods(XType xtype, out XMethodInfo[] xmethodInfos)
+        {
+            List<XMethodInfo> result = new List<XMethodInfo>();
+            foreach(XMethodInfo xmethod in xtype.XGetMethods())
+            {
+                if(xmethod.XReturnType != null && xmethod.XDeclaringType.XNamespace != "System" && xmethod.XReturnType.XIsPrimitive == false && xmethod.XReturnType.XIsArray  == false)
+                {
+                    bool check = true;
+                    foreach(XParameterInfo xparam in xmethod.XGetParameters())
+                    {
+                        if(xparam.XParameterType.XIsArray || xparam.XParameterType.XNamespace != "System")
+                        {
+                            check = false;
+                            break;
+                        }
+                    }
+                    if(check)
+                    {
+                        result.Add(xmethod);
+                    }
+                }
+            }
+            xmethodInfos = result.ToArray();
+        }
+
+        public static void XToHref(XObject xobject, out string href)
+        {
+            string[] path = xobject.XGetType().XFullName.Split(".");
+            href = string.Format("/{0}/{1}/{2}/{3}", 
+                path[0], 
+                string.Join('-', path, 1, path.Length - 2), 
+                path[path.Length - 1], 
+                "" + xobject.XGetHashCode()
+            );
         }
     }
 }

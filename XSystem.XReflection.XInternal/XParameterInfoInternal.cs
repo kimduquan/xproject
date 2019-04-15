@@ -8,17 +8,26 @@ namespace XSystem.XReflection.XInternal
     public class XParameterInfoInternal : Internal, XParameterInfo
     {
         private ParameterInfo parameter;
-        private XType xparameterType;
+        private XType xparameterType = null;
 
         public XParameterInfoInternal(ParameterInfo p, X x) : base(x)
         {
             parameter = p;
-            xparameterType = null;
         }
 
         public string XName { get => parameter.Name; }
 
-        public XType XParameterType => xparameterType;
+        public XType XParameterType
+        {
+            get
+            {
+                if (xparameterType == null)
+                {
+                    xparameterType = X().XTypeOf(parameter.ParameterType);
+                }
+                return xparameterType;
+            }
+    }
 
         public bool XHasDefaultValue => parameter.HasDefaultValue;
 

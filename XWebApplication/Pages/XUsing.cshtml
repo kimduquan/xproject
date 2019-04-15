@@ -1,12 +1,42 @@
 ﻿@page "/using/"
-@model  XUsingModel
+@model XUsingModel
 @{
-    if(Model.XType != null)
+    if (Model.XEntryType != null)
     {
-        ViewData["Title"] = XUtil.XToDisplayString(Model.XType);
-        ViewData["Application"] = XUtil.XToDisplayString(Model.XType.XAssembly);
+        if(Model.XMethodInfo != null)
+        {
+            ViewData["Title"] = XUtil.XToDisplayString(Model.XMethodInfo.XName);
+            ViewData["Application"] = XUtil.XToDisplayString(Model.XEntryType.XAssembly);
+        }
+        else if(Model.XType != null)
+        {
+            ViewData["Title"] = XUtil.XToDisplayString(Model.XType);
+            ViewData["Application"] = XUtil.XToDisplayString(Model.XType.XAssembly);
+        }
     }
 }
-<form method="post">
-    <input type="submit" value="Sign in" />
-</form>
+@if (Model.XEntryType != null)
+{
+    <form method="post" asp-route-ReturnUrl="@Model.ReturnUrl">
+        @if (Model.Using == null || Model.Using == "")
+        {
+            <select asp-for="Using">
+                <optgroup label="@XUtil.XToDisplayString(Model.XEntryType)">
+                    @foreach (var m in Model.XMethodInfos)
+                    {
+                        <option value="@m.XName">@XUtil.XToDisplayString(m.XName)</option>
+                    }
+                </optgroup>
+            </select>
+        }
+        else
+        {
+            <input type="hidden" asp-for="Using" />
+        }
+        @if (Model.XMethodInfo != null)
+        {
+            @await Html.PartialAsync("_XSystem/_XReflection/_XMethodInfo", Model.XMethodInfo);
+        }
+        <input type="submit" value="Sign in" />
+    </form>
+}

@@ -69,43 +69,43 @@
         </optgroup>
     </select>
 }
-else if (xtype.Equals(typeof(string[])))
+else if (xtype.XFullName == (typeof(string[])).FullName)
 {
     spellcheck = "spellcheck";
     <textarea class="@css" name="@name" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck />
 }
 else
 {
-    @if (xtype.Equals(typeof(bool)))
+    @if (xtype.XFullName == (typeof(bool)).FullName)
     {
         type = "checkbox";
     }
-    else if (xtype.Equals(typeof(System.Drawing.Color)))
+    else if (xtype.XFullName == (typeof(System.Drawing.Color)).FullName)
     {
         type = "color";
     }
-    else if (xtype.Equals(typeof(DateTime)))
+    else if (xtype.XFullName == (typeof(DateTime)).FullName)
     {
         type = "datetime";
     }
-    else if (xtype.Equals(typeof(System.IO.File)))
+    else if (xtype.XFullName == (typeof(System.IO.File)).FullName)
     {
         type = "file";
     }
-    else if (xtype.Equals(typeof(float)))
+    else if (xtype.XFullName == (typeof(float)).FullName)
     {
         type = "number";
     }
-    else if (xtype.Equals(typeof(int)))
+    else if (xtype.XFullName == (typeof(int)).FullName)
     {
         type = "number";
     }
-    else if (xtype.Equals(typeof(string)))
+    else if (xtype.XFullName == (typeof(string)).FullName)
     {
         spellcheck = "spellcheck";
         type = "text";
     }
-    else if (xtype.Equals(typeof(Uri)))
+    else if (xtype.XFullName == (typeof(Uri)).FullName)
     {
         type = "url";
     }

@@ -1,0 +1,8 @@
+﻿@model XSystem.XObject
+
+@{ 
+    string href = "";
+    XUtil.XToHref(Model, out href);
+}
+<a href="@href">@XUtil.XToDisplayString(Model)</a>
+<a href="/return">Sign out</a>

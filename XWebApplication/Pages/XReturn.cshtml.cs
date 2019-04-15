@@ -13,6 +13,7 @@ namespace XWebApplication.Pages
         {
             if (ModelState.IsValid)
             {
+                HttpContext.Session.Remove("this");
                 return SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
             }   
             return Page();
