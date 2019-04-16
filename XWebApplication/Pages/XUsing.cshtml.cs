@@ -139,6 +139,11 @@ namespace XWebApplication.Pages
             return Page();
         }
 
+        public async Task<IActionResult> OnPostUsingAsync()
+        {
+            return Page();
+        }
+
         public XUsingModel(IMemoryCache memory)
         {
             cache = memory;

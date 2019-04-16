@@ -3,12 +3,12 @@
 @{
     if (Model.XEntryType != null)
     {
-        if(Model.XMethodInfo != null)
+        if (Model.XMethodInfo != null)
         {
             ViewData["Title"] = XUtil.XToDisplayString(Model.XMethodInfo.XName);
             ViewData["Application"] = XUtil.XToDisplayString(Model.XEntryType.XAssembly);
         }
-        else if(Model.XType != null)
+        else if (Model.XType != null)
         {
             ViewData["Title"] = XUtil.XToDisplayString(Model.XType);
             ViewData["Application"] = XUtil.XToDisplayString(Model.XType.XAssembly);
@@ -17,9 +17,9 @@
 }
 @if (Model.XEntryType != null)
 {
-    <form method="post" asp-route-ReturnUrl="@Model.ReturnUrl">
-        @if (Model.Using == null || Model.Using == "")
-        {
+    @if (Model.XMethodInfos.Length > 1 && (Model.Using == null || Model.Using == ""))
+    {
+        <form method="post" asp-page-handler="Using" asp-route-ReturnUrl="@Model.ReturnUrl">
             <select asp-for="Using">
                 <optgroup label="@XUtil.XToDisplayString(Model.XEntryType)">
                     @foreach (var m in Model.XMethodInfos)
@@ -28,15 +28,18 @@
                     }
                 </optgroup>
             </select>
-        }
-        else
-        {
-            <input type="hidden" asp-for="Using" />
-        }
-        @if (Model.XMethodInfo != null)
-        {
-            @await Html.PartialAsync("_XSystem/_XReflection/_XMethodInfo", Model.XMethodInfo);
-        }
-        <input type="submit" value="Sign in" />
-    </form>
+            <input type="submit" value="Sign in" />
+        </form>
+    }
+    else
+    {
+        <form method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl">
+            @if (Model.XMethodInfo != null)
+            {
+                <input type="hidden" asp-for="Using" />
+                @await Html.PartialAsync("_XSystem/_XReflection/_XMethodInfo", Model.XMethodInfo);
+                <input type="submit" value="Sign in" />
+            }
+        </form>
+    }
 }
