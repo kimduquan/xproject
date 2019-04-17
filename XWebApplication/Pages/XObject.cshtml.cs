@@ -5,7 +5,7 @@ using XSystem;
 
 namespace XWebApplication.Pages
 {
-    [Authorize]
+    [Authorize( Policy = "object" )]
     public class XObjectModel : PageModel
     {
         private XObject xobject = null;

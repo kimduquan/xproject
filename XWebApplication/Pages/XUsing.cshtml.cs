@@ -121,7 +121,9 @@ namespace XWebApplication.Pages
                         XUtil.XToCache(xobject, cache, HttpContext.Session);
                         List<Claim> claims = new List<Claim>()
                         {
-                            new Claim(ClaimTypes.Name, xobject.XToString())
+                            new Claim(ClaimTypes.Name, xobject.XToString()),
+                            new Claim("Type", xobject.XGetType().XFullName),
+                            new Claim("hashCode", "" + xobject.XGetHashCode())
                         };
                         List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
                         {

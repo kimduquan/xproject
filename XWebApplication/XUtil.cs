@@ -748,5 +748,10 @@ namespace XWebApplication
                 "" + xobject.XGetHashCode()
             );
         }
+
+        public static void XFromName(string fullName, out XType xtype)
+        {
+            xtype = X.XGetType(fullName + "," + fullName.Split('.')[0]);
+        }
     }
 }

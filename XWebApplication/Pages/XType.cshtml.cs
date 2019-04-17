@@ -12,7 +12,7 @@ using XSystem.XReflection;
 
 namespace XWebApplication.Pages
 {
-    [Authorize]
+    [Authorize( Policy = "Type" )]
     public class XTypeModel : PageModel
     {
         private X x = null;

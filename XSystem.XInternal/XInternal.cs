@@ -69,6 +69,11 @@ namespace XSystem.XInternal
                 return false;
             }
 
+            public bool XEqual(XObject xobject)
+            {
+                return X == xobject.X;
+            }
+
             public int XGetHashCode()
             {
                 return 0;

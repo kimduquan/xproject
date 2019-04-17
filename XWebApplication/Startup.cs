@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,15 @@ namespace XWebApplication
                 options.LogoutPath = "/return";
                 options.AccessDeniedPath = "/";
             });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Type", policy =>
+                    policy.Requirements.Add(new XTypeAuthorizationRequirement()));
+                options.AddPolicy("object", policy =>
+                    policy.Requirements.Add(new XObjectAuthorizationRequirement()));
+            });
+            services.AddSingleton<IAuthorizationHandler, XTypeAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, XObjectAuthorizationHandler>();
             services.AddSession(options =>
             {
                 options.Cookie.IsEssential = true;

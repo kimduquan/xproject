@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace XSystem
 {
@@ -9,6 +7,7 @@ namespace XSystem
         int XGetHashCode();
         string XToString();
         XType XGetType();
+        bool XEqual(XObject xobject);
 
         object X { get; }
     }

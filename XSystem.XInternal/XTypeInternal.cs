@@ -22,6 +22,7 @@ namespace XSystem.XInternal
         private string[] enumNames = null;
         private XType xelementType = null;
         private XAssembly xassembly = null;
+        private XObject[] xcustomAttributes = null;
 
         public bool XIsEnum => type.IsEnum;
         public string XName => type.Name;
@@ -239,6 +240,25 @@ namespace XSystem.XInternal
         {
             XTypeInternal otherType = other as XTypeInternal;
             return type.Equals(otherType.type);
+        }
+
+        public XObject[] XGetCustomAttributes()
+        {
+            if(xcustomAttributes == null)
+            {
+                List<XObject> xobjects = new List<XObject>();
+                foreach(object obj in type.GetCustomAttributes())
+                {
+                    xobjects.Add(x.XNew(obj));
+                }
+                xcustomAttributes = xobjects.ToArray();
+            }
+            return xcustomAttributes;
+        }
+
+        public bool XEqual(XType xtype)
+        {
+            return XFullName == xtype.XFullName;
         }
     }
 }

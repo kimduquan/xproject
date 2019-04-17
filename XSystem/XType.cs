@@ -24,6 +24,8 @@ namespace XSystem
         bool XIsAssignableFrom(XType xtype);
         bool XIsSubclassOf(XType xtype);
         XType XGetElementType();
+        XObject[] XGetCustomAttributes();
+        bool XEqual(XType xtype);
 
         bool XIsEnum { get; }
         string[] XGetEnumNames();

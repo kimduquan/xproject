@@ -24,6 +24,11 @@ namespace XSystem.XInternal
             return X.Equals(other.X);
         }
 
+        public bool XEqual(XObject xobject)
+        {
+            return X.Equals(xobject.X);
+        }
+
         public int XGetHashCode()
         {
             return X.GetHashCode();
