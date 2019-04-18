@@ -39,5 +39,6 @@ namespace XSystem
         bool XIsInterface { get; }
         bool XHasElementType { get; }
         XAssembly XAssembly { get; }
+        bool XIsByRef { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace XSystem.XReflection.XInternal
 {
@@ -24,6 +25,8 @@ namespace XSystem.XReflection.XInternal
             }
         }
 
+        public bool XIsInitOnly => field.IsInitOnly;
+
         public XFieldInfoInternal(FieldInfo f, X x): base(x)
         {
             field = f;
@@ -48,6 +51,16 @@ namespace XSystem.XReflection.XInternal
         public int XGetHashCode()
         {
             return field.GetHashCode();
+        }
+
+        public XObject[] XGetCustomAttributes(XType xtype, bool inherit)
+        {
+            List<XObject> result = new List<XObject>();
+            foreach (object obj in field.GetCustomAttributes(xtype.X, inherit))
+            {
+                result.Add(X().XNew(obj));
+            }
+            return result.ToArray();
         }
     }
 }

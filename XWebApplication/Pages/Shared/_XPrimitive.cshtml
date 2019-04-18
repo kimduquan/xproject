@@ -16,38 +16,54 @@
     string tabIndex = "";
     string accessKey = "";
     string spellcheck = "";
-    if ((Model as XParameterInfo) != null)
+    bool isPassword = false;
+    string readOnly = "";
+    string disabled = "";
+    if (Model is XParameterInfo xparameterInfo)
     {
-        xtype = ((XParameterInfo)Model).XParameterType;
-        name = XUtil.XToName((XParameterInfo)Model);
-        text = XUtil.XToDisplayString((XParameterInfo)Model);
-        css = XUtil.XToCSSClass((XParameterInfo)Model);
-        data = string.Format("data-{0}={1}", XUtil.XToData((XParameterInfo)Model), XUtil.XToName((XParameterInfo)Model));
-        id = "" + ((XParameterInfo)Model).XPosition;
-        tabIndex = "" + ((XParameterInfo)Model).XPosition;
-        accessKey = XUtil.XToAccessKey((XParameterInfo)Model, ViewData);
+        xtype = xparameterInfo.XParameterType;
+        name = XUtil.XToName(xparameterInfo);
+        text = XUtil.XToDisplayString(xparameterInfo);
+        css = XUtil.XToCSSClass(xparameterInfo);
+        data = string.Format("data-{0}={1}", XUtil.XToData(xparameterInfo), XUtil.XToName(xparameterInfo));
+        id = "" + xparameterInfo.XPosition;
+        tabIndex = "" + xparameterInfo.XPosition;
+        accessKey = XUtil.XToAccessKey(xparameterInfo, ViewData);
+        isPassword = XUtil.XImplicit(xparameterInfo);
     }
-    else if ((Model as XFieldInfo) != null)
+    else if (Model is XFieldInfo xfieldInfo)
     {
-        xtype = ((XFieldInfo)Model).XFieldType;
-        name = XUtil.XToName((XFieldInfo)Model);
-        text = XUtil.XToDisplayString((XFieldInfo)Model);
-        css = XUtil.XToCSSClass((XFieldInfo)Model);
-        data = string.Format("data-{0}={1}", XUtil.XToData((XFieldInfo)Model), XUtil.XToName((XFieldInfo)Model));
-        id = "" + ((XFieldInfo)Model).XGetHashCode();
-        accessKey = XUtil.XToAccessKey((XFieldInfo)Model, ViewData);
-        tabIndex = XUtil.XToTabIndex((XFieldInfo)Model, ViewData);
+        xtype = xfieldInfo.XFieldType;
+        name = XUtil.XToName(xfieldInfo);
+        text = XUtil.XToDisplayString(xfieldInfo);
+        css = XUtil.XToCSSClass(xfieldInfo);
+        data = string.Format("data-{0}={1}", XUtil.XToData(xfieldInfo), XUtil.XToName(xfieldInfo));
+        id = "" + xfieldInfo.XGetHashCode();
+        accessKey = XUtil.XToAccessKey(xfieldInfo, ViewData);
+        tabIndex = XUtil.XToTabIndex(xfieldInfo, ViewData);
+        isPassword = XUtil.XImplicit(xfieldInfo);
+        if (xfieldInfo.XIsInitOnly)
+        {
+            readOnly = "readonly";
+            disabled = "disabled";
+        }
     }
-    else if ((Model as XPropertyInfo) != null)
+    else if (Model is XPropertyInfo xpropertyInfo)
     {
-        xtype = ((XPropertyInfo)Model).XPropertyType;
-        name = XUtil.XToName((XPropertyInfo)Model);
-        text = XUtil.XToDisplayString((XPropertyInfo)Model);
-        css = XUtil.XToCSSClass((XPropertyInfo)Model);
-        data = string.Format("data-{0}={1}", XUtil.XToData((XPropertyInfo)Model), XUtil.XToName((XPropertyInfo)Model));
-        id = "" + ((XPropertyInfo)Model).XGetHashCode();
-        accessKey = XUtil.XToAccessKey((XPropertyInfo)Model, ViewData);
-        tabIndex = XUtil.XToTabIndex((XPropertyInfo)Model, ViewData);
+        xtype = xpropertyInfo.XPropertyType;
+        name = XUtil.XToName(xpropertyInfo);
+        text = XUtil.XToDisplayString(xpropertyInfo);
+        css = XUtil.XToCSSClass(xpropertyInfo);
+        data = string.Format("data-{0}={1}", XUtil.XToData(xpropertyInfo), XUtil.XToName(xpropertyInfo));
+        id = "" + xpropertyInfo.XGetHashCode();
+        accessKey = XUtil.XToAccessKey(xpropertyInfo, ViewData);
+        tabIndex = XUtil.XToTabIndex(xpropertyInfo, ViewData);
+        isPassword = XUtil.XImplicit(xpropertyInfo);
+        if (xpropertyInfo.XCanWrite == false)
+        {
+            readOnly = "readonly";
+            disabled = "disabled";
+        }
     }
     data += (" data-namespace=" + XUtil.XToName(xtype.XNamespace));
     data += (" data-type=" + XUtil.XToName(xtype));
@@ -60,7 +76,7 @@
 </label>
 @if (xtype.XIsEnum)
 {
-    <select class="@css" name="@name" @required @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey">
+    <select class="@css" name="@name" @required @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @disabled>
         <optgroup label="@XUtil.XToDisplayString(xtype)">
             @foreach (string enumName in xtype.XGetEnumNames())
             {
@@ -72,11 +88,15 @@
 else if (xtype.XFullName == (typeof(string[])).FullName)
 {
     spellcheck = "spellcheck";
-    <textarea class="@css" name="@name" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck />
+    <textarea class="@css" name="@name" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck @readOnly @disabled />
 }
 else
 {
-    @if (xtype.XFullName == (typeof(bool)).FullName)
+    if(isPassword)
+    {
+        type = "password";
+    }
+    else if (xtype.XFullName == (typeof(bool)).FullName)
     {
         type = "checkbox";
     }
@@ -114,9 +134,9 @@ else
         isInput = false;
     }
 
-    @if (isInput)
+    if (isInput)
     {
-        <input name="@name" type="@type" defaultValue="@defaultValue" class="@css" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck />
+        <input name="@name" type="@type" defaultValue="@defaultValue" class="@css" @required  @Html.Raw(data) id="@id" tabndex="@tabIndex" accesskey="@accessKey" @spellcheck @readOnly @disabled />
     }
     else
     {

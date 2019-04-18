@@ -42,6 +42,15 @@ namespace XSystem.XReflection.XInternal
         public bool XIsRetval => parameter.IsRetval;
 
         public int XPosition => parameter.Position;
-        
+
+        public XObject[] XGetCustomAttributes(XType xtype, bool inherit)
+        {
+            List<XObject> result = new List<XObject>();
+            foreach(object obj in parameter.GetCustomAttributes(xtype.X, inherit))
+            {
+                result.Add(X().XNew(obj));
+            }
+            return result.ToArray();
+        }
     }
 }

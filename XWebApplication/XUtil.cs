@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _XSystem;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
@@ -752,6 +753,21 @@ namespace XWebApplication
         public static void XFromName(string fullName, out XType xtype)
         {
             xtype = X.XGetType(fullName + "," + fullName.Split('.')[0]);
+        }
+
+        public static bool XImplicit(XParameterInfo xparam)
+        {
+            return xparam.XGetCustomAttributes(X.XTypeOf(typeof(_XImplicit)), false).Length > 0;
+        }
+
+        public static bool XImplicit(XFieldInfo xfield)
+        {
+            return xfield.XGetCustomAttributes(X.XTypeOf(typeof(_XImplicit)), true).Length > 0;
+        }
+
+        public static bool XImplicit(XPropertyInfo xproperty)
+        {
+            return xproperty.XGetCustomAttributes(X.XTypeOf(typeof(_XImplicit)), true).Length > 0;
         }
     }
 }

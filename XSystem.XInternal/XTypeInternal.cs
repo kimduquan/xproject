@@ -49,6 +49,8 @@ namespace XSystem.XInternal
 
         public bool XHasElementType => type.HasElementType;
 
+        public bool XIsByRef => type.IsByRef;
+
         public XAssembly XAssembly
         {
             get

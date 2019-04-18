@@ -48,6 +48,10 @@ namespace XSystem.XReflection.XInternal
             }
         }
 
+        public bool XCanWrite => property.CanWrite;
+
+        public bool XCanRead => property.CanRead;
+
         public XPropertyInfoInternal(PropertyInfo p, X x) : base(x)
         {
             property = p;
@@ -76,6 +80,16 @@ namespace XSystem.XReflection.XInternal
         public int XGetHashCode()
         {
             return property.GetHashCode();
+        }
+
+        public XObject[] XGetCustomAttributes(XType xtype, bool inherit)
+        {
+            List<XObject> result = new List<XObject>();
+            foreach (object obj in property.GetCustomAttributes(xtype.X, inherit))
+            {
+                result.Add(X().XNew(obj));
+            }
+            return result.ToArray();
         }
     }
 }

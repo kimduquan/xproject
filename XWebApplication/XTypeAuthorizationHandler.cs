@@ -13,6 +13,7 @@ namespace XWebApplication
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, XTypeAuthorizationRequirement requirement)
         {
             bool success = false;
+            bool isCustom = false;
             if (context.User != null && context.Resource is AuthorizationFilterContext authContext && authContext.ModelState.IsValid)
             {
                 XType xtype = null;
@@ -33,6 +34,7 @@ namespace XWebApplication
                         {
                             if (attr.X is _XType xattr)
                             {
+                                isCustom = true;
                                 if (xattr.XType.FullName == xtype.XFullName)
                                 {
                                     success = true;
@@ -47,6 +49,7 @@ namespace XWebApplication
                         {
                             if (attr.X is _XType xattr)
                             {
+                                isCustom = true;
                                 if (xattr.XType.FullName == xthis.XFullName)
                                 {
                                     success = true;
@@ -55,10 +58,17 @@ namespace XWebApplication
                             }
                         }
                     }
+                    if(isCustom == false)
+                    {
+                        success = true;
+                    }
                 }
             }
             if(success)
+            {
                 context.Succeed(requirement);
+            }
+
             return Task.CompletedTask;
         }
     }

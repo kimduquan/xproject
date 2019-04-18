@@ -11,5 +11,8 @@ namespace XSystem.XReflection
         bool XIsStatic { get; }
         int XGetHashCode();
         XType XDeclaringType { get; }
+        bool XIsInitOnly { get; }
+
+        XObject[] XGetCustomAttributes(XType attributeType, bool inherit);
     }
 }
