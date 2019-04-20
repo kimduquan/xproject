@@ -781,12 +781,12 @@ namespace XWebApplication
             {
                 big = (int)(sum * goldenRatio);
                 small = (int)(big * goldenRatio);
-                if(dir)
+                if (dir)
                 {
-                    
+
                 }
             }
-            while(sum > big && big > small && small > 0)
+            while (sum > big && big > small && small > 0);
         }
     }
 }
