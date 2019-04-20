@@ -3,12 +3,8 @@
 @using XSystem.XReflection
 
 @{
-    string defaultValue = "";
-    string required = "";
     string name = "";
     XType xtype = null;
-    string type = "";
-    bool isInput = true;
     var text = "";
     var css = "";
     string data = "";
@@ -19,42 +15,42 @@
     XObject xobject = null;
     XUtil.XFromViewData(out xobject, ViewData);
     bool isStatic = xobject == null;
-    if ((Model as XFieldInfo) != null)
+    if (Model is XFieldInfo xfieldInfo)
     {
-        xtype = ((XFieldInfo)Model).XFieldType.XGetElementType();
-        name = XUtil.XToName((XFieldInfo)Model);
-        text = XUtil.XToDisplayString((XFieldInfo)Model);
-        css = XUtil.XToCSSClass((XFieldInfo)Model);
-        data = string.Format("data-{0}={1}", XUtil.XToData((XFieldInfo)Model), XUtil.XToName((XFieldInfo)Model));
-        id = "" + ((XFieldInfo)Model).XGetHashCode();
-        accessKey = XUtil.XToAccessKey((XFieldInfo)Model, ViewData);
-        tabIndex = XUtil.XToTabIndex((XFieldInfo)Model, ViewData);
+        xtype = xfieldInfo.XFieldType.XGetElementType();
+        name = XUtil.XToName(xfieldInfo);
+        text = XUtil.XToDisplayString(xfieldInfo);
+        css = XUtil.XToCSSClass(xfieldInfo);
+        data = string.Format("data-{0}={1}", XUtil.XToData(xfieldInfo), XUtil.XToName(xfieldInfo));
+        id = "" + xfieldInfo.XGetHashCode();
+        accessKey = XUtil.XToAccessKey(xfieldInfo, ViewData);
+        tabIndex = XUtil.XToTabIndex(xfieldInfo, ViewData);
         if(isStatic)
         {
-            xarray = ((XFieldInfo)Model).XGetValue(null) as XArray;
+            xarray = xfieldInfo.XGetValue(null) as XArray;
         }
         else
         {
-            xarray = ((XFieldInfo)Model).XGetValue(xobject) as XArray;
+            xarray = xfieldInfo.XGetValue(xobject) as XArray;
         }
     }
-    else if ((Model as XPropertyInfo) != null)
+    else if (Model is XPropertyInfo xpropertyInfo)
     {
-        xtype = ((XPropertyInfo)Model).XPropertyType.XGetElementType();
-        name = XUtil.XToName((XPropertyInfo)Model);
-        text = XUtil.XToDisplayString((XPropertyInfo)Model);
-        css = XUtil.XToCSSClass((XPropertyInfo)Model);
-        data = string.Format("data-{0}={1}", XUtil.XToData((XPropertyInfo)Model), XUtil.XToName((XPropertyInfo)Model));
-        id = "" + ((XPropertyInfo)Model).XGetHashCode();
-        accessKey = XUtil.XToAccessKey((XPropertyInfo)Model, ViewData);
-        tabIndex = XUtil.XToTabIndex((XPropertyInfo)Model, ViewData);
+        xtype = xpropertyInfo.XPropertyType.XGetElementType();
+        name = XUtil.XToName(xpropertyInfo);
+        text = XUtil.XToDisplayString(xpropertyInfo);
+        css = XUtil.XToCSSClass(xpropertyInfo);
+        data = string.Format("data-{0}={1}", XUtil.XToData(xpropertyInfo), XUtil.XToName(xpropertyInfo));
+        id = "" + xpropertyInfo.XGetHashCode();
+        accessKey = XUtil.XToAccessKey(xpropertyInfo, ViewData);
+        tabIndex = XUtil.XToTabIndex(xpropertyInfo, ViewData);
         if (isStatic)
         {
-            xarray = ((XPropertyInfo)Model).XGetValue(null) as XArray;
+            xarray = xpropertyInfo.XGetValue(null) as XArray;
         }
         else
         {
-            xarray = ((XPropertyInfo)Model).XGetValue(xobject) as XArray;
+            xarray = xpropertyInfo.XGetValue(xobject) as XArray;
         }
     }
     data += (" data-namespace=" + XUtil.XToName(xtype.XNamespace));
@@ -133,6 +129,5 @@
         }
     </tbody>
     <tfoot>
-
     </tfoot>
 </table>

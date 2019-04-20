@@ -769,5 +769,24 @@ namespace XWebApplication
         {
             return xproperty.XGetCustomAttributes(X.XTypeOf(typeof(_XImplicit)), true).Length > 0;
         }
+
+        public static void XCalculateGoldenRatio(bool dir, int start, int length, out List<int> pages)
+        {
+            double goldenRatio = 0.618;
+            pages = new List<int>();
+            int sum = length - start;
+            int big = 0;
+            int small = 0;
+            do
+            {
+                big = (int)(sum * goldenRatio);
+                small = (int)(big * goldenRatio);
+                if(dir)
+                {
+                    
+                }
+            }
+            while(sum > big && big > small && small > 0)
+        }
     }
 }

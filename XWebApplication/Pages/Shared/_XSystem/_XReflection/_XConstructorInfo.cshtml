@@ -6,4 +6,5 @@
 @foreach (var xparameter in Model.XGetParameters())
 {
     @await Html.PartialAsync("_XSystem/_XReflection/_XParameterInfo", xparameter);
+    <br />
 }
