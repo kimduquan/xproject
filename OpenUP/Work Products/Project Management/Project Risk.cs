@@ -1,6 +1,6 @@
 ﻿namespace OpenUP.Work_Products.Project_Management
 {
-    public interface Project_Status
+    public class Project_Risk
     {
     }
 }

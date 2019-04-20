@@ -1,9 +1,10 @@
-﻿using OpenUP.Roles.Basic_Roles;
-using System.Collections.Generic;
+﻿using _XSystem;
+using OpenUP.Roles.Basic_Roles;
 
 namespace OpenUP.Work_Products.Requirements
 {
-    public class Use_Case_Model : List<Use_Case>, Technical_Specification
+    [_XType(typeof(Analyst))]
+    public class System_Wide_Requirements
     {
         public Analyst Responsible { get; set; }
         public Analyst Modified_By { get; set; }

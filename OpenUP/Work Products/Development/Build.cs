@@ -1,8 +1,10 @@
-﻿using OpenUP.Roles.Basic_Roles;
+﻿using _XSystem;
+using OpenUP.Roles.Basic_Roles;
 using OpenUP.Tasks.Development;
 
 namespace OpenUP.Work_Products.Development
 {
+    [_XType(typeof(Developer))]
     public class Build : Technical_Implementation
     {
         public Developer Responsible { get; set; }

@@ -42,6 +42,10 @@ namespace XWebApplication
                                 }
                             }
                         }
+                        if (isCustom == false)
+                        {
+                            success = true;
+                        }
                     }
                     if(success == false)
                     {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using _XSystem;
+using OpenUP.Roles.Deployment;
 
 namespace OpenUP.Tasks.Deployment
 {
+    [_XType(typeof(Deployment_Engineer))]
     public class Develop_Release_Communications
     {
     }

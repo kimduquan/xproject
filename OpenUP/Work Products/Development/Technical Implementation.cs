@@ -1,6 +1,6 @@
 ﻿namespace OpenUP.Work_Products.Development
 {
-    public interface Technical_Implementation
+    public class Technical_Implementation
     {
     }
 }

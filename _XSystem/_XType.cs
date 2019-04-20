@@ -2,7 +2,7 @@
 
 namespace _XSystem
 {
-    [AttributeUsage( AttributeTargets.All)]
+    [AttributeUsage( AttributeTargets.All, AllowMultiple = true, Inherited = true)]
     public class _XType : Attribute
     {
         public _XType(Type t)
