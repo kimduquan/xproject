@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Roles.Basic_Roles;
 
 namespace OpenUP.Roles.Deployment
 {
-    public class Course_Developer
+    public class Course_Developer : Any_Role
     {
     }
 }

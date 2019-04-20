@@ -5,7 +5,7 @@ namespace OpenUP
 {
     public class OpenUP
     {
-        public static object SignIn(string username, [_XImplicit] string password)
+        public static Any_Role SignIn(string username, [_XImplicit] string password)
         {
             return new Developer();
         }

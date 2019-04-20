@@ -4618,7 +4618,10 @@
       },
       "OpenUP/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "_XSystem": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/OpenUP.dll": {}
         },
@@ -4687,6 +4690,16 @@
         },
         "runtime": {
           "bin/placeholder/XSystem.XReflection.XInternal.dll": {}
+        }
+      },
+      "_XSystem/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/_XSystem.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/_XSystem.dll": {}
         }
       }
     }
@@ -12312,6 +12325,11 @@
       "type": "project",
       "path": "../XSystem.XReflection.XInternal/XSystem.XReflection.XInternal.csproj",
       "msbuildProject": "../XSystem.XReflection.XInternal/XSystem.XReflection.XInternal.csproj"
+    },
+    "_XSystem/1.0.0": {
+      "type": "project",
+      "path": "../_XSystem/_XSystem.csproj",
+      "msbuildProject": "../_XSystem/_XSystem.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12322,7 +12340,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
       "OpenUP >= 1.0.0",
       "XSystem.XComponentModel.XInternal >= 1.0.0",
-      "XSystem.XInternal >= 1.0.0"
+      "XSystem.XInternal >= 1.0.0",
+      "_XSystem >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -12363,6 +12382,9 @@
             },
             "D:\\projects\\xprojects\\xproject\\XSystem.XInternal\\XSystem.XInternal.csproj": {
               "projectPath": "D:\\projects\\xprojects\\xproject\\XSystem.XInternal\\XSystem.XInternal.csproj"
+            },
+            "D:\\projects\\xprojects\\xproject\\_XSystem\\_XSystem.csproj": {
+              "projectPath": "D:\\projects\\xprojects\\xproject\\_XSystem\\_XSystem.csproj"
             }
           }
         }

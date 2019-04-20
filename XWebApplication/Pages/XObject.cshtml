@@ -7,6 +7,6 @@
     XUtil.XToViewData(Model.XObject.XGetType(), ViewData);
     XUtil.XToViewData(Model.XObject.XGetType().XAssembly, ViewData);
 }
-
+@await Html.PartialAsync("_XThis", Model.XThis);
 @await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XObject.XGetType().XAssembly);
 @await Html.PartialAsync("_XSystem/_XObject", Model.XObject);

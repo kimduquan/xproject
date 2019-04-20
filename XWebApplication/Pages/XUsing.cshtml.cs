@@ -20,7 +20,6 @@ namespace XWebApplication.Pages
         private XMethodInfo[] xmethodInfos = null;
         private XObject[] xobjects = null;
         private IMemoryCache cache = null;
-        private XAssembly xassembly = null;
 
         public XType XType
         {

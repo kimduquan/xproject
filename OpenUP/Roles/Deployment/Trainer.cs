@@ -1,6 +1,8 @@
-﻿namespace OpenUP.Roles.Deployment
+﻿using OpenUP.Roles.Basic_Roles;
+
+namespace OpenUP.Roles.Deployment
 {
-    public interface Trainer
+    public class Trainer : Any_Role
     {
     }
 }

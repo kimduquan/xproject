@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenUP.Roles.Basic_Roles;
 
 namespace OpenUP.Roles.Environment
 {
-    public class Tool_Specialist
+    public class Tool_Specialist : Any_Role
     {
     }
 }

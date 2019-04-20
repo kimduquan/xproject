@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using XSystem;
 using XSystem.XComponentModel;
 using XSystem.XComponentModel.XInternal;
@@ -62,58 +63,61 @@ namespace XWebApplication
             return route;
         }
 
-        public static void XToHiearchy(IEnumerator<XType> it, out Dictionary<string, List<string>> childNSs, out Dictionary<string, List<XType>> childTypes)
+        public static void XToHiearchy(List<XType> xtypes, out Dictionary<string, List<string>> childNSs, out Dictionary<string, List<XType>> childTypes)
         {
             childNSs = new Dictionary<string, List<string>>();
             childTypes = new Dictionary<string, List<XType>>();
-            while(it.MoveNext())
+            using (IEnumerator<XType> it = xtypes.GetEnumerator())
             {
-                if (childTypes.ContainsKey(it.Current.XNamespace))
+                while (it.MoveNext())
                 {
-                    childTypes[it.Current.XNamespace].Add(it.Current);
-                }
-                else
-                {
-                    List<XType> types = new List<XType>();
-                    types.Add(it.Current);
-                    childTypes[it.Current.XNamespace] = types;
-                }
+                    if (childTypes.ContainsKey(it.Current.XNamespace))
+                    {
+                        childTypes[it.Current.XNamespace].Add(it.Current);
+                    }
+                    else
+                    {
+                        List<XType> types = new List<XType>();
+                        types.Add(it.Current);
+                        childTypes[it.Current.XNamespace] = types;
+                    }
 
-                string[] path = it.Current.XNamespace.Split(".");
-                string ns = "";
-                for(int i = 0; i < path.Length - 1; i++)
-                {
-                    if (ns.Equals(""))
+                    string[] path = it.Current.XNamespace.Split(".");
+                    string ns = "";
+                    for (int i = 0; i < path.Length - 1; i++)
                     {
-                        ns += path[i];
-                    }
-                    else
-                    {
-                        ns += ("." + path[i]);
-                    }
-                    if(childNSs.ContainsKey(ns) == false)
-                    {
-                        childNSs[ns] = new List<string>();
-                        childNSs[ns].Add(path[i + 1]);
-                    }
-                    else
-                    {
-                        bool needAdd = true;
-                        foreach(string n in childNSs[ns])
+                        if (ns.Equals(""))
                         {
-                            if(n.Equals(path[i + 1]))
-                            {
-                                needAdd = false;
-                                break;
-                            }
+                            ns += path[i];
                         }
-                        if(needAdd)
+                        else
                         {
+                            ns += ("." + path[i]);
+                        }
+                        if (childNSs.ContainsKey(ns) == false)
+                        {
+                            childNSs[ns] = new List<string>();
                             childNSs[ns].Add(path[i + 1]);
                         }
+                        else
+                        {
+                            bool needAdd = true;
+                            foreach (string n in childNSs[ns])
+                            {
+                                if (n.Equals(path[i + 1]))
+                                {
+                                    needAdd = false;
+                                    break;
+                                }
+                            }
+                            if (needAdd)
+                            {
+                                childNSs[ns].Add(path[i + 1]);
+                            }
+                        }
                     }
                 }
-            }
+            } 
         }
 
         public static string XToDisplayString(XType type)
@@ -787,6 +791,85 @@ namespace XWebApplication
                 }
             }
             while (sum > big && big > small && small > 0);
+        }
+
+        public static void XCheckCustomAttribute(XType xthis, XType xtype, out bool isCustom, out bool success)
+        {
+            isCustom = false;
+            success = false;
+            foreach (XObject attr in xthis.XGetCustomAttributes())
+            {
+                if (attr.X is _XType xattr)
+                {
+                    isCustom = true;
+                    if (xattr.XType.FullName == xtype.XFullName)
+                    {
+                        success = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        public static void XFromClaims(ClaimsPrincipal user, out XType xtype)
+        {
+            xtype = null;
+            if (user.HasClaim(c => c.Type == "Type"))
+            {
+                Claim t = user.FindFirst(c => c.Type == "Type");
+                XFromName(t.Value, out xtype);
+            }
+        }
+
+        public static void XAuthorize(RouteData routeData, ClaimsPrincipal user, out bool success)
+        {
+            success = false;
+            XType xtype = null;
+            XFromRoute(out xtype, routeData);
+            XType xthis = null;
+            XFromClaims(user, out xthis);
+            XAuthorize(xthis, xtype, out success);
+        }
+
+        protected static void XAuthorize(XType xthis, XType xtype, out bool success)
+        {
+            success = false;
+            bool isCustom = false;
+            if (xtype != null && xthis != null)
+            {
+                if (xtype.XEqual(xthis))
+                {
+                    success = true;
+                }
+                else
+                {
+                    XCheckCustomAttribute(xthis, xtype, out isCustom, out success);
+                    if (isCustom == false || success == false)
+                    {
+                        XCheckCustomAttribute(xtype, xthis, out isCustom, out success);
+                        if (isCustom == false)
+                        {
+                            success = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void XAuthorize(XType xthis, IEnumerable<XType> xtypes, out List<XType> result)
+        {
+            result = new List<XType>();
+            using (IEnumerator<XType> it = xtypes.GetEnumerator())
+            {
+                do
+                {
+                    bool success = false;
+                    XAuthorize(xthis, it.Current, out success);
+                    if (success)
+                        result.Add(it.Current);
+                }
+                while (it.MoveNext());
+            }
         }
     }
 }

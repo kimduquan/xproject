@@ -1,18 +1,20 @@
 ﻿@model XSystem.XReflection.XAssembly
 @using XSystem;
-@using XSystem.XReflection;
 @{
-    var it = Model.XExportedTypes.GetEnumerator();
+    XType xthis = null;
+    XUtil.XFromClaims(User, out xthis);
+    List<XType> xexportedTypes = null;
+    XUtil.XAuthorize(xthis, Model.XExportedTypes, out xexportedTypes);
     Dictionary<string, List<string>> childNSs;
     Dictionary<string, List<XType>> childTypes;
-    Stack<IEnumerator<string>> stackNS = new Stack<IEnumerator<string>>();
-    XUtil.XToHiearchy(it, out childNSs, out childTypes);
+    XUtil.XToHiearchy(xexportedTypes, out childNSs, out childTypes);
     IEnumerator<string> current = childNSs.Keys.GetEnumerator();
-    List<string> path = new List<string>();
     current.MoveNext();
+    List<string> path = new List<string>();
     path.Add(current.Current);
     IEnumerator<string> next = childNSs[current.Current].GetEnumerator();
     current = childNSs[current.Current].GetEnumerator();
+    Stack<IEnumerator<string>> stackNS = new Stack<IEnumerator<string>>();
 }
 <style type="text/css">
     ul.assembly {
