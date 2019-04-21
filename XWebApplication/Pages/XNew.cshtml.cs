@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using XSystem;
@@ -59,7 +61,9 @@ namespace XWebApplication.Pages
                 if(xparameterValues == null)
                 {
                     XParameterInfo[] xparameters = XConstructor.XGetParameters();
-                    XUtil.XFromForm(out xparameterValues, xparameters, Request.Form);
+                    Dictionary<string, XObject> xobjects = null;
+                    XUtil.XGetCache(cache, HttpContext.Session, out xobjects);
+                    XUtil.XFromForm(out xparameterValues, xparameters, Request.Form, xobjects);
                 }
                 return xparameterValues.ToArray();
             }
@@ -75,10 +79,11 @@ namespace XWebApplication.Pages
             object x = XConstructor;
         }
 
-        public void OnPost()
+        public async Task<IActionResult> OnPost()
         {
             XObject xobject = XConstructor.XInvoke(XParameterValues);
             XUtil.XToCache(xobject, cache, HttpContext.Session);
+            return Page();
         }
     }
 }

@@ -23,10 +23,23 @@ namespace XWebApplication.Pages
         private XFieldInfo[] xarrayFields = null;
         private IMemoryCache cache = null;
         private XObject xthis = null;
+        private Dictionary<string, XObject> xobjects = null;
 
         public XTypeModel(IMemoryCache memory)
         {
             cache = memory;
+        }
+
+        public Dictionary<string, XObject> XObjects
+        {
+            get
+            {
+                if (xobjects == null)
+                {
+                    XUtil.XGetCache(cache, HttpContext.Session, out xobjects);
+                }
+                return xobjects;
+            }
         }
 
         public XObject XThis

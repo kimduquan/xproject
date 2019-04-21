@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
 using XSystem;
 
 namespace XWebApplication.Pages
@@ -11,6 +12,7 @@ namespace XWebApplication.Pages
         private XObject xobject = null;
         private IMemoryCache cache = null;
         private XObject xthis = null;
+        private Dictionary<string, XObject> xobjects = null;
 
         public XObject XThis
         {
@@ -37,6 +39,18 @@ namespace XWebApplication.Pages
                     XUtil.XFromCache(out xobject, cache, HttpContext.Session, xtype.XFullName, int.Parse((string)hashCode));
                 }
                 return xobject;
+            }
+        }
+
+        public Dictionary<string, XObject> XObjects
+        {
+            get
+            {
+                if(xobjects == null)
+                {
+                    XUtil.XGetCache(cache, HttpContext.Session, out xobjects);
+                }
+                return xobjects;
             }
         }
 

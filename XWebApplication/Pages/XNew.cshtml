@@ -8,4 +8,7 @@
 }
 
 @await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XType.XAssembly);
-@await Html.PartialAsync("_XSystem/_XReflection/_XConstructorInfo", Model.XConstructor);
+<form method="post">
+    @await Html.PartialAsync("_XSystem/_XReflection/_XConstructorInfo", Model.XConstructor);
+    <input type="submit" value="New" />
+</form>

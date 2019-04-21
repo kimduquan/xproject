@@ -6,5 +6,6 @@ namespace OpenUP.Work_Products.Development
     [_XType(typeof(Developer))]
     public class Build
     {
+        public Developer Responsible { get; set; }
     }
 }

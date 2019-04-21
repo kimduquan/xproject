@@ -1,8 +1,15 @@
-﻿@model XSystem.XObject
+﻿@model Dictionary<string, XSystem.XObject>
 
-@{ 
-    string href = "";
-    XUtil.XToHref(Model, out href);
-}
-<a href="@href">@XUtil.XToDisplayString(Model)</a>
+<script type="text/javascript">
+    function xondragstart(ev, type, hashCode) {
+        ev.dataTransfer.setData("type", type);
+        ev.dataTransfer.setData("hashCode", hashCode);
+    }
+</script>
 <a href="/return">Sign out</a>
+@foreach (XSystem.XObject xobject in Model.Values)
+{
+    string href = "";
+    XUtil.XToHref(xobject, out href);
+    <a href="@href" draggable="true" ondragstart="xondragstart(event, '@xobject.XGetType().XFullName', '@xobject.XGetHashCode()')">@XUtil.XToDisplayString(xobject)</a>
+}

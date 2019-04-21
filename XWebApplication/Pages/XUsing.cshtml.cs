@@ -100,7 +100,7 @@ namespace XWebApplication.Pages
                 if(xobjects == null)
                 {
                     List<XObject> objects = null;
-                    XUtil.XFromForm(out objects, XMethodInfo.XGetParameters(), Request.Form);
+                    XUtil.XFromForm(out objects, XMethodInfo.XGetParameters(), Request.Form, null);
                     xobjects = objects.ToArray();
                 }
                 return xobjects;

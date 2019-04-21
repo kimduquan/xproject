@@ -295,7 +295,7 @@ namespace XWebApplication
             }
         }
 
-        public static void XFromForm(out List<XObject> values, XParameterInfo[] xparams, IFormCollection form)
+        public static void XFromForm(out List<XObject> values, XParameterInfo[] xparams, IFormCollection form, Dictionary<string, XObject> xobjects)
         {
             values = new List<XObject>();
             XTypeConverter converter = new XObjectConverterInternal(X);
@@ -307,6 +307,14 @@ namespace XWebApplication
                     if (converter.XCanConvertTo(xparameter.XParameterType))
                     {
                         values.Add(converter.XConvertTo(value.ToString(), xparameter.XParameterType));
+                    }
+                    else if(xobjects != null)
+                    {
+                        string key = value.ToString().Replace('#', '@');
+                        if (xobjects.ContainsKey(key))
+                        {
+                            values.Add(xobjects[key]);
+                        }
                     }
                 }
             }
@@ -325,7 +333,7 @@ namespace XWebApplication
             xobjects.TryAdd(key, obj);
         }
 
-        protected static void XGetCache(IMemoryCache cache, ISession session, out Dictionary<string, XObject> xobjects)
+        public static void XGetCache(IMemoryCache cache, ISession session, out Dictionary<string, XObject> xobjects)
         {
             string xthis = session.GetString("this");
             if (cache.TryGetValue(xthis, out xobjects) == false)
@@ -450,6 +458,11 @@ namespace XWebApplication
             data["XObject"] = o;
         }
 
+        public static void XThisToViewData(XObject xthis, ViewDataDictionary data)
+        {
+            data["this"] = xthis;
+        }
+
         public static void XToViewData(XMethodInfo m, ViewDataDictionary data)
         {
             data["XMethodInfo"] = m;
@@ -473,6 +486,11 @@ namespace XWebApplication
         public static void XFromViewData(out XObject o, ViewDataDictionary data)
         {
             o = data["XObject"] as XObject;
+        }
+
+        public static void XThisFromViewData(out XObject o, ViewDataDictionary data)
+        {
+            o = data["this"] as XObject;
         }
 
         public static void XFromViewData(out XMethodInfo m, ViewDataDictionary data)

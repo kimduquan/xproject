@@ -70,7 +70,26 @@
 
     int index = text.IndexOf(accessKey, StringComparison.OrdinalIgnoreCase);
 }
-
+<script type="text/javascript">
+    function xondrop(ev, name, xtype){
+        ev.preventDefault();
+        var type = ev.dataTransfer.getData("type");
+        if (type != null && xtype == type) {
+            var target = document.getElementById(name);
+            if (target != null) {
+                var hashCode = ev.dataTransfer.getData("hashCode");
+                if (hashCode != null) {
+                    target.value = type + "#" + hashCode;
+                    var display = target.parentElement.getElementsByTagName('div')[0];
+                    display.textContent = "#" + hashCode;
+                }
+            }
+        }
+    }
+    function xondragover(ev) {
+        ev.preventDefault();
+    }
+</script>
 <label class="@css" for="@name" @required @Html.Raw(data)>
     @text.Substring(0, index)<mark><u>@text[index]</u></mark>@text.Substring(index + 1)<mark><sup>[@index]</sup></mark>
 </label>
@@ -140,6 +159,10 @@ else
     }
     else
     {
+        <div ondrop="xondrop(event, '@name', '@xtype.XFullName')" ondragover="xondragover(event)">
+            <div>Drop here!</div>
+            <input type="hidden" name="@name" id="@name" />
+        </div>
         @await Html.PartialAsync("_XRef", xtype);
     }
 }

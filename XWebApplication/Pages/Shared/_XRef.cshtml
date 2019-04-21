@@ -4,18 +4,5 @@
     function xopen(href) {
         return window.open(href, "_blank", "menubar=yes,resizable=yes,scrollbars=yes,status=yes,titlebar=yes,toolbar=yes");
     }
-    function xonRefClick(event)
-    {
-        var xtype = new XType("@Model.XNamespace", "@Model.XName");
-        var href = xtype.xtoString() + "/ref";
-        xopen(href);
-    }
-    function xonNewClick(event)
-    {
-        var xtype = new XType("@Model.XNamespace", "@Model.XName");
-        var href = xtype.xtoString() + "/new";
-        xopen(href);
-    }
 </script>
-<button autofocus title="ref" onclick="xonRefClick">Ref</button>
-<button autofocus title="new" onclick="xonNewClick">New</button>
+

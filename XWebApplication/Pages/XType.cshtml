@@ -7,7 +7,7 @@
     XUtil.XToViewData(Model.XType.XAssembly, ViewData);
 }
 <nav>
-    @await Html.PartialAsync("_XThis", Model.XThis);
+    @await Html.PartialAsync("_XThis", Model.XObjects);
     @foreach (var xmethod in Model.XStaticMethods)
     {
         string href = Model.XGetHref(xmethod);
