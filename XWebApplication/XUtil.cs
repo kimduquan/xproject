@@ -861,14 +861,16 @@ namespace XWebApplication
             result = new List<XType>();
             using (IEnumerator<XType> it = xtypes.GetEnumerator())
             {
-                do
+                while (it.MoveNext())
                 {
-                    bool success = false;
-                    XAuthorize(xthis, it.Current, out success);
-                    if (success)
-                        result.Add(it.Current);
-                }
-                while (it.MoveNext());
+                    if(it.Current.XIsPublic && it.Current.XIsAbstract == false)
+                    {
+                        bool success = false;
+                        XAuthorize(xthis, it.Current, out success);
+                        if (success)
+                            result.Add(it.Current);
+                    }
+                };
             }
         }
     }

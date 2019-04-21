@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using XSystem.XReflection;
 using XSystem.XReflection.XInternal;
 
@@ -50,6 +49,10 @@ namespace XSystem.XInternal
         public bool XHasElementType => type.HasElementType;
 
         public bool XIsByRef => type.IsByRef;
+
+        public bool XIsPublic => type.IsPublic;
+
+        public bool XIsAbstract => type.IsAbstract;
 
         public XAssembly XAssembly
         {

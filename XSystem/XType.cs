@@ -40,5 +40,7 @@ namespace XSystem
         bool XHasElementType { get; }
         XAssembly XAssembly { get; }
         bool XIsByRef { get; }
+        bool XIsPublic { get; }
+        bool XIsAbstract { get; }
     }
 }

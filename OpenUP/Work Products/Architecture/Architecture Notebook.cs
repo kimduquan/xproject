@@ -5,7 +5,7 @@ using System;
 namespace OpenUP.Work_Products.Architecture
 {
     [_XType(typeof(Architect))]
-    public class Architecture_Notebook : Technical_Architecture
+    public class Architecture_Notebook
     {
         public Architect Responsible { get; set; }
         public Architect Modified_By { get; set; }
