@@ -182,15 +182,6 @@ namespace XWebApplication.Pages
             }
         }
 
-        public string XGetHref(XMethodInfo xmethod)
-        {
-            string ns = XType.XNamespace;
-            ns = ns.Replace('.', '-');
-            string type = XType.XName;
-            string href = string.Format("/{0}/{1}/{2}", ns, type, xmethod.XName);
-            return href;
-        }
-
         public JsonResult OnGetArray()
         {
             string field = Request.Query["field"];

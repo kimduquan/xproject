@@ -1,0 +1,80 @@
+﻿@model _XTypeModel
+@using XSystem.XReflection
+@using XSystem
+@using XWebApplication.Models.XSystem
+@using XWebApplication.Models.XSystem.XReflection
+
+@{
+    Dictionary<string, List<XFieldInfo>> xfieldMap = null;
+    List<XType> xfieldTypes = null;
+    Model.XGetFields(out xfieldMap, out xfieldTypes);
+
+    Dictionary<string, List<XPropertyInfo>> xpropMap = null;
+    List<XType> xpropTypes = null;
+    Model.XGetProperties(out xpropMap, out xpropTypes);
+}
+
+<nav>
+    @foreach (XConstructorInfo xctor in Model.XConstructors)
+    {
+        <a href="@_XConstructorInfoModel.XToHref(xctor)">@_XConstructorInfoModel.XToString(xctor)</a>
+    }
+    @foreach (XMethodInfo xmethod in Model.XMethods)
+    {
+        <a href="@_XMethodInfoModel.XToHref(xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
+    }
+</nav>
+<form method="post">
+    @foreach (XType xtype in xfieldTypes)
+    {
+        <fieldset>
+            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col />
+                    <col />
+                </colgroup>
+                <thead></thead>
+                <tbody>
+                    @foreach (var xfield in xfieldMap[xtype.XFullName])
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                @await Component.InvokeAsync("_XFieldInfo", new { xfieldInfo = xfield })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </fieldset>
+    }
+    @foreach (XType xtype in xpropTypes)
+    {
+        <fieldset>
+            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col />
+                    <col />
+                </colgroup>
+                <thead></thead>
+                <tbody>
+                    @foreach (var xproperty in xpropMap[xtype.XFullName])
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                @await Component.InvokeAsync("_XPropertyInfo", new { xpropertyInfo = xproperty })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </fieldset>
+    }
+</form>

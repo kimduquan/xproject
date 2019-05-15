@@ -150,6 +150,11 @@ namespace XWebApplication
             return XToDisplayString(o.XGetType()) + " #" + o.XGetHashCode();
         }
 
+        public static string XToDisplayString(XMethodInfo xmethod)
+        {
+            return XToDisplayString(xmethod.XName);
+        }
+
         public static string XToDisplayString(string ns)
         {
             string result = ns;
@@ -890,6 +895,15 @@ namespace XWebApplication
                     }
                 };
             }
+        }
+
+        public static string XToHref(XType xtype, XMethodInfo xmethod)
+        {
+            string ns = xtype.XNamespace;
+            ns = ns.Replace('.', '-');
+            string type = xtype.XName;
+            string href = string.Format("/{0}/{1}/{2}", ns, type, xmethod.XName);
+            return href;
         }
     }
 }

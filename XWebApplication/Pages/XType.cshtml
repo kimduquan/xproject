@@ -10,8 +10,7 @@
     @await Html.PartialAsync("_XThis", Model.XObjects);
     @foreach (var xmethod in Model.XStaticMethods)
     {
-        string href = Model.XGetHref(xmethod);
-        <a href="@href"></a>
+        <a href="@XUtil.XToHref(Model.XType, xmethod)">@XUtil.XToDisplayString(xmethod)</a>
     }
 </nav>
 <ul>

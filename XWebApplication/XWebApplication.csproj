@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="_XTypeModel.cs~RFa96f0474.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
@@ -13,6 +17,7 @@
   <ItemGroup>
     <Folder Include="System-IO\Directory\" />
     <Folder Include="System-IO\File\" />
+    <Folder Include="Views\Shared\Components\_XType\" />
     <Folder Include="wwwroot\lib\XProject\XSystem\XReflection\" />
   </ItemGroup>
 

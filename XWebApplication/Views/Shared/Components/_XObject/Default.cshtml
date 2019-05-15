@@ -1,0 +1,22 @@
+﻿@model XSystem.XObject
+@using XSystem.XReflection
+@{ 
+    var xtype = Model.XGetType();
+}
+
+@foreach (XFieldInfo xfield in xtype.XGetFields())
+{
+    @if (xfield.XIsStatic == false)
+    {
+        @await Component.InvokeAsync("_XFieldInfo", new { xfieldInfo = xfield })
+        <br />
+    }
+}
+@foreach (XPropertyInfo xprop in xtype.XGetProperties())
+{
+    @if (xprop.XIsStatic == false)
+    {
+        @await Component.InvokeAsync("_XPropertyInfo", new { xpropertyInfo = xprop })
+        <br />
+    }
+}
