@@ -6,20 +6,19 @@ namespace XWebApplication.Models.XSystem
 {
     public class _XTypeModel : _XModel
     {
-        private XType xtype = null;
         private XMethodInfo[] xstaticMethods = null;
         private XFieldInfo[] xstaticFields = null;
 
         public _XTypeModel(XType type, _XThisModel xthis): base(xthis)
         {
-            xtype = type;
+            XType = type;
         }
 
         public XConstructorInfo[] XConstructors
         {
             get
             {
-                return xtype.XGetConstructors();
+                return XType.XGetConstructors();
             }
         }
 
@@ -30,7 +29,7 @@ namespace XWebApplication.Models.XSystem
                 if(xstaticMethods == null)
                 {
                     List<XMethodInfo> xmethods = new List<XMethodInfo>();
-                    foreach(XMethodInfo xmethod in xtype.XGetMethods())
+                    foreach(XMethodInfo xmethod in XType.XGetMethods())
                     {
                         if(xmethod.XIsStatic)
                         {
@@ -43,11 +42,13 @@ namespace XWebApplication.Models.XSystem
             }
         }
 
+        public XType XType { get; }
+
         public void XGetFields(out Dictionary<string, List<XFieldInfo>> xfieldMap, out List<XType> xfieldTypes)
         {
             xfieldMap = new Dictionary<string, List<XFieldInfo>>();
             xfieldTypes = new List<XType>();
-            foreach (XFieldInfo xfield in xtype.XGetFields())
+            foreach (XFieldInfo xfield in XType.XGetFields())
             {
                 if(xfield.XIsStatic)
                 {
@@ -70,7 +71,7 @@ namespace XWebApplication.Models.XSystem
         {
             xpropTypes = new List<XType>();
             xpropMap = new Dictionary<string, List<XPropertyInfo>>();
-            foreach (XPropertyInfo xprop in xtype.XGetProperties())
+            foreach (XPropertyInfo xprop in XType.XGetProperties())
             {
                 if (xprop.XIsStatic)
                 {

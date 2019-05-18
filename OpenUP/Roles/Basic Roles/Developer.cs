@@ -24,6 +24,7 @@ namespace OpenUP.Roles.Basic_Roles
     [_XType(typeof(Plan_Project))]
     [_XType(typeof(Refine_the_Architecture))]
     [_XType(typeof(Verify_Successful_Deployment))]
+    [_XString("The Developer is responsible for developing a part of the system, including designing it to fit into the architecture, possibly prototyping the user interface, and then implementing, unit-testing, and integrating the components that are part of the solution.")]
     public class Developer : Any_Role
     {
     }

@@ -21,7 +21,7 @@
     }
     @foreach (XMethodInfo xmethod in Model.XMethods)
     {
-        <a href="@_XMethodInfoModel.XToHref(xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
+        <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
     }
 </nav>
 <form method="post">

@@ -14,6 +14,7 @@ namespace OpenUP.Roles.Basic_Roles
     [_XType(typeof(Manage_Iteration))]
     [_XType(typeof(Plan_Iteration))]
     [_XType(typeof(Plan_Project))]
+    [_XString("The person in this role represents customer and end-user concerns by gathering input from stakeholders to understand the problem to be solved and by capturing and setting priorities for requirements.")]
     public class Analyst : Any_Role
     {
     }

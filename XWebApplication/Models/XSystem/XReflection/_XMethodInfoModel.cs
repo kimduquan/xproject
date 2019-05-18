@@ -1,18 +1,18 @@
-﻿using XSystem.XReflection;
+﻿using XSystem;
+using XSystem.XReflection;
 
 namespace XWebApplication.Models.XSystem.XReflection
 {
     public class _XMethodInfoModel
     {
-        public XMethodInfo XMethod
+        public XMethodInfo XMethod { get; }
+
+        public _XMethodInfoModel(XMethodInfo m)
         {
-            get
-            {
-                return null;
-            }
+            XMethod = m;
         }
 
-        public static string XToHref(XMethodInfo method)
+        public static string XToHref(XType xtype, XMethodInfo method)
         {
             return null;
         }

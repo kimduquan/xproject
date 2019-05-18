@@ -14,6 +14,7 @@ namespace OpenUP.Roles.Basic_Roles
     [_XType(typeof(Manage_Iteration))]
     [_XType(typeof(Plan_Iteration))]
     [_XType(typeof(Plan_Project))]
+    [_XString("The Architect is responsible for defining the software architecture, which includes making the key technical decisions that constrain the overall design and implementation of the system.")]
     public class Architect : Any_Role
     {
     }

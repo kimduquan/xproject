@@ -6,12 +6,12 @@ namespace XWebApplication.Models.XSystem.XReflection
     {
         public static string XToHref(XConstructorInfo ctor)
         {
-            return null;
+            return "";
         }
 
         public static string XToString(XConstructorInfo ctor)
         {
-            return null;
+            return "new";
         }
     }
 }

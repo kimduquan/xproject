@@ -20,6 +20,7 @@ namespace OpenUP.Roles.Basic_Roles
     [_XType(typeof(Manage_Iteration))]
     [_XType(typeof(Plan_Iteration))]
     [_XType(typeof(Plan_Project))]
+    [_XString("This role represents interest groups whose needs must be satisfied by the project. It is a role that may be played by anyone who is (or potentially will be) materially affected by the outcome of the project.")]
     public class Stakeholder : Any_Role
     {
     }
