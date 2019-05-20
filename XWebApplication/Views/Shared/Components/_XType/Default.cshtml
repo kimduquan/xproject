@@ -12,6 +12,9 @@
     Dictionary<string, List<XPropertyInfo>> xpropMap = null;
     List<XType> xpropTypes = null;
     Model.XGetProperties(out xpropMap, out xpropTypes);
+
+    int tabIndex = 0;
+    char accessKey = ' ';
 }
 
 <nav>
@@ -42,7 +45,11 @@
                         <tr>
                             <td></td>
                             <td>
-                                @await Component.InvokeAsync("_XFieldInfo", new { xfieldInfo = xfield })
+                                @{
+                                    Model.XGetAccessKey(xfield.XName, out accessKey);
+                                }
+                                @await Component.InvokeAsync("_XFieldInfo", new { type = Model, field = xfield, key = accessKey, index = tabIndex })
+                                @tabIndex++;
                             </td>
                         </tr>
                     }
@@ -68,7 +75,11 @@
                         <tr>
                             <td></td>
                             <td>
-                                @await Component.InvokeAsync("_XPropertyInfo", new { xpropertyInfo = xproperty })
+                                @{
+                                    Model.XGetAccessKey(xproperty.XName, out accessKey);
+                                }
+                                @await Component.InvokeAsync("_XPropertyInfo", new { type = Model, property = xproperty, key = accessKey, index = tabIndex })
+                                @tabIndex++;
                             </td>
                         </tr>
                     }
