@@ -13,4 +13,11 @@
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OpenUP\OpenUP.csproj" />
+    <ProjectReference Include="..\XSystem.XInternal\XSystem.XInternal.csproj" />
+    <ProjectReference Include="..\XSystem.XReflection.XInternal\XSystem.XReflection.XInternal.csproj" />
+    <ProjectReference Include="..\XSystem\XSystem.csproj" />
+  </ItemGroup>
+
 </Project>
