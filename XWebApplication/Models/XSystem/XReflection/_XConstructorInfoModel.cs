@@ -1,17 +1,14 @@
-﻿using XSystem.XReflection;
+﻿using XSystem;
+using XSystem.XReflection;
+using XWebApplication.Util;
 
 namespace XWebApplication.Models.XSystem.XReflection
 {
     public class _XConstructorInfoModel
     {
-        public static string XToHref(XConstructorInfo ctor)
+        public static string XToHref(XType xtype, XConstructorInfo ctor)
         {
-            return "";
-        }
-
-        public static string XToString(XConstructorInfo ctor)
-        {
-            return "new";
+            return _XTypeModel.XToHref(xtype) + "/" + XConstants.XNEW;
         }
     }
 }

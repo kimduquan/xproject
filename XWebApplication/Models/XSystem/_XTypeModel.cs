@@ -171,14 +171,19 @@ namespace XWebApplication.Models.XSystem
             }
         }
 
-        public void XGetAccessKey(string name, out char key)
+        public char XGetAccessKey(string name)
         {
-            key = XAccessKeys[name];
+            return XAccessKeys[name];
         }
 
         public static string XToString(XType xtype)
         {
             return XToString(xtype.XName);
+        }
+
+        public static string XToHref(XType xtype)
+        {
+            return "";
         }
     }
 }

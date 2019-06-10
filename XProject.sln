@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSystem.XComponentModel.XIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenUP", "OpenUP\OpenUP.csproj", "{CE37B564-1E7A-4763-B54A-F75C7F46AC4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_XSystem", "_XSystem\_XSystem.csproj", "{559F31FD-8A87-4663-9499-82F4645C4C45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_XSystem", "_XSystem\_XSystem.csproj", "{559F31FD-8A87-4663-9499-82F4645C4C45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWebApplication.Tests", "XWebApplication.Tests\XWebApplication.Tests.csproj", "{4FD2EB70-E591-4B0A-9D03-E6652A2808B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{559F31FD-8A87-4663-9499-82F4645C4C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559F31FD-8A87-4663-9499-82F4645C4C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559F31FD-8A87-4663-9499-82F4645C4C45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FD2EB70-E591-4B0A-9D03-E6652A2808B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FD2EB70-E591-4B0A-9D03-E6652A2808B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FD2EB70-E591-4B0A-9D03-E6652A2808B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FD2EB70-E591-4B0A-9D03-E6652A2808B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

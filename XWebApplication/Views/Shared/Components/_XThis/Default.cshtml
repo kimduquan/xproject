@@ -1,1 +1,25 @@
-﻿
+﻿@model XWebApplication.Models._XThisModel
+@using XSystem
+@using XWebApplication.Models.XSystem
+
+<script type="text/javascript">
+    function xondragstart(ev, type, hashCode) {
+        ev.dataTransfer.setData("type", type);
+        ev.dataTransfer.setData("hashCode", hashCode);
+    }
+</script>
+<ul>
+    @foreach (XType xtype in Model.XCache.XTypes)
+    {
+        <li>
+            <ul>
+                @foreach (XObject xobject in Model.XCache.XObjects[xtype.XFullName].Values)
+                {
+                    <li>
+                        <a href="@_XObjectModel.XToHref(xobject)" draggable="true" ondragstart="xondragstart(event, '@xtype.XFullName', '@xobject.XGetHashCode()')">@_XObjectModel.XToString(xobject)</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

@@ -14,13 +14,12 @@
     Model.XGetProperties(out xpropMap, out xpropTypes);
 
     int tabIndex = 0;
-    char accessKey = ' ';
 }
 
 <nav>
     @foreach (XConstructorInfo xctor in Model.XConstructors)
     {
-        <a href="@_XConstructorInfoModel.XToHref(xctor)">@_XConstructorInfoModel.XToString(xctor)</a>
+        <a href="@_XConstructorInfoModel.XToHref(Model.XType, xctor)">new @_XTypeModel.XToString(Model.XType)</a>
     }
     @foreach (XMethodInfo xmethod in Model.XMethods)
     {
@@ -45,10 +44,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                @{
-                                    Model.XGetAccessKey(xfield.XName, out accessKey);
-                                }
-                                @await Component.InvokeAsync("_XFieldInfo", new { type = Model, field = xfield, key = accessKey, index = tabIndex })
+                                @await Component.InvokeAsync("_XFieldInfo", new { type = Model, field = xfield, key = Model.XGetAccessKey(xfield.XName), index = tabIndex })
                                 @tabIndex++;
                             </td>
                         </tr>
@@ -75,10 +71,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                @{
-                                    Model.XGetAccessKey(xproperty.XName, out accessKey);
-                                }
-                                @await Component.InvokeAsync("_XPropertyInfo", new { type = Model, property = xproperty, key = accessKey, index = tabIndex })
+                                @await Component.InvokeAsync("_XPropertyInfo", new { type = Model, property = xproperty, key = Model.XGetAccessKey(xproperty.XName), index = tabIndex })
                                 @tabIndex++;
                             </td>
                         </tr>

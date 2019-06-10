@@ -14,12 +14,12 @@ namespace XWebApplication.Models.XSystem.XReflection
 
         public static string XToHref(XType xtype, XMethodInfo method)
         {
-            return null;
+            return _XTypeModel.XToHref(xtype) + "/" + method.XName;
         }
 
         public static string XToString(XMethodInfo method)
         {
-            return null;
+            return _XModel.XToString(method.XName);
         }
     }
 }
