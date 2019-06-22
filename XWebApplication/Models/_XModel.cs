@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using XSystem;
 
 namespace XWebApplication.Models
 {
@@ -72,6 +73,11 @@ namespace XWebApplication.Models
             }
             result = temp;
             return result;
+        }
+
+        public static XType XGetType(string name)
+        {
+            return null;
         }
     }
 }

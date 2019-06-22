@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+using System.Collections.Generic;
 using XSystem;
 using XSystem.XReflection;
 
@@ -184,6 +186,48 @@ namespace XWebApplication.Models.XSystem
         public static string XToHref(XType xtype)
         {
             return "";
+        }
+
+        public static XType XFromReturnUrl(IQueryCollection query, out string url)
+        {
+            XType xtype = null;
+            StringValues returnUrl;
+            query.TryGetValue("ReturnUrl", out returnUrl);
+            url = returnUrl.ToString();
+            string[] path = url.Split("/");
+            if (path.Length > 3)
+            {
+                string dll = path[1];
+                string ns = string.Join(".", path, 1, path.Length - 1).Replace('-', '.');
+                xtype = _XModel.XGetType(ns + "," + dll);
+            }
+            return xtype;
+        }
+
+        public static XMethodInfo[] XGetEntryMethods(XType xtype)
+        {
+            List<XMethodInfo> result = new List<XMethodInfo>();
+            foreach (XMethodInfo xmethod in xtype.XGetMethods())
+            {
+                if (xmethod.XReturnType != null && xmethod.XDeclaringType.XNamespace != "System" && xmethod.XReturnType.XIsPrimitive == false && xmethod.XReturnType.XIsArray == false)
+                {
+                    bool check = true;
+                    foreach (XParameterInfo xparam in xmethod.XGetParameters())
+                    {
+                        if (xparam.XParameterType.XIsArray || xparam.XParameterType.XNamespace != "System")
+                        {
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check)
+                    {
+                        result.Add(xmethod);
+                    }
+                }
+            }
+            XMethodInfo[] xmethodInfos = result.ToArray();
+            return xmethodInfos;
         }
     }
 }
