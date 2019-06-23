@@ -8,29 +8,33 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using XSystem.XReflection;
 using Microsoft.Extensions.Caching.Memory;
+using XWebApplication.Models.XSystem.XReflection;
+using XWebApplication.Models.XSystem;
+using XWebApplication.Models;
 
 namespace XWebApplication.Pages
 {
     [AllowAnonymous]
     public class XUsingModel : PageModel
     {
-        private XType xtype = null;
+        private XType xusingType = null;
         private XType xentryType = null;
-        private XMethodInfo xmethodInfo = null;
-        private XMethodInfo[] xmethodInfos = null;
-        private XObject[] xobjects = null;
+        private XMethodInfo xentryMethod = null;
+        private XMethodInfo[] xentryMethods = null;
+        private XObject[] xparameters = null;
         private IMemoryCache cache = null;
+        private string title = null;
 
-        public XType XType
+        protected XType XUsingType
         {
             get
             {
-                if (xtype == null)
+                if (xusingType == null)
                 {
                     string url = "";
-                    XUtil.XFromReturnUrl(Request.Query, out xtype, out url);
+                    xusingType = _XTypeModel.XFromReturnUrl(Request.Query, out url);
                 }
-                return xtype;
+                return xusingType;
             }
         }
 
@@ -40,7 +44,7 @@ namespace XWebApplication.Pages
             {
                 if (xentryType == null)
                 {
-                    XUtil.XGetEntryType(XType.XAssembly, out xentryType);
+                    xentryType = _XAssemblyModel.XGetEntryType(XUsingType.XAssembly);
                 }
                 return xentryType;
             }
@@ -52,58 +56,83 @@ namespace XWebApplication.Pages
         [BindProperty(SupportsGet = true)]
         public string ReturnUrl { get; set; }
 
-        public XMethodInfo[] XMethodInfos
+        public XMethodInfo[] XEntryMethods
         {
             get
             {
-                if(xmethodInfos == null)
+                if(xentryMethods == null)
                 {
-                    XUtil.XGetEntryMethods(XEntryType, out xmethodInfos);
+                    xentryMethods = _XTypeModel.XGetEntryMethods(XEntryType);
                 }
-                return xmethodInfos;
+                return xentryMethods;
             }
         }
 
-        public XMethodInfo XMethodInfo
+        public XMethodInfo XEntryMethod
         {
             get
             {
-                if(xmethodInfo == null)
+                if(xentryMethod == null)
                 {
-                    if(XMethodInfos != null)
+                    if(XEntryMethods != null)
                     {
-                        if (XMethodInfos.Length == 1)
+                        if (XEntryMethods.Length == 1)
                         {
-                            xmethodInfo = XMethodInfos[0];
+                            xentryMethod = XEntryMethods[0];
                         }
                         else if (Using != null && Using != "")
                         {
-                            foreach(XMethodInfo m in XMethodInfos)
+                            foreach(XMethodInfo m in XEntryMethods)
                             {
                                 if(m.XName == Using)
                                 {
-                                    xmethodInfo = m;
+                                    xentryMethod = m;
                                     break;
                                 }
                             }
                         }
                     }
                 }
-                return xmethodInfo;
+                return xentryMethod;
             }
         }
 
-        public XObject[] XObjects
+        protected XObject[] XParameters
         {
             get
             {
-                if(xobjects == null)
+                if(xparameters == null)
                 {
-                    List<XObject> objects = null;
-                    XUtil.XFromForm(out objects, XMethodInfo.XGetParameters(), Request.Form, null);
-                    xobjects = objects.ToArray();
+                    xparameters = _XMethodInfoModel.XFromForm(XEntryMethod, Request.Form, null);
                 }
-                return xobjects;
+                return xparameters;
+            }
+        }
+
+        public string XTitle
+        {
+            get
+            {
+                if(title == null)
+                {
+                    if (XEntryType != null)
+                    {
+                        string name = "";
+                        string assemblyName = "";
+                        if (XEntryMethod != null)
+                        {
+                            name = _XMethodInfoModel.XToString(XEntryMethod);
+                            assemblyName =_XAssemblyModel.XToString(XEntryType.XAssembly);
+                        }
+                        else if (XUsingType != null)
+                        {
+                            name = _XTypeModel.XToString(XUsingType);
+                            assemblyName = _XAssemblyModel.XToString(XUsingType.XAssembly);
+                        }
+                        title = string.Format("{0} - {1}", assemblyName, name);
+                    }
+                }
+                return title;
             }
         }
 
@@ -111,19 +140,14 @@ namespace XWebApplication.Pages
         {
             if(ModelState.IsValid)
             {
-                if(XMethodInfo != null)
+                if(XEntryMethod != null)
                 {
-                    XObject xobject = XMethodInfo.XInvoke(XUtil.X.XNULL, XObjects);
+                    XObject xobject = XEntryMethod.XInvoke(XUtil.X.XNULL, XParameters);
                     if(xobject != XUtil.X.XNULL)
                     {
-                        XUtil.XToSession(xobject, HttpContext.Session);
-                        XUtil.XToCache(xobject, cache, HttpContext.Session);
-                        List<Claim> claims = new List<Claim>()
-                        {
-                            new Claim(ClaimTypes.Name, xobject.XToString()),
-                            new Claim("Type", xobject.XGetType().XFullName),
-                            new Claim("hashCode", "" + xobject.XGetHashCode())
-                        };
+                        _XThisModel.XToSession(xobject, HttpContext.Session);
+                        _XThisModel.XToCache(xobject, cache, HttpContext.Session);
+                        List<Claim> claims = _XObjectModel.XToClaims(xobject);
                         List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
                         {
                             new ClaimsIdentity

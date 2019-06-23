@@ -194,12 +194,20 @@ namespace XWebApplication.Models.XSystem
             StringValues returnUrl;
             query.TryGetValue("ReturnUrl", out returnUrl);
             url = returnUrl.ToString();
-            string[] path = url.Split("/");
-            if (path.Length > 3)
+            if(url.EndsWith("/"))
             {
-                string dll = path[1];
-                string ns = string.Join(".", path, 1, path.Length - 1).Replace('-', '.');
-                xtype = _XModel.XGetType(ns + "," + dll);
+                url = url.TrimEnd('/');
+            }
+            if(url.StartsWith("/"))
+            {
+                url = url.TrimStart('/');
+            }
+            string[] path = url.Split("/");
+            if (path.Length > 2)
+            {
+                string dll = path[0];
+                string ns = string.Join(".", path, 0, 3).Replace('-', '.');
+                xtype = XGetType(ns + "," + dll);
             }
             return xtype;
         }

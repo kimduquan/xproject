@@ -1,6 +1,12 @@
-﻿using System;
+﻿using _XSystem;
+using System;
 using System.Collections.Generic;
 using XSystem;
+using XSystem.XComponentModel;
+using XSystem.XComponentModel.XInternal;
+using XSystem.XInternal;
+using XSystem.XReflection;
+using XSystem.XReflection.XInternal;
 
 namespace XWebApplication.Models
 {
@@ -11,6 +17,21 @@ namespace XWebApplication.Models
         public _XModel(_XThisModel t)
         {
             XThis = t;
+        }
+
+        private static X x = null;
+
+        protected static X X
+        {
+            get
+            {
+                if (x == null)
+                {
+                    x = new XInternal();
+                    x.XAssembly = XAssemblyInternal.XNew;
+                }
+                return x;
+            }
         }
 
         public static string XToString(string ns)
@@ -77,7 +98,18 @@ namespace XWebApplication.Models
 
         public static XType XGetType(string name)
         {
-            return null;
+            return X.XGetType(name);
+        }
+
+        public static XType XTypeOf(Type type)
+        {
+            return X.XTypeOf(type);
+        }
+
+        public static XTypeConverter XNewConverter()
+        {
+            XTypeConverter converter = new XObjectConverterInternal(X);
+            return converter;
         }
     }
 }

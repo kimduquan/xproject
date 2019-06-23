@@ -9,7 +9,9 @@ namespace XWebApplication
     {
         public async Task<IViewComponentResult> InvokeAsync(XParameterInfo xparameter, char accessKey, int tabIndex)
         {
-            _XParameterInfoModel xmodel = new _XParameterInfoModel();
+            _XParameterInfoModel xmodel = new _XParameterInfoModel(xparameter);
+            xmodel.AccessKey = accessKey;
+            xmodel.TabIndex = tabIndex;
             return View(xmodel);
         }
     }

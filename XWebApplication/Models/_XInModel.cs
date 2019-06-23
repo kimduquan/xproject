@@ -1,4 +1,6 @@
-﻿using XSystem;
+﻿using System.Collections.Generic;
+using XSystem;
+using XSystem.XReflection;
 
 namespace XWebApplication.Models
 {
@@ -19,9 +21,7 @@ namespace XWebApplication.Models
         public string SpellCheck { get; set; }
         public string Type { get; set; }
         public int AccessKeyIndex { get; set; }
-        public bool InputType { get; set; }
-        public bool IsStringArray { get; set; }
-        public bool IsImplicit { get; set; }
-        public bool IsValue { get; set; }
+        public Dictionary<string, List<XFieldInfo>> XFields { get; set; }
+        public Dictionary<string, List<XPropertyInfo>> XProperties { get; set; }
     }
 }

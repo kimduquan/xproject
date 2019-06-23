@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using XSystem;
+using XSystem.XComponentModel;
 using XSystem.XReflection;
 
 namespace XWebApplication.Models.XSystem.XReflection
@@ -46,10 +48,30 @@ namespace XWebApplication.Models.XSystem.XReflection
             return _XModel.XToString(method.XName);
         }
 
-        public static XObject[] XFromForm(XMethodInfo xmethod, IFormCollection form)
+        public static XObject[] XFromForm(XMethodInfo xmethod, IFormCollection form, Dictionary<string, XObject> xobjects)
         {
             XParameterInfo[] xparams = xmethod.XGetParameters();
             List<XObject>  values = new List<XObject>();
+            XTypeConverter converter = _XModel.XNewConverter();
+            if (converter.XCanConvertFrom(typeof(string)))
+            {
+                foreach (XParameterInfo xparameter in xparams)
+                {
+                    StringValues value = form[xparameter.XName];
+                    if (converter.XCanConvertTo(xparameter.XParameterType))
+                    {
+                        values.Add(converter.XConvertTo(value.ToString(), xparameter.XParameterType));
+                    }
+                    else if (xobjects != null)
+                    {
+                        string key = value.ToString().Replace('#', '@');
+                        if (xobjects.ContainsKey(key))
+                        {
+                            values.Add(xobjects[key]);
+                        }
+                    }
+                }
+            }
             return values.ToArray();
         }
     }

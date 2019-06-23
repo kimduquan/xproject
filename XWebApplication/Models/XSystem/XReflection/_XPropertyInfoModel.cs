@@ -12,5 +12,10 @@ namespace XWebApplication.Models.XSystem.XReflection
 
         public char XAccessKey { get; }
         public int XTabIndex { get; }
+
+        public static string XToString(XPropertyInfo xprop)
+        {
+            return _XModel.XToString(xprop.XName);
+        }
     }
 }

@@ -1,0 +1,63 @@
+﻿@model  XWebApplication.Models._XInModel
+
+@using  XWebApplication.Models.XSystem.XReflection
+
+<table class="@Model.Class" @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey">
+    <caption>
+        @Model.Text.Substring(0, Model.AccessKeyIndex)<mark><u>@Model.Text[Model.AccessKeyIndex]</u></mark>@Model.Text.Substring(Model.AccessKeyIndex + 1)<mark><sup>[@Model.AccessKeyIndex]</sup></mark>
+    </caption>
+    @using (var it = Model.XFields.GetEnumerator())
+    {
+        while (it.MoveNext())
+        {
+            <colgroup>
+                @foreach (var field in it.Current.Value)
+                {
+                    <col />
+                }
+            </colgroup>
+        }
+    }
+    @using (var it = Model.XProperties.GetEnumerator())
+    {
+        while (it.MoveNext())
+        {
+            <colgroup>
+                @foreach (var prop in it.Current.Value)
+                {
+                    <col />
+                }
+            </colgroup>
+        }
+    }
+    <thead>
+        <tr>
+            @using (var it = Model.XFields.GetEnumerator())
+            {
+                while (it.MoveNext())
+                {
+                    @foreach (var field in it.Current.Value)
+                    {
+                        <th>
+                            @_XFieldInfoModel.XToString(field);
+                        </th>
+                    }
+                }
+            }
+            @using (var it = Model.XProperties.GetEnumerator())
+            {
+                while (it.MoveNext())
+                {
+                    @foreach (var prop in it.Current.Value)
+                    {
+                        <th>
+                            @_XPropertyInfoModel.XToString(prop);
+                        </th>
+                    }
+                }
+            }
+        </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot></tfoot>
+</table>
