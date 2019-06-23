@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace XWebApplication
+namespace XWebApplication.ViewComponents
 {
     public class _XRefViewComponent : ViewComponent
     {

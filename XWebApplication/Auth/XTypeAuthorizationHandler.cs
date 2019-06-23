@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 
-namespace XWebApplication
+namespace XWebApplication.Auth
 {
     public class XTypeAuthorizationHandler : AuthorizationHandler<XTypeAuthorizationRequirement>
     {

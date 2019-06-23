@@ -4,7 +4,7 @@ using XSystem.XReflection;
 using XWebApplication.Models.XSystem;
 using XWebApplication.Models.XSystem.XReflection;
 
-namespace XWebApplication
+namespace XWebApplication.ViewComponents
 {
     public class _XPropertyInfoViewComponent : ViewComponent
     {

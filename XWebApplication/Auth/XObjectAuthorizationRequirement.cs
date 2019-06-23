@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace XWebApplication
+namespace XWebApplication.Auth
 {
     public class XObjectAuthorizationRequirement : IAuthorizationRequirement
     {

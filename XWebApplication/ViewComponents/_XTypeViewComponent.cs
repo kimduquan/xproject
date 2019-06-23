@@ -4,7 +4,7 @@ using XSystem;
 using XWebApplication.Models;
 using XWebApplication.Models.XSystem;
 
-namespace XWebApplication
+namespace XWebApplication.ViewComponents
 {
     public class _XTypeViewComponent : ViewComponent
     {

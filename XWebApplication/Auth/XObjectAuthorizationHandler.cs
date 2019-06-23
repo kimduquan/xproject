@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using XSystem;
 
-namespace XWebApplication
+namespace XWebApplication.Auth
 {
     public class XObjectAuthorizationHandler : AuthorizationHandler<XObjectAuthorizationRequirement>
     {

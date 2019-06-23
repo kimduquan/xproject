@@ -7,7 +7,7 @@ using XSystem.XReflection;
 using XWebApplication.Models;
 using XWebApplication.Models.XSystem.XReflection;
 
-namespace XWebApplication
+namespace XWebApplication.ViewComponents
 {
     public class _XInViewComponent : ViewComponent
     {

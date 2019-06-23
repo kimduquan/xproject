@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using XWebApplication.SignalR;
+using XWebApplication.Auth;
 
 namespace XWebApplication
 {

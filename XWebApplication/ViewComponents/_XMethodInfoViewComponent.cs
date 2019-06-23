@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using XSystem.XReflection;
 using XWebApplication.Models.XSystem.XReflection;
 
-namespace XWebApplication
+namespace XWebApplication.ViewComponents
 {
     public class _XMethodInfoViewComponent : ViewComponent
     {
