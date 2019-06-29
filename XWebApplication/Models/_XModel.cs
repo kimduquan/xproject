@@ -1,37 +1,15 @@
-﻿using _XSystem;
-using System;
-using System.Collections.Generic;
-using XSystem;
-using XSystem.XComponentModel;
-using XSystem.XComponentModel.XInternal;
-using XSystem.XInternal;
-using XSystem.XReflection;
-using XSystem.XReflection.XInternal;
+﻿using System.Collections.Generic;
+using XWebApplication.Util;
 
 namespace XWebApplication.Models
 {
     public abstract class _XModel
     {
-        public _XThisModel XThis { get; }
+        public _XThisCache XThis { get; }
 
-        public _XModel(_XThisModel t)
+        public _XModel(_XThisCache t)
         {
             XThis = t;
-        }
-
-        private static X x = null;
-
-        protected static X X
-        {
-            get
-            {
-                if (x == null)
-                {
-                    x = new XInternal();
-                    x.XAssembly = XAssemblyInternal.XNew;
-                }
-                return x;
-            }
         }
 
         public static string XToString(string ns)
@@ -56,7 +34,7 @@ namespace XWebApplication.Models
                         if (!ignore)
                         {
                             if (lower)
-                                temp += Char.ToLower(prev.Current);
+                                temp += char.ToLower(prev.Current);
                             else
                                 temp += prev.Current;
                         }
@@ -65,18 +43,18 @@ namespace XWebApplication.Models
                             temp += ' ';
                         }
 
-                        if ((Char.IsControl(current.Current) && !Char.IsControl(next.Current))
-                            || (Char.IsDigit(current.Current) && !Char.IsDigit(next.Current))
-                            || (Char.IsLetter(current.Current) && !Char.IsLetter(next.Current))
-                            || (Char.IsLetterOrDigit(current.Current) && !Char.IsLetterOrDigit(next.Current))
-                            || (Char.IsLower(current.Current) && !Char.IsLower(next.Current))
-                            || (Char.IsNumber(current.Current) && !Char.IsNumber(next.Current))
+                        if ((char.IsControl(current.Current) && !char.IsControl(next.Current))
+                            || (char.IsDigit(current.Current) && !char.IsDigit(next.Current))
+                            || (char.IsLetter(current.Current) && !char.IsLetter(next.Current))
+                            || (char.IsLetterOrDigit(current.Current) && !char.IsLetterOrDigit(next.Current))
+                            || (char.IsLower(current.Current) && !char.IsLower(next.Current))
+                            || (char.IsNumber(current.Current) && !char.IsNumber(next.Current))
                             )
                         {
                             lower = ignore = whiteSpace = false;
                             whiteSpace = true;
                         }
-                        else if ((Char.IsWhiteSpace(prev.Current) || whiteSpace) && Char.IsUpper(current.Current))
+                        else if ((char.IsWhiteSpace(prev.Current) || whiteSpace) && char.IsUpper(current.Current))
                         {
                             lower = ignore = whiteSpace = false;
                             lower = true;
@@ -94,22 +72,6 @@ namespace XWebApplication.Models
             }
             result = temp;
             return result;
-        }
-
-        public static XType XGetType(string name)
-        {
-            return X.XGetType(name);
-        }
-
-        public static XType XTypeOf(Type type)
-        {
-            return X.XTypeOf(type);
-        }
-
-        public static XTypeConverter XNewConverter()
-        {
-            XTypeConverter converter = new XObjectConverterInternal(X);
-            return converter;
         }
     }
 }

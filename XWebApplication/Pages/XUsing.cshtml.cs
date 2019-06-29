@@ -11,6 +11,7 @@ using Microsoft.Extensions.Caching.Memory;
 using XWebApplication.Models.XSystem.XReflection;
 using XWebApplication.Models.XSystem;
 using XWebApplication.Models;
+using XSystem.XComponentModel;
 
 namespace XWebApplication.Pages
 {
@@ -24,6 +25,8 @@ namespace XWebApplication.Pages
         private XObject[] xparameters = null;
         private IMemoryCache cache = null;
         private string title = null;
+        private XTypeConverter xtypeConverter = null;
+        private X x = null;
 
         protected XType XUsingType
         {
@@ -32,7 +35,7 @@ namespace XWebApplication.Pages
                 if (xusingType == null)
                 {
                     string url = "";
-                    xusingType = _XTypeModel.XFromReturnUrl(Request.Query, out url);
+                    xusingType = _XTypeModel.XFromReturnUrl(x, Request.Query, out url);
                 }
                 return xusingType;
             }
@@ -103,7 +106,7 @@ namespace XWebApplication.Pages
             {
                 if(xparameters == null)
                 {
-                    xparameters = _XMethodInfoModel.XFromForm(XEntryMethod, Request.Form, null);
+                    xparameters = _XMethodInfoModel.XFromForm(XEntryMethod, xtypeConverter, Request.Form, null);
                 }
                 return xparameters;
             }
@@ -169,9 +172,11 @@ namespace XWebApplication.Pages
             return Page();
         }
 
-        public XUsingModel(IMemoryCache memory)
+        public XUsingModel(IMemoryCache memory, XTypeConverter converter, X xx)
         {
             cache = memory;
+            xtypeConverter = converter;
+            x = xx;
         }
     }
 }

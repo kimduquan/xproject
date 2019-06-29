@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
 using XSystem;
 using XWebApplication.Util;
 
@@ -8,37 +7,32 @@ namespace XWebApplication.Models
 {
     public class _XThisModel
     {
-        public _XObjectCache XCache { get; }
+        public _XThisCache XCache { get; }
 
-        public _XThisModel(IMemoryCache cache, ISession session)
+        public _XThisModel(_XThisCache xcache)
         {
-            XCache = _XObjectCache.XFromSession(session, cache);
+            XCache = xcache;
         }
 
         public static void XToSession(XObject xthis, ISession session)
         {
-            session.SetString("this", xthis.XGetType().XFullName + "@" + xthis.XGetHashCode());
+            session.SetString("this", _XThisCache.XToKey(xthis));
         }
 
-        public static void XToCache(XObject obj, IMemoryCache cache, ISession session)
+        public static void XToCache(XObject xthis, IMemoryCache cache, ISession session)
         {
-            Dictionary<string, XObject> xobjects = null;
-            XGetCache(cache, session, out xobjects);
-            string key = obj.XGetType().XFullName + "@" + obj.XGetHashCode();
-            xobjects.TryAdd(key, obj);
-        }
-
-        protected static void XGetCache(IMemoryCache cache, ISession session, out Dictionary<string, XObject> xobjects)
-        {
-            string xthis = session.GetString("this");
-            if (cache.TryGetValue(xthis, out xobjects) == false)
+            string key = session.GetString("this");
+            _XThisCache xthisCache = new _XThisCache(xthis);
+            using (ICacheEntry entry = cache.CreateEntry(key))
             {
-                xobjects = new Dictionary<string, XObject>();
-                using (ICacheEntry entry = cache.CreateEntry(xthis))
-                {
-                    entry.SetValue(xobjects);
-                }
+                entry.SetValue(xthisCache);
             }
+        }
+
+        public static void XFromCache(IMemoryCache cache, ISession session, out _XThisCache xthis)
+        {
+            string key = session.GetString("this");
+            cache.TryGetValue(key, out xthis);
         }
     }
 }

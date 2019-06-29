@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using XSystem;
+using XWebApplication.Util;
 
 namespace XWebApplication.Models.XSystem
 {
     public class _XObjectModel : _XModel
     {
-        public _XObjectModel(_XThisModel xthis) : base(xthis)
+        public _XObjectModel(_XThisCache xthis) : base(xthis)
         {
 
         }

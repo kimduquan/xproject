@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
+using System.Security.Claims;
 using XSystem;
 using XSystem.XReflection;
+using XWebApplication.Util;
 
 namespace XWebApplication.Models.XSystem
 {
@@ -13,7 +15,7 @@ namespace XWebApplication.Models.XSystem
         private XPropertyInfo[] xstaticProperties = null;
         private Dictionary<string, char> xaccessKeys = null;
 
-        public _XTypeModel(XType type, _XThisModel xthis): base(xthis)
+        public _XTypeModel(XType type, _XThisCache xthis): base(xthis)
         {
             XType = type;
         }
@@ -188,7 +190,7 @@ namespace XWebApplication.Models.XSystem
             return "";
         }
 
-        public static XType XFromReturnUrl(IQueryCollection query, out string url)
+        public static XType XFromReturnUrl(X x, IQueryCollection query, out string url)
         {
             XType xtype = null;
             StringValues returnUrl;
@@ -207,7 +209,7 @@ namespace XWebApplication.Models.XSystem
             {
                 string dll = path[0];
                 string ns = string.Join(".", path, 0, 3).Replace('-', '.');
-                xtype = XGetType(ns + "," + dll);
+                xtype = x.XGetType(ns + "," + dll);
             }
             return xtype;
         }
@@ -236,6 +238,28 @@ namespace XWebApplication.Models.XSystem
             }
             XMethodInfo[] xmethodInfos = result.ToArray();
             return xmethodInfos;
+        }
+
+        public static XType XFromClaims(ClaimsPrincipal user, X x)
+        {
+            XType xtype = null;
+            if (user.HasClaim(c => c.Type == "Type"))
+            {
+                Claim t = user.FindFirst(c => c.Type == "Type");
+                xtype = XFromFullName(t.Value, x);
+            }
+            return xtype;
+        }
+
+        protected static XType XFromFullName(string fullName, X x)
+        {
+            XType xtype = x.XGetType(fullName + "," + fullName.Split('.')[0]);
+            return xtype;
+        }
+        
+        public static string XToCssClass(XType xtype)
+        {
+            return xtype.XName.ToLower().Replace('_', '-');
         }
     }
 }

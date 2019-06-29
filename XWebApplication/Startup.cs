@@ -10,6 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using XWebApplication.SignalR;
 using XWebApplication.Auth;
+using XSystem;
+using XSystem.XInternal;
+using XSystem.XReflection.XInternal;
+using XSystem.XComponentModel.XInternal;
+using XSystem.XComponentModel;
 
 namespace XWebApplication
 {
@@ -51,6 +56,11 @@ namespace XWebApplication
             });
             services.AddSingleton<IAuthorizationHandler, XTypeAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, XObjectAuthorizationHandler>();
+            X x = new XInternal();
+            x.XAssembly = XAssemblyInternal.XNew;
+            XTypeConverter typeConverter = new XObjectConverterInternal(x);
+            services.AddSingleton(typeof(X), x);
+            services.AddSingleton(typeof(XTypeConverter), typeConverter);
             services.AddSession(options =>
             {
                 options.Cookie.IsEssential = true;

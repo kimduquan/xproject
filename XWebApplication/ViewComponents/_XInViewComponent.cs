@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
+using XSystem;
 using XSystem.XReflection;
 using XWebApplication.Models;
 using XWebApplication.Models.XSystem.XReflection;
@@ -11,6 +12,12 @@ namespace XWebApplication.ViewComponents
 {
     public class _XInViewComponent : ViewComponent
     {
+        private X x = null;
+        public _XInViewComponent(X xx)
+        {
+            x = xx;
+        }
+
         public async Task<IViewComponentResult> InvokeAsync(XParameterInfo xparameter, char accessKey, int tabIndex)
         {
             _XInModel xmodel = new _XInModel();
@@ -45,7 +52,7 @@ namespace XWebApplication.ViewComponents
             else
             {
                 view = "Default";
-                if (_XParameterInfoModel.XIsImplicit(xparameter))
+                if (_XParameterInfoModel.XIsImplicit(xparameter, x))
                 {
                     xmodel.Type = "password";
                 }

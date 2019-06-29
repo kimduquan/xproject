@@ -1,4 +1,5 @@
 ﻿using _XSystem;
+using XSystem;
 using XSystem.XReflection;
 
 namespace XWebApplication.Models.XSystem.XReflection
@@ -25,9 +26,9 @@ namespace XWebApplication.Models.XSystem.XReflection
             return "";
         }
 
-        public static bool XIsImplicit(XParameterInfo xparam)
+        public static bool XIsImplicit(XParameterInfo xparam, X x)
         {
-            return xparam.XGetCustomAttributes(_XModel.XTypeOf(typeof(_XImplicit)), false).Length > 0;
+            return xparam.XGetCustomAttributes(x.XTypeOf(typeof(_XImplicit)), false).Length > 0;
         }
 
         public static string XToString(XParameterInfo xparam)

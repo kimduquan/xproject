@@ -8,18 +8,12 @@
         ev.dataTransfer.setData("hashCode", hashCode);
     }
 </script>
+<a href="/return">Sign out</a>
 <ul>
-    @foreach (XType xtype in Model.XCache.XTypes)
+    @foreach (KeyValuePair<string, XObject> v in Model.XCache.XObjects)
     {
         <li>
-            <ul>
-                @foreach (XObject xobject in Model.XCache.XObjects[xtype.XFullName].Values)
-                {
-                    <li>
-                        <a href="@_XObjectModel.XToHref(xobject)" draggable="true" ondragstart="xondragstart(event, '@xtype.XFullName', '@xobject.XGetHashCode()')">@_XObjectModel.XToString(xobject)</a>
-                    </li>
-                }
-            </ul>
+            <a href="@_XObjectModel.XToHref(v.Value)" draggable="true" ondragstart="xondragstart(event, '@v.Value.XGetType().XFullName', '@v.Value.XGetHashCode()')">@_XObjectModel.XToString(v.Value)</a>
         </li>
     }
 </ul>

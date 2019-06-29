@@ -48,19 +48,18 @@ namespace XWebApplication.Models.XSystem.XReflection
             return _XModel.XToString(method.XName);
         }
 
-        public static XObject[] XFromForm(XMethodInfo xmethod, IFormCollection form, Dictionary<string, XObject> xobjects)
+        public static XObject[] XFromForm(XMethodInfo xmethod, XTypeConverter xtypeConverter, IFormCollection form, Dictionary<string, XObject> xobjects)
         {
             XParameterInfo[] xparams = xmethod.XGetParameters();
             List<XObject>  values = new List<XObject>();
-            XTypeConverter converter = _XModel.XNewConverter();
-            if (converter.XCanConvertFrom(typeof(string)))
+            if (xtypeConverter.XCanConvertFrom(typeof(string)))
             {
                 foreach (XParameterInfo xparameter in xparams)
                 {
                     StringValues value = form[xparameter.XName];
-                    if (converter.XCanConvertTo(xparameter.XParameterType))
+                    if (xtypeConverter.XCanConvertTo(xparameter.XParameterType))
                     {
-                        values.Add(converter.XConvertTo(value.ToString(), xparameter.XParameterType));
+                        values.Add(xtypeConverter.XConvertTo(value.ToString(), xparameter.XParameterType));
                     }
                     else if (xobjects != null)
                     {
