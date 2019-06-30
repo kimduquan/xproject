@@ -6,9 +6,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 using XSystem;
 using XSystem.XComponentModel;
-using XSystem.XComponentModel.XInternal;
-using XSystem.XInternal;
 using XSystem.XReflection;
+using XWebApplication.Models;
 using XWebApplication.Util;
 
 namespace XWebApplication.Pages
@@ -16,19 +15,19 @@ namespace XWebApplication.Pages
     [Authorize( Policy = "Type" )]
     public class XTypeModel : PageModel
     {
-        private X x = null;
         private XType xtype = null;
-        private XTypeConverter xconverter = null;
         private XFieldInfo[] xstaticFields = null;
         private XMethodInfo[] xstaticMethods = null;
         private XFieldInfo[] xarrayFields = null;
         private IMemoryCache cache = null;
-        private XObject xthis = null;
+        private _XThisCache xthis = null;
         private Dictionary<string, XObject> xobjects = null;
 
-        public XTypeModel(IMemoryCache memory)
+        public XTypeModel(IMemoryCache memory, X xx, XTypeConverter converter)
         {
             cache = memory;
+            X = xx;
+            XConverter = converter;
         }
 
         public Dictionary<string, XObject> XObjects
@@ -43,29 +42,19 @@ namespace XWebApplication.Pages
             }
         }
 
-        public XObject XThis
+        public _XThisCache XThis
         {
             get
             {
                 if(xthis == null)
                 {
-                    XUtil.XFromCache(out xthis, cache, HttpContext.Session);
+                    xthis = _XThisModel.XFromCache(cache, HttpContext.Session);
                 }
                 return xthis;
             }
         }
 
-        public X X
-        {
-            get
-            {
-                if(x == null)
-                {
-                    x = new XInternal();
-                }
-                return x;
-            }
-        }
+        public X X { get; }
 
         public XType XType
         {
@@ -79,17 +68,7 @@ namespace XWebApplication.Pages
             }
         }
 
-        public XTypeConverter XConverter
-        {
-            get
-            {
-                if(xconverter == null)
-                {
-                    xconverter = new XObjectConverterInternal(X);
-                }
-                return xconverter;
-            }
-        }
+        public XTypeConverter XConverter { get; }
 
         public XFieldInfo[] XStaticFields
         {

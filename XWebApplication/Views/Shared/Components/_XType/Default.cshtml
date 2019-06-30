@@ -5,14 +5,6 @@
 @using XWebApplication.Models.XSystem.XReflection
 
 @{
-    Dictionary<string, List<XFieldInfo>> xfieldMap = null;
-    List<XType> xfieldTypes = null;
-    Model.XGetFields(out xfieldMap, out xfieldTypes);
-
-    Dictionary<string, List<XPropertyInfo>> xpropMap = null;
-    List<XType> xpropTypes = null;
-    Model.XGetProperties(out xpropMap, out xpropTypes);
-
     int tabIndex = 0;
 }
 
@@ -27,7 +19,7 @@
     }
 </nav>
 <form method="post">
-    @foreach (XType xtype in xfieldTypes)
+    @foreach (XType xtype in Model.XFieldTypes)
     {
         <fieldset>
             <legend>@_XTypeModel.XToString(xtype)</legend>
@@ -39,12 +31,12 @@
                 </colgroup>
                 <thead></thead>
                 <tbody>
-                    @foreach (var xfield in xfieldMap[xtype.XFullName])
+                    @foreach (var xfield in Model.XFields[xtype.XFullName])
                     {
                         <tr>
                             <td></td>
                             <td>
-                                @await Component.InvokeAsync("_XFieldInfo", new { type = Model, field = xfield, key = Model.XGetAccessKey(xfield.XName), index = tabIndex })
+                                @await Component.InvokeAsync("_XFieldInfo", new { type = Model, field = xfield, key = Model.XAccessKeys[xfield.XName], index = tabIndex })
                                 @tabIndex++;
                             </td>
                         </tr>
@@ -54,7 +46,7 @@
             </table>
         </fieldset>
     }
-    @foreach (XType xtype in xpropTypes)
+    @foreach (XType xtype in Model.XPropertyTypes)
     {
         <fieldset>
             <legend>@_XTypeModel.XToString(xtype)</legend>
@@ -66,12 +58,12 @@
                 </colgroup>
                 <thead></thead>
                 <tbody>
-                    @foreach (var xproperty in xpropMap[xtype.XFullName])
+                    @foreach (var xproperty in Model.XProperties[xtype.XFullName])
                     {
                         <tr>
                             <td></td>
                             <td>
-                                @await Component.InvokeAsync("_XPropertyInfo", new { type = Model, property = xproperty, key = Model.XGetAccessKey(xproperty.XName), index = tabIndex })
+                                @await Component.InvokeAsync("_XPropertyInfo", new { type = Model, property = xproperty, key = Model.XAccessKeys[xproperty.XName], index = tabIndex })
                                 @tabIndex++;
                             </td>
                         </tr>

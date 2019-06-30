@@ -7,9 +7,9 @@ namespace XWebApplication.ViewComponents
 {
     public class _XThisViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(_XThisCache xcache)
+        public async Task<IViewComponentResult> InvokeAsync(_XThisCache xthis)
         {
-            return View(new _XThisModel(xcache));
+            return View(new _XThisModel(xthis));
         }
     }
 }

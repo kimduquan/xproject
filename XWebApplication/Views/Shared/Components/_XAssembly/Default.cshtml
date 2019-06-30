@@ -1,0 +1,102 @@
+﻿@model XWebApplication.Models.XSystem.XReflection._XAssemblyModel
+@using XSystem
+@using XWebApplication.Models
+@using XWebApplication.Models.XSystem
+@{
+    IEnumerator<string> current = Model.XNamespaces.Keys.GetEnumerator();
+    current.MoveNext();
+    List<string> path = new List<string>();
+    path.Add(current.Current);
+    IEnumerator<string> next = Model.XNamespaces[current.Current].GetEnumerator();
+    current = Model.XNamespaces[current.Current].GetEnumerator();
+    Stack<IEnumerator<string>> stackNS = new Stack<IEnumerator<string>>();
+}
+<style type="text/css">
+    ul.assembly {
+        height: 560px;
+        overflow-y: scroll;
+        float: left;
+    }
+</style>
+<ul class="assembly">
+    @{
+        string tag = "";
+    }
+    @while (current.MoveNext())
+    {
+        tag = "<li class=\"namespace\">";
+        string ns = string.Join(".", path);
+        if (ns == "")
+        {
+            ns += current.Current;
+        }
+        else
+        {
+            ns += ("." + current.Current);
+        }
+
+        @Html.Raw(tag)
+        @_XModel.XToString(current.Current)
+
+        @if (Model.XTypes.ContainsKey(ns))
+        {
+            List<XType> childType = Model.XTypes[ns];
+            @if (childType.Count > 0)
+            {
+                tag = "<ul>";
+
+                @Html.Raw(tag)
+
+                @foreach (XType type in childType)
+                {
+                    <li class="type">
+                        <a class="@_XTypeModel.XToCssClass(type)" href="@_XTypeModel.XToHref(type)" title="@_XTypeModel.XToTitle(type)">
+                            @_XTypeModel.XToString(type)
+                        </a>
+                    </li>
+                }
+
+                tag = "</ul>";
+
+                @Html.Raw(tag)
+            }
+        }
+
+        tag = "</li>";
+
+        @if (Model.XNamespaces.ContainsKey(ns))
+        {
+            List<string> childNS = Model.XNamespaces[ns];
+            if (childNS.Count > 0)
+            {
+                stackNS.Push(current);
+                path.Add(current.Current);
+                current = childNS.GetEnumerator();
+                next = childNS.GetEnumerator();
+                tag = "<ul>";
+            }
+        }
+
+        @if (next.MoveNext() == false)
+        {
+            if (stackNS.Count > 0)
+            {
+                current = stackNS.Pop();
+                next = current;
+                if (path.Count > 0)
+                {
+                    path.RemoveAt(path.Count - 1);
+                }
+                tag = "</ul>";
+            }
+        }
+
+        @Html.Raw(tag)
+    }
+</ul>
+@foreach (KeyValuePair<string, string> v in Model.XInformation)
+{
+    @_XModel.XToString(v.Key)
+
+    @v.Value
+}

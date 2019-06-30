@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _XSystem;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
+using System.Security.Claims;
 using XSystem;
+using XWebApplication.Models.XSystem;
 using XWebApplication.Util;
 
 namespace XWebApplication.Models
@@ -29,10 +34,66 @@ namespace XWebApplication.Models
             }
         }
 
-        public static void XFromCache(IMemoryCache cache, ISession session, out _XThisCache xthis)
+        public static _XThisCache XFromCache(IMemoryCache cache, ISession session)
         {
+            _XThisCache xthis = null;
             string key = session.GetString("this");
             cache.TryGetValue(key, out xthis);
+            return xthis;
+        }
+
+        public static List<XType> XAuthorize(XType xthis, IEnumerable<XType> xtypes)
+        {
+            List<XType> result = new List<XType>();
+            using (IEnumerator<XType> it = xtypes.GetEnumerator())
+            {
+                while (it.MoveNext())
+                {
+                    if (it.Current.XIsPublic && it.Current.XIsAbstract == false)
+                    {
+                        bool success = false;
+                        success = XAuthorize(xthis, it.Current);
+                        if (success)
+                            result.Add(it.Current);
+                    }
+                };
+            }
+            return result;
+        }
+
+        public static bool XAuthorize(XType xthis, XType xtype)
+        {
+            bool success = false;
+            bool isCustom = false;
+            if (xtype != null && xthis != null)
+            {
+                if (xtype.XEqual(xthis))
+                {
+                    success = true;
+                }
+                else
+                {
+                    success = _XTypeModel.XCheckXTypeAttribute(xthis, xtype, out isCustom);
+                    if (isCustom == false || success == false)
+                    {
+                        success = _XTypeModel.XCheckXTypeAttribute(xtype, xthis, out isCustom);
+                        if (isCustom == false)
+                        {
+                            success = true;
+                        }
+                    }
+                }
+            }
+            return success;
+        }
+
+        public static bool XAuthorize(RouteData routeData, ClaimsPrincipal user, X x)
+        {
+            bool success = false;
+            XType xtype = _XTypeModel.XFromRoute(routeData, x);
+            XType xthis = _XTypeModel.XFromUser(user, x);
+            success = XAuthorize(xthis, xtype);
+            return success;
         }
     }
 }

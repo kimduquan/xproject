@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using _XSystem;
+using System.Collections.Generic;
+using XSystem;
 using XWebApplication.Util;
 
 namespace XWebApplication.Models
@@ -72,6 +74,38 @@ namespace XWebApplication.Models
             }
             result = temp;
             return result;
+        }
+
+        public static bool XCheckXTypeAttribute(XType xthis, XObject[] xattributes, out bool isCustom)
+        {
+            isCustom = false;
+            bool success = false;
+            foreach (XObject attr in xattributes)
+            {
+                if (attr.X is _XType xattr)
+                {
+                    isCustom = true;
+                    if (xattr.XType.FullName == xthis.XFullName)
+                    {
+                        success = true;
+                        break;
+                    }
+                }
+            }
+            return success;
+        }
+
+        public static string XToTitle(XObject[] xattributes)
+        {
+            string title = "";
+            foreach (XObject attr in xattributes)
+            {
+                if (attr.X is _XString xattr)
+                {
+                    title = xattr.XString;
+                }
+            }
+            return title;
         }
     }
 }
