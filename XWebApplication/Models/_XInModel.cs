@@ -23,5 +23,6 @@ namespace XWebApplication.Models
         public int AccessKeyIndex { get; set; }
         public Dictionary<string, List<XFieldInfo>> XFields { get; set; }
         public Dictionary<string, List<XPropertyInfo>> XProperties { get; set; }
+        public Dictionary<string, XObject> XObjects { get; set; }
     }
 }

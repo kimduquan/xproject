@@ -6,17 +6,14 @@
     ViewData["Title"] = _XTypeModel.XToString(Model.XType);
 }
 <nav>
-    @await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
-    @foreach (var xmethod in Model.XStaticMethods)
+    @foreach (var xmethod in Model.XType.XGetMethods())
     {
-        <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
+        if (xmethod.XIsStatic)
+        {
+            <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
+        }
     }
 </nav>
-<ul>
-    @foreach (var xfield in Model.XArrayFields)
-    {
-
-    }
-</ul>
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
 @await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis });
 @await Component.InvokeAsync("_XType", new { xtype = Model.XType, xthis = Model.XThis });

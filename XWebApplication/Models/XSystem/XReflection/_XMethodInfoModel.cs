@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using XSystem;
 using XSystem.XComponentModel;
 using XSystem.XReflection;
+using XWebApplication.Util;
 
 namespace XWebApplication.Models.XSystem.XReflection
 {
@@ -48,9 +49,8 @@ namespace XWebApplication.Models.XSystem.XReflection
             return _XModel.XToString(method.XName);
         }
 
-        public static XObject[] XFromForm(XMethodInfo xmethod, XTypeConverter xtypeConverter, IFormCollection form, Dictionary<string, XObject> xobjects)
+        public static XObject[] XFromForm(XParameterInfo[] xparams, XTypeConverter xtypeConverter, IFormCollection form, _XThisCache cache)
         {
-            XParameterInfo[] xparams = xmethod.XGetParameters();
             List<XObject>  values = new List<XObject>();
             if (xtypeConverter.XCanConvertFrom(typeof(string)))
             {
@@ -61,13 +61,9 @@ namespace XWebApplication.Models.XSystem.XReflection
                     {
                         values.Add(xtypeConverter.XConvertTo(value.ToString(), xparameter.XParameterType));
                     }
-                    else if (xobjects != null)
+                    else if (cache != null)
                     {
-                        string key = value.ToString().Replace('#', '@');
-                        if (xobjects.ContainsKey(key))
-                        {
-                            values.Add(xobjects[key]);
-                        }
+                        values.Add(cache.XObject(value.ToString()));
                     }
                 }
             }

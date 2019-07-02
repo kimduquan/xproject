@@ -5,7 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using XSystem;
+using XSystem.XComponentModel;
 using XSystem.XReflection;
+using XWebApplication.Models;
+using XWebApplication.Models.XSystem;
+using XWebApplication.Models.XSystem.XReflection;
+using XWebApplication.Util;
 
 namespace XWebApplication.Pages
 {
@@ -16,7 +21,10 @@ namespace XWebApplication.Pages
         private XConstructorInfo xconstructor = null;
         private XType xtype = null;
         private List<XType> xparameterTypes = null;
-        private List<XObject> xparameterValues = null;
+        private _XThisCache xthis = null;
+        private X x = null;
+        private string title = null;
+        private XTypeConverter xtypeConverter = null;
 
         public XConstructorInfo XConstructor
         {
@@ -36,9 +44,21 @@ namespace XWebApplication.Pages
             {
                 if(xtype == null)
                 {
-                    XUtil.XFromRoute(out xtype, RouteData);
+                    xtype = _XTypeModel.XFromRoute(RouteData, x);
                 }
                 return xtype;
+            }
+        }
+
+        public _XThisCache XThis
+        {
+            get
+            {
+                if(xthis == null)
+                {
+                    xthis = _XThisModel.XFromCache(cache, HttpContext.Session);
+                }
+                return xthis;
             }
         }
 
@@ -48,30 +68,31 @@ namespace XWebApplication.Pages
             {
                 if(xparameterTypes == null)
                 {
-                    XUtil.XFromQuery(out xparameterTypes, Request.Query);
+                    xparameterTypes = _XTypeModel.XFromQuery(Request.Query, x);
                 }
                 return xparameterTypes.ToArray();
             }
         }
 
-        protected XObject[] XParameterValues
+        public string XTitle
         {
             get
             {
-                if(xparameterValues == null)
+                if(title == null)
                 {
-                    XParameterInfo[] xparameters = XConstructor.XGetParameters();
-                    Dictionary<string, XObject> xobjects = null;
-                    XUtil.XGetCache(cache, HttpContext.Session, out xobjects);
-                    XUtil.XFromForm(out xparameterValues, xparameters, Request.Form, xobjects);
+                    string type = _XTypeModel.XToString(XType);
+                    string assembly = _XAssemblyModel.XToString(XType.XAssembly);
+                    title = string.Format("{0} - New {1}", assembly, type);
                 }
-                return xparameterValues.ToArray();
+                return title;
             }
         }
 
-        public XNewModel(IMemoryCache c)
+        public XNewModel(IMemoryCache c, X xx, XTypeConverter converter)
         {
             cache = c;
+            x = xx;
+            xtypeConverter = converter;
         }
 
         public void OnGet()
@@ -81,8 +102,12 @@ namespace XWebApplication.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            XObject xobject = XConstructor.XInvoke(XParameterValues);
-            XUtil.XToCache(xobject, cache, HttpContext.Session);
+            XObject[] xparams = _XMethodInfoModel.XFromForm(XConstructor.XGetParameters(), xtypeConverter, Request.Form, XThis);
+            XObject xobject = XConstructor.XInvoke(xparams);
+            if(xobject != x.XNULL)
+            {
+                _XThisCache.XToCache(XThis, xobject);
+            }
             return Page();
         }
     }

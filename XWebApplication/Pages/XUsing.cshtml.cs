@@ -22,7 +22,6 @@ namespace XWebApplication.Pages
         private XType xentryType = null;
         private XMethodInfo xentryMethod = null;
         private XMethodInfo[] xentryMethods = null;
-        private XObject[] xparameters = null;
         private IMemoryCache cache = null;
         private string title = null;
         private XTypeConverter xtypeConverter = null;
@@ -100,18 +99,6 @@ namespace XWebApplication.Pages
             }
         }
 
-        protected XObject[] XParameters
-        {
-            get
-            {
-                if(xparameters == null)
-                {
-                    xparameters = _XMethodInfoModel.XFromForm(XEntryMethod, xtypeConverter, Request.Form, null);
-                }
-                return xparameters;
-            }
-        }
-
         public string XTitle
         {
             get
@@ -145,12 +132,13 @@ namespace XWebApplication.Pages
             {
                 if(XEntryMethod != null)
                 {
-                    XObject xobject = XEntryMethod.XInvoke(XUtil.X.XNULL, XParameters);
-                    if(xobject != XUtil.X.XNULL)
+                    XObject[] xparameters = _XMethodInfoModel.XFromForm(XEntryMethod.XGetParameters(), xtypeConverter, Request.Form, null);
+                    XObject xobject = XEntryMethod.XInvoke(XUtil.X.XNULL, xparameters);
+                    if(xobject != x.XNULL)
                     {
                         _XThisModel.XToSession(xobject, HttpContext.Session);
                         _XThisModel.XToCache(xobject, cache, HttpContext.Session);
-                        List<Claim> claims = _XObjectModel.XToClaims(xobject);
+                        List<Claim> claims = _XThisModel.XToClaims(xobject);
                         List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
                         {
                             new ClaimsIdentity

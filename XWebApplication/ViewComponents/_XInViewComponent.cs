@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using XSystem;
 using XSystem.XReflection;
 using XWebApplication.Models;
 using XWebApplication.Models.XSystem.XReflection;
+using XWebApplication.Util;
 
 namespace XWebApplication.ViewComponents
 {
@@ -18,7 +20,7 @@ namespace XWebApplication.ViewComponents
             x = xx;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(XParameterInfo xparameter, char accessKey, int tabIndex)
+        public async Task<IViewComponentResult> InvokeAsync(XParameterInfo xparameter, char accessKey, int tabIndex, _XThisCache xthis)
         {
             _XInModel xmodel = new _XInModel();
             xmodel.AccessKey = accessKey;
@@ -92,6 +94,15 @@ namespace XWebApplication.ViewComponents
                 else
                 {
                     view = "Ref";
+                    xmodel.XObjects = new Dictionary<string, XObject>();
+                    foreach(var keyValue in xthis.XObjects)
+                    {
+                        XType xtype = keyValue.Value.XGetType();
+                        if (xparameter.XParameterType.XIsAssignableFrom(xtype))
+                        {
+                            xmodel.XObjects.Add(keyValue.Key, keyValue.Value);
+                        }
+                    }
                 }
             }
             if(view != null)

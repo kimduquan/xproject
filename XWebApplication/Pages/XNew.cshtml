@@ -1,14 +1,13 @@
 ﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}/new"
 @model XNewModel
 @{
-    ViewData["Title"] = XUtil.XToDisplayString(Model.XType);
-    ViewData["Application"] = XUtil.XToDisplayString(Model.XType.XAssembly);
-    XUtil.XToViewData(Model.XType, ViewData);
-    XUtil.XToViewData(Model.XType.XAssembly, ViewData);
+    ViewData["Title"] = Model.XTitle;
 }
 
-@await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XType.XAssembly);
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
+@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis });
+
 <form method="post">
-    @await Html.PartialAsync("_XSystem/_XReflection/_XConstructorInfo", Model.XConstructor);
+    @await Component.InvokeAsync("_XConstructorInfo", new { xconstructor = Model.XConstructor });
     <input type="submit" value="New" />
 </form>

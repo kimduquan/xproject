@@ -3,9 +3,20 @@
 @using XWebApplication.Models.XSystem
 
 <script type="text/javascript">
-    function xondragstart(ev, type, hashCode) {
-        ev.dataTransfer.setData("type", type);
-        ev.dataTransfer.setData("hashCode", hashCode);
+    function xondragstart(ev, key) {
+        ev.dataTransfer.setData("this", key);
+    }
+    function xondrop(ev, target) {
+        ev.preventDefault();
+        var key = ev.dataTransfer.getData("this");
+        if (key != null) {
+            if (target != null) {
+                target.value = key;
+            }
+        }
+    }
+    function xondragover(ev) {
+        ev.preventDefault();
     }
 </script>
 <a href="/return">Sign out</a>
@@ -13,7 +24,7 @@
     @foreach (KeyValuePair<string, XObject> v in Model.XCache.XObjects)
     {
         <li>
-            <a href="@_XObjectModel.XToHref(v.Value)" draggable="true" ondragstart="xondragstart(event, '@v.Value.XGetType().XFullName', '@v.Value.XGetHashCode()')">@_XObjectModel.XToString(v.Value)</a>
+            <a href="@_XObjectModel.XToHref(v.Value)" draggable="true" ondragstart="xondragstart(event, '@v.Key')">@_XObjectModel.XToString(v.Value)</a>
         </li>
     }
 </ul>

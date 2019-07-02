@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using XSystem;
+﻿using XSystem;
 using XWebApplication.Util;
 
 namespace XWebApplication.Models.XSystem
@@ -14,23 +12,15 @@ namespace XWebApplication.Models.XSystem
 
         public static string XToHref(XObject xobject)
         {
-            return "";
+            string href = _XTypeModel.XToHref(xobject.XGetType());
+            href += ("/" + xobject.XGetHashCode());
+            return href;
         }
 
         public static string XToString(XObject xobject)
         {
-            return "";
-        }
-
-        public static List<Claim> XToClaims(XObject xobject)
-        {
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name, xobject.XToString()),
-                new Claim("Type", xobject.XGetType().XFullName),
-                new Claim("hashCode", "" + xobject.XGetHashCode())
-            };
-            return claims;
+            string str = xobject.XToString();
+            return str;
         }
     }
 }

@@ -42,6 +42,45 @@ namespace XWebApplication.Models
             return xthis;
         }
 
+        public static List<Claim> XToClaims(XObject xobject)
+        {
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, xobject.XToString()),
+                new Claim("Type", xobject.XGetType().XFullName),
+                new Claim("hashCode", "" + xobject.XGetHashCode())
+            };
+            return claims;
+        }
+
+        public static _XThisCache XAuthenticate(ClaimsPrincipal user, IMemoryCache cache, ISession session)
+        {
+            _XThisCache xthis = null;
+            if (user.HasClaim(c => c.Type == "Type") && user.HasClaim(c => c.Type == "hashCode"))
+            {
+                Claim t = user.FindFirst(c => c.Type == "Type");
+                Claim h = user.FindFirst(c => c.Type == "hashCode");
+                xthis = XFromCache(cache, session);
+            }
+            return xthis;
+        }
+
+        public static XObject XFromRoute(RouteData route, _XThisCache cache, X x)
+        {
+            XObject xobject = null;
+            if(route.Values.ContainsKey("hashCode"))
+            {
+                object obj = null;
+                route.Values.TryGetValue("hashCode", out obj);
+                XType xtype = _XTypeModel.XFromRoute(route, x);
+                if(obj is int hashCode && xtype != null)
+                {
+                    xobject = cache.XObject(xtype, hashCode);
+                }
+            }
+            return xobject;
+        }
+
         public static List<XType> XAuthorize(XType xthis, IEnumerable<XType> xtypes)
         {
             List<XType> result = new List<XType>();

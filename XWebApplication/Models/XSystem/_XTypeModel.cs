@@ -147,5 +147,19 @@ namespace XWebApplication.Models.XSystem
         {
             return XToTitle(xtype.XGetCustomAttributes());
         }
+
+        public static List<XType> XFromQuery(IQueryCollection query, X x)
+        {
+            List<XType> xtypes = new List<XType>();
+            foreach (KeyValuePair<string, StringValues> pair in query)
+            {
+                foreach (string value in pair.Value)
+                {
+                    string dll = value.Split(".")[0];
+                    xtypes.Add(x.XGetType(value + "," + dll));
+                }
+            }
+            return xtypes;
+        }
     }
 }

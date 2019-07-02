@@ -1,1 +1,16 @@
-﻿
+﻿@model XWebApplication.Models.XSystem.XReflection._XConstructorInfoModel
+
+@{
+    IEnumerator<char> accessKey = Model.XAccessKeys.GetEnumerator();
+    int index = 0;
+}
+@using (accessKey)
+{
+    @foreach (var xparam in Model.XParameters)
+    {
+        index++;
+        accessKey.MoveNext();
+        @await Component.InvokeAsync("_XParameterInfo", new { xparameter = xparam, accessKey = accessKey.Current, tabIndex = index });
+        <br />
+    }
+}
