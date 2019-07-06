@@ -67,10 +67,10 @@ namespace XSystem.XInternal
             }
         }
 
-        public XTypeInternal(Type t, X x)
+        public XTypeInternal(Type t, X xx)
         {
             type = t;
-            this.x = x;
+            x = xx;
         }
 
         public XConstructorInfo XGetConstructor(XType[] xtypes)

@@ -53,9 +53,12 @@ namespace XWebApplication
                     policy.Requirements.Add(new XTypeAuthorizationRequirement()));
                 options.AddPolicy("object", policy =>
                     policy.Requirements.Add(new XObjectAuthorizationRequirement()));
+                options.AddPolicy("new", policy =>
+                    policy.Requirements.Add(new XConstructorInfoAuthorizationRequirement()));
             });
             services.AddSingleton<IAuthorizationHandler, XTypeAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, XObjectAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, XConstructorInfoAuthorizationHandler>();
             X x = new XInternal();
             x.XAssembly = XAssemblyInternal.XNew;
             XTypeConverter typeConverter = new XObjectConverterInternal(x);

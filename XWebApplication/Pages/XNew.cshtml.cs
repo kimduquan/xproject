@@ -14,7 +14,7 @@ using XWebApplication.Util;
 
 namespace XWebApplication.Pages
 {
-    [Authorize]
+    [Authorize(Policy = "new")]
     public class XNewModel : PageModel
     {
         private IMemoryCache cache = null;

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 using System.Security.Claims;
 using XSystem;
+using XSystem.XReflection;
 using XWebApplication.Models.XSystem;
 using XWebApplication.Util;
 
@@ -130,6 +131,18 @@ namespace XWebApplication.Models
             return success;
         }
 
+        public static bool XAuthorize(XType xthis, XConstructorInfo xconstructor)
+        {
+            bool success = false;
+            bool isCustom = false;
+            success = _XModel.XCheckXTypeAttribute(xthis, xconstructor.XGetCustomAttributes(), out isCustom);
+            if (isCustom == false)
+            {
+                success = true;
+            }
+            return success;
+        }
+        
         public static bool XAuthorize(RouteData routeData, ClaimsPrincipal user, X x)
         {
             bool success = false;

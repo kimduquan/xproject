@@ -7,5 +7,11 @@ namespace OpenUP.Tasks.Architecture
     [_XString("Refine the architecture to an appropriate level of detail to support development.")]
     public class Refine_the_Architecture
     {
+        [_XType(typeof(Developer))]
+        [_XType(typeof(Project_Manager))]
+        public Refine_the_Architecture()
+        {
+
+        }
     }
 }

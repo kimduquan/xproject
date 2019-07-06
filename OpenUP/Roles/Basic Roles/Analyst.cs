@@ -1,19 +1,15 @@
 ﻿using _XSystem;
-using OpenUP.Tasks.Architecture;
-using OpenUP.Tasks.Development;
-using OpenUP.Tasks.Project_Management;
-using OpenUP.Tasks.Test;
+using OpenUP.Work_Products.Project_Management;
+using OpenUP.Work_Products.Requirements;
 
 namespace OpenUP.Roles.Basic_Roles
 {
-    [_XType(typeof(Assess_Results))]
-    [_XType(typeof(Create_Test_Cases))]
-    [_XType(typeof(Design_the_Solution))]
-    [_XType(typeof(Envision_the_Architecture))]
-    [_XType(typeof(Implement_Tests))]
-    [_XType(typeof(Manage_Iteration))]
-    [_XType(typeof(Plan_Iteration))]
-    [_XType(typeof(Plan_Project))]
+    [_XType(typeof(Glossary))]
+    [_XType(typeof(System_Wide_Requirements))]
+    [_XType(typeof(Use_Case))]
+    [_XType(typeof(Use_Case_Model))]
+    [_XType(typeof(Vision))]
+    [_XType(typeof(Work_Items_List))]
     [_XString("The person in this role represents customer and end-user concerns by gathering input from stakeholders to understand the problem to be solved and by capturing and setting priorities for requirements.")]
     public class Analyst : Any_Role
     {

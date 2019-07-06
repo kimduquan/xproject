@@ -7,5 +7,13 @@ namespace OpenUP.Tasks.Development
     [_XString("Identify the elements and devise the interactions, behavior, relations, and data necessary to realize some functionality. \nRender the design visually to aid in solving the problem and communicating the solution.")]
     public class Design_the_Solution
     {
+        [_XType(typeof(Analyst))]
+        [_XType(typeof(Architect))]
+        [_XType(typeof(Stakeholder))]
+        [_XType(typeof(Tester))]
+        public Design_the_Solution()
+        {
+
+        }
     }
 }

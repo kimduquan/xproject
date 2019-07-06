@@ -1,19 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using XSystem.XReflection;
 
 namespace XSystem.XReflection.XInternal
 {
     public class XConstructorInfoInternal : Internal, XConstructorInfo
     {
-        private ConstructorInfo constructor;
+        private ConstructorInfo constructor = null;
         private List<XParameterInfo> xparameters = null;
+        private XObject[] xcustomAttributes = null;
 
         public XConstructorInfoInternal(ConstructorInfo c, X x) : base(x)
         {
             constructor = c;
+        }
+
+        public XObject[] XGetCustomAttributes()
+        {
+            if (xcustomAttributes == null)
+            {
+                List<XObject> xobjects = new List<XObject>();
+                foreach (object obj in constructor.GetCustomAttributes())
+                {
+                    xobjects.Add(X().XNew(obj));
+                }
+                xcustomAttributes = xobjects.ToArray();
+            }
+            return xcustomAttributes;
         }
 
         public XParameterInfo[] XGetParameters()

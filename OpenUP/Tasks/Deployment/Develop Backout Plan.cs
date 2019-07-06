@@ -8,5 +8,10 @@ namespace OpenUP.Tasks.Deployment
     [_XString("This task results in a plan to be used by the production support organization to roll back the release if there is a problem during or after deployment.")]
     public class Develop_Backout_Plan
     {
+        [_XType(typeof(Deployment_Engineer))]
+        public Develop_Backout_Plan()
+        {
+
+        }
     }
 }

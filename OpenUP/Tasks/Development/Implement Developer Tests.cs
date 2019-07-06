@@ -7,5 +7,10 @@ namespace OpenUP.Tasks.Development
     [_XString("Implement one or more tests to verify an implementation element.")]
     public class Implement_Developer_Tests
     {
+        [_XType(typeof(Tester))]
+        public Implement_Developer_Tests()
+        {
+
+        }
     }
 }
