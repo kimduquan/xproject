@@ -1,5 +1,4 @@
-﻿using _XSystem;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
@@ -12,8 +11,6 @@ namespace XWebApplication.Models.XSystem
 {
     public class _XTypeModel : _XModel
     {
-        private Dictionary<string, char> xaccessKeys = null;
-
         public _XTypeModel(XType type, _XThisCache xthis): base(xthis)
         {
             XType = type;
@@ -26,7 +23,6 @@ namespace XWebApplication.Models.XSystem
         public List<XType> XFieldTypes { get; set; }
         public Dictionary<string, List<XPropertyInfo>> XProperties { get; set; }
         public List<XType> XPropertyTypes { get; set; }
-        public Dictionary<string, char> XAccessKeys { get; set; }
 
         public static string XToString(XType xtype)
         {
@@ -160,6 +156,26 @@ namespace XWebApplication.Models.XSystem
                 }
             }
             return xtypes;
+        }
+
+        public static void XToAccessKeyMap(Dictionary<string, List<XFieldInfo>> xfields, Dictionary<string, List<XPropertyInfo>> xprops, out Dictionary<string, char> accessKeyMap, out List<char> accessKeys)
+        {
+            List<string> names = new List<string>();
+            foreach (List<XFieldInfo> xfieldList in xfields.Values)
+            {
+                foreach(XFieldInfo xfield in xfieldList)
+                {
+                    names.Add(xfield.XName);
+                }
+            }
+            foreach (List<XPropertyInfo> xpropList in xprops.Values)
+            {
+                foreach(XPropertyInfo xprop in xpropList)
+                {
+                    names.Add(xprop.XName);
+                }
+            }
+            XToAccessKeyMap(names.ToArray(), out accessKeyMap, out accessKeys);
         }
     }
 }

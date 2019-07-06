@@ -107,6 +107,8 @@ namespace XWebApplication.Pages
             if(xobject != x.XNULL)
             {
                 _XThisCache.XToCache(XThis, xobject);
+                string url = _XObjectModel.XToHref(xobject);
+                return LocalRedirect(url);
             }
             return Page();
         }

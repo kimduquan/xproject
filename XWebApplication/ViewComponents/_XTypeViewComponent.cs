@@ -69,40 +69,10 @@ namespace XWebApplication.ViewComponents
             }
             xmodel.XMethods = xmethods.ToArray();
 
-            xmodel.XAccessKeys = new Dictionary<string, char>();
-            Dictionary<char, string> key = new Dictionary<char, string>();
-            foreach (XFieldInfo field in xmodel.XFields.Values)
-            {
-                foreach (char ch in field.XName)
-                {
-                    if (char.IsLetterOrDigit(ch))
-                    {
-                        char temp = char.ToLower(ch);
-                        if (!key.ContainsKey(temp))
-                        {
-                            key[temp] = field.XName;
-                            xmodel.XAccessKeys.Add(field.XName, temp);
-                            break;
-                        }
-                    }
-                }
-            }
-            foreach (XPropertyInfo prop in xmodel.XProperties.Values)
-            {
-                foreach (char ch in prop.XName)
-                {
-                    if (char.IsLetterOrDigit(ch))
-                    {
-                        char temp = char.ToLower(ch);
-                        if (!key.ContainsKey(temp))
-                        {
-                            key[temp] = prop.XName;
-                            xmodel.XAccessKeys.Add(prop.XName, temp);
-                            break;
-                        }
-                    }
-                }
-            }
+            Dictionary<string, char> accessKeyMap = new Dictionary<string, char>();
+            List<char> accessKeys = new List<char>();
+            _XTypeModel.XToAccessKeyMap(xmodel.XFields, xmodel.XProperties, out accessKeyMap, out accessKeys);
+            xmodel.XAccessKeys = accessKeyMap;
 
             return View(xmodel);
         }

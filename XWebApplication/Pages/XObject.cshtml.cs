@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
 using XSystem;
+using XWebApplication.Models;
+using XWebApplication.Models.XSystem;
+using XWebApplication.Util;
 
 namespace XWebApplication.Pages
 {
@@ -11,16 +13,18 @@ namespace XWebApplication.Pages
     {
         private XObject xobject = null;
         private IMemoryCache cache = null;
-        private XObject xthis = null;
-        private Dictionary<string, XObject> xobjects = null;
+        private X x = null;
+        private _XThisCache xthis = null;
+        private string title = null;
+        private XType xtype = null;
 
-        public XObject XThis
+        public _XThisCache XThis
         {
             get
             {
                 if (xthis == null)
                 {
-                    XUtil.XFromCache(out xthis, cache, HttpContext.Session);
+                    xthis = _XThisModel.XFromCache(cache, HttpContext.Session);
                 }
                 return xthis;
             }
@@ -32,35 +36,40 @@ namespace XWebApplication.Pages
             {
                 if(xobject == null)
                 {
-                    XType xtype = null;
-                    XUtil.XFromRoute(out xtype, RouteData);
-                    object hashCode = null;
-                    RouteData.Values.TryGetValue("hashCode", out hashCode);
-                    XUtil.XFromCache(out xobject, cache, HttpContext.Session, xtype.XFullName, int.Parse((string)hashCode));
+                    xobject = _XThisModel.XFromRoute(RouteData, XThis, x);
                 }
                 return xobject;
             }
         }
 
-        public Dictionary<string, XObject> XObjects
+        public string Title
         {
             get
             {
-                if(xobjects == null)
+                if(title == null)
                 {
-                    XUtil.XGetCache(cache, HttpContext.Session, out xobjects);
+                    title = _XObjectModel.XToString(XObject);
                 }
-                return xobjects;
+                return title;
             }
         }
 
-        public XObjectModel(IMemoryCache c)
+        public XType XType
         {
-            cache = c;
+            get
+            {
+                if(xtype == null)
+                {
+                    xtype = XObject.XGetType();
+                }
+                return xtype;
+            }
         }
 
-        public void OnGet()
+        public XObjectModel(IMemoryCache c, X xx)
         {
+            cache = c;
+            x = xx;
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿@page "/{assembly:regex(^[A-Za-z0-9-_]+$)}/{namespace:regex(^[A-Za-z0-9-_]+$)}/{type:regex(^[A-Za-z0-9_]+$)}/{hashCode:int}"
 @model XObjectModel
 @{
-    ViewData["Title"] = XUtil.XToDisplayString(Model.XObject);
-    ViewData["Application"] = XUtil.XToDisplayString(Model.XObject.XGetType().XAssembly);
-    XUtil.XToViewData(Model.XObject, ViewData);
-    XUtil.XToViewData(Model.XObject.XGetType(), ViewData);
-    XUtil.XToViewData(Model.XObject.XGetType().XAssembly, ViewData);
+    ViewData["Title"] = Model.Title;
 }
-@await Html.PartialAsync("_XThis", Model.XObjects);
-@await Html.PartialAsync("_XSystem/_XReflection/_XAssembly", Model.XObject.XGetType().XAssembly);
-@await Html.PartialAsync("_XSystem/_XObject", Model.XObject);
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
+@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis });
+@await Component.InvokeAsync("_XObject", new { xobject = Model.XObject, xtype = Model.XType, xthis = Model.XThis });

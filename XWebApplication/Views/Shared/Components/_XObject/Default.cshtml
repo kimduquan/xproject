@@ -1,22 +1,68 @@
-﻿@model XSystem.XObject
-@using XSystem.XReflection
-@{ 
-    var xtype = Model.XGetType();
+﻿@model XWebApplication.Models.XSystem._XObjectModel
+@using XSystem
+@using XWebApplication.Models.XSystem
+
+@{
+    int tabIndex = 0;
 }
 
-@foreach (XFieldInfo xfield in xtype.XGetFields())
-{
-    @if (xfield.XIsStatic == false)
+<form method="post">
+    @foreach (XType xtype in Model.XFieldTypes)
     {
-        @await Component.InvokeAsync("_XFieldInfo", new { xfieldInfo = xfield })
-        <br />
+        <fieldset>
+            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col />
+                    <col />
+                </colgroup>
+                <thead></thead>
+                <tbody>
+                    @foreach (var xfield in Model.XFields[xtype.XFullName])
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                @await Component.InvokeAsync("_XFieldInfo", new { xtype = Model.XType, xobject = Model.XObject, field = xfield, key = Model.XAccessKeys[xfield.XName], index = tabIndex })
+                                @{ 
+                                    tabIndex++;
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </fieldset>
     }
-}
-@foreach (XPropertyInfo xprop in xtype.XGetProperties())
-{
-    @if (xprop.XIsStatic == false)
+    @foreach (XType xtype in Model.XPropertyTypes)
     {
-        @await Component.InvokeAsync("_XPropertyInfo", new { xpropertyInfo = xprop })
-        <br />
+        <fieldset>
+            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col />
+                    <col />
+                </colgroup>
+                <thead></thead>
+                <tbody>
+                    @foreach (var xproperty in Model.XProperties[xtype.XFullName])
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                @await Component.InvokeAsync("_XPropertyInfo", new { xtype = Model.XType, xobject = Model.XObject, property = xproperty, key = Model.XAccessKeys[xproperty.XName], index = tabIndex })
+                                @{
+                                    tabIndex++;
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </fieldset>
     }
-}
+</form>

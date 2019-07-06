@@ -6,6 +6,7 @@
 
 @{
     int tabIndex = 0;
+    XObject xobj = null;
 }
 
 <nav>
@@ -36,8 +37,10 @@
                         <tr>
                             <td></td>
                             <td>
-                                @await Component.InvokeAsync("_XFieldInfo", new { type = Model, field = xfield, key = Model.XAccessKeys[xfield.XName], index = tabIndex })
-                                @tabIndex++;
+                                @await Component.InvokeAsync("_XFieldInfo", new { xtype = Model.XType, xobject = xobj, field = xfield, key = Model.XAccessKeys[xfield.XName], index = tabIndex })
+                                @{
+                                    tabIndex++;
+                                }
                             </td>
                         </tr>
                     }
@@ -63,8 +66,10 @@
                         <tr>
                             <td></td>
                             <td>
-                                @await Component.InvokeAsync("_XPropertyInfo", new { type = Model, property = xproperty, key = Model.XAccessKeys[xproperty.XName], index = tabIndex })
-                                @tabIndex++;
+                                @await Component.InvokeAsync("_XPropertyInfo", new { xtype = Model.XType, xobject = xobj, property = xproperty, key = Model.XAccessKeys[xproperty.XName], index = tabIndex })
+                                @{
+                                    tabIndex++;
+                                }
                             </td>
                         </tr>
                     }

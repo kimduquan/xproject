@@ -73,9 +73,13 @@ namespace XWebApplication.Models
                 object obj = null;
                 route.Values.TryGetValue("hashCode", out obj);
                 XType xtype = _XTypeModel.XFromRoute(route, x);
-                if(obj is int hashCode && xtype != null)
+                if(obj is string szHashCode && xtype != null)
                 {
-                    xobject = cache.XObject(xtype, hashCode);
+                    int hashCode = 0;
+                    if(int.TryParse(szHashCode, out hashCode))
+                    {
+                        xobject = cache.XObject(xtype, hashCode);
+                    }
                 }
             }
             return xobject;

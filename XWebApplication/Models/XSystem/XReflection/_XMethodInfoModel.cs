@@ -15,28 +15,12 @@ namespace XWebApplication.Models.XSystem.XReflection
 
         public static void XToAccessKeyMap(XParameterInfo[] xparams, out Dictionary<string, char> accessKeyMap, out List<char> accessKeys)
         {
-            accessKeyMap = new Dictionary<string, char>();
-            accessKeys = new List<char>();
-            Dictionary<char, string> usedKeys = new Dictionary<char, string>();
+            List<string> names = new List<string>();
             foreach (XParameterInfo xparam in xparams)
             {
-                char key = ' ';
-                foreach (char ch in xparam.XName)
-                {
-                    if (char.IsLetterOrDigit(ch))
-                    {
-                        char temp = char.ToLower(ch);
-                        if (!usedKeys.ContainsKey(temp))
-                        {
-                            usedKeys[temp] = xparam.XName;
-                            accessKeyMap[xparam.XName] = temp;
-                            key = temp;
-                            break;
-                        }
-                    }
-                }
-                accessKeys.Add(key);
+                names.Add(xparam.XName);
             }
+            _XModel.XToAccessKeyMap(names.ToArray(), out accessKeyMap, out accessKeys);
         }
 
         public static string XToHref(XType xtype, XMethodInfo method)
