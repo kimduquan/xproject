@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using XSystem;
 using XSystem.XReflection;
@@ -39,6 +41,34 @@ namespace XWebApplication.Models.XSystem.XReflection
             if(xtype != null)
             {
                 xassembly = xtype.XAssembly;
+            }
+            return xassembly;
+        }
+
+        public static XAssembly XFromReturnUrl(IQueryCollection query, X x)
+        {
+            XAssembly xassembly = null;
+            XType xtype = null;
+            StringValues returnUrl;
+            query.TryGetValue("ReturnUrl", out returnUrl);
+            string url = returnUrl.ToString();
+            if (url.EndsWith("/"))
+            {
+                url = url.TrimEnd('/');
+            }
+            if (url.StartsWith("/"))
+            {
+                url = url.TrimStart('/');
+            }
+            string[] path = url.Split("/");
+            if (path.Length > 0)
+            {
+                string dll = path[0].Replace('-', '.');
+                xtype = x.XGetType(dll + "." + dll + "," + dll);
+                if(xtype != null)
+                {
+                    xassembly = xtype.XAssembly;
+                }
             }
             return xassembly;
         }
