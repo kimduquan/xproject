@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Routing;
+using System.Collections.Generic;
 using XSystem;
 using XSystem.XReflection;
 
@@ -27,6 +28,19 @@ namespace XWebApplication.Models.XSystem.XReflection
                 }
             }
             return xtype;
+        }
+
+        public static XAssembly XFromRoute(RouteData route, X x)
+        {
+            XAssembly xassembly = null;
+            string dll = (string)route.Values["assembly"];
+            dll = dll.Replace('-', '.');
+            XType xtype = x.XGetType(dll + "." + dll + "," + dll);
+            if(xtype != null)
+            {
+                xassembly = xtype.XAssembly;
+            }
+            return xassembly;
         }
 
         public static Dictionary<string, string> XToAbout(XAssembly assemly)

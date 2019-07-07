@@ -151,5 +151,15 @@ namespace XWebApplication.Models
             success = XAuthorize(xthis, xtype);
             return success;
         }
+
+        public static bool XAuthorize(XType xthis, XAssembly xassembly)
+        {
+            bool success = false;
+            if(xthis.XAssembly.XFullName == xassembly.XFullName)
+            {
+                success = true;
+            }
+            return success;
+        }
     }
 }
