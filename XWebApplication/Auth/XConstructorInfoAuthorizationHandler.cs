@@ -32,11 +32,15 @@ namespace XWebApplication.Auth
                     _XThisCache xthis = _XThisModel.XAuthenticate(context.User, cache, authContext.HttpContext.Session);
                     if(xthis != null)
                     {
-                        List<XType> xtypes = _XTypeModel.XFromQuery(authContext.HttpContext.Request.Query, x);
-                        XConstructorInfo xconstructor = xtype.XGetConstructor(xtypes.ToArray());
-                        if(xconstructor != null)
+                        success = _XThisModel.XAuthorize(xthis.XThis.XGetType(), xtype);
+                        if(success == false)
                         {
-                            success = _XThisModel.XAuthorize(xthis.XThis.XGetType(), xconstructor);
+                            List<XType> xtypes = _XTypeModel.XFromQuery(authContext.HttpContext.Request.Query, x);
+                            XConstructorInfo xconstructor = xtype.XGetConstructor(xtypes.ToArray());
+                            if (xconstructor != null)
+                            {
+                                success = _XThisModel.XAuthorize(xthis.XThis.XGetType(), xconstructor);
+                            }
                         }
                     }
                 }
