@@ -7,9 +7,20 @@
 @{
     ViewData["Title"] = Model.XTitle;
 }
+
+<script type="text/javascript">
+    function xonsubmit(targetForm) {
+        var progress = document.getElementById("await");
+        progress.hidden = false;
+    }
+    function xawait() {
+        var progress = document.getElementById("await");
+        progress.value = progress.max;
+    }
+</script>
 @if (Model.XEntryType != null)
 {
-    @if (Model.XEntryMethods.Length > 1 && (Model.Using == null || Model.Using == ""))
+    if (Model.XEntryMethods.Length > 1 && (Model.Using == null || Model.Using == ""))
     {
         <form method="post" asp-page-handler="Using" asp-route-ReturnUrl="@Model.ReturnUrl">
             <select asp-for="Using" autofocus required>
@@ -23,15 +34,23 @@
             <input type="submit" value="Sign in" />
         </form>
     }
-    else
+    else if (Model.XEntryMethod != null)
     {
-        <form method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl">
-            @if (Model.XEntryMethod != null)
-            {
-                <input type="hidden" asp-for="Using" />
-                @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod } );
-                <input type="submit" value="Sign in" />
-            }
+        <form method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
+            <input type="hidden" asp-for="Using" />
+            @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod });
+            <input type="submit" value="@_XMethodInfoModel.XToString(Model.XEntryMethod)" />
+            <progress id="await" hidden max="100" value="0" />
         </form>
     }
+}
+@if (Model.XException != null)
+{
+    @await Component.InvokeAsync("_XException", new { xexception = Model.XException });
+}
+else
+{
+    <script type="text/javascript">
+        xawait();
+    </script>
 }

@@ -1,5 +1,4 @@
-﻿using _XSystem;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
@@ -160,6 +159,13 @@ namespace XWebApplication.Models
                 success = true;
             }
             return success;
+        }
+
+        public static void XReturn(IMemoryCache cache, ISession session)
+        {
+            string key = session.GetString("this");
+            cache.Remove(key);
+            session.Remove("this");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +89,8 @@ namespace XWebApplication.Pages
             }
         }
 
+        public XException XException { get; set; }
+
         public XNewModel(IMemoryCache c, X xx, XTypeConverter converter)
         {
             cache = c;
@@ -103,12 +106,19 @@ namespace XWebApplication.Pages
         public async Task<IActionResult> OnPost()
         {
             XObject[] xparams = _XMethodInfoModel.XFromForm(XConstructor.XGetParameters(), xtypeConverter, Request.Form, XThis);
-            XObject xobject = XConstructor.XInvoke(xparams);
-            if(xobject != x.XNULL)
+            try
             {
-                _XThisCache.XToCache(XThis, xobject);
-                string url = _XObjectModel.XToHref(xobject);
-                return LocalRedirect(url);
+                XObject xobject = XConstructor.XInvoke(xparams);
+                if (xobject != x.XNULL)
+                {
+                    _XThisCache.XToCache(XThis, xobject);
+                    string url = _XObjectModel.XToHref(xobject);
+                    return LocalRedirect(url);
+                }
+            }
+            catch(Exception ex)
+            {
+                XException = x.XCatch(ex);
             }
             return Page();
         }

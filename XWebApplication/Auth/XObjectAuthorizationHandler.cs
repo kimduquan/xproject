@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using XSystem;
 using XWebApplication.Models;
