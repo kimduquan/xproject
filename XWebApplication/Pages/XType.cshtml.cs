@@ -65,8 +65,6 @@ namespace XWebApplication.Pages
             return XConverter.XConvertToString(value);
         }
 
-        public XJSONConverter XJsonConverter { get; } = null;
-
         public void OnGet()
         {
             object x = XType;

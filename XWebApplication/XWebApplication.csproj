@@ -25,6 +25,7 @@
     <ProjectReference Include="..\OpenUP\OpenUP.csproj" />
     <ProjectReference Include="..\XSystem.XComponentModel.XInternal\XSystem.XComponentModel.XInternal.csproj" />
     <ProjectReference Include="..\XSystem.XInternal\XSystem.XInternal.csproj" />
+    <ProjectReference Include="..\XWebApplication.Models\XWebApplication.Models.csproj" />
     <ProjectReference Include="..\_XSystem\_XSystem.csproj" />
   </ItemGroup>
 
