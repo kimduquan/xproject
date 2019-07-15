@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace XSystem.XReflection
 {
@@ -8,7 +6,7 @@ namespace XSystem.XReflection
     {
         XType XGetType(string name);
         IEnumerable<XType> XExportedTypes { get; }
-        String XFullName { get; }
+        string XFullName { get; }
         IEnumerable<XAttribute> XGetCustomAttributes();
         XMethodInfo XEntryPoint { get; }
     }

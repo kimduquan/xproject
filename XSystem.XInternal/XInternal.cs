@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using XSystem.XReflection;
 
 namespace XSystem.XInternal
 {
@@ -56,6 +52,11 @@ namespace XSystem.XInternal
         public override XAttribute XAttribute(Attribute attr)
         {
             return new XAttributeInternal(attr, this);
+        }
+
+        public override XException XCatch(Exception ex)
+        {
+            return new XExceptionInternal(ex, this);
         }
 
         class XNull : XObject

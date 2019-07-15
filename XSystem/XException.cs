@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XSystem
+﻿namespace XSystem
 {
     public interface XException
     {
+        string XMessage { get; }
+        XException XInnerException { get; }
     }
 }

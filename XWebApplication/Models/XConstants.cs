@@ -1,4 +1,4 @@
-﻿namespace XWebApplication.Util
+﻿namespace XWebApplication.Models
 {
     public class XConstants
     {

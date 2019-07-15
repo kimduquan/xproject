@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XSystem.XReflection.XInternal
+﻿namespace XSystem.XReflection.XInternal
 {
     public abstract class Internal
     {

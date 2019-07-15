@@ -1,5 +1,6 @@
 ﻿using _XSystem;
 using OpenUP.Roles.Basic_Roles;
+using System;
 
 namespace OpenUP
 {
@@ -7,7 +8,11 @@ namespace OpenUP
     {
         public static Any_Role SignIn(string username, [_XImplicit] string password)
         {
-            if (username == "analyst")
+            if(username == "")
+            {
+                throw new Exception("user name is empty!");
+            }
+            else if (username == "analyst")
                 return new Analyst();
             else if (username == "architect")
                 return new Architect();
