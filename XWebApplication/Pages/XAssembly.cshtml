@@ -3,5 +3,5 @@
 @{
     ViewData["Title"] = Model.XTitle;
 }
-@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
-@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XAssembly, xthis = Model.XThis });
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis })
+@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XAssembly, xthis = Model.XThis })

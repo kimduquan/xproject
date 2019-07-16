@@ -14,6 +14,6 @@
         }
     }
 </nav>
-@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
-@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis });
-@await Component.InvokeAsync("_XType", new { xtype = Model.XType, xthis = Model.XThis });
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis })
+@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis })
+@await Component.InvokeAsync("_XType", new { xtype = Model.XType, xthis = Model.XThis })

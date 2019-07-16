@@ -1,42 +1,82 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
 using OpenUP.Roles.Basic_Roles;
 using System.Collections.Generic;
 using XSystem;
-using XSystem.XInternal;
 using XSystem.XReflection;
-using XSystem.XReflection.XInternal;
+using XWebApplication.Models;
+using XWebApplication.Models.XSystem;
 
 namespace XWebApplication.Tests
 {
     [TestClass]
-    public class XUsingTest
+    public class XUsingTest : XTest
     {
-        IWebDriver WebDriver { get; set; }
-        X X { get; set; }
+        private string Assembly { get; set; }
+        private string BaseURL { get; set; }
+        private XType xentryType = null;
+        private List<XMethodInfo> xentryMethods = null;
+        private XMethodInfo xentryMethod = null;
 
-        string Assembly { get; set; }
-        /*XType XEntryType { get; set; }
-        List<XMethodInfo> XMethods { get; set; }
-        XMethodInfo XMethod { get; set; }
-        List<XParameterInfo> XParameters { get; set; }
-        XObject XUsingObject;
-        XType XType { get; set; }*/
-
-        [ClassInitialize]
-        public void ClassInit()
+        public override void ClassInitialize()
         {
-            WebDriver = new EdgeDriver("D:\\installed\\WebDrivers\\MicrosoftWebDriver.exe");
-            X = new XInternal();
-            X.XAssembly = XAssemblyInternal.XNew;
             Assembly = "OpenUP";
+            BaseURL = "https://localhost:";
         }
 
-        [ClassCleanup]
-        public void ClassCleanUp()
+        public XType XEntryType
         {
-            WebDriver.Quit();
+            get
+            {
+                if(xentryType == null)
+                {
+                    xentryType = X.XGetType(Assembly + ", " + Assembly);
+                }
+                return xentryType;
+            }
+        }
+
+        public List<XMethodInfo> XEntryMethods
+        {
+            get
+            {
+                if(xentryMethods == null)
+                {
+                    xentryMethods = new List<XMethodInfo>();
+                    foreach (XMethodInfo xmethod in XEntryType.XGetMethods())
+                    {
+                        if (xmethod.XIsStatic)
+                        {
+                            xentryMethods.Add(xmethod);
+                        }
+                    }
+                }
+                return xentryMethods;
+            }
+        }
+
+        public XMethodInfo XEntryMethod
+        {
+            get
+            {
+                if(xentryMethod == null)
+                {
+                    if(XEntryMethods.Count == 1)
+                    {
+                        xentryMethod = XEntryMethods[0];
+                    }
+                }
+                return xentryMethod;
+            }
+        }
+
+        [TestMethod]
+        public void XTestNavigateFromAssembly()
+        {
+            if(XEntryType != null)
+            {
+                string url = BaseURL + _XTypeModel.XToHref(XEntryType);
+                WebDriver.Navigate().GoToUrl(url);
+            }
         }
 
         public void xusing()
@@ -92,12 +132,23 @@ namespace XWebApplication.Tests
 
         protected void xusingEntryMethod(XType xentryType, XMethodInfo xentryMethod)
         {
-
+            XParameterInfo[] xparameters = xentryMethod.XGetParameters();
+            if(xparameters == null || xparameters.Length == 0)
+            {
+                xusingMethodNoParameter(xentryType, xentryMethod);
+            }
+            else
+            {
+                xusingMethodParameters(xentryType, xentryMethod, xparameters);
+            }
         }
 
         protected void xusingMultiEntryMethods(XType xentryType, List<XMethodInfo> xentryMethods)
         {
-
+            foreach(XMethodInfo xmethod in xentryMethods)
+            {
+                xusingEntryMethod(xentryType, xmethod);
+            }
         }
 
         protected void xusingMethodNoParameter(XType xentryType, XMethodInfo xentryMethod)
@@ -105,7 +156,7 @@ namespace XWebApplication.Tests
 
         }
 
-        protected void xusingMethodParameters(XType xentryType, XMethodInfo xentryMethod, List<XParameterInfo> xparameters)
+        protected void xusingMethodParameters(XType xentryType, XMethodInfo xentryMethod, XParameterInfo[] xparameters)
         {
 
         }

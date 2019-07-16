@@ -4,15 +4,15 @@
     ViewData["Title"] = Model.XTitle;
 }
 
-@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
-@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis });
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis })
+@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis })
 
 <form method="post">
-    @await Component.InvokeAsync("_XConstructorInfo", new { xconstructor = Model.XConstructor });
+    @await Component.InvokeAsync("_XConstructorInfo", new { xconstructor = Model.XConstructor })
     <input type="submit" value="New" />
 </form>
 
 @if (Model.XException != null)
 {
-    @await Component.InvokeAsync("_XException", new { xexception = Model.XException });
+    @await Component.InvokeAsync("_XException", new { xexception = Model.XException })
 }

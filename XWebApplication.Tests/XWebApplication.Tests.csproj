@@ -18,6 +18,7 @@
     <ProjectReference Include="..\XSystem.XInternal\XSystem.XInternal.csproj" />
     <ProjectReference Include="..\XSystem.XReflection.XInternal\XSystem.XReflection.XInternal.csproj" />
     <ProjectReference Include="..\XSystem\XSystem.csproj" />
+    <ProjectReference Include="..\XWebApplication.Models\XWebApplication.Models.csproj" />
   </ItemGroup>
 
 </Project>

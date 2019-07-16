@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using XWebApplication.Models;
-using XWebApplication.Util;
 
 namespace XWebApplication.ViewComponents
 {

@@ -3,6 +3,6 @@
 @{
     ViewData["Title"] = Model.Title;
 }
-@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis });
-@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis });
-@await Component.InvokeAsync("_XObject", new { xobject = Model.XObject, xtype = Model.XType, xthis = Model.XThis });
+@await Component.InvokeAsync("_XThis", new { xthis = Model.XThis })
+@await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis })
+@await Component.InvokeAsync("_XObject", new { xobject = Model.XObject, xtype = Model.XType, xthis = Model.XThis })

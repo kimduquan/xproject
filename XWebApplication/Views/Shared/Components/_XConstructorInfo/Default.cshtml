@@ -10,7 +10,7 @@
     {
         index++;
         accessKey.MoveNext();
-        @await Component.InvokeAsync("_XParameterInfo", new { xparameter = xparam, accessKey = accessKey.Current, tabIndex = index });
+        @await Component.InvokeAsync("_XParameterInfo", new { xparameter = xparam, accessKey = accessKey.Current, tabIndex = index })
         <br />
     }
 }
