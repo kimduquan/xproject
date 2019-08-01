@@ -1,4 +1,5 @@
 ﻿using _XSystem;
+using Microsoft.Extensions.Localization;
 using XSystem;
 using XSystem.XReflection;
 
@@ -14,11 +15,6 @@ namespace XWebApplication.Models.XSystem.XReflection
 
         public char XAccessKey { get; }
         public int XTabIndex { get; }
-
-        public static string XToString(XPropertyInfo xprop)
-        {
-            return _XModel.XToString(xprop.XName);
-        }
 
         public static bool XIsImplicit(XPropertyInfo xprop, X x)
         {

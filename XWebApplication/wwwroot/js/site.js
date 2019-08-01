@@ -1,4 +1,15 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿function xondragstart(ev, key) {
+    ev.dataTransfer.setData("this", key);
+}
+function xondrop(ev, target) {
+    ev.preventDefault();
+    var key = ev.dataTransfer.getData("this");
+    if (key != null) {
+        if (target != null) {
+            target.value = key;
+        }
+    }
+}
+function xondragover(ev) {
+    ev.preventDefault();
+}

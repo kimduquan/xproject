@@ -20,7 +20,7 @@ namespace XWebApplication.Models
 
         public static void XToSession(XObject xthis, ISession session)
         {
-            session.SetString("this", _XThisCache.XToKey(xthis));
+            session.SetString("this", _XObjectModel.XToKey(xthis));
         }
 
         public static void XToCache(XObject xthis, IMemoryCache cache, ISession session)
@@ -45,7 +45,7 @@ namespace XWebApplication.Models
         {
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, xobject.XToString()),
+                new Claim(ClaimTypes.Name, _XStringModel.XToString(xobject, null)),
                 new Claim("Type", xobject.XGetType().XFullName),
                 new Claim("hashCode", "" + xobject.XGetHashCode())
             };
@@ -77,7 +77,7 @@ namespace XWebApplication.Models
                     int hashCode = 0;
                     if(int.TryParse(szHashCode, out hashCode))
                     {
-                        xobject = cache.XObject(xtype, hashCode);
+                        xobject = _XObjectModel.XFromCache(cache, xtype, hashCode);
                     }
                 }
             }
@@ -165,6 +165,11 @@ namespace XWebApplication.Models
             string key = session.GetString("this");
             cache.Remove(key);
             session.Remove("this");
+        }
+
+        public static void XString(_XThisCache xthis, string lang)
+        {
+
         }
     }
 }

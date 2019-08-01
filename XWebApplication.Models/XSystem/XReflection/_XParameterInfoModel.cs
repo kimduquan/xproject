@@ -1,4 +1,5 @@
 ﻿using _XSystem;
+using Microsoft.Extensions.Localization;
 using XSystem;
 using XSystem.XReflection;
 
@@ -29,11 +30,6 @@ namespace XWebApplication.Models.XSystem.XReflection
         public static bool XIsImplicit(XParameterInfo xparam, X x)
         {
             return xparam.XGetCustomAttributes(x.XTypeOf(typeof(_XImplicit)), false).Length > 0;
-        }
-
-        public static string XToString(XParameterInfo xparam)
-        {
-            return _XModel.XToString(xparam.XName);
         }
     }
 }

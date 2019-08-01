@@ -12,18 +12,18 @@
 <nav>
     @foreach (XConstructorInfo xctor in Model.XConstructors)
     {
-        <a href="@_XConstructorInfoModel.XToHref(Model.XType, xctor)">new @_XTypeModel.XToString(Model.XType)</a>
+        <a href="@_XConstructorInfoModel.XToHref(Model.XType, xctor)">new @_XStringModel.XToString(Model.XType, null)</a>
     }
     @foreach (XMethodInfo xmethod in Model.XMethods)
     {
-        <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
+        <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XStringModel.XToString(xmethod, null)</a>
     }
 </nav>
 <form method="post">
     @foreach (XType xtype in Model.XFieldTypes)
     {
         <fieldset>
-            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <legend>@_XStringModel.XToString(xtype, null)</legend>
             <table>
                 <caption></caption>
                 <colgroup>
@@ -52,7 +52,7 @@
     @foreach (XType xtype in Model.XPropertyTypes)
     {
         <fieldset>
-            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <legend>@_XStringModel.XToString(xtype, null)</legend>
             <table>
                 <caption></caption>
                 <colgroup>

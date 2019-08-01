@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -22,11 +23,6 @@ namespace XWebApplication.Models.XSystem
         public List<XType> XFieldTypes { get; set; }
         public Dictionary<string, List<XPropertyInfo>> XProperties { get; set; }
         public List<XType> XPropertyTypes { get; set; }
-
-        public static string XToString(XType xtype)
-        {
-            return XToString(xtype.XName);
-        }
 
         public static string XToHref(XType xtype)
         {

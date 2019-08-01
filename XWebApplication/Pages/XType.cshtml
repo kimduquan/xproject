@@ -3,14 +3,14 @@
 @using XWebApplication.Models.XSystem
 @using XWebApplication.Models.XSystem.XReflection
 @{
-    ViewData["Title"] = _XTypeModel.XToString(Model.XType);
+    ViewData["Title"] = _XStringModel.XToString(Model.XType, Model.XThis.XString);
 }
 <nav>
     @foreach (var xmethod in Model.XType.XGetMethods())
     {
         if (xmethod.XIsStatic)
         {
-            <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XMethodInfoModel.XToString(xmethod)</a>
+            <a href="@_XMethodInfoModel.XToHref(Model.XType, xmethod)">@_XStringModel.XToString(xmethod, Model.XThis.XString)</a>
         }
     }
 </nav>

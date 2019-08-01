@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using XSystem;
 using XSystem.XReflection;
 using XWebApplication.Models;
+using XWebApplication.Models.XSystem;
 using XWebApplication.Models.XSystem.XReflection;
 
 namespace XWebApplication.Pages
@@ -54,7 +55,7 @@ namespace XWebApplication.Pages
             {
                 if(title == null)
                 {
-                    title = _XAssemblyModel.XToString(XAssembly);
+                    title = _XStringModel.XToString(XAssembly, XThis.XString);
                 }
                 return title;
             }

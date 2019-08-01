@@ -19,8 +19,6 @@ namespace XWebApplication.Models.XSystem
             XObject = xobj;
         }
 
-
-
         public static string XToHref(XObject xobject)
         {
             string href = _XTypeModel.XToHref(xobject.XGetType());
@@ -28,10 +26,36 @@ namespace XWebApplication.Models.XSystem
             return href;
         }
 
-        public static string XToString(XObject xobject)
+        public static string XToKey(XObject xobject)
         {
-            string str = xobject.XToString();
-            return str;
+            return xobject.XGetType().XFullName + "@" + xobject.XGetHashCode();
+        }
+
+        public static XObject XFromCache(_XThisCache xthis, string key)
+        {
+            XObject xobject = null;
+            if (xthis.XObjects.ContainsKey(key))
+            {
+                xthis.XObjects.TryGetValue(key, out xobject);
+            }
+            return xobject;
+        }
+
+        public static void XToCache(_XThisCache cache, XObject xobject)
+        {
+            string key = XToKey(xobject);
+            cache.XObjects.Add(key, xobject);
+        }
+
+        public static XObject XFromCache(_XThisCache xthis, XType xtype, int hashCode)
+        {
+            XObject xobject = null;
+            string key = xtype.XFullName + "@" + hashCode;
+            if (xthis.XObjects.ContainsKey(key))
+            {
+                xthis.XObjects.TryGetValue(key, out xobject);
+            }
+            return xobject;
         }
     }
 }

@@ -80,8 +80,8 @@ namespace XWebApplication.Pages
             {
                 if(title == null)
                 {
-                    string type = _XTypeModel.XToString(XType);
-                    string assembly = _XAssemblyModel.XToString(XType.XAssembly);
+                    string type = _XStringModel.XToString(XType, XThis.XString);
+                    string assembly = _XStringModel.XToString(XType.XAssembly, XThis.XString);
                     title = string.Format("{0} - New {1}", assembly, type);
                 }
                 return title;
@@ -104,13 +104,13 @@ namespace XWebApplication.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            XObject[] xparams = _XMethodInfoModel.XFromForm(XConstructor.XGetParameters(), xtypeConverter, Request.Form, XThis);
+            XObject[] xparams = _XMethodInfoModel.XFromForm(x, XConstructor.XGetParameters(), xtypeConverter, Request.Form, XThis);
             try
             {
                 XObject xobject = XConstructor.XInvoke(xparams);
                 if (xobject != x.XNULL)
                 {
-                    _XThisCache.XToCache(XThis, xobject);
+                    _XObjectModel.XToCache(XThis, xobject);
                     string url = _XObjectModel.XToHref(xobject);
                     return LocalRedirect(url);
                 }

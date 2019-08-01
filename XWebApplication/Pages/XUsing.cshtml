@@ -24,10 +24,10 @@
     {
         <form method="post" asp-page-handler="Using" asp-route-ReturnUrl="@Model.ReturnUrl">
             <select asp-for="Using" autofocus required>
-                <optgroup label="@_XTypeModel.XToString(Model.XEntryType)">
+                <optgroup label="@_XStringModel.XToString(Model.XEntryType, null)">
                     @foreach (var m in Model.XEntryMethods)
                     {
-                        <option value="@m.XName">@_XMethodInfoModel.XToString(m)</option>
+                        <option value="@m.XName">@_XStringModel.XToString(m, null)</option>
                     }
                 </optgroup>
             </select>
@@ -39,7 +39,7 @@
         <form method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
             <input type="hidden" asp-for="Using" />
             @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod });
-            <input type="submit" value="@_XMethodInfoModel.XToString(Model.XEntryMethod)" />
+            <input type="submit" value="@_XStringModel.XToString(Model.XEntryMethod, null)" />
             <progress id="await" hidden max="100" value="0" />
         </form>
     }

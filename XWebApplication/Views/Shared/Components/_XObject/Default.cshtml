@@ -10,7 +10,7 @@
     @foreach (XType xtype in Model.XFieldTypes)
     {
         <fieldset>
-            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <legend>@_XStringModel.XToString(xtype, null)</legend>
             <table>
                 <caption></caption>
                 <colgroup>
@@ -39,7 +39,7 @@
     @foreach (XType xtype in Model.XPropertyTypes)
     {
         <fieldset>
-            <legend>@_XTypeModel.XToString(xtype)</legend>
+            <legend>@_XStringModel.XToString(xtype, null)</legend>
             <table>
                 <caption></caption>
                 <colgroup>

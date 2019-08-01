@@ -29,7 +29,7 @@
         }
 
         @Html.Raw(tag)
-        @_XModel.XToString(current.Current)
+        @_XStringModel.XToString(current.Current, null)
 
         @if (Model.XTypes.ContainsKey(ns))
         {
@@ -44,7 +44,7 @@
                 {
                     <li class="type">
                         <a class="@_XTypeModel.XToCssClass(type)" href="@_XTypeModel.XToHref(type)" title="@_XTypeModel.XToTitle(type)">
-                            @_XTypeModel.XToString(type)
+                            @_XStringModel.XToString(type, null)
                         </a>
                     </li>
                 }
@@ -89,7 +89,7 @@
 </ul>
 @foreach (KeyValuePair<string, string> v in Model.XInformation)
 {
-    @_XModel.XToString(v.Key)
+    @_XStringModel.XToString(v.Key, null)
 
     @v.Value
 }

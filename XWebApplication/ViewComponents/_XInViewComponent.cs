@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using XSystem;
 using XSystem.XReflection;
 using XWebApplication.Models;
+using XWebApplication.Models.XSystem;
 using XWebApplication.Models.XSystem.XReflection;
 
 namespace XWebApplication.ViewComponents
@@ -14,6 +15,8 @@ namespace XWebApplication.ViewComponents
     public class _XInViewComponent : ViewComponent
     {
         private X x = null;
+        private _XThisCache xcache = null;
+
         public _XInViewComponent(X xx)
         {
             x = xx;
@@ -21,7 +24,8 @@ namespace XWebApplication.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(object model, char accessKey, int tabIndex, _XThisCache xthis)
         {
-            if(model is XParameterInfo xparam)
+            xcache = xthis;
+            if (model is XParameterInfo xparam)
             {
                 return await xparameter(xparam, accessKey, tabIndex, xthis);
             }
@@ -44,7 +48,7 @@ namespace XWebApplication.ViewComponents
             xmodel.Data = _XParameterInfoModel.XToData(xparameter);
             xmodel.Name = xparameter.XName;
             xmodel.TabIndex = tabIndex;
-            xmodel.Text = _XParameterInfoModel.XToString(xparameter);
+            xmodel.Text = _XStringModel.XToString(xparameter, xcache.XString);
             xmodel.XType = xparameter.XParameterType;
             bool ximplicit = _XParameterInfoModel.XIsImplicit(xparameter, x);
             string view = null;
@@ -62,7 +66,7 @@ namespace XWebApplication.ViewComponents
             xmodel.AccessKey = accessKey;
             xmodel.Name = xfield.XName;
             xmodel.TabIndex = tabIndex;
-            xmodel.Text = _XFieldInfoModel.XToString(xfield);
+            xmodel.Text = _XStringModel.XToString(xfield, xcache.XString);
             xmodel.XType = xfield.XFieldType;
             bool ximplicit = _XFieldInfoModel.XIsImplicit(xfield, x);
             string view = null;
@@ -80,7 +84,7 @@ namespace XWebApplication.ViewComponents
             xmodel.AccessKey = accessKey;
             xmodel.Name = xproperty.XName;
             xmodel.TabIndex = tabIndex;
-            xmodel.Text = _XPropertyInfoModel.XToString(xproperty);
+            xmodel.Text = _XStringModel.XToString(xproperty, xcache.XString);
             xmodel.XType = xproperty.XPropertyType;
             bool ximplicit = _XPropertyInfoModel.XIsImplicit(xproperty, x);
             string view = null;

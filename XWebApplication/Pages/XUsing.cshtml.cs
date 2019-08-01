@@ -122,13 +122,13 @@ namespace XWebApplication.Pages
                         string assemblyName = "";
                         if (XEntryMethod != null)
                         {
-                            name = _XMethodInfoModel.XToString(XEntryMethod);
-                            assemblyName =_XAssemblyModel.XToString(XEntryType.XAssembly);
+                            name = _XStringModel.XToString(XEntryMethod, null);
+                            assemblyName = _XStringModel.XToString(XEntryType.XAssembly, null);
                         }
                         else if (XUsingType != null)
                         {
-                            name = _XTypeModel.XToString(XUsingType);
-                            assemblyName = _XAssemblyModel.XToString(XUsingType.XAssembly);
+                            name = _XStringModel.XToString(XUsingType, null);
+                            assemblyName = _XStringModel.XToString(XUsingType.XAssembly, null);
                         }
                         title = string.Format("{0} - {1}", assemblyName, name);
                     }
@@ -145,7 +145,7 @@ namespace XWebApplication.Pages
             {
                 if(XEntryMethod != null)
                 {
-                    XObject[] xparameters = _XMethodInfoModel.XFromForm(XEntryMethod.XGetParameters(), xtypeConverter, Request.Form, null);
+                    XObject[] xparameters = _XMethodInfoModel.XFromForm(x, XEntryMethod.XGetParameters(), xtypeConverter, Request.Form, null);
                     try
                     {
                         XObject xobject = XEntryMethod.XInvoke(x.XNULL, xparameters);

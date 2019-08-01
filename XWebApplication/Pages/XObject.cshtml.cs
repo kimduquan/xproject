@@ -47,7 +47,7 @@ namespace XWebApplication.Pages
             {
                 if(title == null)
                 {
-                    title = _XObjectModel.XToString(XObject);
+                    title = _XStringModel.XToString(XObject, XThis.XString);
                 }
                 return title;
             }

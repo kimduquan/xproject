@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using _XSystem;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using XSystem;
@@ -27,27 +29,44 @@ namespace XWebApplication.Models.XSystem.XReflection
             return _XTypeModel.XToHref(xtype) + "/" + method.XName;
         }
 
-        public static string XToString(XMethodInfo method)
-        {
-            return _XModel.XToString(method.XName);
-        }
-
-        public static XObject[] XFromForm(XParameterInfo[] xparams, XTypeConverter xtypeConverter, IFormCollection form, _XThisCache cache)
+        public static XObject[] XFromForm(X x, XParameterInfo[] xparams, XTypeConverter xtypeConverter, IFormCollection form, _XThisCache cache)
         {
             List<XObject>  values = new List<XObject>();
             if (xtypeConverter.XCanConvertFrom(typeof(string)))
             {
+                XType _this = x.XTypeOf(typeof(_XThis));
                 foreach (XParameterInfo xparameter in xparams)
                 {
                     StringValues value = form[xparameter.XName];
+                    XObject xobject = null;
                     if (xtypeConverter.XCanConvertTo(xparameter.XParameterType))
                     {
-                        values.Add(xtypeConverter.XConvertTo(value.ToString(), xparameter.XParameterType));
+                        xobject = xtypeConverter.XConvertTo(value.ToString(), xparameter.XParameterType);
                     }
                     else if (cache != null)
                     {
-                        values.Add(cache.XObject(value.ToString()));
+                        if (xparameter.XParameterType.XIsAssignableFrom(cache.XThis.XGetType()))
+                        {
+                            XObject[] xattrs = xparameter.XGetCustomAttributes(_this, true);
+                            if (xattrs != null && xattrs.Length > 0)
+                            {
+                                xobject = cache.XThis;
+                            }
+                        } 
+
+                        if(xobject == null)
+                        {
+                            if (value.ToString() == "")
+                            {
+                                xobject = x.XNULL;
+                            }
+                            else
+                            {
+                                xobject = _XObjectModel.XFromCache(cache, value.ToString());
+                            }
+                        }
                     }
+                    values.Add(xobject);
                 }
             }
             return values.ToArray();

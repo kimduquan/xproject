@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using XSystem;
@@ -12,11 +13,6 @@ namespace XWebApplication.Models.XSystem.XReflection
         public Dictionary<string, List<string>> XNamespaces { get; set; }
         public Dictionary<string, List<XType>> XTypes { get; set; }
         public Dictionary<string, string> XInformation { get; set; }
-
-        public static string XToString(XAssembly assembly)
-        {
-            return _XModel.XToString(assembly.XFullName.Split(',')[0]);
-        }
 
         public static XType XGetEntryType(XAssembly xassembly)
         {
@@ -86,7 +82,8 @@ namespace XWebApplication.Models.XSystem.XReflection
                     XPropertyInfo xprop = xattr.XGetType().XGetProperty(attr);
                     if (xprop != null && xprop.XIsStatic == false)
                     {
-                        about[attr] = xprop.XGetValue(xattr).XToString();
+                        string v = _XStringModel.XToString(xprop.XGetValue(xattr), null);
+                        about[attr] = v;
                     }
                 }
             }

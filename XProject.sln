@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_XSystem", "_XSystem\_XSyst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XWebApplication.Tests", "XWebApplication.Tests\XWebApplication.Tests.csproj", "{4FD2EB70-E591-4B0A-9D03-E6652A2808B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWebApplication.Models", "XWebApplication.Models\XWebApplication.Models.csproj", "{985DD101-D990-486A-89CE-216C03E70B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XWebApplication.Models", "XWebApplication.Models\XWebApplication.Models.csproj", "{985DD101-D990-486A-89CE-216C03E70B6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

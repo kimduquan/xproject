@@ -1,6 +1,7 @@
 ﻿@model  XWebApplication.Models._XInModel
 
 @using  XWebApplication.Models.XSystem.XReflection
+@using  XWebApplication.Models.XSystem
 
 <table class="@Model.Class" @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey">
     <caption>
@@ -39,7 +40,7 @@
                     @foreach (var field in it.Current.Value)
                     {
                         <th>
-                            @_XFieldInfoModel.XToString(field)
+                            @_XStringModel.XToString(field, null)
                         </th>
                     }
                 }
@@ -51,7 +52,7 @@
                     @foreach (var prop in it.Current.Value)
                     {
                         <th>
-                            @_XPropertyInfoModel.XToString(prop)
+                            @_XStringModel.XToString(prop, null)
                         </th>
                     }
                 }
