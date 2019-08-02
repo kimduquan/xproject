@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Security.Claims;
 using XSystem;
@@ -23,10 +24,10 @@ namespace XWebApplication.Models
             session.SetString("this", _XObjectModel.XToKey(xthis));
         }
 
-        public static void XToCache(XObject xthis, IMemoryCache cache, ISession session)
+        public static void XToCache(XObject xthis, IMemoryCache cache, ISession session, IStringLocalizer xstring)
         {
             string key = session.GetString("this");
-            _XThisCache xthisCache = new _XThisCache(xthis);
+            _XThisCache xthisCache = new _XThisCache(xthis, xstring);
             using (ICacheEntry entry = cache.CreateEntry(key))
             {
                 entry.SetValue(xthisCache);
@@ -165,11 +166,6 @@ namespace XWebApplication.Models
             string key = session.GetString("this");
             cache.Remove(key);
             session.Remove("this");
-        }
-
-        public static void XString(_XThisCache xthis, string lang)
-        {
-
         }
     }
 }

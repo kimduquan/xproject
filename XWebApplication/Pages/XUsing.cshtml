@@ -2,7 +2,6 @@
 @model XUsingModel
 
 @using XWebApplication.Models.XSystem
-@using XWebApplication.Models.XSystem.XReflection
 
 @{
     ViewData["Title"] = Model.XTitle;
@@ -24,10 +23,10 @@
     {
         <form method="post" asp-page-handler="Using" asp-route-ReturnUrl="@Model.ReturnUrl">
             <select asp-for="Using" autofocus required>
-                <optgroup label="@_XStringModel.XToString(Model.XEntryType, null)">
+                <optgroup label="@_XStringModel.XToString(Model.XEntryType, Model.XString)">
                     @foreach (var m in Model.XEntryMethods)
                     {
-                        <option value="@m.XName">@_XStringModel.XToString(m, null)</option>
+                        <option value="@m.XName">@_XStringModel.XToString(m, Model.XString)</option>
                     }
                 </optgroup>
             </select>
@@ -39,7 +38,7 @@
         <form method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
             <input type="hidden" asp-for="Using" />
             @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod });
-            <input type="submit" value="@_XStringModel.XToString(Model.XEntryMethod, null)" />
+            <input type="submit" value="@_XStringModel.XToString(Model.XEntryMethod, Model.XString)" />
             <progress id="await" hidden max="100" value="0" />
         </form>
     }

@@ -43,7 +43,7 @@
                 @foreach (XType type in childType)
                 {
                     <li class="type">
-                        <a class="@_XTypeModel.XToCssClass(type)" href="@_XTypeModel.XToHref(type)" title="@_XTypeModel.XToTitle(type)">
+                        <a class="@_XTypeModel.XToCssClass(type)" href="@_XTypeModel.XToHref(type)" title="@_XStringModel.XToTitle(type)">
                             @_XStringModel.XToString(type, null)
                         </a>
                     </li>

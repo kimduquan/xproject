@@ -13,6 +13,7 @@ using XWebApplication.Models.XSystem;
 using XWebApplication.Models;
 using XSystem.XComponentModel;
 using System;
+using Microsoft.Extensions.Localization;
 
 namespace XWebApplication.Pages
 {
@@ -27,6 +28,8 @@ namespace XWebApplication.Pages
         private string title = null;
         private XTypeConverter xtypeConverter = null;
         private X x = null;
+        private IStringLocalizerFactory factory = null;
+        private IStringLocalizer xstring = null;
 
         protected XType XUsingType
         {
@@ -122,13 +125,13 @@ namespace XWebApplication.Pages
                         string assemblyName = "";
                         if (XEntryMethod != null)
                         {
-                            name = _XStringModel.XToString(XEntryMethod, null);
-                            assemblyName = _XStringModel.XToString(XEntryType.XAssembly, null);
+                            name = _XStringModel.XToString(XEntryMethod, XString);
+                            assemblyName = _XStringModel.XToString(XEntryType.XAssembly, XString);
                         }
                         else if (XUsingType != null)
                         {
-                            name = _XStringModel.XToString(XUsingType, null);
-                            assemblyName = _XStringModel.XToString(XUsingType.XAssembly, null);
+                            name = _XStringModel.XToString(XUsingType, XString);
+                            assemblyName = _XStringModel.XToString(XUsingType.XAssembly, XString);
                         }
                         title = string.Format("{0} - {1}", assemblyName, name);
                     }
@@ -138,6 +141,22 @@ namespace XWebApplication.Pages
         }
 
         public XException XException { get; set; }
+
+        public IStringLocalizer XString
+        {
+            get
+            {
+                if(xstring == null)
+                {
+                    xstring = _XStringModel.XFromSession(cache, HttpContext.Session);
+                }
+                if(xstring == null)
+                {
+                    xstring = _XStringModel.XToCache(XEntryType.XAssembly, cache, HttpContext.Session, factory);
+                }
+                return xstring;
+            }
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -152,7 +171,7 @@ namespace XWebApplication.Pages
                         if (xobject != x.XNULL)
                         {
                             _XThisModel.XToSession(xobject, HttpContext.Session);
-                            _XThisModel.XToCache(xobject, cache, HttpContext.Session);
+                            _XThisModel.XToCache(xobject, cache, HttpContext.Session, XString);
                             List<Claim> claims = _XThisModel.XToClaims(xobject);
                             List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
                         {
@@ -180,11 +199,12 @@ namespace XWebApplication.Pages
             return Page();
         }
 
-        public XUsingModel(IMemoryCache memory, XTypeConverter converter, X xx)
+        public XUsingModel(IMemoryCache memory, XTypeConverter converter, X xx, IStringLocalizerFactory f)
         {
             cache = memory;
             xtypeConverter = converter;
             x = xx;
+            factory = f;
         }
     }
 }

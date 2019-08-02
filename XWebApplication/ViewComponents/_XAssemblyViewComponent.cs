@@ -20,7 +20,7 @@ namespace XWebApplication.ViewComponents
             XToHiearchyTypes(xtypes, out childNSs, out childTypes);
             xmodel.XNamespaces = childNSs;
             xmodel.XTypes = childTypes;
-            xmodel.XInformation = _XAssemblyModel.XToAbout(xassembly);
+            xmodel.XInformation = _XAssemblyModel.XToAbout(xassembly, xthis.XString);
             return View(xmodel);
         }
 

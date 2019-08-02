@@ -134,11 +134,6 @@ namespace XWebApplication.Models.XSystem
             return XCheckXTypeAttribute(xtype, xthis.XGetCustomAttributes(), out isCustom);
         }
 
-        public static string XToTitle(XType xtype)
-        {
-            return XToTitle(xtype.XGetCustomAttributes());
-        }
-
         public static List<XType> XFromQuery(IQueryCollection query, X x)
         {
             List<XType> xtypes = new List<XType>();

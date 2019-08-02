@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,16 +17,22 @@ namespace XWebApplication.ViewComponents
     public class _XInViewComponent : ViewComponent
     {
         private X x = null;
-        private _XThisCache xcache = null;
+        private IMemoryCache cache = null;
+        private IStringLocalizer xstring = null;
 
-        public _XInViewComponent(X xx)
+        public _XInViewComponent(X xx, IMemoryCache c)
         {
             x = xx;
+            cache = c;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(object model, char accessKey, int tabIndex, _XThisCache xthis)
         {
-            xcache = xthis;
+            if(xthis != null)
+            {
+                xstring = xthis.XString;
+            }
+
             if (model is XParameterInfo xparam)
             {
                 return await xparameter(xparam, accessKey, tabIndex, xthis);
@@ -48,12 +56,12 @@ namespace XWebApplication.ViewComponents
             xmodel.Data = _XParameterInfoModel.XToData(xparameter);
             xmodel.Name = xparameter.XName;
             xmodel.TabIndex = tabIndex;
-            xmodel.Text = _XStringModel.XToString(xparameter, xcache.XString);
+            xmodel.Text = _XStringModel.XToString(xparameter, xstring);
             xmodel.XType = xparameter.XParameterType;
             bool ximplicit = _XParameterInfoModel.XIsImplicit(xparameter, x);
             string view = null;
             XBuild(xmodel, out view, xthis, ximplicit);
-            if(view != null)
+            if (view != null)
             {
                 return View(view, xmodel);
             }
@@ -66,7 +74,7 @@ namespace XWebApplication.ViewComponents
             xmodel.AccessKey = accessKey;
             xmodel.Name = xfield.XName;
             xmodel.TabIndex = tabIndex;
-            xmodel.Text = _XStringModel.XToString(xfield, xcache.XString);
+            xmodel.Text = _XStringModel.XToString(xfield, xstring);
             xmodel.XType = xfield.XFieldType;
             bool ximplicit = _XFieldInfoModel.XIsImplicit(xfield, x);
             string view = null;
@@ -84,7 +92,7 @@ namespace XWebApplication.ViewComponents
             xmodel.AccessKey = accessKey;
             xmodel.Name = xproperty.XName;
             xmodel.TabIndex = tabIndex;
-            xmodel.Text = _XStringModel.XToString(xproperty, xcache.XString);
+            xmodel.Text = _XStringModel.XToString(xproperty, xstring);
             xmodel.XType = xproperty.XPropertyType;
             bool ximplicit = _XPropertyInfoModel.XIsImplicit(xproperty, x);
             string view = null;

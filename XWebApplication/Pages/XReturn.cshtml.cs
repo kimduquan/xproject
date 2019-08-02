@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
 using XWebApplication.Models;
+using XWebApplication.Models.XSystem;
 
 namespace XWebApplication.Pages
 {
@@ -21,6 +22,7 @@ namespace XWebApplication.Pages
         {
             if (ModelState.IsValid)
             {
+                _XStringModel.XReturn(cache, HttpContext.Session);
                 _XThisModel.XReturn(cache, HttpContext.Session);
                 return SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
             }   

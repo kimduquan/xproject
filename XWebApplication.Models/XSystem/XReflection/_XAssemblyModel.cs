@@ -69,7 +69,7 @@ namespace XWebApplication.Models.XSystem.XReflection
             return xassembly;
         }
 
-        public static Dictionary<string, string> XToAbout(XAssembly assemly)
+        public static Dictionary<string, string> XToAbout(XAssembly assemly, IStringLocalizer xstring)
         {
             Dictionary<string, string>  about = new Dictionary<string, string>();
             foreach (XAttribute xattr in assemly.XGetCustomAttributes())
@@ -82,7 +82,7 @@ namespace XWebApplication.Models.XSystem.XReflection
                     XPropertyInfo xprop = xattr.XGetType().XGetProperty(attr);
                     if (xprop != null && xprop.XIsStatic == false)
                     {
-                        string v = _XStringModel.XToString(xprop.XGetValue(xattr), null);
+                        string v = _XStringModel.XToString(xprop.XGetValue(xattr), xstring);
                         about[attr] = v;
                     }
                 }

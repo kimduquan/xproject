@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using _XSystem;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
+using System.Reflection;
 using XSystem;
 using XSystem.XReflection;
 
@@ -11,7 +15,10 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                return xstring[ns];
+                string key = ns.Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
 
             string result = ns;
@@ -78,7 +85,10 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                return xstring[xtype.XFullName];
+                string key = xtype.XFullName.Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
             return XToString(xtype.XName, xstring);
         }
@@ -97,8 +107,10 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                string key = assembly.XFullName.Split(',')[0];
-                return xstring[key];
+                string key = assembly.XFullName.Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
             return XToString(assembly.XFullName.Split(',')[0], xstring);
         }
@@ -107,8 +119,10 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                string key = xfield.XDeclaringType.XFullName + "." + xfield.XName;
-                return xstring[key];
+                string key = (xfield.XDeclaringType.XFullName + "." + xfield.XName).Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
             return XToString(xfield.XName, xstring);
         }
@@ -117,8 +131,10 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                string key = method.XDeclaringType.XFullName + "." + method.XName;
-                return xstring[key];
+                string key = (method.XDeclaringType.XFullName + "." + method.XName).Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
             return XToString(method.XName, xstring);
         }
@@ -127,8 +143,10 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                string key = xparam.XName;
-                return xstring[key];
+                string key = (xparam.XParameterType.XFullName  + "." + xparam.XName).Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
             return XToString(xparam.XName, xstring);
         }
@@ -137,10 +155,73 @@ namespace XWebApplication.Models.XSystem
         {
             if (xstring != null)
             {
-                string key = xprop.XDeclaringType.XFullName + "." + xprop.XName;
-                return xstring[key];
+                string key = (xprop.XDeclaringType.XFullName + "." + xprop.XName).Replace('.', '_');
+                string value = xstring[key];
+                if (key != value)
+                    return value;
             }
             return XToString(xprop.XName, xstring);
+        }
+
+        public IStringLocalizer XString { get; } 
+
+        protected _XStringModel(IStringLocalizer xstr)
+        {
+            XString = xstr;
+        }
+
+        public static IStringLocalizer XFromSession(IMemoryCache cache, ISession session)
+        {
+            IStringLocalizer stringLocalizer = null;
+            string key = session.GetString("string");
+            if(key != null)
+            {
+                _XStringModel xstring = null;
+                if (cache.TryGetValue(key, out xstring) && xstring != null)
+                {
+                    stringLocalizer = xstring.XString;
+                }
+            }
+            return stringLocalizer;
+        }
+
+        public static IStringLocalizer XToCache(XAssembly xassembly, IMemoryCache cache, ISession session, IStringLocalizerFactory factory)
+        {
+            AssemblyName name = new AssemblyName(xassembly.XFullName);
+            IStringLocalizer stringLocalizer = factory.Create("Properties.Resources", name.Name);
+            _XStringModel xstring = new _XStringModel(stringLocalizer);
+            string key = typeof(_XStringModel).FullName + "#" + xstring.GetHashCode();
+            using (ICacheEntry entry = cache.CreateEntry(key))
+            {
+                entry.SetValue(xstring);
+            }
+            session.SetString("string", key);
+            return stringLocalizer;
+        }
+
+        public static void XReturn(IMemoryCache cache, ISession session)
+        {
+            string key = session.GetString("string");
+            cache.Remove(key);
+            session.Remove("string");
+        }
+
+        protected static string XToTitle(XObject[] xattributes)
+        {
+            string title = "";
+            foreach (XObject attr in xattributes)
+            {
+                if (attr.X is _XString xattr)
+                {
+                    title = xattr.XString;
+                }
+            }
+            return title;
+        }
+
+        public static string XToTitle(XType xtype)
+        {
+            return XToTitle(xtype.XGetCustomAttributes());
         }
     }
 }

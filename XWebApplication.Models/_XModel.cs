@@ -1,5 +1,4 @@
 ﻿using _XSystem;
-using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using XSystem;
 
@@ -32,19 +31,6 @@ namespace XWebApplication.Models
                 }
             }
             return success;
-        }
-
-        public static string XToTitle(XObject[] xattributes)
-        {
-            string title = "";
-            foreach (XObject attr in xattributes)
-            {
-                if (attr.X is _XString xattr)
-                {
-                    title = xattr.XString;
-                }
-            }
-            return title;
         }
 
         public static void XToAccessKeyMap(string[] names, out Dictionary<string, char> accessKeyMap, out List<char> accessKeys)
