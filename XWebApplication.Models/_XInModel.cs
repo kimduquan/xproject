@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using XSystem;
 using XSystem.XReflection;
 
@@ -24,5 +25,6 @@ namespace XWebApplication.Models
         public Dictionary<string, List<XFieldInfo>> XFields { get; set; }
         public Dictionary<string, List<XPropertyInfo>> XProperties { get; set; }
         public Dictionary<string, XObject> XObjects { get; set; }
+        public IStringLocalizer XString { get; set; }
     }
 }

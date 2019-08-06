@@ -29,7 +29,7 @@
         }
 
         @Html.Raw(tag)
-        @_XStringModel.XToString(current.Current, null)
+        @_XStringModel.XToString(ns, current.Current, Model.XString)
 
         @if (Model.XTypes.ContainsKey(ns))
         {
@@ -43,8 +43,8 @@
                 @foreach (XType type in childType)
                 {
                     <li class="type">
-                        <a class="@_XTypeModel.XToCssClass(type)" href="@_XTypeModel.XToHref(type)" title="@_XStringModel.XToTitle(type)">
-                            @_XStringModel.XToString(type, null)
+                        <a class="@_XTypeModel.XToCssClass(type)" href="@_XTypeModel.XToHref(type)" title="@_XStringModel.XToTitle(type, Model.XString)">
+                            @_XStringModel.XToString(type, Model.XString)
                         </a>
                     </li>
                 }
@@ -89,7 +89,7 @@
 </ul>
 @foreach (KeyValuePair<string, string> v in Model.XInformation)
 {
-    @_XStringModel.XToString(v.Key, null)
+    @_XStringModel.XToString(v.Key, v.Key, Model.XString)
 
     @v.Value
 }

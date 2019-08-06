@@ -6,10 +6,10 @@
     @Model.Text.Substring(0, Model.AccessKeyIndex)<mark><u>@Model.Text[Model.AccessKeyIndex]</u></mark>@Model.Text.Substring(Model.AccessKeyIndex + 1)<mark><sup>[@Model.AccessKeyIndex]</sup></mark>
 </label>
 <select class="@Model.Class" name="@Model.Name" @Model.Required @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey" @Model.Disabled>
-    <optgroup label="@_XStringModel.XToString(Model.XType, null)">
+    <optgroup label="@_XStringModel.XToString(Model.XType, Model.XString)">
         @foreach (string enumName in Model.XType.XGetEnumNames())
         {
-            <option value="@enumName">@_XStringModel.XToString(enumName, null)</option>
+            <option value="@enumName">@_XEnumModel.XToString(Model.XType, enumName, Model.XString)</option>
         }
     </optgroup>
 </select>

@@ -13,6 +13,7 @@ namespace XWebApplication.Models.XSystem.XReflection
         public Dictionary<string, List<string>> XNamespaces { get; set; }
         public Dictionary<string, List<XType>> XTypes { get; set; }
         public Dictionary<string, string> XInformation { get; set; }
+        public IStringLocalizer XString { get; set; }
 
         public static XType XGetEntryType(XAssembly xassembly)
         {

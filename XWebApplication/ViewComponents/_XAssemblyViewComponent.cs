@@ -21,6 +21,7 @@ namespace XWebApplication.ViewComponents
             xmodel.XNamespaces = childNSs;
             xmodel.XTypes = childTypes;
             xmodel.XInformation = _XAssemblyModel.XToAbout(xassembly, xthis.XString);
+            xmodel.XString = xthis.XString;
             return View(xmodel);
         }
 
