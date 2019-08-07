@@ -1,8 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Shared\Components\_XType\**" />
+    <Content Remove="Views\Shared\Components\_XType\**" />
+    <EmbeddedResource Remove="Views\Shared\Components\_XType\**" />
+    <None Remove="Views\Shared\Components\_XType\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="_XTypeModel.cs~RFa96f0474.TMP" />
@@ -17,7 +24,7 @@
   <ItemGroup>
     <Folder Include="System-IO\Directory\" />
     <Folder Include="System-IO\File\" />
-    <Folder Include="Views\Shared\Components\_XType\" />
+    <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\lib\XProject\XSystem\XReflection\" />
   </ItemGroup>
 
