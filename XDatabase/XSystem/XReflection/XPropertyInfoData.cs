@@ -1,12 +1,18 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using XSystem;
 using XSystem.XReflection;
 
 namespace XDatabase.XSystem.XReflection
 {
+    [BsonDiscriminator("PropertyInfo")]
     public class XPropertyInfoData : XPropertyInfo
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string XId { get; set; }
+
         [BsonElement("PropertyType")]
         public XTypeData _XPropertyType { get; set; }
 

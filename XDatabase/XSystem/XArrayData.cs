@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
 using XSystem;
 
 namespace XDatabase.XSystem
 {
+    [BsonDiscriminator("Array")]
     public class XArrayData : XObjectData, XArray
     {
         [BsonElement("Length")]

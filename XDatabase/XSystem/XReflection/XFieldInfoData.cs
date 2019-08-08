@@ -1,12 +1,18 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using XSystem;
 using XSystem.XReflection;
 
 namespace XDatabase.XSystem.XReflection
 {
+    [BsonDiscriminator("FieldInfo")]
     public class XFieldInfoData : XFieldInfo
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string XId { get; set; }
+
         [BsonElement("FieldType")]
         public XTypeData _XFieldType { get; set; }
 

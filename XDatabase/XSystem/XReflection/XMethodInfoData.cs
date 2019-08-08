@@ -1,11 +1,17 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using XSystem;
 using XSystem.XReflection;
 
 namespace XDatabase.XSystem.XReflection
 {
+    [BsonDiscriminator("MethodInfo")]
     public class XMethodInfoData : XMethodInfo
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string XId { get; set; }
+
         [BsonElement("Name")]
         public string XName { get; set; }
 
@@ -26,6 +32,9 @@ namespace XDatabase.XSystem.XReflection
 
         [BsonElement("Parameters")]
         public XParameterInfoData[] XParameters { get; set; }
+
+        [BsonElement("as")]
+        public XOperatorData[] XAs { get; set; }
 
         public XParameterInfo[] XGetParameters()
         {

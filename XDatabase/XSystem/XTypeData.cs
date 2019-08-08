@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using XDatabase.XSystem.XReflection;
@@ -7,8 +8,13 @@ using XSystem.XReflection;
 
 namespace XDatabase.XSystem
 {
+    [BsonDiscriminator("Type")]
     public class XTypeData : XType
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string XId { get; set; }
+
         [BsonElement("IsEnum")]
         public bool XIsEnum { get; set; }
 

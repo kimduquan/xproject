@@ -14,9 +14,9 @@ namespace XDatabase
         private IMongoCollection<XTypeData> _xtypes;
         private X x = null;
 
-        public XData(string connectionString, X xx)
+        public XData(X xx)
         {
-            _client = new MongoClient(connectionString);
+            _client = new MongoClient();
             _database = _client.GetDatabase("System");
             _xobjects = _database.GetCollection<XObjectData>("Object");
             _xtypes = _database.GetCollection<XTypeData>("Type");

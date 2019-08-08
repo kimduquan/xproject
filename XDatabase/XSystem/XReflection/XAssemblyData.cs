@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using XSystem;
@@ -6,8 +7,13 @@ using XSystem.XReflection;
 
 namespace XDatabase.XSystem.XReflection
 {
+    [BsonDiscriminator("Assembly")]
     public class XAssemblyData : XAssembly
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string XId { get; set; }
+
         [BsonElement("ExportedTypes")]
         public XTypeData[] _XExportedTypes { get; set; }
 

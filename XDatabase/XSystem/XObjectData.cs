@@ -1,12 +1,18 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using XSystem;
 
 namespace XDatabase.XSystem
 {
-    [BsonKnownTypes(typeof(XArrayData), typeof(XAttributeData))]
+    [BsonKnownTypes(typeof(XArrayData), typeof(XAttributeData), typeof(XExceptionData))]
+    [BsonDiscriminator("Object", RootClass = true)]
     public class XObjectData : XObject
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string XId { get; set; }
+
         [BsonIgnore]
         public object X => throw new NotImplementedException();
 
