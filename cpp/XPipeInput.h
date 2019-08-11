@@ -23,6 +23,7 @@ public:
 	virtual int xreadString(const wchar_t* name, wstring& value);
 	virtual int xreadString(int index, wstring& value);
 	virtual int xreadStrings(map<wstring, wstring>& values);
+	virtual bool xclose();
 };
 
 #endif

@@ -80,3 +80,9 @@ int XPipeOutput::xwriteStrings(map<wstring, wstring>& values)
 	mData = values;
 	return 0;
 }
+
+bool XPipeOutput::xclose()
+{
+	BOOL bRes = CloseHandle(mHandle);
+	return bRes == TRUE;
+}

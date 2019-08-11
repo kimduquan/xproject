@@ -6,25 +6,22 @@
 #include <vector>
 #include <windows.h>
 #include <sstream>
-#include "XConsole.h"
+#include "XCppConsole.h"
+#include "XPipeInput.h"
+#include "XPipeOutput.h"
+#include "XCmdArgs.h"
 
 using namespace std;
 
 int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
 	vector<wstring> args;
-	for (int i = 0; i < argc; i++)
+	for (int i = 1; i < argc; i++)
 	{
 		wstring arg = argv[i];
 		args.push_back(arg);
 	}
-	/*wstring cmdLine = GetCommandLine();
-	wstringstream stream(cmdLine);
-	wstring arg;
-	while (getline(stream, arg, L' '))
-	{
-		args.push_back(arg);
-	}*/
+	XCmdArgs xargs(argc, argv);
 	HANDLE input = 0;
 	HANDLE output = 0;
 	HANDLE error = 0;
@@ -40,7 +37,12 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 		output = (HANDLE)std::wcstoull(args.at(1).c_str(), NULL, 0);
 		error = (HANDLE)std::wcstoull(args.at(2).c_str(), NULL, 0);
 	}
-	return 0;
+	XPipeInput xinput(input);
+	XPipeOutput xoutput(output);
+	XPipeOutput xerror(error);
+	XCppConsole xconsole;
+	int res = xconsole.xmain(xinput, xoutput, xerror);
+	return res;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -40,11 +40,11 @@ bool XPipeInput::xread()
 	DWORD nBytes = 0;
 	ZeroMemory(mBuffer, XINPUT_BUFFER_LENGTH);
 	HRESULT hRes = ReadFile(mHandle, mBuffer, XINPUT_BUFFER_LENGTH, &nBytes, NULL);
-	if (hRes == S_OK)
+	if (nBytes > 0)
 	{
 		xparse();
 	}
-	return hRes == S_OK;
+	return nBytes > 0;
 }
 
 int XPipeInput::xreadString(const wchar_t* name, wstring& value)
@@ -64,4 +64,10 @@ int XPipeInput::xreadStrings(map<wstring, wstring>& values)
 {
 	values = mArgs;
 	return 0;
+}
+
+bool XPipeInput::xclose()
+{
+	BOOL bRes = CloseHandle(mHandle);
+	return bRes == TRUE;
 }

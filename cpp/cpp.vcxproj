@@ -164,13 +164,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="XPipeInput.cpp" />
-    <ClCompile Include="XConsole.cpp" />
+    <ClCompile Include="XCppConsole.cpp" />
     <ClCompile Include="cpp.cpp" />
     <ClCompile Include="XPipeOutput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="XPipeInput.h" />
-    <ClInclude Include="XConsole.h" />
+    <ClInclude Include="XCppConsole.h" />
     <ClInclude Include="XPipeOutput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

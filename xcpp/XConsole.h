@@ -10,6 +10,8 @@ namespace xcpp
 
 	class XEXPORT XConsole
 	{
+	private:
+		XInput* mInput;
 	protected:
 		virtual int xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror) = 0;
 		virtual bool xconsole(XInput& xinput) = 0;
@@ -23,7 +25,7 @@ namespace xcpp
 		virtual bool xcreateConsole(XConsole*& xconsole, XInput& xargs, XInput& xinput, XOutput& xoutput, XOutput& xerror) = 0;
 		virtual bool xcloseConsole(XConsole*& xconsole) = 0;
 	public:
-		XConsole();
+		XConsole(XInput* xinput = NULL);
 		virtual ~XConsole();
 		XConsole(const XConsole& other);
 		int xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror);

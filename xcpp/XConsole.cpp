@@ -3,16 +3,19 @@
 
 using namespace xcpp;
 
-XConsole::XConsole()
+XConsole::XConsole(XInput* xinput)
 {
+	mInput = xinput;
 }
 
 XConsole::~XConsole()
 {
+	mInput = NULL;
 }
 
 XConsole::XConsole(const XConsole& other)
 {
+	mInput = other.mInput;
 }
 
 int XConsole::xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror)

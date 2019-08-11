@@ -16,6 +16,7 @@ namespace xcpp
 		virtual int xreadString(const wchar_t* name, wstring& value) = 0;
 		virtual int xreadString(int index, wstring& value) = 0;
 		virtual int xreadStrings(map<wstring, wstring>& values) = 0;
+		virtual bool xclose() = 0;
 	};
 
 }

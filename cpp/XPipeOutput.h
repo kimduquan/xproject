@@ -18,6 +18,7 @@ public:
 	virtual int xwriteString(int index, const wchar_t* value);
 	virtual int xwriteString(const wchar_t* name, const wchar_t* value);
 	virtual int xwriteStrings(map<wstring, wstring>& values);
+	virtual bool xclose();
 };
 
 

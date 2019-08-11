@@ -18,24 +18,24 @@
     <ClCompile Include="cpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XConsole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XPipeInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XPipeOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XCppConsole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="XConsole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="XPipeInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="XPipeOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XCppConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
