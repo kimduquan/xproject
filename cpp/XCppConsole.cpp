@@ -2,6 +2,7 @@
 #include "XPipeInput.h"
 #include "XPipeOutput.h"
 #include <fstream>
+#include <io.h>
 
 XCppConsole::XCppConsole(XInput* xargs) : XConsole(xargs)
 {
@@ -69,9 +70,15 @@ bool XCppConsole::xconsole(XInput& xinput)
 {
 	wstring name;
 	xinput.xreadString(0, name);
+	wchar_t buffer[500] = { 0 };
+	GetCurrentDirectory(500, buffer);
 	name += L".exe";
-	std::ifstream file(name);
-	return file.good();
+	wstring path;
+	xgetCurrentDirectory(path);
+	path += name;
+	DWORD attrs = GetFileAttributes(path.c_str());
+	DWORD err = GetLastError();
+	return attrs != INVALID_FILE_ATTRIBUTES;
 }
 
 bool XCppConsole::xcreateInput(XInput*& xinput)
@@ -156,8 +163,11 @@ bool XCppConsole::xcreateConsole(XConsole*& xconsole, XInput& xargs, XInput& xin
 {
 	xconsole = this;
 	wstring name;
-	xinput.xreadString(0, name);
+	xargs.xreadString(0, name);
 	name += wstring(L".exe");
+	wstring path;
+	xgetCurrentDirectory(path);
+	path += name;
 	wstring cmd = L"";
 	cmd += to_wstring((unsigned long long)mInputRead);
 	cmd += L" ";
@@ -165,7 +175,7 @@ bool XCppConsole::xcreateConsole(XConsole*& xconsole, XInput& xargs, XInput& xin
 	cmd += L" ";
 	cmd += to_wstring((unsigned long long)mErrorWrite);
 
-	BOOL bRes = xcreateProcess(name.c_str(), cmd.c_str(), mProcInfo);
+	BOOL bRes = xcreateProcess(path.c_str(), cmd.c_str(), mProcInfo);
 	return bRes == TRUE;
 }
 
@@ -176,4 +186,13 @@ bool XCppConsole::xcloseConsole(XConsole*& xconsole)
 	BOOL bRes = TerminateProcess(mProcInfo.hProcess, 0);
 	ZeroMemory(&mProcInfo, sizeof(PROCESS_INFORMATION));
 	return bRes == TRUE;
+}
+
+void XCppConsole::xgetCurrentDirectory(wstring& path)
+{
+#ifdef _DEBUG
+	path = L"..\\x64\\Debug\\";
+#else
+	path = L"";
+#endif // _DEBUG
 }

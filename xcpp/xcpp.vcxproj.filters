@@ -33,6 +33,18 @@
     <ClInclude Include="XCmdArgs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XStdInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XStdOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XRemoteInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XRemoteOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -51,6 +63,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XCmdArgs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStdInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStdOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XRemoteInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XRemoteOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

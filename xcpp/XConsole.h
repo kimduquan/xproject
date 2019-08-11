@@ -24,6 +24,7 @@ namespace xcpp
 		virtual bool xcloseError(XOutput*& xerror) = 0;
 		virtual bool xcreateConsole(XConsole*& xconsole, XInput& xargs, XInput& xinput, XOutput& xoutput, XOutput& xerror) = 0;
 		virtual bool xcloseConsole(XConsole*& xconsole) = 0;
+		virtual int xremote(XInput& xinput, XOutput& xoutput, XOutput& xerror);
 	public:
 		XConsole(XInput* xinput = NULL);
 		virtual ~XConsole();

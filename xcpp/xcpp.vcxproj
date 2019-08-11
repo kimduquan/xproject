@@ -162,6 +162,10 @@
     <ClInclude Include="XConsole.h" />
     <ClInclude Include="XInput.h" />
     <ClInclude Include="XOutput.h" />
+    <ClInclude Include="XRemoteInput.h" />
+    <ClInclude Include="XRemoteOutput.h" />
+    <ClInclude Include="XStdInput.h" />
+    <ClInclude Include="XStdOutput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -175,6 +179,10 @@
     <ClCompile Include="XConsole.cpp" />
     <ClCompile Include="XInput.cpp" />
     <ClCompile Include="XOutput.cpp" />
+    <ClCompile Include="XRemoteInput.cpp" />
+    <ClCompile Include="XRemoteOutput.cpp" />
+    <ClCompile Include="XStdInput.cpp" />
+    <ClCompile Include="XStdOutput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

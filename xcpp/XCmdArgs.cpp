@@ -3,7 +3,7 @@
 
 using namespace xcpp;
 
-XCmdArgs::XCmdArgs(int argc, wchar_t* argv[]) : XInput(), mArgs(), mValues()
+XCmdArgs::XCmdArgs(int argc, wchar_t* argv[]) : XInput(), mArgs()
 {
 	for (int i = 0; i < argc; i++)
 	{
@@ -35,21 +35,6 @@ bool XCmdArgs::xread()
 		index++;
 	}
 	return bRes;
-}
-
-int XCmdArgs::xreadString(const wchar_t* name, wstring& value)
-{
-	return 0;
-}
-
-int XCmdArgs::xreadString(int index, wstring& value)
-{
-	return 0;
-}
-
-int XCmdArgs::xreadStrings(map<wstring, wstring>& values)
-{
-	return 0;
 }
 
 bool XCmdArgs::xclose()

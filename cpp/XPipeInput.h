@@ -10,7 +10,6 @@ using namespace xcpp;
 class XPipeInput : public XInput
 {
 private:
-	map<wstring, wstring> mArgs;
 	wchar_t mBuffer[XINPUT_BUFFER_LENGTH] = { 0 };
 	HANDLE mHandle;
 protected:
@@ -20,9 +19,6 @@ public:
 	virtual ~XPipeInput();
 	XPipeInput(const XPipeInput& other);
 	virtual bool xread();
-	virtual int xreadString(const wchar_t* name, wstring& value);
-	virtual int xreadString(int index, wstring& value);
-	virtual int xreadStrings(map<wstring, wstring>& values);
 	virtual bool xclose();
 };
 

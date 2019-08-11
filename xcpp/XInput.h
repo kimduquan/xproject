@@ -8,15 +8,18 @@ namespace xcpp
 
 	class XEXPORT XInput
 	{
+	protected:
+		map<wstring, wstring> mValues;
 	public:
 		XInput();
 		virtual ~XInput();
 		XInput(const XInput& other);
 		virtual bool xread() = 0;
-		virtual int xreadString(const wchar_t* name, wstring& value) = 0;
-		virtual int xreadString(int index, wstring& value) = 0;
-		virtual int xreadStrings(map<wstring, wstring>& values) = 0;
+		virtual int xreadString(const wchar_t* name, wstring& value);
+		virtual int xreadString(int index, wstring& value);
+		virtual int xreadStrings(map<wstring, wstring>& values);
 		virtual bool xclose() = 0;
+		virtual int xsize();
 	};
 
 }

@@ -10,38 +10,47 @@
 #include "XPipeInput.h"
 #include "XPipeOutput.h"
 #include "XCmdArgs.h"
+#include "XStdInput.h"
+#include "XStdOutput.h"
 
 using namespace std;
 
 int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
-	vector<wstring> args;
-	for (int i = 1; i < argc; i++)
-	{
-		wstring arg = argv[i];
-		args.push_back(arg);
-	}
+	int res = 0;
 	XCmdArgs xargs(argc, argv);
 	HANDLE input = 0;
 	HANDLE output = 0;
 	HANDLE error = 0;
-	if (args.size() == 0)
+	if (xargs.xsize() == 0)
 	{
 		input = GetStdHandle(STD_INPUT_HANDLE);
 		output = GetStdHandle(STD_OUTPUT_HANDLE);
 		error = GetStdHandle(STD_ERROR_HANDLE);
+		XStdInput xinput(cin);
+		XStdOutput xoutput(cout);
+		XStdOutput xerror(cerr);
+		XCppConsole xconsole;
+		res = xconsole.xmain(xinput, xoutput, xerror);
 	}
-	else if (args.size() == 3)
+	else if (xargs.xsize() == 3)
 	{
-		input = (HANDLE)std::wcstoull(args.at(0).c_str(), NULL, 0);
-		output = (HANDLE)std::wcstoull(args.at(1).c_str(), NULL, 0);
-		error = (HANDLE)std::wcstoull(args.at(2).c_str(), NULL, 0);
+		wstring temp = L"";
+		xargs.xreadString(0, temp);
+		input = (HANDLE)std::wcstoull(temp.c_str(), NULL, 0);
+		temp = L"";
+		xargs.xreadString(1, temp);
+		output = (HANDLE)std::wcstoull(temp.c_str(), NULL, 0);
+		temp = L"";
+		xargs.xreadString(2, temp);
+		error = (HANDLE)std::wcstoull(temp.c_str(), NULL, 0);
+		XPipeInput xinput(input);
+		XPipeOutput xoutput(output);
+		XPipeOutput xerror(error);
+		XCppConsole xconsole;
+		res = xconsole.xmain(xinput, xoutput, xerror);
 	}
-	XPipeInput xinput(input);
-	XPipeOutput xoutput(output);
-	XPipeOutput xerror(error);
-	XCppConsole xconsole;
-	int res = xconsole.xmain(xinput, xoutput, xerror);
+
 	return res;
 }
 

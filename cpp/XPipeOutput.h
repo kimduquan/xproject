@@ -8,16 +8,12 @@ using namespace xcpp;
 class XPipeOutput : public XOutput
 {
 private:
-	map<wstring, wstring> mData;
 	HANDLE mHandle;
 public:
 	XPipeOutput(HANDLE handle);
 	virtual ~XPipeOutput();
 	XPipeOutput(const XPipeOutput& other);
 	virtual bool xwrite();
-	virtual int xwriteString(int index, const wchar_t* value);
-	virtual int xwriteString(const wchar_t* name, const wchar_t* value);
-	virtual int xwriteStrings(map<wstring, wstring>& values);
 	virtual bool xclose();
 };
 

@@ -35,12 +35,8 @@ int XConsole::xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror)
 			{
 				res = xfunction(xinput, xoutput, xerror);
 			}
-
-			if (res == 0)
-			{
-				flag = xoutput.xwrite();
-			}
-			else
+			flag = xoutput.xwrite();
+			if(flag)
 			{
 				flag = xerror.xwrite();
 			}
@@ -60,7 +56,7 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror)
 		XConsole* xconsole = NULL;
 		if (xcreateConsole(xconsole, xinput, *xnewInput, *xnewOutput, *xnewError))
 		{
-			res = xconsole->xmain(*xnewInput, *xnewOutput, *xnewError);
+			res = xremote(*xnewInput, *xnewOutput, *xnewError);
 			xcloseConsole(xconsole);
 		}
 	}
@@ -70,5 +66,24 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror)
 		xcloseOutput(xnewOutput);
 	if(xnewInput != NULL)
 		xcloseInput(xnewInput);
+	return res;
+}
+
+int XConsole::xremote(XInput& xinput, XOutput& xoutput, XOutput& xerror)
+{
+	int res = 0;
+	bool flag = false;
+	do
+	{
+		flag = xinput.xread();
+		if (flag)
+		{
+			flag = xoutput.xwrite();
+			if(flag)
+			{
+				flag = xerror.xwrite();
+			}
+		}
+	} while (flag);
 	return res;
 }

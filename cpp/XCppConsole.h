@@ -18,6 +18,7 @@ private:
 protected:
 	static BOOL xcreatePipe(HANDLE& read, HANDLE& write);
 	static BOOL xcreateProcess(const wchar_t* name, const wchar_t* cmd, PROCESS_INFORMATION& procInfo);
+	static void xgetCurrentDirectory(wstring& path);
 
 	virtual int xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror);
 	virtual bool xconsole(XInput& xinput);
