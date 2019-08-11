@@ -16,6 +16,7 @@ namespace xcpp
 		XCmdArgs(const XCmdArgs& other);
 		virtual bool xread();
 		virtual bool xclose();
+		static wstring xto_wstring(HANDLE input, HANDLE output, HANDLE err);
 	};
 
 }

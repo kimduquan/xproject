@@ -19,14 +19,8 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
 	int res = 0;
 	XCmdArgs xargs(argc, argv);
-	HANDLE input = 0;
-	HANDLE output = 0;
-	HANDLE error = 0;
 	if (xargs.xsize() == 0)
 	{
-		input = GetStdHandle(STD_INPUT_HANDLE);
-		output = GetStdHandle(STD_OUTPUT_HANDLE);
-		error = GetStdHandle(STD_ERROR_HANDLE);
 		XStdInput xinput(cin);
 		XStdOutput xoutput(cout);
 		XStdOutput xerror(cerr);
@@ -35,15 +29,15 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 	}
 	else if (xargs.xsize() == 3)
 	{
-		wstring temp = L"";
-		xargs.xreadString(0, temp);
-		input = (HANDLE)std::wcstoull(temp.c_str(), NULL, 0);
-		temp = L"";
-		xargs.xreadString(1, temp);
-		output = (HANDLE)std::wcstoull(temp.c_str(), NULL, 0);
-		temp = L"";
-		xargs.xreadString(2, temp);
-		error = (HANDLE)std::wcstoull(temp.c_str(), NULL, 0);
+		wstring in;
+		xargs.xreadString(L"in", in);
+		HANDLE input = (HANDLE)std::wcstoull(in.c_str(), NULL, 0);
+		wstring out;
+		xargs.xreadString(L"out", out);
+		HANDLE output = (HANDLE)std::wcstoull(out.c_str(), NULL, 0);
+		wstring err;
+		xargs.xreadString(L"err", err);
+		HANDLE error = (HANDLE)std::wcstoull(err.c_str(), NULL, 0);
 		XPipeInput xinput(input);
 		XPipeOutput xoutput(output);
 		XPipeOutput xerror(error);

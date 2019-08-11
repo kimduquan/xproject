@@ -51,13 +51,12 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror)
 	XInput* xnewInput = NULL;
 	XOutput* xnewOutput = NULL;
 	XOutput* xnewError = NULL;
-	if (xcreateInput(xnewInput) && xcreateOutput(xnewOutput) && xcreateError(xnewError))
+	XConsole* xconsole = NULL;
+	if (xcreateInput(xnewInput, xinput) && xcreateOutput(xnewOutput, xoutput) && xcreateError(xnewError, xerror))
 	{
-		XConsole* xconsole = NULL;
 		if (xcreateConsole(xconsole, xinput, *xnewInput, *xnewOutput, *xnewError))
 		{
 			res = xremote(*xnewInput, *xnewOutput, *xnewError);
-			xcloseConsole(xconsole);
 		}
 	}
 	if(xnewError != NULL)
@@ -66,6 +65,10 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror)
 		xcloseOutput(xnewOutput);
 	if(xnewInput != NULL)
 		xcloseInput(xnewInput);
+	if (xconsole != NULL)
+	{
+		xcloseConsole(xconsole);
+	}
 	return res;
 }
 

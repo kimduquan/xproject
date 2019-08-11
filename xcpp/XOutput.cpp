@@ -17,12 +17,6 @@ XOutput::XOutput(const XOutput& other)
 	mValues = other.mValues;
 }
 
-int XOutput::xwriteString(int index, const wchar_t* value)
-{
-	mValues[to_wstring(index)] = wstring(value);
-	return 0;
-}
-
 int XOutput::xwriteString(const wchar_t* name, const wchar_t* value)
 {
 	mValues[wstring(name)] = wstring(value);

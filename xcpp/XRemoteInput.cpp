@@ -3,14 +3,15 @@
 
 using namespace xcpp;
 
-XRemoteInput::XRemoteInput(XInput* xinput, XOutput* xoutput) : XInput()
+XRemoteInput::XRemoteInput(XInput& xinput, XOutput* xoutput) : XInput(xinput)
 {
-	mInput = xinput;
+	mInput = &xinput;
 	mOutput = xoutput;
 }
 
 XRemoteInput::~XRemoteInput()
 {
+	delete mOutput;
 }
 
 XRemoteInput::XRemoteInput(const XRemoteInput& other) : XInput(other)
@@ -27,12 +28,18 @@ bool XRemoteInput::xread()
 		map<wstring, wstring> data;
 		mInput->xreadStrings(data);
 		mOutput->xwriteStrings(data);
+		bRes = mOutput->xwrite();
 	}
 	return bRes;
 }
 
 bool XRemoteInput::xclose()
 {
-	return true;
+	bool bRes = mOutput->xclose();
+	if (bRes)
+	{
+		mInput->xclose();
+	}
+	return bRes;
 }
 

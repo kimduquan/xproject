@@ -3,16 +3,16 @@
 #include "XPipeOutput.h"
 #include <fstream>
 #include <io.h>
+#include "XRemoteInput.h"
+#include "XRemoteOutput.h"
+#include "XCmdArgs.h"
 
 XCppConsole::XCppConsole(XInput* xargs) : XConsole(xargs)
 {
-	this->mErrorRead = NULL;
-	this->mErrorWrite = NULL;
-	this->mInputRead = NULL;
-	this->mInputWrite = NULL;
-	this->mOutputRead = NULL;
-	this->mOutputWrite = NULL;
 	ZeroMemory(&mProcInfo, sizeof(PROCESS_INFORMATION));
+	this->mInputRead = 0;
+	this->mOutputWrite = 0;
+	this->mErrorWrite = 0;
 }
 
 XCppConsole::~XCppConsole()
@@ -21,16 +21,13 @@ XCppConsole::~XCppConsole()
 
 XCppConsole::XCppConsole(const XCppConsole& other) : XConsole(other)
 {
-	this->mErrorRead = other.mErrorRead;
-	this->mErrorWrite = other.mErrorWrite;
-	this->mInputRead = other.mInputRead;
-	this->mInputWrite = other.mInputWrite;
-	this->mOutputRead = other.mOutputRead;
-	this->mOutputWrite = other.mOutputWrite;
 	this->mProcInfo.dwProcessId = other.mProcInfo.dwProcessId;
 	this->mProcInfo.dwThreadId = other.mProcInfo.dwThreadId;
 	this->mProcInfo.hProcess = other.mProcInfo.hProcess;
 	this->mProcInfo.hThread = other.mProcInfo.hThread;
+	this->mInputRead = other.mInputRead;
+	this->mOutputWrite = other.mOutputWrite;
+	this->mErrorWrite = other.mErrorWrite;
 }
 
 BOOL XCppConsole::xcreatePipe(HANDLE& read, HANDLE& write)
@@ -68,8 +65,7 @@ int XCppConsole::xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror)
 
 bool XCppConsole::xconsole(XInput& xinput)
 {
-	wstring name;
-	xinput.xreadString(0, name);
+	wstring name = xinput.xfirstString();
 	wchar_t buffer[500] = { 0 };
 	GetCurrentDirectory(500, buffer);
 	name += L".exe";
@@ -81,80 +77,71 @@ bool XCppConsole::xconsole(XInput& xinput)
 	return attrs != INVALID_FILE_ATTRIBUTES;
 }
 
-bool XCppConsole::xcreateInput(XInput*& xinput)
+bool XCppConsole::xcreateInput(XInput*& xnewInput, XInput& xinput)
 {
 	HANDLE read = 0;
 	HANDLE write = 0;
 	bool bRes = xcreatePipe(read, write);
 	if (bRes)
 	{
-		mInputRead = new XPipeInput(read);
-		mInputWrite = new XPipeOutput(write);
-		xinput = mInputRead;
+		this->mInputRead = read;
+		XOutput* xinputWrite = new XPipeOutput(write);
+		xnewInput = new XRemoteInput(xinput, xinputWrite);
 	}
 	return bRes;
 }
 
-bool XCppConsole::xcreateOutput(XOutput*& xoutput)
+bool XCppConsole::xcreateOutput(XOutput*& xnewOutput, XOutput& xoutput)
 {
 	HANDLE read = 0;
 	HANDLE write = 0;
 	bool bRes = xcreatePipe(read, write);
 	if (bRes)
 	{
-		mOutputRead = new XPipeInput(read);
-		mOutputWrite = new XPipeOutput(write);
-		xoutput = mOutputWrite;
+		this->mOutputWrite = write;
+		XInput* xoutputRead = new XPipeInput(read);
+		xnewOutput = new XRemoteOutput(xoutputRead, xoutput);
 	}
 	return bRes;
 }
 
-bool XCppConsole::xcreateError(XOutput*& xerror)
+bool XCppConsole::xcreateError(XOutput*& xnewError, XOutput& xerror)
 {
 	HANDLE read = 0;
 	HANDLE write = 0;
 	bool bRes = xcreatePipe(read, write);
 	if (bRes)
 	{
-		mErrorRead = new XPipeInput(read);
-		mErrorWrite = new XPipeOutput(write);
-		xerror = mErrorWrite;
+		this->mErrorWrite = write;
+		XInput* xerrorRead = new XPipeInput(read);
+		xnewError = new XRemoteOutput(xerrorRead, xerror);
 	}
 	return bRes;
 }
 
 bool XCppConsole::xcloseInput(XInput*& xinput)
 {
-	bool bRes = mInputRead->xclose();
-	delete mInputRead;
-	mInputRead = NULL;
-	mInputWrite->xclose();
-	delete mInputWrite;
-	mInputWrite = NULL;
+	CloseHandle(mInputRead);
+	bool bRes = xinput->xclose();
+	delete xinput;
 	xinput = NULL;
 	return bRes;
 }
 
 bool XCppConsole::xcloseOutput(XOutput*& xoutput)
 {
-	bool bRes = mOutputWrite->xclose();
-	delete mOutputWrite;
-	mOutputWrite = NULL;
-	mOutputRead->xclose();
-	delete mOutputRead;
-	mOutputRead = NULL;
+	CloseHandle(mOutputWrite);
+	bool bRes = xoutput->xclose();
+	delete xoutput;
 	xoutput = NULL;
 	return bRes;
 }
 
 bool XCppConsole::xcloseError(XOutput*& xerror)
 {
-	bool bRes = mErrorWrite->xclose();
-	delete mErrorWrite;
-	mErrorWrite = NULL;
-	mErrorRead->xclose();
-	delete mErrorRead;
-	mErrorRead = NULL;
+	CloseHandle(mErrorWrite);
+	bool bRes = xerror->xclose();
+	delete xerror;
 	xerror = NULL;
 	return bRes;
 }
@@ -162,18 +149,13 @@ bool XCppConsole::xcloseError(XOutput*& xerror)
 bool XCppConsole::xcreateConsole(XConsole*& xconsole, XInput& xargs, XInput& xinput, XOutput& xoutput, XOutput& xerror)
 {
 	xconsole = this;
-	wstring name;
-	xargs.xreadString(0, name);
+	wstring name = xinput.xfirstString();
 	name += wstring(L".exe");
 	wstring path;
 	xgetCurrentDirectory(path);
 	path += name;
-	wstring cmd = L"";
-	cmd += to_wstring((unsigned long long)mInputRead);
-	cmd += L" ";
-	cmd += to_wstring((unsigned long long)mOutputWrite);
-	cmd += L" ";
-	cmd += to_wstring((unsigned long long)mErrorWrite);
+	wstring cmd = XCmdArgs::xto_wstring(mInputRead, mOutputWrite, mErrorWrite);
+	
 
 	BOOL bRes = xcreateProcess(path.c_str(), cmd.c_str(), mProcInfo);
 	return bRes == TRUE;

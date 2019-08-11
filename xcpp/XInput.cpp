@@ -5,6 +5,7 @@ using namespace xcpp;
 
 XInput::XInput() : mValues()
 {
+	mFirst = L"";
 }
 
 XInput::~XInput()
@@ -15,6 +16,7 @@ XInput::~XInput()
 XInput::XInput(const XInput& other)
 {
 	mValues = other.mValues;
+	mFirst = other.mFirst;
 }
 
 int XInput::xreadString(const wchar_t* name, wstring& value)
@@ -24,10 +26,9 @@ int XInput::xreadString(const wchar_t* name, wstring& value)
 	return 0;
 }
 
-int XInput::xreadString(int index, wstring& value)
+wstring XInput::xfirstString()
 {
-	value = mValues[to_wstring(index)];
-	return 0;
+	return mFirst;
 }
 
 int XInput::xreadStrings(map<wstring, wstring>& values)

@@ -10,13 +10,14 @@ namespace xcpp
 	{
 	protected:
 		map<wstring, wstring> mValues;
+		wstring mFirst;
 	public:
 		XInput();
 		virtual ~XInput();
 		XInput(const XInput& other);
 		virtual bool xread() = 0;
+		virtual wstring xfirstString();
 		virtual int xreadString(const wchar_t* name, wstring& value);
-		virtual int xreadString(int index, wstring& value);
 		virtual int xreadStrings(map<wstring, wstring>& values);
 		virtual bool xclose() = 0;
 		virtual int xsize();

@@ -16,9 +16,9 @@ namespace xcpp
 		virtual int xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror) = 0;
 		virtual bool xconsole(XInput& xinput) = 0;
 		virtual int xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror);
-		virtual bool xcreateInput(XInput*& xinput) = 0;
-		virtual bool xcreateOutput(XOutput*& xoutput) = 0;
-		virtual bool xcreateError(XOutput*& xerror) = 0;
+		virtual bool xcreateInput(XInput*& xnewInput, XInput& xinput) = 0;
+		virtual bool xcreateOutput(XOutput*& xnewOutput, XOutput& xoutput) = 0;
+		virtual bool xcreateError(XOutput*& xnewError, XOutput& xerror) = 0;
 		virtual bool xcloseInput(XInput*& xinput) = 0;
 		virtual bool xcloseOutput(XOutput*& xoutput) = 0;
 		virtual bool xcloseError(XOutput*& xerror) = 0;

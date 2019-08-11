@@ -24,10 +24,14 @@ void XPipeInput::xparse()
 	long size = std::wcstol(szSize.c_str(), NULL, 0);
 	for (int i = 0; i < size; i++)
 	{
+		wstring name = pos;
+		pos[name.size()] = '\0';
+		pos += (name.size() + 1);
+
 		wstring value = pos;
 		pos[value.size()] = '\0';
 		pos += (value.size() + 1);
-		mValues[to_wstring(i)] = value;
+		mValues[name] = value;
 	}
 }
 

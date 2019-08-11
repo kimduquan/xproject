@@ -25,14 +25,17 @@ bool XStdInput::xread()
 	(*mStream) >> str;
 	wstringstream stream;
 	stream << str.c_str();
-	wstring value;
-	int index = 0;
-	while (std::getline(stream, value, L' '))
+	if (std::getline(stream, mFirst, L' '))
 	{
-		mValues[to_wstring(index)] = value;
-		index++;
-		value = L"";
 		bRes = true;
+		wstring name;
+		while (std::getline(stream, name, L' '))
+		{
+			wstring value;
+			std::getline(stream, value, L' ');
+			mValues[name] = value;
+			name = L"";
+		}
 	}
 	return bRes;
 }

@@ -13,7 +13,7 @@ namespace xcpp
 		XOutput* mOutput;
 		XInput* mInput;
 	public:
-		XRemoteInput(XInput* xinput, XOutput* xouput);
+		XRemoteInput(XInput& xinput, XOutput* xouput);
 		virtual ~XRemoteInput();
 		XRemoteInput(const XRemoteInput& other);
 		virtual bool xread();

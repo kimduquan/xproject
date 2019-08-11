@@ -42,9 +42,6 @@ bool XPipeOutput::xwrite()
 		wmemcpy(pos, it->first.c_str(), it->first.size());
 		pos[it->first.size() + 1] = '\0';
 		pos += (it->first.size() + 1);
-		
-		wmemcpy(pos, L"=", 1);
-		pos++;
 
 		wmemcpy(pos, it->second.c_str(), it->second.size());
 		pos[it->second.size() + 1] = '\0';

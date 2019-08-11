@@ -9,12 +9,9 @@ class XCppConsole : public XConsole
 {
 private:
 	PROCESS_INFORMATION mProcInfo;
-	XInput* mInputRead;
-	XOutput* mInputWrite;
-	XInput* mOutputRead;
-	XOutput* mOutputWrite;
-	XInput* mErrorRead;
-	XOutput* mErrorWrite;
+	HANDLE mInputRead;
+	HANDLE mOutputWrite;
+	HANDLE mErrorWrite;
 protected:
 	static BOOL xcreatePipe(HANDLE& read, HANDLE& write);
 	static BOOL xcreateProcess(const wchar_t* name, const wchar_t* cmd, PROCESS_INFORMATION& procInfo);
@@ -22,9 +19,9 @@ protected:
 
 	virtual int xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror);
 	virtual bool xconsole(XInput& xinput);
-	virtual bool xcreateInput(XInput*& xinput);
-	virtual bool xcreateOutput(XOutput*& xoutput);
-	virtual bool xcreateError(XOutput*& xerror);
+	virtual bool xcreateInput(XInput*& xnewInput, XInput& xinput);
+	virtual bool xcreateOutput(XOutput*& xnewOutput, XOutput& xoutput);
+	virtual bool xcreateError(XOutput*& xnewError, XOutput& xerror);
 	virtual bool xcloseInput(XInput*& xinput);
 	virtual bool xcloseOutput(XOutput*& xoutput);
 	virtual bool xcloseError(XOutput*& xerror);
