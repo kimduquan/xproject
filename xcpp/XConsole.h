@@ -1,7 +1,7 @@
 #ifndef _XCONSOLE_H_
 #define _XCONSOLE_H_
 
-#include "framework.h"
+
 #include "XInput.h"
 #include "XOutput.h"
 

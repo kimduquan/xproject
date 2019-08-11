@@ -1,7 +1,6 @@
 #ifndef _XCMD_ARGS_H_
 #define _XCMD_ARGS_H_
 
-#include "framework.h"
 #include "XInput.h"
 
 namespace xcpp

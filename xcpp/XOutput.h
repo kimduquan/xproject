@@ -13,8 +13,9 @@ namespace xcpp
 		virtual ~XOutput();
 		XOutput(const XOutput& other);
 		virtual bool xwrite() = 0;
+		virtual int xwriteString(int index, const wchar_t* value) = 0;
 		virtual int xwriteString(const wchar_t* name, const wchar_t* value) = 0;
-		virtual int xwriteStrings(const map<wstring, wstring>& values) = 0;
+		virtual int xwriteStrings(map<wstring, wstring>& values) = 0;
 	};
 
 }
