@@ -37,20 +37,8 @@ int XConsole::xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& 
 			{
 				res = xfunction(xinput, xoutput, xerror, xlog);
 			}
-			flag = res == 0;
-			if (flag)
-			{
-				flag = xoutput.xwrite();
-				if (flag)
-				{
-					map<wstring, wstring> data;
-					xinput.xreadStrings(data);
-					xlog.xwriteStrings(data);
-					xlog.xwrite();
 
-					flag = xerror.xwrite();
-				}
-			}
+			flag = res == 0;
 		}
 	} while (flag);
 	return res;
@@ -76,7 +64,8 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutpu
 	{
 		if (xcreateConsole(xconsole, xinput, *xnewInput, *xnewOutput, *xnewError, *xnewLog))
 		{
-			res = xremote(*xnewInput, *xnewOutput, *xnewError, *xnewLog);
+			if(xreturn(xinput, xoutput, xerror, xlog))
+				res = xremote(*xnewInput, *xnewOutput, *xnewError, *xnewLog);
 		}
 	}
 
@@ -106,17 +95,25 @@ int XConsole::xremote(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput
 		flag = xinput.xread();
 		if (flag)
 		{
-			flag = xoutput.xwrite();
-			if(flag)
-			{
-				map<wstring, wstring> data;
-				xinput.xreadStrings(data);
-				xlog.xwriteStrings(data);
-				xlog.xwrite();
-
-				flag = xerror.xwrite();
-			}
+			flag = xreturn(xinput, xoutput, xerror, xlog);
 		}
 	} while (flag);
 	return res;
+}
+
+bool XConsole::xreturn(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog)
+{
+	bool flag = xoutput.xwrite();
+	if (flag)
+	{
+		map<wstring, wstring> data;
+		xinput.xreadStrings(data);
+		xlog.xwriteStrings(data);
+		flag = xlog.xwrite();
+		if (flag)
+		{
+			flag = xerror.xwrite();
+		}
+	}
+	return flag;
 }

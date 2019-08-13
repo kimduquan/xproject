@@ -63,7 +63,10 @@ BOOL XCppConsole::xcreateProcess(const wchar_t* name, const wchar_t* cmd, PROCES
 
 int XCppConsole::xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog)
 {
-	return -1;
+	int res = -1;
+	xoutput.xwriteString(L"return", std::to_wstring(res).c_str());
+	xreturn(xinput, xoutput, xerror, xlog);
+	return res;
 }
 
 bool XCppConsole::xconsole(XInput& xinput)

@@ -21,7 +21,7 @@ XStdOutput::XStdOutput(const XStdOutput& other) : XOutput(other)
 bool XStdOutput::xwrite()
 {
 	XLog xlog(L"XStdInput::xwrite");
-	bool bRes = false;
+	bool bRes = true;
 	map<wstring, wstring>::iterator it = mValues.begin();
 	while (it != mValues.end())
 	{
