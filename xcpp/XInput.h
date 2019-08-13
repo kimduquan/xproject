@@ -16,7 +16,7 @@ namespace xcpp
 		virtual ~XInput();
 		XInput(const XInput& other);
 		virtual bool xread() = 0;
-		virtual wstring xfirstString();
+		virtual const wchar_t* xfirstString();
 		virtual int xreadString(const wchar_t* name, wstring& value);
 		virtual int xreadStrings(map<wstring, wstring>& values);
 		virtual bool xclose() = 0;

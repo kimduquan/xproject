@@ -10,9 +10,9 @@ namespace xcpp
 	class XEXPORT XStdInput : public XInput
 	{
 	private:
-		istream* mStream;
+		wistream* mStream;
 	public:
-		XStdInput(istream& mStream);
+		XStdInput(wistream& mStream);
 		virtual ~XStdInput();
 		XStdInput(const XStdInput& other);
 		virtual bool xread();

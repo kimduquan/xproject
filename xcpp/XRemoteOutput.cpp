@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "XRemoteOutput.h"
+#include "XLog.h"
 
 using namespace xcpp;
 
@@ -22,9 +23,11 @@ XRemoteOutput::XRemoteOutput(const XRemoteOutput& other) : XOutput(other)
 
 bool XRemoteOutput::xwrite()
 {
+	XLog xlog(L"XRemoteOutput::xwrite");
 	bool bRes = mInput->xread();
 	if (bRes)
 	{
+		mOutput->xfirstString(mInput->xfirstString());
 		map<wstring, wstring> data;
 		mInput->xreadStrings(data);
 		mOutput->xwriteStrings(data);
@@ -35,6 +38,7 @@ bool XRemoteOutput::xwrite()
 
 bool XRemoteOutput::xclose()
 {
+	XLog xlog(L"XRemoteOutput::xclose");
 	bool bRes = mInput->xclose();
 	if (bRes)
 	{

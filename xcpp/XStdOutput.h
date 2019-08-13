@@ -8,9 +8,9 @@ namespace xcpp
 	class XEXPORT XStdOutput : public XOutput
 	{
 	private:
-		ostream* mStream;
+		wostream* mStream;
 	public:
-		XStdOutput(ostream& stream);
+		XStdOutput(wostream& stream);
 		virtual ~XStdOutput();
 		XStdOutput(const XStdOutput& other);
 		virtual bool xwrite();

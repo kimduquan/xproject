@@ -12,23 +12,33 @@
 #include "XCmdArgs.h"
 #include "XStdInput.h"
 #include "XStdOutput.h"
+#include "XLog.h"
 
 using namespace std;
 
 int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 {
+	XLog xlog(L"wmain");
 	int res = 0;
 	XCmdArgs xargs(argc, argv);
+	xargs.xread();
 	if (xargs.xsize() == 0)
 	{
-		XStdInput xinput(cin);
-		XStdOutput xoutput(cout);
-		XStdOutput xerror(cerr);
-		XCppConsole xconsole;
-		res = xconsole.xmain(xinput, xoutput, xerror);
+		XStdInput xinput(wcin);
+		XStdOutput xoutput(wcout);
+		XStdOutput xerror(wcerr);
+		XStdOutput xlog(wclog);
+		XCppConsole xconsole(&xargs);
+		res = xconsole.xmain(xinput, xoutput, xerror, xlog);
 	}
-	else if (xargs.xsize() == 3)
+	else if (xargs.xsize() >= 4)
 	{
+		wstring debug;
+		xargs.xreadString(L"debug", debug);
+		if (debug == L"true")
+		{
+			std::wcin >> debug;
+		}
 		wstring in;
 		xargs.xreadString(L"in", in);
 		HANDLE input = (HANDLE)std::wcstoull(in.c_str(), NULL, 0);
@@ -38,11 +48,16 @@ int wmain(int argc, wchar_t* argv[], wchar_t* envp[])
 		wstring err;
 		xargs.xreadString(L"err", err);
 		HANDLE error = (HANDLE)std::wcstoull(err.c_str(), NULL, 0);
+		wstring log;
+		xargs.xreadString(L"log", log);
+		HANDLE logger = (HANDLE)std::wcstoull(log.c_str(), NULL, 0);
+
 		XPipeInput xinput(input);
 		XPipeOutput xoutput(output);
 		XPipeOutput xerror(error);
-		XCppConsole xconsole;
-		res = xconsole.xmain(xinput, xoutput, xerror);
+		XPipeOutput xlog(logger);
+		XCppConsole xconsole(&xargs);
+		res = xconsole.xmain(xinput, xoutput, xerror, xlog);
 	}
 
 	return res;

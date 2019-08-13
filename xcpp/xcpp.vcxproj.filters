@@ -45,6 +45,9 @@
     <ClInclude Include="XRemoteOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -75,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XRemoteOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

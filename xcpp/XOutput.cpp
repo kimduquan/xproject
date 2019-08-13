@@ -5,6 +5,7 @@ using namespace xcpp;
 
 XOutput::XOutput() : mValues()
 {
+	mFirst = L"";
 }
 
 XOutput::~XOutput()
@@ -15,6 +16,7 @@ XOutput::~XOutput()
 XOutput::XOutput(const XOutput& other)
 {
 	mValues = other.mValues;
+	mFirst = other.mFirst;
 }
 
 int XOutput::xwriteString(const wchar_t* name, const wchar_t* value)
@@ -32,4 +34,9 @@ int XOutput::xwriteStrings(map<wstring, wstring>& values)
 int XOutput::xsize()
 {
 	return mValues.size();
+}
+
+void XOutput::xfirstString(const wchar_t* value)
+{
+	mFirst = value;
 }

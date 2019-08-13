@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "XStdOutput.h"
 #include <iostream>
+#include "XLog.h"
 
 using namespace xcpp;
 
-XStdOutput::XStdOutput(ostream& stream) : XOutput()
+XStdOutput::XStdOutput(wostream& stream) : XOutput()
 {
 	mStream = &stream;
 }
@@ -19,11 +20,12 @@ XStdOutput::XStdOutput(const XStdOutput& other) : XOutput(other)
 
 bool XStdOutput::xwrite()
 {
+	XLog xlog(L"XStdInput::xwrite");
 	bool bRes = false;
 	map<wstring, wstring>::iterator it = mValues.begin();
 	while (it != mValues.end())
 	{
-		std::cout << it->first.c_str() << L"=" << it->second.c_str() << L" ";
+		(*mStream) << it->first.c_str() << L"=" << it->second.c_str() << L" ";
 		it++;
 	}
 	return bRes;

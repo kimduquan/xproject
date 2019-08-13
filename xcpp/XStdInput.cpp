@@ -2,10 +2,11 @@
 #include "XStdInput.h"
 #include <iostream>
 #include <sstream>
+#include "XLog.h"
 
 using namespace xcpp;
 
-XStdInput::XStdInput(istream& stream) : XInput()
+XStdInput::XStdInput(wistream& stream) : XInput()
 {
 	mStream = &stream;
 }
@@ -20,8 +21,9 @@ XStdInput::XStdInput(const XStdInput& other) : XInput(other)
 
 bool XStdInput::xread()
 {
+	XLog xlog(L"XStdInput::xread");
 	bool bRes = false;
-	string str;
+	wstring str;
 	(*mStream) >> str;
 	wstringstream stream;
 	stream << str.c_str();

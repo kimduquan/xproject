@@ -26,9 +26,9 @@ int XInput::xreadString(const wchar_t* name, wstring& value)
 	return 0;
 }
 
-wstring XInput::xfirstString()
+const wchar_t* XInput::xfirstString()
 {
-	return mFirst;
+	return mFirst.c_str();
 }
 
 int XInput::xreadStrings(map<wstring, wstring>& values)
