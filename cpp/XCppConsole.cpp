@@ -64,8 +64,6 @@ BOOL XCppConsole::xcreateProcess(const wchar_t* name, const wchar_t* cmd, PROCES
 int XCppConsole::xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog)
 {
 	int res = -1;
-	xoutput.xwriteString(L"return", std::to_wstring(res).c_str());
-	xreturn(xinput, xoutput, xerror, xlog);
 	return res;
 }
 
@@ -83,7 +81,7 @@ bool XCppConsole::xconsole(XInput& xinput)
 	return attrs != INVALID_FILE_ATTRIBUTES;
 }
 
-bool XCppConsole::xcreateInput(XInput*& xnewInput, XInput& xinput)
+bool XCppConsole::xcreateInput(XRemoteInput*& xnewInput, XInput& xinput)
 {
 	XLog l(L"XCppConsole::xcreateInput");
 	HANDLE read = 0;
@@ -98,7 +96,7 @@ bool XCppConsole::xcreateInput(XInput*& xnewInput, XInput& xinput)
 	return bRes;
 }
 
-bool XCppConsole::xcreateOutput(XOutput*& xnewOutput, XOutput& xoutput)
+bool XCppConsole::xcreateOutput(XRemoteOutput*& xnewOutput, XOutput& xoutput)
 {
 	HANDLE read = 0;
 	HANDLE write = 0;
@@ -112,7 +110,7 @@ bool XCppConsole::xcreateOutput(XOutput*& xnewOutput, XOutput& xoutput)
 	return bRes;
 }
 
-bool XCppConsole::xcreateError(XOutput*& xnewError, XOutput& xerror)
+bool XCppConsole::xcreateError(XRemoteOutput*& xnewError, XOutput& xerror)
 {
 	HANDLE read = 0;
 	HANDLE write = 0;
@@ -126,7 +124,7 @@ bool XCppConsole::xcreateError(XOutput*& xnewError, XOutput& xerror)
 	return bRes;
 }
 
-bool XCppConsole::xcreateLog(XOutput*& xnewLog, XOutput& xlog)
+bool XCppConsole::xcreateLog(XRemoteOutput*& xnewLog, XOutput& xlog)
 {
 	HANDLE read = 0;
 	HANDLE write = 0;
@@ -140,7 +138,7 @@ bool XCppConsole::xcreateLog(XOutput*& xnewLog, XOutput& xlog)
 	return bRes;
 }
 
-bool XCppConsole::xcloseInput(XInput*& xinput)
+bool XCppConsole::xcloseInput(XRemoteInput*& xinput)
 {
 	CloseHandle(mInputRead);
 	bool bRes = xinput->xclose();
@@ -149,7 +147,7 @@ bool XCppConsole::xcloseInput(XInput*& xinput)
 	return bRes;
 }
 
-bool XCppConsole::xcloseOutput(XOutput*& xoutput)
+bool XCppConsole::xcloseOutput(XRemoteOutput*& xoutput)
 {
 	CloseHandle(mOutputWrite);
 	bool bRes = xoutput->xclose();
@@ -158,7 +156,7 @@ bool XCppConsole::xcloseOutput(XOutput*& xoutput)
 	return bRes;
 }
 
-bool XCppConsole::xcloseError(XOutput*& xerror)
+bool XCppConsole::xcloseError(XRemoteOutput*& xerror)
 {
 	CloseHandle(mErrorWrite);
 	bool bRes = xerror->xclose();
@@ -167,7 +165,7 @@ bool XCppConsole::xcloseError(XOutput*& xerror)
 	return bRes;
 }
 
-bool XCppConsole::xcloseLog(XOutput*& xlog)
+bool XCppConsole::xcloseLog(XRemoteOutput*& xlog)
 {
 	CloseHandle(mLogWrite);
 	bool bRes = xlog->xclose();

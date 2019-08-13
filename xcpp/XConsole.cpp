@@ -22,7 +22,7 @@ XConsole::XConsole(const XConsole& other)
 int XConsole::xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog)
 {
 	XLog log(L"XConsole::xmain");
-	int res = 0;
+	int res = -1;
 	bool flag = false;
 	do
 	{
@@ -38,7 +38,12 @@ int XConsole::xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& 
 				res = xfunction(xinput, xoutput, xerror, xlog);
 			}
 
-			flag = res == 0;
+			xoutput.xwriteString(L"return", std::to_wstring(res).c_str());
+			flag = xreturn(xinput, xoutput, xerror, xlog);
+			if (flag)
+			{
+				flag = res == 0;
+			}
 		}
 	} while (flag);
 	return res;
@@ -47,11 +52,11 @@ int XConsole::xmain(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& 
 int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog)
 {
 	XLog log(L"XConsole::xconsole");
-	int res = 0;
-	XInput* xnewInput = NULL;
-	XOutput* xnewOutput = NULL;
-	XOutput* xnewError = NULL;
-	XOutput* xnewLog = NULL;
+	int res = -1;
+	XRemoteInput* xnewInput = NULL;
+	XRemoteOutput* xnewOutput = NULL;
+	XRemoteOutput* xnewError = NULL;
+	XRemoteOutput* xnewLog = NULL;
 	XConsole* xconsole = NULL;
 
 	if 
@@ -64,6 +69,7 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutpu
 	{
 		if (xcreateConsole(xconsole, xinput, *xnewInput, *xnewOutput, *xnewError, *xnewLog))
 		{
+			xoutput.xwriteString(L"return", L"0");
 			if(xreturn(xinput, xoutput, xerror, xlog))
 				res = xremote(*xnewInput, *xnewOutput, *xnewError, *xnewLog);
 		}
@@ -85,10 +91,10 @@ int XConsole::xconsole(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutpu
 	return res;
 }
 
-int XConsole::xremote(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog)
+int XConsole::xremote(XRemoteInput& xinput, XRemoteOutput& xoutput, XRemoteOutput& xerror, XRemoteOutput& xlog)
 {
 	XLog log(L"XConsole::xremote");
-	int res = 0;
+	int res = -1;
 	bool flag = false;
 	do
 	{
@@ -96,6 +102,16 @@ int XConsole::xremote(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput
 		if (flag)
 		{
 			flag = xreturn(xinput, xoutput, xerror, xlog);
+			if (flag)
+			{
+				wstring xreturn;
+				xoutput.xinput()->xreadString(L"return", xreturn);
+				res = std::wcstol(xreturn.c_str(), NULL, 0);
+			}
+			if (flag)
+			{
+				flag = res == 0;
+			}
 		}
 	} while (flag);
 	return res;

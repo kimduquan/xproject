@@ -47,3 +47,7 @@ bool XRemoteOutput::xclose()
 	return bRes;
 }
 
+XInput* XRemoteOutput::xinput()
+{
+	return mInput;
+}

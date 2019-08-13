@@ -18,6 +18,7 @@ namespace xcpp
 		XRemoteOutput(const XRemoteOutput& other);
 		virtual bool xwrite();
 		virtual bool xclose();
+		XInput* xinput();
 	};
 
 }

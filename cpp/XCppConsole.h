@@ -20,14 +20,14 @@ protected:
 
 	virtual int xfunction(XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog);
 	virtual bool xconsole(XInput& xinput);
-	virtual bool xcreateInput(XInput*& xnewInput, XInput& xinput);
-	virtual bool xcreateOutput(XOutput*& xnewOutput, XOutput& xoutput);
-	virtual bool xcreateError(XOutput*& xnewError, XOutput& xerror);
-	virtual bool xcreateLog(XOutput*& xnewLog, XOutput& xlog);
-	virtual bool xcloseInput(XInput*& xinput);
-	virtual bool xcloseOutput(XOutput*& xoutput);
-	virtual bool xcloseError(XOutput*& xerror);
-	virtual bool xcloseLog(XOutput*& xlog);
+	virtual bool xcreateInput(XRemoteInput*& xnewInput, XInput& xinput);
+	virtual bool xcreateOutput(XRemoteOutput*& xnewOutput, XOutput& xoutput);
+	virtual bool xcreateError(XRemoteOutput*& xnewError, XOutput& xerror);
+	virtual bool xcreateLog(XRemoteOutput*& xnewLog, XOutput& xlog);
+	virtual bool xcloseInput(XRemoteInput*& xinput);
+	virtual bool xcloseOutput(XRemoteOutput*& xoutput);
+	virtual bool xcloseError(XRemoteOutput*& xerror);
+	virtual bool xcloseLog(XRemoteOutput*& xlog);
 	virtual bool xcreateConsole(XConsole*& xconsole, XInput& xargs, XInput& xinput, XOutput& xoutput, XOutput& xerror, XOutput& xlog);
 	virtual bool xcloseConsole(XConsole*& xconsole);
 
