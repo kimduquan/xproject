@@ -22,10 +22,5 @@ namespace XCS
             strings.AddRange(xargs);
             return xargs.Count > 0;
         }
-
-        public override string XToString()
-        {
-            return "";
-        }
     }
 }

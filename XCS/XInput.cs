@@ -14,8 +14,7 @@ namespace XCS
         protected Dictionary<string, string> XStrings { get; set; }
 
         public abstract bool XReadStrings(out List<string> strings);
-        public abstract string XToString();
-        public bool XRead()
+        public virtual bool XRead()
         {
             List<string> strings = null;
             bool bRes = XReadStrings(out strings);

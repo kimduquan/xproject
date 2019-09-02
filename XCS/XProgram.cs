@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace XCS
 {
@@ -8,9 +9,7 @@ namespace XCS
         public static readonly string XOUT = "out";
         public static readonly string XERR = "err";
         public static readonly string XLOG = "lo";
-
-        protected abstract bool XCreateInput(string input, out XInput xouput);
-        protected abstract bool XCreateOutput(string output, out XOutput xoutput);
+        public static readonly string XDEBUG = "debug";
 
         protected Dictionary<string, XProgram> XPrograms { get; set; }
         protected XRemoteInput XInput { get; private set; }
@@ -47,50 +46,65 @@ namespace XCS
                 }
                 else
                 {
-                    bRes = XCreateInput(input, out xinput);
+                    bRes = XCreateRemoteInput(input, out xinput);
                     if(bRes)
                     {
                         if(output == null)
                         {
                             xoutput = new XStdOutput();
+                            if (error == null)
+                            {
+                                xerror = new XStdOutput();
+                            }
+                            else
+                            {
+                                bRes = XCreateRemoteOutput(error, out xerror);
+                            }
+
+                            if (log == null)
+                            {
+                                xlog = new XStdOutput();
+                            }
+                            else
+                            {
+                                bRes = XCreateRemoteOutput(log, out xlog);
+                            }
                         }
                         else
                         {
-                            bRes = XCreateOutput(output, out xoutput);
+                            XOutput xparentOutput = null;
+                            bRes = XCreateRemoteOutput(output, out xparentOutput);
                             if(bRes)
                             {
-                                xoutput.XWrite(XOUT, xoutput.XToString());
-                                if (error == null)
+                                string newOutput = null;
+                                bRes = XCreateOutput(out xoutput, out newOutput);
+                                if(bRes)
                                 {
-                                    xerror = new XStdOutput();
+                                    xparentOutput.XWrite(XOUT, newOutput);
                                 }
-                                else
+                                if (bRes)
                                 {
-                                    bRes = XCreateOutput(error, out xerror);
+                                    string newError = null;
+                                    bRes = XCreateOutput(out xerror, out newError);
                                     if(bRes)
                                     {
-                                        xoutput.XWrite(XERR, xerror.XToString());
+                                        xparentOutput.XWrite(XERR, newError);
                                     }
                                 }
 
-                                if(bRes)
+                                if (bRes)
                                 {
-                                    if (log == null)
+                                    string newLog = null;
+                                    bRes = XCreateOutput(out xlog, out newLog);
+                                    if (bRes)
                                     {
-                                        xlog = new XStdOutput();
-                                    }
-                                    else
-                                    {
-                                        bRes = XCreateOutput(log, out xlog);
-                                        if (bRes)
-                                        {
-                                            xoutput.XWrite(XLOG, xlog.XToString());
-                                        }
+                                        xparentOutput.XWrite(XLOG, newLog);
                                     }
                                 }
-                                if(bRes)
+
+                                if (bRes)
                                 {
-                                    bRes = xoutput.XWrite();
+                                    bRes = xparentOutput.XWrite();
                                 }
                             }
                         }
@@ -117,13 +131,13 @@ namespace XCS
                         {
                             bRes = _XProgram(xinput, xoutput, xerror, xlog);
                         }
-                        else if (XIsFunction(xinput))
+                        else 
                         {
-                            bRes = XFunction(xinput, xoutput, xerror, xlog);
-                        }
-                        else
-                        {
-                            bRes = false;
+                            bRes = XIsFunction(xinput);
+                            if (bRes)
+                            {
+                                bRes = XFunction(xinput, xoutput, xerror, xlog);
+                            }
                         }
                     }
 
@@ -148,7 +162,6 @@ namespace XCS
         protected abstract bool XIsProgram(XInput xinput);
         protected abstract bool XFunction(XInput xinput, XOutput xouput, XOutput xerror, XOutput xlog);
         protected abstract bool XStartProgram(XInput xargs, out XProgram xprogram);
-        protected abstract bool XCreateInputOutput(out XInput xinput, out XOutput xoutput);
 
         protected bool _XProgram(XInput xinput, XOutput xoutput, XOutput xerror, XOutput xlog)
         {
@@ -160,36 +173,45 @@ namespace XCS
             }
             else
             {
-                XInput xnewInput = null;
-                XOutput xnewOutput = null;
-                bRes = XCreateInputOutput(out xnewInput, out xnewOutput);
+                string childInputRead = null;
+                XOutput xchildInputWrite = null;
+                bRes = XCreateOutput(out xchildInputWrite, out childInputRead);
+                string childOutputWrite = null;
+                XInput xchildOutputRead = null;
+                bRes = XCreateInput(out xchildOutputRead, out childOutputWrite);
                 if (bRes)
                 {
-                    string[] args = new string[] { xinput.XFirst, XIN, xnewInput.XToString(), XOUT, xnewOutput.XToString() };
+                    string[] args = new string[] { xinput.XFirst, XIN, childInputRead, XOUT, childOutputWrite };
                     XArgs xargs = new XArgs(args);
                     XProgram xprogram = null;
                     bRes = XStartProgram(xargs, out xprogram);
                     if (bRes)
                     {
                         XPrograms[xinput.XFirst] = xprogram;
-                        XRemoteInput xremoteInput = new XRemoteInput(xinput, xnewOutput);
-                        xprogram.XInput = xremoteInput;
-                        XRemoteOutput xremoteOutput = null;
-                        XRemoteOutput xremoteError = null;
-                        XRemoteOutput xremoteLog = null;
-                        bRes = XCreateRemoteOutput(xnewInput.XRead(XOUT), xoutput, out xremoteOutput);
+                        bRes = xchildOutputRead.XRead();
                         if(bRes)
                         {
-                            xprogram.XOutput = xremoteOutput;
-                            bRes = XCreateRemoteOutput(xnewInput.XRead(XERR), xerror, out xremoteError);
+                            string childOutputRead = xchildOutputRead.XRead(XOUT);
+                            XInput xremoteChildOutput = null;
+                            bRes = XCreateRemoteInput(childOutputRead, out xremoteChildOutput);
                             if (bRes)
                             {
-                                xprogram.XError = xremoteError;
-                                bRes = XCreateRemoteOutput(xnewInput.XRead(XLOG), xlog, out xremoteLog);
+                                string childErrorRead = xchildOutputRead.XRead(XERR);
+                                XInput xremoteChildError = null;
+                                bRes = XCreateRemoteInput(childErrorRead, out xremoteChildError);
                                 if (bRes)
                                 {
-                                    xprogram.XLog = xremoteLog;
-                                    bRes = XMain(false, xremoteInput, xremoteOutput, xremoteError, xremoteLog);
+                                    string childLogRead = xchildOutputRead.XRead(XLOG);
+                                    XInput xremoteChildLog = null;
+                                    bRes = XCreateRemoteInput(childLogRead, out xremoteChildLog);
+                                    if (bRes)
+                                    {
+                                        xprogram.XInput = new XRemoteInput(xinput, xchildInputWrite);
+                                        xprogram.XOutput = new XRemoteOutput(xoutput, xremoteChildOutput);
+                                        xprogram.XError = new XRemoteOutput(xerror, xremoteChildError);
+                                        xprogram.XLog = new XRemoteOutput(xlog, xremoteChildLog);
+                                        bRes = XMain(false, xprogram.XInput, xprogram.XOutput, xprogram.XError, xprogram.XLog);
+                                    }
                                 }
                             }
                         }
@@ -199,17 +221,10 @@ namespace XCS
             return bRes;
         }
 
-        protected bool XCreateRemoteOutput(string input, XOutput xoutput, out XRemoteOutput xremote)
-        {
-            XInput xinput = null;
-            xremote = null;
-            bool bRes = XCreateInput(input, out xinput);
-            if(bRes)
-            {
-                xremote = new XRemoteOutput(xinput, xoutput);
-            }
-            return bRes;
-        }
+        protected abstract bool XCreateInput(out XInput xintput, out string output);
+        protected abstract bool XCreateOutput(out XOutput xoutput, out string input);
+        protected abstract bool XCreateRemoteInput(string input, out XInput xinput);
+        protected abstract bool XCreateRemoteOutput(string output, out XOutput xoutput);
 
         public bool XClose()
         {
@@ -219,10 +234,22 @@ namespace XCS
                 bRes = pair.Value.XClose();
             }
             XPrograms.Clear();
-            bRes = XInput.XOutput.XClose();
-            bRes = XOutput.XInput.XClose();
-            bRes = XError.XInput.XClose();
-            bRes = XLog.XInput.XClose();
+            if(XInput != null)
+            {
+                bRes = XInput.XOutput.XClose();
+            }
+            if(XOutput != null)
+            {
+                bRes = XOutput.XInput.XClose();
+            }
+            if(XError != null)
+            {
+                bRes = XError.XInput.XClose();
+            }
+            if(XLog != null)
+            {
+                bRes = XLog.XInput.XClose();
+            }
             return bRes;
         }
     }

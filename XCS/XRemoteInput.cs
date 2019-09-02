@@ -11,6 +11,12 @@ namespace XCS
         }
         public XInput XInput { get; protected set; }
         public XOutput XOutput { get; protected set; }
+
+        public override bool XClose()
+        {
+            return true;
+        }
+
         public override bool XReadStrings(out List<string> strings)
         {
             bool bRes = XInput.XReadStrings(out strings);
@@ -19,12 +25,6 @@ namespace XCS
                 bRes = XOutput.XWriteStrings(strings);
             }
             return bRes;
-        }
-
-        public override string XToString()
-        {
-            string res = XOutput.XToString();
-            return res;
         }
     }
 }

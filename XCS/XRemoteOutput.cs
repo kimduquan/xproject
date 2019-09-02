@@ -6,21 +6,25 @@ namespace XCS
 {
     public class XRemoteOutput : XOutput
     {
-        public XRemoteOutput(XInput xinput, XOutput xoutput)
+        public XRemoteOutput(XOutput xoutput, XInput xinput)
         {
 
         }
         public XInput XInput { get; protected set; }
         public XOutput XOutput { get; protected set; }
 
-        public override string XToString()
+        public override bool XClose()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public override bool XWriteStrings(List<string> strings)
         {
-            bool bRes = XOutput.XWriteStrings(strings);
+            bool bRes = XInput.XReadStrings(out strings);
+            if(bRes)
+            {
+                bRes = XOutput.XWriteStrings(strings);
+            }
             return bRes;
         }
     }

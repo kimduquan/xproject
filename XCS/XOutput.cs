@@ -13,8 +13,7 @@ namespace XCS
         }
 
         public abstract bool XWriteStrings(List<string> strings);
-        public abstract string XToString();
-        public bool XWrite()
+        public virtual bool XWrite()
         {
             bool bRes = false;
             List<string> strings = new List<string>();
