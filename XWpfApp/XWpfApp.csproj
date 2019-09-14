@@ -97,5 +97,23 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenUP\OpenUP.csproj">
+      <Project>{ff2c5443-b02e-47bb-a622-952018f3a9aa}</Project>
+      <Name>OpenUP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XSystem.XInternal\XSystem.XInternal.csproj">
+      <Project>{539f6586-818c-4b76-8f9d-785be1a05cf4}</Project>
+      <Name>XSystem.XInternal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XSystem.XReflection.XInternal\XSystem.XReflection.XInternal.csproj">
+      <Project>{DABEC018-9B5B-44C2-A763-53AD054F8006}</Project>
+      <Name>XSystem.XReflection.XInternal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XSystem\XSystem.csproj">
+      <Project>{E3754CFD-7EDE-439A-BBC8-64C1159DBCF4}</Project>
+      <Name>XSystem</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

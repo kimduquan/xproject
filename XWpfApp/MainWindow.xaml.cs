@@ -1,10 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
+using XSystem.XReflection;
 using Button = System.Windows.Controls.Button;
-using Point = System.Drawing.Point;
-using Size = System.Drawing.Size;
 
 namespace XWpfApp
 {
@@ -23,10 +21,10 @@ namespace XWpfApp
             double left = (screenRect.Width - width) / 2;
             double top = (screenRect.Height - height) / 2;
             XRatio.XCalculate(top, left, out top, out left);
-            this.Left = left;
-            this.Top = top;
-            this.Width = width;
-            this.Height = height;
+            Left = left;
+            Top = top;
+            Width = width;
+            Height = height;
         }
 
         private void Button_Loaded(object sender, RoutedEventArgs e)
@@ -65,6 +63,10 @@ namespace XWpfApp
             Size size = button.Size;
             int top = button.Top;
             int width = button.Width;*/
+
+            string assembly = FindResource("Assembly").ToString();
         }
+
+        protected XAssembly XAssembly { get; set; }
     }
 }

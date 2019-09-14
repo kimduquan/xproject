@@ -61,13 +61,13 @@ namespace XSystem.XComponentModel.XInternal
                 }
                 return x.XNew(result);
             }
-            t = typeof(Color);
+            /*t = typeof(Color);
             if (xtype.XName == t.Name)
             {
                 ColorConverter converter = new ColorConverter();
                 result = converter.ConvertFromString(value);
                 return x.XNew(result);
-            }
+            }*/
             t = typeof(DateTime);
             if (xtype.XName == t.Name)
             {
