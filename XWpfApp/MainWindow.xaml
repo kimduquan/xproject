@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
+        <ToolBar HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="Button_Loaded"/>
+        <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Name="XMainStatusBar" />
+
     </Grid>
 </Window>

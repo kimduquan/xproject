@@ -26,7 +26,7 @@ namespace cs
 
         public override bool XWriteStrings(List<string> strings)
         {
-            string data = string.Join(Convert.ToChar(0), strings);
+            string data = string.Join("" + Convert.ToChar(0), strings);
             Writer.Write(data);
             Writer.Flush();
             Stream.WaitForPipeDrain();

@@ -74,7 +74,7 @@ namespace cs
                     proc.StartInfo.FileName = "dotnet";
                     proc.StartInfo.UseShellExecute = false;
                     proc.StartInfo.CreateNoWindow = false;
-                    proc.StartInfo.Arguments = xargs.XFirst + ".dll " + string.Join(' ', args);
+                    proc.StartInfo.Arguments = xargs.XFirst + ".dll " + string.Join(" ", args);
                     bRes = proc.Start();
                     if (bRes)
                     {

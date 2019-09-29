@@ -12,7 +12,7 @@ namespace XCS
 
         public override bool XWriteStrings(List<string> strings)
         {
-            Console.WriteLine(string.Join(' ', strings));
+            Console.WriteLine(string.Join(" ", strings));
             return strings.Count > 0;
         }
     }

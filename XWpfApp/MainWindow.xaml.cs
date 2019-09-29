@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 using XSystem.XReflection;
@@ -66,7 +67,5 @@ namespace XWpfApp
 
             string assembly = FindResource("Assembly").ToString();
         }
-
-        protected XAssembly XAssembly { get; set; }
     }
 }

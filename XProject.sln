@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCS", "XCS\XCS.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWpfApp", "XWpfApp\XWpfApp.csproj", "{A040D972-3729-4104-90B8-68C4EEC656D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XWpfControlLibrary", "XWpfControlLibrary\XWpfControlLibrary.csproj", "{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +238,18 @@ Global
 		{A040D972-3729-4104-90B8-68C4EEC656D9}.Release|x64.Build.0 = Release|Any CPU
 		{A040D972-3729-4104-90B8-68C4EEC656D9}.Release|x86.ActiveCfg = Release|Any CPU
 		{A040D972-3729-4104-90B8-68C4EEC656D9}.Release|x86.Build.0 = Release|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Debug|x86.Build.0 = Debug|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Release|x64.Build.0 = Release|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{4E9479D1-B3A0-4CB0-8279-CADF01FCF5AA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
