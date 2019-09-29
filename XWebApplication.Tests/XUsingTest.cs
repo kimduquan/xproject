@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using OpenUP.Roles.Basic_Roles;
 using System.Collections.Generic;
 using XSystem;
 using XSystem.XReflection;
-using XWebApplication.Models;
-using XWebApplication.Models.XSystem;
 
 namespace XWebApplication.Tests
 {
@@ -12,15 +11,35 @@ namespace XWebApplication.Tests
     public class XUsingTest : XTest
     {
         private string Assembly { get; set; }
+        private string EntryType { get; set; }
         private string BaseURL { get; set; }
+
         private XType xentryType = null;
         private List<XMethodInfo> xentryMethods = null;
         private XMethodInfo xentryMethod = null;
 
         public override void ClassInitialize()
         {
+
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
             Assembly = "OpenUP";
-            BaseURL = "https://localhost:";
+            BaseURL = "https://localhost:44329";
+            EntryType = string.Format("{0}.{0}, {0}", Assembly);
+            if (XEntryType != null)
+            {
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
+                WebDriver.Navigate().GoToUrl(url);
+            }
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            WebDriver.Close();
         }
 
         public XType XEntryType
@@ -29,7 +48,7 @@ namespace XWebApplication.Tests
             {
                 if(xentryType == null)
                 {
-                    xentryType = X.XGetType(Assembly + ", " + Assembly);
+                    xentryType = X.XGetType(EntryType);
                 }
                 return xentryType;
             }
@@ -69,96 +88,113 @@ namespace XWebApplication.Tests
             }
         }
 
-        [TestMethod]
-        public void XTestNavigateFromAssembly()
+        public static IEnumerable<object[]> Data
+        {
+            get 
+            {
+                yield return new object[] { new object[] { "analyst", "analyst" } };
+                yield return new object[] { new object[] { "architect", "architect" } };
+                yield return new object[] { new object[] { "developer", "developer" } };
+                yield return new object[] { new object[] { "project manager", "project manager" } };
+                yield return new object[] { new object[] { "stakeholder", "stakeholder" } };
+                yield return new object[] { new object[] { "tester", "tester" } };
+            }
+        }
+
+        public static IEnumerable<object[]> InvalidData
+        {
+            get
+            {
+                yield return new object[] { new object[] { "", "invalid" } };
+            }
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(Data), DynamicDataSourceType.Property)]
+        public void XTestUsing(object[] values)
         {
             if(XEntryType != null)
             {
-                string url = BaseURL + _XTypeModel.XToHref(XEntryType);
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
                 WebDriver.Navigate().GoToUrl(url);
-            }
-        }
-
-        public void xusing()
-        {
-            XType xentryType = X.XGetType(Assembly +", "+Assembly);
-            if(xentryType != null)
-            {
-                xusingEntryType(xentryType);
+                XTestUsingEntryType(values);
             }
             else
             {
-                xusingNoEntryType();
+                XTestUsingNoEntryType();
             }
+            XReturnTest xtest = new XReturnTest()
+            {
+                WebDriver = WebDriver
+            };
+            xtest.XTestReturn();
         }
 
-        protected void xusingNoEntryType()
+        [DataTestMethod]
+        [DynamicData(nameof(InvalidData), DynamicDataSourceType.Property)]
+        public void XTestUsingInvalid(object[] values)
         {
-
-        }
-
-        protected void xusingEntryType(XType xentryType)
-        {
-            List<XMethodInfo> xentryMethods = new List<XMethodInfo>();
-            foreach(XMethodInfo xmethod in xentryType.XGetMethods())
+            if (XEntryType != null)
             {
-                if(xmethod.XIsStatic)
-                {
-                    xentryMethods.Add(xmethod);
-                }
-            }
-            if(xentryMethods.Count == 0)
-            {
-                xusingNoEntryMethod(xentryType);
-            }
-            else if(xentryMethods.Count == 1)
-            {
-                xusingEntryMethod( xentryType, xentryMethods[0]);
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
+                WebDriver.Navigate().GoToUrl(url);
+                XTestUsingEntryType(values);
             }
             else
             {
-                xusingMultiEntryMethods( xentryType, xentryMethods);
+                XTestUsingNoEntryType();
+            }
+            XMethodInfoTest xtest = new XMethodInfoTest()
+            {
+                WebDriver = WebDriver
+            };
+            xtest.XTestException();
+        }
+
+        protected void XTestUsingNoEntryType()
+        {
+
+        }
+
+        protected void XTestUsingEntryType(object[] values)
+        {
+            if(XEntryMethods.Count == 0)
+            {
+                XTestUsingNoEntryMethod();
+            }
+            else if(XEntryMethods.Count == 1)
+            {
+                XTestUsingEntryMethod(values);
+            }
+            else
+            {
+                XTestUsingEntryMethods();
             }
         }
 
-        protected void xusingNoEntryMethod(XType xentryType)
+        protected void XTestUsingNoEntryMethod()
         {
             XType xtype = X.XTypeOf(typeof(Developer));
             foreach(XType type in xtype.XAssembly.XExportedTypes)
             {
-                xusingTypeNoObject(type);
+                XTestTypeNoObject(type);
             }
         }
 
-        protected void xusingEntryMethod(XType xentryType, XMethodInfo xentryMethod)
+        protected void XTestUsingEntryMethod(object[] values)
         {
-            XParameterInfo[] xparameters = xentryMethod.XGetParameters();
-            if(xparameters == null || xparameters.Length == 0)
+            XMethodInfoTest xtest = new XMethodInfoTest
             {
-                xusingMethodNoParameter(xentryType, xentryMethod);
-            }
-            else
-            {
-                xusingMethodParameters(xentryType, xentryMethod, xparameters);
-            }
+                WebDriver = WebDriver,
+                XMethodInfo = XEntryMethod
+            };
+            xtest.XTestInvoke(values);
+            
         }
 
-        protected void xusingMultiEntryMethods(XType xentryType, List<XMethodInfo> xentryMethods)
+        protected void XTestUsingEntryMethods()
         {
-            foreach(XMethodInfo xmethod in xentryMethods)
-            {
-                xusingEntryMethod(xentryType, xmethod);
-            }
-        }
-
-        protected void xusingMethodNoParameter(XType xentryType, XMethodInfo xentryMethod)
-        {
-
-        }
-
-        protected void xusingMethodParameters(XType xentryType, XMethodInfo xentryMethod, XParameterInfo[] xparameters)
-        {
-
+            
         }
 
         protected void xusingNoObject(XType xentryType, XMethodInfo xentryMethod, List<XParameterInfo> xparameters)
@@ -171,7 +207,7 @@ namespace XWebApplication.Tests
 
         }
 
-        protected void xusingTypeNoObject(XType xtype)
+        protected void XTestTypeNoObject(XType xtype)
         {
 
         }

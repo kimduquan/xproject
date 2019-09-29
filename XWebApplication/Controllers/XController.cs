@@ -62,5 +62,12 @@ namespace XWebApplication.Controllers
             _XThisCache xthis = _XThisModel.XFromCache(cache, HttpContext.Session);
             return Ok();
         }
+
+        [HttpPost("await")]
+        public async Task<ActionResult> XAwait([FromQuery] string type, int hashCode)
+        {
+            _XThisCache xthis = _XThisModel.XFromCache(cache, HttpContext.Session);
+            return Ok();
+        }
     }
 }
