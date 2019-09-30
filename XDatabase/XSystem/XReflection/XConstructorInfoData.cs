@@ -7,12 +7,8 @@ using XSystem.XReflection;
 namespace XDatabase.XSystem.XReflection
 {
     [BsonDiscriminator("ConstructorInfo")]
-    public class XConstructorInfoData : XConstructorInfo
+    public class XConstructorInfoData : XMemberInfoData, XConstructorInfo
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string XId { get; set; }
-
         [BsonElement("CustomAttributes")]
         public XObjectData[] XCustomAttributes { get; set; }
 

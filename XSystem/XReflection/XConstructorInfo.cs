@@ -1,6 +1,6 @@
 ﻿namespace XSystem.XReflection
 {
-    public interface XConstructorInfo
+    public interface XConstructorInfo : XMemberInfo
     {
         XParameterInfo[] XGetParameters();
         XObject XInvoke(XObject[] parameters);

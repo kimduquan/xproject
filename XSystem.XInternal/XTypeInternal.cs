@@ -147,7 +147,7 @@ namespace XSystem.XInternal
             List<XMemberInfo> xmemberList = new List<XMemberInfo>();
             foreach (MemberInfo member in type.GetMember(name))
             {
-                xmemberList.Add(new XMemberInfoInternal(member));
+                xmemberList.Add(new XMemberInfoInternal(member, x));
             }
             return xmemberList.ToArray();
         }
@@ -159,7 +159,7 @@ namespace XSystem.XInternal
                 xmembers = new List<XMemberInfo>();
                 foreach (MemberInfo member in type.GetMembers())
                 {
-                    xmembers.Add(new XMemberInfoInternal(member));
+                    xmembers.Add(new XMemberInfoInternal(member, x));
                 }
             }
             return xmembers.ToArray();

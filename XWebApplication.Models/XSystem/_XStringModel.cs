@@ -119,9 +119,10 @@ namespace XWebApplication.Models.XSystem
             string key = (xmethod.XDeclaringType.XFullName + "." + xmethod.XName).Replace('.', '_');
             return key;
         }
-        protected static string XToKey(XParameterInfo xparam)
+        protected static string XToKey(XParameterInfo xparameter)
         {
-            string key = (xparam.XParameterType.XFullName + "." + xparam.XName).Replace('.', '_');
+            string key = string.Format("{0}.{1}.{2}", xparameter.XMember.XDeclaringType.XFullName, xparameter.XMember.XName, xparameter.XName);
+            key = key.Replace('.', '_');
             return key;
         }
         protected static string XToKey(XPropertyInfo xproperty)
@@ -278,6 +279,53 @@ namespace XWebApplication.Models.XSystem
             if(key == value)
             {
                 if (XToTitle(xtype.XGetCustomAttributes(), out value) == false)
+                {
+                    value = "";
+                }
+            }
+            return value;
+        }
+        public static string XToTitle(X x, XParameterInfo xparameter, IStringLocalizer xstring)
+        {
+            string key = XToKey(xparameter);
+            string value = xstring[key];
+            if (key == value)
+            {
+                XType _string = x.XTypeOf(typeof(_XString));
+                XObject[] xattrs = xparameter.XGetCustomAttributes(_string, true);
+                if (XToTitle(xattrs, out value) == false)
+                {
+                    value = "";
+                }
+            }
+            return value;
+        }
+
+        public static string XToTitle(X x, XFieldInfo xfield, IStringLocalizer xstring)
+        {
+            string key = XToKey(xfield);
+            string value = xstring[key];
+            if (key == value)
+            {
+                XType _string = x.XTypeOf(typeof(_XString));
+                XObject[] xattrs = xfield.XGetCustomAttributes(_string, true);
+                if (XToTitle(xattrs, out value) == false)
+                {
+                    value = "";
+                }
+            }
+            return value;
+        }
+
+        public static string XToTitle(X x, XPropertyInfo xproperty, IStringLocalizer xstring)
+        {
+            string key = XToKey(xproperty);
+            string value = xstring[key];
+            if (key == value)
+            {
+                XType _string = x.XTypeOf(typeof(_XString));
+                XObject[] xattrs = xproperty.XGetCustomAttributes(_string, true);
+                if (XToTitle(xattrs, out value) == false)
                 {
                     value = "";
                 }

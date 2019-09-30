@@ -3,7 +3,7 @@
 @using  XWebApplication.Models.XSystem.XReflection
 @using  XWebApplication.Models.XSystem
 
-<table class="@Model.Class" @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey">
+<table class="@Model.Class" @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey" title="@Model.Title">
     <caption>
         @Model.Text.Substring(0, Model.AccessKeyIndex)<mark><u>@Model.Text[Model.AccessKeyIndex]</u></mark>@Model.Text.Substring(Model.AccessKeyIndex + 1)<mark><sup>[@Model.AccessKeyIndex]</sup></mark>
     </caption>

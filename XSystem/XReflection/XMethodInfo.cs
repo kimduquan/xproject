@@ -1,12 +1,11 @@
 ﻿namespace XSystem.XReflection
 {
-    public interface XMethodInfo
+    public interface XMethodInfo : XMemberInfo
     {
         XParameterInfo[] XGetParameters();
         XObject XInvoke(XObject target, XObject[] parameters);
-        string XName { get; }
+        
         bool XIsStatic { get; }
         XType XReturnType { get; }
-        XType XDeclaringType { get; }
     }
 }

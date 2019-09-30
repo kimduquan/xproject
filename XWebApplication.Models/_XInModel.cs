@@ -21,6 +21,8 @@ namespace XWebApplication.Models
         public string Required { get; set; }
         public string SpellCheck { get; set; }
         public string Type { get; set; }
+
+        public string Title { get; set; }
         public int AccessKeyIndex { get; set; }
         public Dictionary<string, List<XFieldInfo>> XFields { get; set; }
         public Dictionary<string, List<XPropertyInfo>> XProperties { get; set; }

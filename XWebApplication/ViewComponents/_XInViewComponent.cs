@@ -57,6 +57,7 @@ namespace XWebApplication.ViewComponents
             xmodel.Name = xparameter.XName;
             xmodel.TabIndex = tabIndex;
             xmodel.Text = _XStringModel.XToString(xparameter, xstring);
+            //xmodel.Title = _XStringModel.XToTitle(x, xparameter, xstring);
             xmodel.XString = xstring;
             xmodel.XType = xparameter.XParameterType;
             bool ximplicit = _XParameterInfoModel.XIsImplicit(xparameter, x);
@@ -76,6 +77,7 @@ namespace XWebApplication.ViewComponents
             xmodel.Name = xfield.XName;
             xmodel.TabIndex = tabIndex;
             xmodel.Text = _XStringModel.XToString(xfield, xstring);
+            //xmodel.Title = _XStringModel.XToTitle(x, xfield, xstring);
             xmodel.XString = xstring;
             xmodel.XType = xfield.XFieldType;
             bool ximplicit = _XFieldInfoModel.XIsImplicit(xfield, x);
@@ -95,6 +97,7 @@ namespace XWebApplication.ViewComponents
             xmodel.Name = xproperty.XName;
             xmodel.TabIndex = tabIndex;
             xmodel.Text = _XStringModel.XToString(xproperty, xstring);
+            //xmodel.Title = _XStringModel.XToTitle(x, xproperty, xstring);
             xmodel.XString = xstring;
             xmodel.XType = xproperty.XPropertyType;
             bool ximplicit = _XPropertyInfoModel.XIsImplicit(xproperty, x);

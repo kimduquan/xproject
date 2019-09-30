@@ -49,6 +49,9 @@ namespace XDatabase.XSystem.XReflection
         [BsonElement("CustomAttributes")]
         public XObjectData[] XCustomAttributes { get; set; }
 
+        [BsonElement("Member")]
+        public XMemberInfo XMember { get; set; }
+
         public XObject[] XGetCustomAttributes(XType attributeType, bool inherit)
         {
             throw new NotImplementedException();

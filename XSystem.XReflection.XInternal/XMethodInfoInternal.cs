@@ -3,19 +3,17 @@ using System.Reflection;
 
 namespace XSystem.XReflection.XInternal
 {
-    public class XMethodInfoInternal : Internal, XMethodInfo
+    public class XMethodInfoInternal : XMemberInfoInternal, XMethodInfo
     {
         private MethodInfo method = null;
         private List<XParameterInfo> xparameters = null;
         private XType xreturnType = null;
-        private XType xdeclaringType = null;
 
-        public XMethodInfoInternal(MethodInfo m, X x) : base(x)
+        public XMethodInfoInternal(MethodInfo m, X x) : base(m, x)
         {
             method = m;
         }
 
-        public string XName => method.Name;
         public bool XIsStatic => method.IsStatic;
 
         public XType XReturnType
@@ -33,18 +31,6 @@ namespace XSystem.XReflection.XInternal
             }
         }
 
-        public XType XDeclaringType
-        {
-            get
-            {
-                if(xdeclaringType == null)
-                {
-                    xdeclaringType = X().XTypeOf(method.DeclaringType);
-                }
-                return xdeclaringType;
-            }
-        }
-
         public XParameterInfo[] XGetParameters()
         {
             if(xparameters == null)
@@ -52,7 +38,7 @@ namespace XSystem.XReflection.XInternal
                 xparameters = new List<XParameterInfo>();
                 foreach(ParameterInfo paramter in method.GetParameters())
                 {
-                    xparameters.Add(new XParameterInfoInternal(paramter, X()));
+                    xparameters.Add(new XParameterInfoInternal(this, paramter, X()));
                 }
             }
             return xparameters.ToArray();

@@ -1,5 +1,4 @@
 ﻿using _XSystem;
-using Microsoft.Extensions.Localization;
 using XSystem;
 using XSystem.XReflection;
 

@@ -4,11 +4,10 @@ using System.Reflection;
 
 namespace XSystem.XReflection.XInternal
 {
-    public class XPropertyInfoInternal : Internal, XPropertyInfo
+    public class XPropertyInfoInternal : XMemberInfoInternal, XPropertyInfo
     {
         private PropertyInfo property = null;
         private XType xpropertyType = null;
-        private XType xdeclaringType = null;
 
         public XType XPropertyType
         {
@@ -21,20 +20,6 @@ namespace XSystem.XReflection.XInternal
                 return xpropertyType;
             }
         }
-
-        public XType XDeclaringType
-        {
-            get
-            {
-                if (xdeclaringType == null)
-                {
-                    xdeclaringType = X().XTypeOf(property.DeclaringType);
-                }
-                return xdeclaringType;
-            }
-        }
-
-        public string XName => property.Name;
 
         public bool XIsStatic
         {
@@ -51,7 +36,7 @@ namespace XSystem.XReflection.XInternal
 
         public bool XCanRead => property.CanRead;
 
-        public XPropertyInfoInternal(PropertyInfo p, X x) : base(x)
+        public XPropertyInfoInternal(PropertyInfo p, X x) : base(p, x)
         {
             property = p;
         }

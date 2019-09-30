@@ -11,6 +11,7 @@
         bool XIsOut { get; }
         bool XIsRetval { get; }
         int XPosition { get; }
+        XMemberInfo XMember { get; }
 
         XObject[] XGetCustomAttributes(XType attributeType, bool inherit);
     }

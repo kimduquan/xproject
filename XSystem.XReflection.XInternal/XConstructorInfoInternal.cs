@@ -3,13 +3,13 @@ using System.Reflection;
 
 namespace XSystem.XReflection.XInternal
 {
-    public class XConstructorInfoInternal : Internal, XConstructorInfo
+    public class XConstructorInfoInternal : XMemberInfoInternal, XConstructorInfo
     {
         private ConstructorInfo constructor = null;
         private List<XParameterInfo> xparameters = null;
         private XObject[] xcustomAttributes = null;
 
-        public XConstructorInfoInternal(ConstructorInfo c, X x) : base(x)
+        public XConstructorInfoInternal(ConstructorInfo c, X x) : base(c, x)
         {
             constructor = c;
         }
@@ -35,7 +35,7 @@ namespace XSystem.XReflection.XInternal
                 xparameters = new List<XParameterInfo>();
                 foreach (ParameterInfo parameter in constructor.GetParameters())
                 {
-                    xparameters.Add(new XParameterInfoInternal(parameter, X()));
+                    xparameters.Add(new XParameterInfoInternal(this, parameter, X()));
                 }
             }
             return xparameters.ToArray();

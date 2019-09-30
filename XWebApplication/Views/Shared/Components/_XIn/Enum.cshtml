@@ -5,7 +5,7 @@
 <label class="@Model.Class" for="@Model.Name" @Model.Required @Html.Raw(Model.Data)>
     @Model.Text.Substring(0, Model.AccessKeyIndex)<mark><u>@Model.Text[Model.AccessKeyIndex]</u></mark>@Model.Text.Substring(Model.AccessKeyIndex + 1)<mark><sup>[@Model.AccessKeyIndex]</sup></mark>
 </label>
-<select class="@Model.Class" name="@Model.Name" @Model.Required @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey" @Model.Disabled>
+<select class="@Model.Class" name="@Model.Name" @Model.Required @Html.Raw(Model.Data) id="@Model.Id" tabindex="@Model.TabIndex" accesskey="@Model.AccessKey" title="@Model.Title" @Model.Disabled>
     <optgroup label="@_XStringModel.XToString(Model.XType, Model.XString)">
         @foreach (string enumName in Model.XType.XGetEnumNames())
         {

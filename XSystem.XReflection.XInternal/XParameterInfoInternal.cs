@@ -7,10 +7,12 @@ namespace XSystem.XReflection.XInternal
     {
         private ParameterInfo parameter;
         private XType xparameterType = null;
+        private XMemberInfo xmember;
 
-        public XParameterInfoInternal(ParameterInfo p, X x) : base(x)
+        public XParameterInfoInternal(XMemberInfo member, ParameterInfo p, X x) : base(x)
         {
             parameter = p;
+            xmember = member;
         }
 
         public string XName { get => parameter.Name; }
@@ -40,6 +42,8 @@ namespace XSystem.XReflection.XInternal
         public bool XIsRetval => parameter.IsRetval;
 
         public int XPosition => parameter.Position;
+
+        public XMemberInfo XMember => xmember;
 
         public XObject[] XGetCustomAttributes(XType xtype, bool inherit)
         {

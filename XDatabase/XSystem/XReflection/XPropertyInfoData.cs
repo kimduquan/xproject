@@ -7,26 +7,14 @@ using XSystem.XReflection;
 namespace XDatabase.XSystem.XReflection
 {
     [BsonDiscriminator("PropertyInfo")]
-    public class XPropertyInfoData : XPropertyInfo
+    public class XPropertyInfoData : XMemberInfoData, XPropertyInfo
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string XId { get; set; }
 
         [BsonElement("PropertyType")]
         public XTypeData _XPropertyType { get; set; }
 
         [BsonIgnore]
         public XType XPropertyType => _XPropertyType;
-
-        [BsonElement("Name")]
-        public string XName { get; set; }
-
-        [BsonElement("DeclaringType")]
-        public XTypeData _XDeclaringType { get; set; }
-
-        [BsonIgnore]
-        public XType XDeclaringType => _XDeclaringType;
 
         [BsonElement("IsStatic")]
         public bool XIsStatic { get; set; }

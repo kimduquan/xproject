@@ -92,12 +92,12 @@ namespace XWebApplication.Tests
         {
             get 
             {
-                yield return new object[] { new object[] { "analyst", "analyst" } };
-                yield return new object[] { new object[] { "architect", "architect" } };
-                yield return new object[] { new object[] { "developer", "developer" } };
-                yield return new object[] { new object[] { "project manager", "project manager" } };
-                yield return new object[] { new object[] { "stakeholder", "stakeholder" } };
-                yield return new object[] { new object[] { "tester", "tester" } };
+                yield return new object[] { new object[] { "analyst", "analyst" }, "" };
+                yield return new object[] { new object[] { "architect", "architect" }, "tabindex" };
+                yield return new object[] { new object[] { "developer", "developer" }, "accesskey" };
+                yield return new object[] { new object[] { "project manager", "project manager" }, "" };
+                yield return new object[] { new object[] { "stakeholder", "stakeholder" }, "tabindex" };
+                yield return new object[] { new object[] { "tester", "tester" }, "accesskey" };
             }
         }
 
@@ -105,19 +105,21 @@ namespace XWebApplication.Tests
         {
             get
             {
-                yield return new object[] { new object[] { "", "invalid" } };
+                yield return new object[] { new object[] { "", "invalid" }, "" };
+                yield return new object[] { new object[] { "", "invalid" }, "tabindex" };
+                yield return new object[] { new object[] { "", "invalid" }, "accesskey" };
             }
         }
 
         [DataTestMethod]
         [DynamicData(nameof(Data), DynamicDataSourceType.Property)]
-        public void XTestUsing(object[] values)
+        public void XTestUsing(object[] values, string interact)
         {
             if(XEntryType != null)
             {
                 string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
                 WebDriver.Navigate().GoToUrl(url);
-                XTestUsingEntryType(values);
+                XTestUsingEntryType(values, interact);
             }
             else
             {
@@ -132,13 +134,13 @@ namespace XWebApplication.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(InvalidData), DynamicDataSourceType.Property)]
-        public void XTestUsingInvalid(object[] values)
+        public void XTestUsingInvalid(object[] values, string interact)
         {
             if (XEntryType != null)
             {
                 string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
                 WebDriver.Navigate().GoToUrl(url);
-                XTestUsingEntryType(values);
+                XTestUsingEntryType(values, interact);
             }
             else
             {
@@ -148,7 +150,7 @@ namespace XWebApplication.Tests
             {
                 WebDriver = WebDriver
             };
-            xtest.XTestException();
+            xtest.XAssertException();
         }
 
         protected void XTestUsingNoEntryType()
@@ -156,7 +158,7 @@ namespace XWebApplication.Tests
 
         }
 
-        protected void XTestUsingEntryType(object[] values)
+        protected void XTestUsingEntryType(object[] values, string interact)
         {
             if(XEntryMethods.Count == 0)
             {
@@ -164,7 +166,7 @@ namespace XWebApplication.Tests
             }
             else if(XEntryMethods.Count == 1)
             {
-                XTestUsingEntryMethod(values);
+                XTestUsingEntryMethod(values, interact);
             }
             else
             {
@@ -181,15 +183,25 @@ namespace XWebApplication.Tests
             }
         }
 
-        protected void XTestUsingEntryMethod(object[] values)
+        protected void XTestUsingEntryMethod(object[] values, string interact)
         {
             XMethodInfoTest xtest = new XMethodInfoTest
             {
                 WebDriver = WebDriver,
                 XMethodInfo = XEntryMethod
             };
-            xtest.XTestInvoke(values);
-            
+            if(interact == "")
+            {
+                xtest.XTestInvoke(values);
+            }
+            else if(interact == "tabindex")
+            {
+                xtest.XTestInvoke_TabIndex(values);
+            }
+            else if (interact == "accesskey")
+            {
+                xtest.XTestInvoke_AccessKey(values);
+            }
         }
 
         protected void XTestUsingEntryMethods()

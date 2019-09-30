@@ -6,15 +6,8 @@ using XSystem.XReflection;
 namespace XDatabase.XSystem.XReflection
 {
     [BsonDiscriminator("MethodInfo")]
-    public class XMethodInfoData : XMethodInfo
+    public class XMethodInfoData : XMemberInfoData, XMethodInfo
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string XId { get; set; }
-
-        [BsonElement("Name")]
-        public string XName { get; set; }
-
         [BsonElement("IsStatic")]
         public bool XIsStatic { get; set; }
 
@@ -23,12 +16,6 @@ namespace XDatabase.XSystem.XReflection
 
         [BsonIgnore]
         public XType XReturnType => _XReturnType;
-
-        [BsonElement("DeclaringType")]
-        public XTypeData _XDeclaringType { get; set; }
-
-        [BsonIgnore]
-        public XType XDeclaringType => _XDeclaringType;
 
         [BsonElement("Parameters")]
         public XParameterInfoData[] XParameters { get; set; }
