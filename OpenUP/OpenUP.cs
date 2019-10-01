@@ -24,7 +24,7 @@ namespace OpenUP
                 return new Stakeholder();
             else if (username == "tester")
                 return new Tester();
-            return new Any_Role();
+            return null;
         }
 
         /*public static Project_Manager SignInAsProjectManager(string username, [_XImplicit] string password)

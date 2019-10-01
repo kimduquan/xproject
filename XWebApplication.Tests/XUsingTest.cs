@@ -92,34 +92,25 @@ namespace XWebApplication.Tests
         {
             get 
             {
-                yield return new object[] { new object[] { "analyst", "analyst" }, "" };
-                yield return new object[] { new object[] { "architect", "architect" }, "tabindex" };
-                yield return new object[] { new object[] { "developer", "developer" }, "accesskey" };
-                yield return new object[] { new object[] { "project manager", "project manager" }, "" };
-                yield return new object[] { new object[] { "stakeholder", "stakeholder" }, "tabindex" };
-                yield return new object[] { new object[] { "tester", "tester" }, "accesskey" };
-            }
-        }
-
-        public static IEnumerable<object[]> InvalidData
-        {
-            get
-            {
-                yield return new object[] { new object[] { "", "invalid" }, "" };
-                yield return new object[] { new object[] { "", "invalid" }, "tabindex" };
-                yield return new object[] { new object[] { "", "invalid" }, "accesskey" };
+                yield return new object[] { new object[] { "analyst", "analyst" } };
+                yield return new object[] { new object[] { "architect", "architect" } };
+                yield return new object[] { new object[] { "developer", "developer" } };
+                //yield return new object[] { new object[] { "project manager", "project manager" } };
+                //yield return new object[] { new object[] { "stakeholder", "stakeholder" } };
+                //yield return new object[] { new object[] { "tester", "tester" } };
             }
         }
 
         [DataTestMethod]
         [DynamicData(nameof(Data), DynamicDataSourceType.Property)]
-        public void XTestUsing(object[] values, string interact)
+        public void XTestUsing(object[] values)
         {
             if(XEntryType != null)
             {
                 string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
                 WebDriver.Navigate().GoToUrl(url);
-                XTestUsingEntryType(values, interact);
+                XTestUsingEntryType(values, "");
+                Assert.IsTrue(WebDriver.Url.Contains(url));
             }
             else
             {
@@ -133,24 +124,123 @@ namespace XWebApplication.Tests
         }
 
         [DataTestMethod]
-        [DynamicData(nameof(InvalidData), DynamicDataSourceType.Property)]
-        public void XTestUsingInvalid(object[] values, string interact)
+        [DynamicData(nameof(Data), DynamicDataSourceType.Property)]
+        public void XTestUsing_TabIndex(object[] values)
         {
             if (XEntryType != null)
             {
                 string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
                 WebDriver.Navigate().GoToUrl(url);
-                XTestUsingEntryType(values, interact);
+                XTestUsingEntryType(values, "tabindex");
+                Assert.IsTrue(WebDriver.Url.Contains(url));
             }
             else
             {
                 XTestUsingNoEntryType();
             }
-            XMethodInfoTest xtest = new XMethodInfoTest()
+            XReturnTest xtest = new XReturnTest()
             {
                 WebDriver = WebDriver
             };
-            xtest.XAssertException();
+            xtest.XTestReturn();
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(Data), DynamicDataSourceType.Property)]
+        public void XTestUsing_AccessKey(object[] values)
+        {
+            if (XEntryType != null)
+            {
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
+                WebDriver.Navigate().GoToUrl(url);
+                XTestUsingEntryType(values, "accesskey");
+                Assert.IsTrue(WebDriver.Url.Contains(url));
+            }
+            else
+            {
+                XTestUsingNoEntryType();
+            }
+            XReturnTest xtest = new XReturnTest()
+            {
+                WebDriver = WebDriver
+            };
+            xtest.XTestReturn();
+        }
+
+        [TestMethod]
+        public void XTestUsing_ThrowException()
+        {
+            if (XEntryType != null)
+            {
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
+                WebDriver.Navigate().GoToUrl(url);
+                url = WebDriver.Url;
+                object[] values = new object[] { "", "invalid" };
+                XTestUsingEntryType(values, "tabindex");
+                XMethodInfoTest xtest = new XMethodInfoTest()
+                {
+                    WebDriver = WebDriver
+                };
+                xtest.XAssertException();
+                Assert.AreEqual(url, WebDriver.Url);
+            }
+            else
+            {
+                XTestUsingNoEntryType();
+            }
+        }
+
+        [TestMethod]
+        public void XTestUsing_ReturnNull()
+        {
+            if (XEntryType != null)
+            {
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
+                WebDriver.Navigate().GoToUrl(url);
+                url = WebDriver.Url;
+                object[] values = new object[] { "invalid", "invalid" };
+                XTestUsingEntryType(values, "tabindex");
+                Assert.AreEqual(url, WebDriver.Url);
+            }
+            else
+            {
+                XTestUsingNoEntryType();
+            }
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(Data), DynamicDataSourceType.Property)]
+        public void XTestUsing_Try(object[] values)
+        {
+            if (XEntryType != null)
+            {
+                string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
+                WebDriver.Navigate().GoToUrl(url);
+                url = WebDriver.Url;
+                object[] invalidValues = new object[] { "", "invalid" };
+                XTestUsingEntryType(invalidValues, "tabindex");
+                XMethodInfoTest xtest = new XMethodInfoTest()
+                {
+                    WebDriver = WebDriver
+                };
+                xtest.XAssertException();
+                Assert.AreEqual(url, WebDriver.Url);
+
+                invalidValues = new object[] { "invalid", "invalid" };
+                XTestUsingEntryType(invalidValues, "tabindex");
+                Assert.AreEqual(url, WebDriver.Url);
+
+                XTestUsingEntryType(values, "tabindex");
+            }
+            else
+            {
+                XTestUsingNoEntryType();
+            }
+            XReturnTest xreturn = new XReturnTest()
+            {
+                WebDriver = WebDriver
+            };
+            xreturn.XTestReturn();
         }
 
         protected void XTestUsingNoEntryType()
@@ -209,27 +299,7 @@ namespace XWebApplication.Tests
             
         }
 
-        protected void xusingNoObject(XType xentryType, XMethodInfo xentryMethod, List<XParameterInfo> xparameters)
-        {
-
-        }
-
-        protected void xusingObject(XType xentryType, XMethodInfo xentryMethod, List<XParameterInfo> xparameters, XObject xobject)
-        {
-
-        }
-
         protected void XTestTypeNoObject(XType xtype)
-        {
-
-        }
-
-        protected void xusingTypeWithObject(XType xtype, XObject xobject)
-        {
-
-        }
-
-        protected void xreturn(XType xusingType, XObject xusingObject)
         {
 
         }
