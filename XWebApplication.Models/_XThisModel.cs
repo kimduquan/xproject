@@ -112,7 +112,7 @@ namespace XWebApplication.Models
             {
                 if (xtype.XEqual(xthis))
                 {
-                    success = false;
+                    success = true;
                 }
                 else
                 {

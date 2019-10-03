@@ -57,10 +57,12 @@ namespace XWebApplication.Pages
                     }
                     else
                     {
-
                         xassembly = _XAssemblyModel.XFromReturnUrl(Request.Query, x);
                     }
-                    xentryType = _XAssemblyModel.XGetEntryType(xassembly);
+                    if(xassembly != null)
+                    {
+                        xentryType = _XAssemblyModel.XGetEntryType(xassembly);
+                    }
                 }
                 return xentryType;
             }
