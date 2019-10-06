@@ -2,9 +2,5 @@
 {
     public class XAssemblyTest : XTest
     {
-        public override void ClassInitialize()
-        {
-            
-        }
     }
 }

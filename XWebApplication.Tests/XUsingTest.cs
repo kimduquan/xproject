@@ -12,34 +12,40 @@ namespace XWebApplication.Tests
     {
         private string Assembly { get; set; }
         private string EntryType { get; set; }
-        private string BaseURL { get; set; }
 
         private XType xentryType = null;
         private List<XMethodInfo> xentryMethods = null;
         private XMethodInfo xentryMethod = null;
-
-        public override void ClassInitialize()
+        
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
         {
+            if (WebDriver != null)
+            {
+                BaseURL = "https://localhost:44329";
+            }
+        }
 
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            WebDriver.Quit();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            //WebDriver.Close();
         }
 
         [TestInitialize]
         public void TestInitialize()
         {
             Assembly = "OpenUP";
-            BaseURL = "https://localhost:44329";
             EntryType = string.Format("{0}.{0}, {0}", Assembly);
             if (XEntryType != null)
             {
-                //string url = string.Format("{0}/{1}", BaseURL, XEntryType.XName);
-                //WebDriver.Navigate().GoToUrl(url);
             }
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            WebDriver.Close();
         }
 
         public XType XEntryType
@@ -111,17 +117,18 @@ namespace XWebApplication.Tests
             Assert.IsTrue(WebDriver.Url.Contains(expectedUrl));
             if (XEntryType != null)
             {
-                XTestUsingEntryType(values, "");
+                XMethodInfoTest xmethodTest = new XMethodInfoTest()
+                {
+                    XMethodInfo = XEntryMethod 
+                };
+                xmethodTest.XTestInvoke(values);
                 Assert.IsTrue(WebDriver.Url.Contains(url));
             }
             else
             {
                 XTestUsingNoEntryType();
             }
-            XReturnTest xtest = new XReturnTest()
-            {
-                WebDriver = WebDriver
-            };
+            XReturnTest xtest = new XReturnTest();
             xtest.XTestReturn();
         }
 
@@ -135,17 +142,18 @@ namespace XWebApplication.Tests
             Assert.IsTrue(WebDriver.Url.Contains(expectedUrl));
             if (XEntryType != null)
             {
-                XTestUsingEntryType(values, "tabindex");
+                XMethodInfoTest xmethodTest = new XMethodInfoTest()
+                {
+                    XMethodInfo = XEntryMethod
+                };
+                xmethodTest.XTestInvoke_TabIndex(values);
                 Assert.IsTrue(WebDriver.Url.Contains(url));
             }
             else
             {
                 XTestUsingNoEntryType();
             }
-            XReturnTest xtest = new XReturnTest()
-            {
-                WebDriver = WebDriver
-            };
+            XReturnTest xtest = new XReturnTest();
             xtest.XTestReturn();
         }
 
@@ -159,17 +167,19 @@ namespace XWebApplication.Tests
             Assert.IsTrue(WebDriver.Url.Contains(expectedUrl));
             if (XEntryType != null)
             {
-                XTestUsingEntryType(values, "accesskey");
-                Assert.IsTrue(WebDriver.Url.Contains(url));
+                XMethodInfoTest xmethodTest = new XMethodInfoTest()
+                {
+                    XMethodInfo = XEntryMethod
+                };
+                expectedUrl = url;
+                xmethodTest.XTestInvoke_AccessKey(values);
+                Assert.AreEqual(expectedUrl, WebDriver.Url);
             }
             else
             {
                 XTestUsingNoEntryType();
             }
-            XReturnTest xtest = new XReturnTest()
-            {
-                WebDriver = WebDriver
-            };
+            XReturnTest xtest = new XReturnTest();
             xtest.XTestReturn();
         }
 
@@ -183,30 +193,28 @@ namespace XWebApplication.Tests
             Assert.IsTrue(WebDriver.Url.Contains(expectedUrl));
             if (XEntryType != null)
             {
-                url = WebDriver.Url;
+                expectedUrl = WebDriver.Url;
                 object[] invalidValues = new object[] { "", "invalid" };
-                XTestUsingEntryType(invalidValues, "tabindex");
                 XMethodInfoTest xtest = new XMethodInfoTest()
                 {
-                    WebDriver = WebDriver
+                    XMethodInfo = XEntryMethod
                 };
-                xtest.XAssertException();
-                Assert.AreEqual(url, WebDriver.Url);
+                xtest.XTestInvoke_ThrowException(invalidValues);
+                Assert.AreEqual(expectedUrl, WebDriver.Url);
 
                 invalidValues = new object[] { "invalid", "invalid" };
-                XTestUsingEntryType(invalidValues, "tabindex");
-                Assert.AreEqual(url, WebDriver.Url);
+                xtest.XTestInvoke_AccessKey(invalidValues);
+                Assert.AreEqual(expectedUrl, WebDriver.Url);
 
-                XTestUsingEntryType(values, "tabindex");
+                expectedUrl = url;
+                xtest.XTestInvoke_TabIndex(values);
+                Assert.AreEqual(expectedUrl, WebDriver.Url);
             }
             else
             {
                 XTestUsingNoEntryType();
             }
-            XReturnTest xreturn = new XReturnTest()
-            {
-                WebDriver = WebDriver
-            };
+            XReturnTest xreturn = new XReturnTest();
             xreturn.XTestReturn();
         }
 
@@ -224,12 +232,11 @@ namespace XWebApplication.Tests
                 WebDriver.Navigate().GoToUrl(url);
                 url = WebDriver.Url;
                 object[] values = new object[] { "", "invalid" };
-                XTestUsingEntryType(values, "tabindex");
                 XMethodInfoTest xtest = new XMethodInfoTest()
                 {
-                    WebDriver = WebDriver
+                    XMethodInfo = XEntryMethod
                 };
-                xtest.XAssertException();
+                xtest.XTestInvoke_ThrowException(values);
                 Assert.AreEqual(url, WebDriver.Url);
             }
             else
@@ -247,7 +254,11 @@ namespace XWebApplication.Tests
                 WebDriver.Navigate().GoToUrl(url);
                 url = WebDriver.Url;
                 object[] values = new object[] { "invalid", "invalid" };
-                XTestUsingEntryType(values, "tabindex");
+                XMethodInfoTest xmethodTest = new XMethodInfoTest()
+                {
+                    XMethodInfo = XEntryMethod
+                };
+                xmethodTest.XTestInvoke_TabIndex(values);
                 Assert.AreEqual(url, WebDriver.Url);
             }
             else
@@ -266,7 +277,11 @@ namespace XWebApplication.Tests
                 Assert.AreEqual(url, WebDriver.Url);
                 url = string.Format("{0}/{1}", BaseURL, "invalid");
                 WebDriver.Navigate().GoToUrl(url);
-                Assert.AreEqual(url, WebDriver.Url);
+                string innerText = WebDriver.FindElement(By.TagName("body")).Text;
+                Assert.IsTrue(innerText.Contains("HTTP ERROR 404"));
+                url = string.Format("{0}/{1}/{1}", BaseURL, "invalid");
+                WebDriver.Navigate().GoToUrl(url);
+                Assert.IsTrue(innerText.Contains("HTTP ERROR 404"));
             }
             else
             {
@@ -303,7 +318,6 @@ namespace XWebApplication.Tests
         {
             XMethodInfoTest xtest = new XMethodInfoTest
             {
-                WebDriver = WebDriver,
                 XMethodInfo = XEntryMethod
             };
             if(interact == "")

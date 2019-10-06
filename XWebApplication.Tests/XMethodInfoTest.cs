@@ -3,17 +3,13 @@ using OpenQA.Selenium;
 using System.Collections.Generic;
 using XSystem;
 using XSystem.XReflection;
+using XWebApplication.Models.XSystem.XReflection;
 
 namespace XWebApplication.Tests
 {
     [TestClass]
     public class XMethodInfoTest : XTest
     {
-        public override void ClassInitialize()
-        {
-            
-        }
-
         public XMethodInfo XMethodInfo { get; set; }
 
         public IEnumerable<object[]> Data { get; set; }
@@ -35,20 +31,13 @@ namespace XWebApplication.Tests
         public void XTestInvoke_AccessKey(object[] objects)
         {
             XParameterInfo[] xparameters = XMethodInfo.XGetParameters();
-            Dictionary<char, string> accessKeys = new Dictionary<char, string>();
+            Dictionary<string, char> accessKeyMap = new Dictionary<string, char>();
+            List<char> accessKeys = new List<char>();
+            _XMethodInfoModel.XToAccessKeyMap(xparameters, out accessKeyMap, out accessKeys);
             for (int index = 0; index < xparameters.Length && index < objects.Length; index++)
             {
-                string name = xparameters[index].XName.ToLower();
-                char accesskey = ' ';
-                foreach(char ch in name)
-                {
-                    if(accessKeys.ContainsKey(ch) == false)
-                    {
-                        accesskey = ch;
-                        accessKeys.Add(ch, name);
-                        break;
-                    }
-                }
+                string name = xparameters[index].XName;
+                char accesskey = accessKeyMap[name];
                 XTestInvokeParameter_AccessKey(xparameters[index], objects[index], accesskey);
             }
             IWebElement submit = WebDriver.FindElement(By.Name(XMethodInfo.XName));
@@ -68,8 +57,16 @@ namespace XWebApplication.Tests
             submit.SendKeys(Keys.Enter);
         }
 
-        public void XAssertException()
+        public void XTestInvoke_ThrowException(object[] objects)
         {
+            XParameterInfo[] xparameters = XMethodInfo.XGetParameters();
+            for (int index = 0; index < xparameters.Length && index < objects.Length; index++)
+            {
+                XTestInvokeParameter_TabIndex(xparameters[index], objects[index], index);
+            }
+            IWebElement submit = WebDriver.SwitchTo().ActiveElement();
+            Assert.IsNotNull(submit);
+            submit.SendKeys(Keys.Enter);
             IAlert alert = WebDriver.SwitchTo().Alert();
             Assert.IsNotNull(alert);
             string text = alert.Text;

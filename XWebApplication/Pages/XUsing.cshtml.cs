@@ -160,22 +160,36 @@ namespace XWebApplication.Pages
             }
         }
 
+        public async Task<IActionResult> OnGetAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                if(XEntryType == null)
+                {
+                    return NotFound();
+                }
+            }
+            return Page();
+        }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if(ModelState.IsValid)
             {
-                if(XEntryMethod != null)
+                if(XEntryType != null)
                 {
-                    XObject[] xparameters = _XMethodInfoModel.XFromForm(x, XEntryMethod.XGetParameters(), xtypeConverter, Request.Form, null);
-                    try
+                    if (XEntryMethod != null)
                     {
-                        XObject xobject = XEntryMethod.XInvoke(x.XNULL, xparameters);
-                        if (xobject != x.XNULL)
+                        XObject[] xparameters = _XMethodInfoModel.XFromForm(x, XEntryMethod.XGetParameters(), xtypeConverter, Request.Form, null);
+                        try
                         {
-                            _XThisModel.XToSession(xobject, HttpContext.Session);
-                            _XThisModel.XToCache(xobject, cache, HttpContext.Session, XString);
-                            List<Claim> claims = _XThisModel.XToClaims(xobject);
-                            List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
+                            XObject xobject = XEntryMethod.XInvoke(x.XNULL, xparameters);
+                            if (xobject != x.XNULL)
+                            {
+                                _XThisModel.XToSession(xobject, HttpContext.Session);
+                                _XThisModel.XToCache(xobject, cache, HttpContext.Session, XString);
+                                List<Claim> claims = _XThisModel.XToClaims(xobject);
+                                List<ClaimsIdentity> identities = new List<ClaimsIdentity>()
                         {
                             new ClaimsIdentity
                             (
@@ -183,14 +197,19 @@ namespace XWebApplication.Pages
                                 CookieAuthenticationDefaults.AuthenticationScheme
                             )
                         };
-                            ClaimsPrincipal principal = new ClaimsPrincipal(identities);
-                            return SignIn(principal, CookieAuthenticationDefaults.AuthenticationScheme);
+                                ClaimsPrincipal principal = new ClaimsPrincipal(identities);
+                                return SignIn(principal, CookieAuthenticationDefaults.AuthenticationScheme);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            XException = x.XCatch(ex);
                         }
                     }
-                    catch(Exception ex)
-                    {
-                        XException = x.XCatch(ex);
-                    }
+                }
+                else
+                {
+                    return BadRequest();
                 }
             }
             return Page();

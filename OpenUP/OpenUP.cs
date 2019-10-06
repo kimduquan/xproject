@@ -6,23 +6,23 @@ namespace OpenUP
 {
     public class OpenUP
     {
-        public static Any_Role SignIn(string username, [_XImplicit] string password)
+        public static Any_Role SignIn(string userName, [_XImplicit] string pass_word)
         {
-            if(username == "")
+            if(userName == "")
             {
                 throw new Exception("user name is empty!");
             }
-            else if (username == "analyst")
+            else if (userName == "analyst")
                 return new Analyst();
-            else if (username == "architect")
+            else if (userName == "architect")
                 return new Architect();
-            else if (username == "developer")
+            else if (userName == "developer")
                 return new Developer();
-            else if (username == "project manager")
+            else if (userName == "project manager")
                 return new Project_Manager();
-            else if (username == "stakeholder")
+            else if (userName == "stakeholder")
                 return new Stakeholder();
-            else if (username == "tester")
+            else if (userName == "tester")
                 return new Tester();
             return null;
         }

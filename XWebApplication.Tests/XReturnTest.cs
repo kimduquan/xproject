@@ -6,17 +6,6 @@ namespace XWebApplication.Tests
     [TestClass]
     public class XReturnTest : XTest
     {
-        public override void ClassInitialize()
-        {
-            
-        }
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-
-        }
-
         public void XTestReturn()
         {
             IWebElement link = WebDriver.FindElement(By.XPath("//a[@href='/return']"));

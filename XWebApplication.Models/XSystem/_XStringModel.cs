@@ -332,5 +332,67 @@ namespace XWebApplication.Models.XSystem
             }
             return value;
         }
+
+        public static string[] XSplit(string text, string delimiter)
+        {
+            List<string> result = new List<string>();
+            string[] strings = text.Split(delimiter);
+            foreach(string str in strings)
+            {
+                IEnumerator<char> currIt = str.GetEnumerator();
+                IEnumerator<char> prevIt = str.GetEnumerator();
+                if (currIt.MoveNext())
+                {
+                    string word = "" + currIt.Current;
+                    while (currIt.MoveNext() && prevIt.MoveNext())
+                    {
+                        if (
+                               char.IsPunctuation(currIt.Current)
+                               || char.IsSeparator(currIt.Current)
+                               || char.IsWhiteSpace(currIt.Current)
+                               )
+                        {
+                            if(word != "")
+                            {
+                                result.Add(word);
+                                word = "";
+                            }
+                            currIt.MoveNext();
+                            prevIt.MoveNext();
+                        }
+                        else if (
+                            (char.IsControl(currIt.Current) && !char.IsControl(prevIt.Current))
+                            || (char.IsDigit(currIt.Current) && !char.IsDigit(prevIt.Current))
+                            || (char.IsHighSurrogate(currIt.Current) && !char.IsHighSurrogate(prevIt.Current))
+                            || (char.IsLetter(currIt.Current) && !char.IsLetter(prevIt.Current))
+                            || (char.IsLetterOrDigit(currIt.Current) && !char.IsLetterOrDigit(prevIt.Current))
+                            //|| (char.IsLower(currIt.Current) && !char.IsLower(prevIt.Current))
+                            || (char.IsLowSurrogate(currIt.Current) && !char.IsLowSurrogate(prevIt.Current))
+                            || (char.IsNumber(currIt.Current) && !char.IsNumber(prevIt.Current))
+                            || (char.IsSurrogate(currIt.Current) && !char.IsSurrogate(prevIt.Current))
+                            || (char.IsSymbol(currIt.Current) && !char.IsSymbol(prevIt.Current))
+                            || (char.IsUpper(currIt.Current) && !char.IsUpper(prevIt.Current))
+                            )
+                        {
+                            if (word != "")
+                            {
+                                result.Add(word);
+                                word = "";
+                                word += currIt.Current;
+                            }
+                        }
+                        else
+                        {
+                            word += currIt.Current;
+                        }
+                    }
+                    if (word != "")
+                    {
+                        result.Add(word);
+                    }
+                }
+            }
+            return result.ToArray();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using _XSystem;
 using System.Collections.Generic;
 using XSystem;
+using XWebApplication.Models.XSystem;
 
 namespace XWebApplication.Models
 {
@@ -40,22 +41,48 @@ namespace XWebApplication.Models
             Dictionary<char, string> usedKeys = new Dictionary<char, string>();
             foreach (string name in names)
             {
-                char key = ' ';
-                foreach (char ch in name)
+                string[] words = _XStringModel.XSplit(name, "_");
+                int charIndex = 0;
+                int wordIndex = 0;
+                int maxCharLength = 0;
+                do
                 {
-                    if (char.IsLetterOrDigit(ch))
+                    if (wordIndex < words.Length)
                     {
-                        char temp = char.ToLower(ch);
-                        if (!usedKeys.ContainsKey(temp))
+                        string word = words[wordIndex];
+                        if (maxCharLength < word.Length)
                         {
-                            usedKeys[temp] = name;
-                            accessKeyMap[name] = temp;
-                            key = temp;
-                            break;
+                            maxCharLength = word.Length;
+                        }
+                        if (charIndex < word.Length)
+                        {
+                            char candidate = char.ToLower(word[charIndex]);
+                            if (!usedKeys.ContainsKey(candidate))
+                            {
+                                usedKeys[candidate] = name;
+                                accessKeyMap[name] = candidate;
+                                accessKeys.Add(candidate);
+                                break;
+                            }
+                            else
+                            {
+                                if (wordIndex < words.Length)
+                                {
+                                    wordIndex++;
+                                }
+                                else
+                                {
+                                    if (charIndex < maxCharLength)
+                                    {
+                                        wordIndex = 0;
+                                        charIndex++;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                accessKeys.Add(key);
+                while (charIndex < maxCharLength);
             }
         }
     }

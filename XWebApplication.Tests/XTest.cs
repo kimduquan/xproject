@@ -15,7 +15,7 @@ namespace XWebApplication.Tests
         {
             get
             {
-                if(x == null)
+                if (x == null)
                 {
                     x = new XInternal();
                     x.XAssembly = XAssemblyInternal.XNew;
@@ -28,32 +28,21 @@ namespace XWebApplication.Tests
             }
         }
 
-        private IWebDriver webDriver = null;
+        private static IWebDriver webDriver = null;
 
-        public IWebDriver WebDriver
+        public static IWebDriver WebDriver
         {
             get
             {
-                if(webDriver == null)
+                if (webDriver == null)
                 {
                     webDriver = new ChromeDriver("D:\\installed\\WebDrivers");
                 }
                 return webDriver;
             }
-            set
-            {
-                webDriver = value;
-            }
         }
 
-        [ClassInitialize]
-        public abstract void ClassInitialize();
-
-        [ClassCleanup]
-        public void ClassCleanup()
-        {
-            WebDriver.Quit();
-        }
+        protected static string BaseURL { get; set; }
 
         public XTest()
         {
@@ -62,7 +51,27 @@ namespace XWebApplication.Tests
         public XTest(XTest test)
         {
             X = test.X;
-            WebDriver = test.WebDriver;
+        }
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
+        {
+            if (WebDriver != null)
+            {
+                BaseURL = "https://localhost:44329";
+            }
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            WebDriver.Quit();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            WebDriver.Close();
         }
     }
 }

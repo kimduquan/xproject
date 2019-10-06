@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
@@ -64,24 +65,31 @@ namespace XWebApplication.Pages
             return XConverter.XConvertToString(value);
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            object x = XType;
+            if(XType != null)
+            {
+                return Page();
+            }
+            return NotFound();
         }
 
         public void OnPost()
         {
-            foreach(XFieldInfo xfield in XType.XGetFields())
+            if(XType != null)
             {
-                if(xfield.XIsStatic)
+                foreach (XFieldInfo xfield in XType.XGetFields())
                 {
-                    if(Request.Form.ContainsKey(xfield.XName))
+                    if (xfield.XIsStatic)
                     {
-                        StringValues values = Request.Form[xfield.XName];
-                        if (XConverter.XCanConvertTo(xfield.XFieldType))
+                        if (Request.Form.ContainsKey(xfield.XName))
                         {
-                            XObject xvalue = XConverter.XConvertTo(values.ToString(), xfield.XFieldType);
-                            xfield.XSetValue(null, xvalue);
+                            StringValues values = Request.Form[xfield.XName];
+                            if (XConverter.XCanConvertTo(xfield.XFieldType))
+                            {
+                                XObject xvalue = XConverter.XConvertTo(values.ToString(), xfield.XFieldType);
+                                xfield.XSetValue(null, xvalue);
+                            }
                         }
                     }
                 }
