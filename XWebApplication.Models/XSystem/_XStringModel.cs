@@ -106,28 +106,33 @@ namespace XWebApplication.Models.XSystem
         }
         protected static string XToKey(XAssembly xassembly)
         {
-            string key = xassembly.XFullName.Replace('.', '_');
+            string name = xassembly.XFullName;
+            name = name.Split(",")[0];
+            string key = name.Replace('.', '_');
             return key;
         }
         protected static string XToKey(XFieldInfo xfield)
         {
-            string key = (xfield.XDeclaringType.XFullName + "." + xfield.XName).Replace('.', '_');
+            string key = string.Format("{0}.{1}", xfield.XDeclaringType.XFullName, xfield.XName);
+            key = key.Replace('.', '_');
             return key;
         }
         protected static string XToKey(XMethodInfo xmethod)
         {
-            string key = (xmethod.XDeclaringType.XFullName + "." + xmethod.XName).Replace('.', '_');
+            string key = string.Format("{0}.{1}", xmethod.XDeclaringType.XFullName, xmethod.XName);
+            key = key.Replace('.', '_');
             return key;
         }
         protected static string XToKey(XParameterInfo xparameter)
         {
-            string key = string.Format("{0}.{1}.{2}", xparameter.XMember.XDeclaringType.XFullName, xparameter.XMember.XName, xparameter.XName);
+            string key = string.Format("{0}.{1}.{2}", xparameter.XMember.XReflectedType.XFullName, xparameter.XMember.XName, xparameter.XName);
             key = key.Replace('.', '_');
             return key;
         }
         protected static string XToKey(XPropertyInfo xproperty)
         {
-            string key = (xproperty.XDeclaringType.XFullName + "." + xproperty.XName).Replace('.', '_');
+            string key = string.Format("{0}.{1}", xproperty.XDeclaringType.XFullName, xproperty.XName);
+            key = key.Replace('.', '_');
             return key;
         }
 
@@ -145,11 +150,8 @@ namespace XWebApplication.Models.XSystem
 
         public static string XToString(XObject xobject, IStringLocalizer xstring)
         {
-            string str = xobject.XToString();
-            if(xstring != null)
-            {
-                str = xstring[str];
-            }
+            string type = XToString(xobject.XGetType(), xstring);
+            string str = string.Format("{0} #{1}", type, xobject.XGetHashCode());
             return str;
         }
 
@@ -238,7 +240,8 @@ namespace XWebApplication.Models.XSystem
         public static IStringLocalizer XToCache(XAssembly xassembly, IMemoryCache cache, ISession session, IStringLocalizerFactory factory)
         {
             AssemblyName name = new AssemblyName(xassembly.XFullName);
-            IStringLocalizer stringLocalizer = factory.Create("Properties.Resources", name.Name);
+            string baseName = string.Format("{0}.Properties.Resources", name.Name);
+            IStringLocalizer stringLocalizer = factory.Create(baseName, name.Name);
             _XStringModel xstring = new _XStringModel(stringLocalizer);
             string key = typeof(_XStringModel).FullName + "#" + xstring.GetHashCode();
             using (ICacheEntry entry = cache.CreateEntry(key))
@@ -274,7 +277,7 @@ namespace XWebApplication.Models.XSystem
         public static string XToTitle(XType xtype, IStringLocalizer xstring)
         {
             string key = XToKey(xtype);
-            key += ("_" + "string");
+            key += "_string";
             string value = xstring[key];
             if(key == value)
             {
@@ -288,6 +291,7 @@ namespace XWebApplication.Models.XSystem
         public static string XToTitle(X x, XParameterInfo xparameter, IStringLocalizer xstring)
         {
             string key = XToKey(xparameter);
+            key += "_string";
             string value = xstring[key];
             if (key == value)
             {
@@ -304,6 +308,7 @@ namespace XWebApplication.Models.XSystem
         public static string XToTitle(X x, XFieldInfo xfield, IStringLocalizer xstring)
         {
             string key = XToKey(xfield);
+            key += "_string";
             string value = xstring[key];
             if (key == value)
             {
@@ -320,6 +325,7 @@ namespace XWebApplication.Models.XSystem
         public static string XToTitle(X x, XPropertyInfo xproperty, IStringLocalizer xstring)
         {
             string key = XToKey(xproperty);
+            key += "_string";
             string value = xstring[key];
             if (key == value)
             {

@@ -22,6 +22,12 @@ namespace XDatabase.XSystem.XReflection
         [BsonIgnore]
         public XType XDeclaringType => _XDeclaringType;
 
+        [BsonElement("ReflectedType")]
+        public XTypeData _XReflectedType { get; set; }
+
+        [BsonIgnore]
+        public XType XReflectedType => _XReflectedType;
+
         public XMemberTypes XMemberType => throw new System.NotImplementedException();
     }
 }

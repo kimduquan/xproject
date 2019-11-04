@@ -20,5 +20,10 @@ namespace XWebApplication.Models.XSystem.XReflection
         {
             return xprop.XGetCustomAttributes(x.XTypeOf(typeof(_XImplicit)), false).Length > 0;
         }
+
+        public static string XToClass(XPropertyInfo xpropertyInfo)
+        {
+            return "property-info";
+        }
     }
 }

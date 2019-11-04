@@ -6,6 +6,7 @@ namespace XSystem.XReflection.XInternal
     {
         private MemberInfo member;
         private XType xdeclaringType = null;
+        private XType xreflectedType = null;
 
         public XMemberInfoInternal(MemberInfo m, X x) : base(x)
         {
@@ -23,6 +24,18 @@ namespace XSystem.XReflection.XInternal
                     xdeclaringType = X().XTypeOf(member.DeclaringType);
                 }
                 return xdeclaringType;
+            }
+        }
+
+        public XType XReflectedType
+        {
+            get
+            {
+                if (xreflectedType == null)
+                {
+                    xreflectedType = X().XTypeOf(member.ReflectedType);
+                }
+                return xreflectedType;
             }
         }
 

@@ -11,7 +11,7 @@ namespace XWebApplication.Models.XSystem.XReflection
 
         public static string XToHref(XType xtype, XConstructorInfo ctor)
         {
-            return _XTypeModel.XToHref(xtype) + "/" + XConstants.XNEW;
+            return _XTypeModel.XToHref(xtype) + "/" + XConst.XNEW;
         }
     }
 }

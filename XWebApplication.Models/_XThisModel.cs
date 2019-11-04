@@ -13,6 +13,7 @@ namespace XWebApplication.Models
     public class _XThisModel
     {
         public _XThisCache XCache { get; }
+        public Dictionary<string, List<XObject>> XObjects { get; set; }
 
         public _XThisModel(_XThisCache xcache)
         {

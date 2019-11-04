@@ -4,10 +4,17 @@
 
 <a href="/return">Sign out</a>
 <ul>
-    @foreach (KeyValuePair<string, XObject> v in Model.XCache.XObjects)
+    @foreach (string key in Model.XObjects.Keys)
     {
         <li>
-            <a href="@_XObjectModel.XToHref(v.Value)" draggable="true" ondragstart="xondragstart(event, '@v.Key')">@_XStringModel.XToString(v.Value, null)</a>
+            <ul>
+                @foreach (XObject xobject in Model.XObjects[key])
+                {
+                    <li>
+                        <a href="@_XObjectModel.XToHref(xobject)" draggable="true" ondragstart="xondragstart(event, '@key')">@_XStringModel.XToString(xobject, Model.XCache.XString)</a>
+                    </li>
+                }
+            </ul>
         </li>
     }
 </ul>

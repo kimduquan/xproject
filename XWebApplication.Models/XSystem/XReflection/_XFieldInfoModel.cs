@@ -20,5 +20,10 @@ namespace XWebApplication.Models.XSystem.XReflection
         {
             return xfield.XGetCustomAttributes(x.XTypeOf(typeof(_XImplicit)), false).Length > 0;
         }
+
+        public static string XToClass(XFieldInfo xfield)
+        {
+            return "field-info";
+        }
     }
 }

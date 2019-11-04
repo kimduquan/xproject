@@ -52,7 +52,7 @@ namespace XWebApplication.ViewComponents
         {
             _XInModel xmodel = new _XInModel();
             xmodel.AccessKey = accessKey;
-            xmodel.Class = "in " + _XParameterInfoModel.XToClass(xparameter);
+            xmodel.Class = _XParameterInfoModel.XToClass(xparameter);
             xmodel.Data = _XParameterInfoModel.XToData(xparameter);
             xmodel.Name = xparameter.XName;
             xmodel.TabIndex = tabIndex;
@@ -74,6 +74,7 @@ namespace XWebApplication.ViewComponents
         {
             _XInModel xmodel = new _XInModel();
             xmodel.AccessKey = accessKey;
+            xmodel.Class = _XFieldInfoModel.XToClass(xfield);
             xmodel.Name = xfield.XName;
             xmodel.TabIndex = tabIndex;
             xmodel.Text = _XStringModel.XToString(xfield, xstring);
@@ -94,6 +95,7 @@ namespace XWebApplication.ViewComponents
         {
             _XInModel xmodel = new _XInModel();
             xmodel.AccessKey = accessKey;
+            xmodel.Class = _XPropertyInfoModel.XToClass(xproperty);
             xmodel.Name = xproperty.XName;
             xmodel.TabIndex = tabIndex;
             xmodel.Text = _XStringModel.XToString(xproperty, xstring);
@@ -120,6 +122,7 @@ namespace XWebApplication.ViewComponents
             xmodel.SpellCheck = "";
             xmodel.AccessKeyIndex = xmodel.Text.IndexOf(xmodel.AccessKey, StringComparison.OrdinalIgnoreCase);
             xmodel.Type = "";
+            xmodel.Size = (int)(XConst.XRATIO * xmodel.Text.Length);
             view = null;
             if (xmodel.XType.XIsEnum)
             {

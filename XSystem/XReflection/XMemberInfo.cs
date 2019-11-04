@@ -4,6 +4,7 @@
     {
         string XName { get; }
         XType XDeclaringType { get; }
+        XType XReflectedType { get; }
         XMemberTypes XMemberType { get; }
     }
 }

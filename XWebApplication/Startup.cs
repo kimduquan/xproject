@@ -86,7 +86,7 @@ namespace XWebApplication
                 app.UseExceptionHandler("/XException");
                 app.UseHsts();
             }
-
+            app.UseRequestLocalization("en-US", "vi-VN", "ja-JP");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions

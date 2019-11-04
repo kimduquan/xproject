@@ -35,7 +35,7 @@
     }
     else if (Model.XEntryMethod != null)
     {
-        <form method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
+        <form class="method-info" method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
             <input type="hidden" asp-for="Using" />
             @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod });
             <input type="submit" name="@Model.XEntryMethod.XName" value="@_XStringModel.XToString(Model.XEntryMethod, Model.XString)" />
