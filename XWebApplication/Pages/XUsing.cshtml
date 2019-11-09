@@ -1,5 +1,8 @@
 ﻿@page "/using/"
 @model XUsingModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @using XWebApplication.Models.XSystem
 
@@ -30,17 +33,18 @@
                     }
                 </optgroup>
             </select>
-            <input type="submit" value="Sign in" />
+            <input type="submit" value="@Localizer["using"]" />
         </form>
     }
     else if (Model.XEntryMethod != null)
     {
-        <form class="method-info" method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
-            <input type="hidden" asp-for="Using" />
-            @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod });
-            <input type="submit" name="@Model.XEntryMethod.XName" value="@_XStringModel.XToString(Model.XEntryMethod, Model.XString)" />
-            <progress id="await" hidden max="100" value="0" />
-        </form>
+<form class="method-info" method="post" asp-page-handler="" asp-route-ReturnUrl="@Model.ReturnUrl" onsubmit="xonsubmit(this)">
+    <input type="hidden" asp-for="Using" />
+    @await Component.InvokeAsync("_XMethodInfo", new { xmethod = Model.XEntryMethod });
+    <input type="submit" name="@Model.XEntryMethod.XName" value="@_XStringModel.XToString(Model.XEntryMethod, Model.XString)" />
+    <input type="reset" value="@Localizer["reset"]" />
+    <progress id="await" hidden max="100" value="0" />
+</form>
     }
 }
 @if (Model.XException != null)

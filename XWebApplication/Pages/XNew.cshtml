@@ -3,13 +3,16 @@
 @{
     ViewData["Title"] = Model.XTitle;
 }
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @await Component.InvokeAsync("_XThis", new { xthis = Model.XThis })
 @await Component.InvokeAsync("_XAssembly", new { xassembly = Model.XType.XAssembly, xthis = Model.XThis })
 
 <form method="post" class="constructor-info">
     @await Component.InvokeAsync("_XConstructorInfo", new { xconstructor = Model.XConstructor })
-    <input type="submit" value="New" />
+    <input type="submit" value="@Localizer["new"]" />
 </form>
 
 @if (Model.XException != null)

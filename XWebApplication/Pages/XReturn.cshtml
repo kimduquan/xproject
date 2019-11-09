@@ -1,10 +1,10 @@
 ﻿@page "/return/"
 @model XWebApplication.Pages.XReturnModel
-@{
-    
-}
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 <form method="post">
-    <input name="return" type="submit" value="Sign out" />
+    <input name="return" type="submit" value="@Localizer["return"]" />
 </form>
 

@@ -39,8 +39,10 @@ namespace XWebApplication
             services.AddDistributedMemoryCache();
             services.AddMemoryCache();
             services.AddDirectoryBrowser();
-            services.AddLocalization();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddViewLocalization();
             services.AddSignalR();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
