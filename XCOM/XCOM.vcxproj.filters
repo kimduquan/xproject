@@ -21,31 +21,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XInput.h">
+    <ClInclude Include="XComObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_XInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_XOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_XFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_XObject.h">
+    <ClInclude Include="XComMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,31 +35,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XInput.cpp">
+    <ClCompile Include="XComObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XOutput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_XInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_XOutput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_XFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XMachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="_XObject.cpp">
+    <ClCompile Include="XComMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

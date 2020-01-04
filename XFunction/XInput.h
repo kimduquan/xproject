@@ -11,6 +11,7 @@ public:
 	virtual ~XInput();
 
 	virtual XInput& operator >> (std::wstring& value) = 0;
+	virtual XInput& operator >> (std::string& value) = 0;
 	virtual operator bool() const = 0;
 	virtual XInput& operator ++(int) = 0;
 };

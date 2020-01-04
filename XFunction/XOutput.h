@@ -9,8 +9,8 @@ public:
 	virtual ~XOutput();
 
 	virtual XOutput& operator << (const wchar_t* value) = 0;
+	virtual XOutput& operator << (const char* value) = 0;
 	virtual operator bool() const = 0;
-	virtual XOutput& operator ++(int) = 0;
 };
 
 #endif
