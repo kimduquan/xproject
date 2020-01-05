@@ -1,10 +1,7 @@
 #ifndef _XCOMMACHINE_H_
 #define _XCOMMACHINE_H_
 
-#include "XMachine.h"
-
-class XComMachine :
-	public XMachine
+class XComMachine
 {
 public:
 	XComMachine();

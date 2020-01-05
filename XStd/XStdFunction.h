@@ -8,10 +8,12 @@ class XStdFunction :
 {
 private:
 	XFUNC_PTR mFunc;
+	std::wstring mName;
 public:
-	XStdFunction(XFUNC_PTR func);
+	XStdFunction(const wchar_t* name, XFUNC_PTR func);
 	XStdFunction(const XStdFunction& other);
 	virtual ~XStdFunction();
+	virtual operator const wchar_t* () const;
 	virtual operator bool() const;
 	virtual XObject* operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 
@@ -19,7 +21,7 @@ public:
 	static XObject* xsystem(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	static XObject* xgetenv(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 
-	static XObject* xasync(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
+	
 
 	static XObject* xregex_replace(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	static XObject* xregex_match(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);

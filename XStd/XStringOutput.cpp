@@ -36,3 +36,18 @@ XStringOutput& XStringOutput::operator >> (std::vector<std::wstring>& data)
 	data = mData;
 	return *this;
 }
+XStringOutput& XStringOutput::operator >> (std::wstringbuf& data)
+{
+	std::wstringstream stream;
+	stream.set_rdbuf(&data);
+	stream << mData.size();
+	stream << L'\0';
+	std::vector<std::wstring>::iterator it = mData.begin();
+	while (it != mData.end())
+	{
+		stream << *it;
+		stream << L'\0';
+		it++;
+	}
+	return *this;
+}

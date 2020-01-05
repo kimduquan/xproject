@@ -1,17 +1,17 @@
 #include "pch.h"
 #include "XStdFunction.h"
 #include "XStdOutput.h"
-#include <future>
-#include "XStdMachine.h"
 #include <regex>
 #include "XStdInput.h"
 
-XStdFunction::XStdFunction(XFUNC_PTR func)
+XStdFunction::XStdFunction(const wchar_t* name, XFUNC_PTR func)
 {
+	mName = name;
 	mFunc = func;
 }
 XStdFunction::XStdFunction(const XStdFunction& other)
 {
+	mName = other.mName;
 	mFunc = other.mFunc;
 }
 XStdFunction::~XStdFunction()
@@ -22,6 +22,11 @@ XStdFunction::~XStdFunction()
 XStdFunction::operator bool() const
 {
 	return mFunc != NULL;
+}
+
+XStdFunction::operator const wchar_t* () const
+{
+	return mName.c_str();
 }
 
 XObject* XStdFunction::operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
@@ -74,20 +79,6 @@ XObject* XStdFunction::xgetenv(XInput& xin, XOutput& xout, XOutput& xerr, XOutpu
 		if (xout)
 		{
 			xout << res.c_str();
-		}
-	}
-	return NULL;
-}
-
-XObject* XStdFunction::xasync(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
-{
-	if (xin++)
-	{
-		XStdMachine machine;
-		XStdFunction& xfunc = (XStdFunction&)machine[xin];
-		if (xfunc)
-		{
-			std::future<XObject*> res = std::async(xfunc.mFunc, std::ref(xin), std::ref(xout), std::ref(xerr), std::ref(xlog));
 		}
 	}
 	return NULL;

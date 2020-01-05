@@ -4,6 +4,7 @@
 #include <XOutput.h>
 #include <vector>
 #include <string>
+#include <sstream>
 
 class XStringOutput :
 	public XOutput
@@ -20,6 +21,7 @@ public:
 	virtual operator bool() const;
 
 	virtual XStringOutput& operator >> (std::vector<std::wstring>& data);
+	virtual XStringOutput& operator >> (std::wstringbuf& data);
 };
 
 #endif

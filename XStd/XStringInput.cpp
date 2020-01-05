@@ -5,7 +5,9 @@
 
 XStringInput::XStringInput() : mData(), XInput()
 {
-
+	wchar_t ss[256] = { 0 };
+	std::wstringbuf buffer;
+	buffer.pubsetbuf(ss, 256);
 }
 XStringInput::XStringInput(const XStringInput& other) : XInput(other)
 {
@@ -41,6 +43,33 @@ XInput& XStringInput::operator ++(int)
 XStringInput& XStringInput::operator << (std::vector<std::wstring>& data)
 {
 	mData = data;
+	mIt = mData.begin();
+	return *this;
+}
+XStringInput& XStringInput::operator << (std::wstringbuf& data)
+{
+	mData.clear();
+	std::wstringstream stream;
+	stream.set_rdbuf(&data);
+	size_t size = 0;
+	if (stream)
+	{
+		std::wstringbuf temp;
+		if (stream.get(temp, L'\0'))
+		{
+			size = std::wcstoull(temp.str().c_str(), NULL, 0);
+			stream.get();
+		}
+	}
+	while (stream && mData.size() < size)
+	{
+		std::wstringbuf temp;
+		if (stream.get(temp, L'\0'))
+		{
+			mData.push_back(temp.str());
+			stream.get();
+		}
+	}
 	mIt = mData.begin();
 	return *this;
 }

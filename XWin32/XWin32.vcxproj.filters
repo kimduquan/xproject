@@ -21,13 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XComObj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XCom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XComMachine.h">
+    <ClInclude Include="XPipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,13 +32,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XComObj.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XCom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XComMachine.cpp">
+    <ClCompile Include="XPipe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

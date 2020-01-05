@@ -11,6 +11,9 @@ public:
 	virtual ~XMachine();
 
 	virtual XFunction& operator[](XInput& xin) = 0;
+	virtual XMachine& operator << (XFunction& xfunc) = 0;
+	virtual XMachine& operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
+	virtual XMachine& operator << (XObject& xobj) = 0;
 };
 
 #endif

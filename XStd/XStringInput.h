@@ -3,6 +3,7 @@
 
 #include <XInput.h>
 #include <vector>
+#include <sstream>
 
 class XStringInput :
 	public XInput
@@ -21,6 +22,7 @@ public:
 	virtual XInput& operator ++(int);
 
 	XStringInput& operator << (std::vector<std::wstring>& data);
+	XStringInput& operator << (std::wstringbuf& data);
 };
 
 #endif
