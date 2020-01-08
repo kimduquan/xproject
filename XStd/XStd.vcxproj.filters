@@ -51,6 +51,27 @@
     <ClInclude Include="XStreamInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XStreamOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XStdUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XStdExpression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XStdExprInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XCharInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XStdExprFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_XStdFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -87,6 +108,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XStreamInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStreamOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStdUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStdExpression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStdExprInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XCharInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XStdExprFunc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_XStdFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

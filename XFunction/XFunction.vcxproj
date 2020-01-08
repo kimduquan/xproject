@@ -156,12 +156,10 @@
     <ClInclude Include="XFunction.h" />
     <ClInclude Include="XInput.h" />
     <ClInclude Include="XMachine.h" />
+    <ClInclude Include="XMetaMachine.h" />
     <ClInclude Include="XObject.h" />
     <ClInclude Include="XOutput.h" />
     <ClInclude Include="_XFunction.h" />
-    <ClInclude Include="_XInput.h" />
-    <ClInclude Include="_XObject.h" />
-    <ClInclude Include="_XOutput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -174,12 +172,10 @@
     <ClCompile Include="XFunction.cpp" />
     <ClCompile Include="XInput.cpp" />
     <ClCompile Include="XMachine.cpp" />
+    <ClCompile Include="XMetaMachine.cpp" />
     <ClCompile Include="XObject.cpp" />
     <ClCompile Include="XOutput.cpp" />
     <ClCompile Include="_XFunction.cpp" />
-    <ClCompile Include="_XInput.cpp" />
-    <ClCompile Include="_XObject.cpp" />
-    <ClCompile Include="_XOutput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

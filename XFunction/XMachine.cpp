@@ -1,27 +1,17 @@
 #include "pch.h"
 #include "XMachine.h"
 
-XMachine::XMachine()
-{
-
-}
-XMachine::~XMachine()
-{
-
-}
-
-
 XMachine& XMachine::operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	while (xin)
 	{
-		XInput& xinChild = xin++;
-		if (xinChild)
+		XInput& xnext = xin++;
+		if (xnext)
 		{
-			XFunction& xfunc = (*this)[xinChild];
+			XFunction& xfunc = (*this)[xnext];
 			if (xfunc)
 			{
-				XObject* xobj = xfunc(xinChild, xout, xerr, xlog);
+				XObject* xobj = xfunc(xnext, xout, xerr, xlog);
 				if (xobj != NULL)
 				{
 					*this << *xobj;

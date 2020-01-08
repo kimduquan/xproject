@@ -4,11 +4,11 @@
 #include "XStd.h"
 #include <future>
 
-XAsyncFunction::XAsyncFunction() : XFunction()
+XAsyncFunction::XAsyncFunction()
 {
 
 }
-XAsyncFunction::XAsyncFunction(const XAsyncFunction& other) : XFunction(other)
+XAsyncFunction::XAsyncFunction(const XAsyncFunction& other)
 {
 
 }

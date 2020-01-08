@@ -20,13 +20,7 @@ XOutput& XStringOutput::operator << (const wchar_t* value)
 	mData.push_back(value);
 	return *this;
 }
-XOutput& XStringOutput::operator << (const char* value)
-{
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> cvt;
-	std::wstring s = cvt.from_bytes(value);
-	mData.push_back(s);
-	return *this;
-}
+
 XStringOutput::operator bool() const
 {
 	return mData.empty() == false;

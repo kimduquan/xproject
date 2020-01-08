@@ -2,16 +2,14 @@
 #include "XStdMachine.h"
 #include "XStdFunction.h"
 
-XStdMachine::XStdMachine() : XMachine()
+XStdMachine::XStdMachine()
 {
 }
-XStdMachine::XStdMachine(const XStdMachine& other)
-{
-	mFuncs = other.mFuncs;
-}
+
 XStdMachine::~XStdMachine()
 {
 	mFuncs.clear();
+	mObjects.clear();
 }
 
 XFunction& XStdMachine::operator[](XInput& xin)
@@ -23,7 +21,8 @@ XFunction& XStdMachine::operator[](XInput& xin)
 
 XMachine& XStdMachine::operator << (XFunction& xfunc)
 {
-	std::wstring name = (const wchar_t*)xfunc;
+	std::wstring name;
+
 	mFuncs[name] = &xfunc;
 	return *this;
 }
@@ -33,4 +32,9 @@ XMachine& XStdMachine::operator << (XObject& xobj)
 	std::wstring name = (const wchar_t*)xobj;
 	mObjects[name] = &xobj;
 	return *this;
+}
+
+XStdMachine::operator bool() const
+{
+	return true;
 }

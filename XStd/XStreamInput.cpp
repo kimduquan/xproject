@@ -20,13 +20,8 @@ XStreamInput:: ~XStreamInput()
      (*mStream) >> value;
      return *this;
 }
- XInput& XStreamInput::operator >> (std::string& value)
-{
-     std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> cvt;
-     value = cvt.to_bytes(mData);
-     return *this;
-}
- XStreamInput:: operator bool() const
+
+XStreamInput::operator bool() const
 {
      return (bool)(*mStream);
 }

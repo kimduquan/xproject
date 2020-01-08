@@ -10,9 +10,6 @@ typedef XObject* (*XFUNC_PTR) (XInput& xin, XOutput& xout, XOutput& xerr, XOutpu
 class XFunction
 {
 public:
-	XFunction();
-	XFunction(const XFunction& other);
-	virtual ~XFunction();
 
 	virtual XObject* operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog) = 0;
 	virtual operator bool() const = 0;

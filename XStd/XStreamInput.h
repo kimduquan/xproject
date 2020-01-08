@@ -16,7 +16,6 @@ public:
 	virtual ~XStreamInput();
 
 	virtual XInput& operator >> (std::wstring& value);
-	virtual XInput& operator >> (std::string& value);
 	virtual operator bool() const;
 	virtual XInput& operator ++(int);
 };

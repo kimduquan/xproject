@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "XStdInput.h"
+#include "XStdUtil.h"
 
 XStdInput::XStdInput(XInput& in)
 {
@@ -72,8 +73,8 @@ XStdInput& XStdInput::operator >> (bool& value)
 }
 XStdInput& XStdInput::operator >> (int& value)
 {
-	std::string s;
-	(*mIn) >> s;
-	value = std::stoi(s.c_str(), NULL, 0);
+	std::wstring str;
+	(*mIn) >> str;
+	value = std::stoi(XStdUtil::xstring(str).c_str(), NULL, 0);
 	return *this;
 }

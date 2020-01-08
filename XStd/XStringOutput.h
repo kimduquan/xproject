@@ -17,7 +17,6 @@ public:
 	virtual ~XStringOutput();
 
 	virtual XOutput& operator << (const wchar_t* value);
-	virtual XOutput& operator << (const char* value);
 	virtual operator bool() const;
 
 	virtual XStringOutput& operator >> (std::vector<std::wstring>& data);
