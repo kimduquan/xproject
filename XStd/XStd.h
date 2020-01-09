@@ -3,13 +3,11 @@
 
 #include "XMachine.h"
 #include "XStdFunction.h"
-#include "XAsyncFunction.h"
 
 class XStd
 {
 private:
 	XStdFunction xabs;
-	XAsyncFunction xasync;
 	XStdFunction xexit;
 	XStdFunction xfabs;
 	XStdFunction xfmod;

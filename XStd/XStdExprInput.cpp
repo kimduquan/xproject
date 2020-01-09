@@ -68,11 +68,7 @@ bool XStdExprInput::xexpr(std::wstring::iterator& it, const std::wstring::iterat
 			XFunction& xfunc = xmachine[xin];
 			if (xfunc)
 			{
-				XObject* xobj = xfunc(xin, xout, xerr, xlog);
-				if (xobj != NULL)
-				{
-					xmachine << (*xobj);
-				}
+				
 				state = true;
 			}
 		}

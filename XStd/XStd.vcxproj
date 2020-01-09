@@ -156,7 +156,6 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="XAsyncFunction.h" />
     <ClInclude Include="XCharInput.h" />
     <ClInclude Include="XStd.h" />
     <ClInclude Include="XStdExprFunc.h" />
@@ -182,7 +181,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="XAsyncFunction.cpp" />
     <ClCompile Include="XCharInput.cpp" />
     <ClCompile Include="XStd.cpp" />
     <ClCompile Include="XStdExprFunc.cpp" />

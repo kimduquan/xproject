@@ -8,7 +8,7 @@
 #include "XStdMachine.h"
 #include "XStdExpression.h"
 
-XStdFunction::XStdFunction(const wchar_t* name, XSTD_FUNC_PTR func): mState()
+XStdFunction::XStdFunction(const wchar_t* name, XFUNC func): mState()
 {
 	mName = name;
 	mFunc = func;
@@ -33,29 +33,21 @@ XStdFunction::operator const wchar_t* () const
 	return mName.c_str();
 }
 
-XObject* XStdFunction::operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+XObject* XStdFunction::operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	XStdExpression xexpr;
 	XStdMachine xmachine;
 	xexpr >> xmachine;
 	XStdExprInput xargs(xin, xmachine);
-	mState++;
 	return (*mFunc)(mState, xargs, xout, xerr, xlog);
 }
 
 XObject* XStdFunction::xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring exitCode;
-	if (xstate[1])
+	xstate(1, xin, exitCode);
+	if (xstate[2])
 	{
-		xin++;
-		xin >> exitCode;
-		xstate++;
-		xstate << exitCode.c_str();
-	}
-	else if(xstate[2])
-	{
-		xstate >> exitCode;
 		if (exitCode == L"EXIT_SUCCESS")
 		{
 			std::exit(EXIT_SUCCESS);
@@ -64,11 +56,6 @@ XObject* XStdFunction::xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOu
 		{
 			std::exit(EXIT_FAILURE);
 		}
-		else
-		{
-			xerr << exitCode.c_str();
-		}
-		xstate++;
 	}
 	return NULL;
 }
@@ -76,105 +63,70 @@ XObject* XStdFunction::xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOu
 XObject* XStdFunction::xsystem(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring command;
-	int res = 0;
-	if (xstate[1])
+	xstate(1, xin, command);
+	std::wstring res;
+	if (xstate[2])
 	{
-		xin++;
-		xin >> command;
-		xstate++;
-		xstate << command.c_str();
-	}
-	else if (xstate[2])
-	{
-		xstate >> command;
 		std::string cmd = XStdUtil::xstring(command);
-		res = std::system(cmd.c_str());
-		xstate++;
-		xstate << std::to_wstring(res).c_str();
+		res = std::to_wstring(std::system(cmd.c_str()));
+		xstate << res.c_str();
 	}
-	else if (xstate[3])
-	{
-		XStdOutput xstdOut(xout);
-		xstdOut << res;
-		xstate++;
-	}
+	xstate(2, res);
+	xstate(3, xout, res.c_str());
 	return NULL;
 }
 
 XObject* XStdFunction::xgetenv(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring env_var;
+	xstate(1, xin, env_var);
 	std::wstring res;
-	if (xstate[1])
+	if (xstate[2])
 	{
-		xin++;
-		xin >> env_var;
-		xstate++;
-		xstate << env_var.c_str();
-	}
-	else if (xstate[2])
-	{
-		xstate >> env_var;
 		std::string str = XStdUtil::xstring(env_var);
 		str = (const char*)std::getenv(str.c_str());
 		res = XStdUtil::xstring(str);
-		xstate++;
 		xstate << res.c_str();
 	}
-	else if (xstate[3])
-	{
-		xstate >> res;
-		xout << res.c_str();
-		xstate++;
-	}
+	xstate(2, res);
+	xstate(3, xout, res.c_str());
 	return NULL;
 }
 
 XObject* XStdFunction::xregex_replace(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring _Str;
+	xstate(1, xin, _Str);
 	std::wstring _Re;
+	xstate(2, xin, _Re);
 	std::wstring fmt;
+	xstate(3, xin, fmt);
 	std::wstring res;
-	if (xstate[1])
-	{
-		xin++;
-		xin >> _Str;
-		xstate++;
-		xstate << _Str.c_str();
-	}
-	else if (xstate[2])
-	{
-		xin++;
-		xin >> _Re;
-		xstate++;
-		xstate << _Re.c_str();
-	}
-	else if (xstate[3])
-	{
-		xin++;
-		xin >> fmt;
-		xstate++;
-		xstate << fmt.c_str();
-	}
-	else if (xstate[4])
+	if (xstate[4])
 	{
 		std::wregex re(_Re);
 		res = std::regex_replace(_Str, re, fmt);
-		xstate++;
 		xstate << res.c_str();
 	}
-	else if (xstate[5])
-	{
-		xstate >> res;
-		xout << res.c_str();
-		xstate++;
-	}
+	xstate(4, res);
+	xstate(5, xout, res.c_str());
 	return NULL;
 }
 
 XObject* XStdFunction::xregex_match(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
+	std::wstring _Str;
+	std::wstring _Re;
+	if (xstate[1])
+	{
+		xin++;
+		xin >> _Str;
+		xstate << _Str.c_str();
+	}
+	else if (xstate[2])
+	{
+
+	}
 	if (xin)
 	{
 		std::wstring str;

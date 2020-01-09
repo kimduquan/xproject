@@ -160,6 +160,7 @@
     <ClInclude Include="XObject.h" />
     <ClInclude Include="XOutput.h" />
     <ClInclude Include="_XFunction.h" />
+    <ClInclude Include="_XMachine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="XObject.cpp" />
     <ClCompile Include="XOutput.cpp" />
     <ClCompile Include="_XFunction.cpp" />
+    <ClCompile Include="_XMachine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

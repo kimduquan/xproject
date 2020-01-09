@@ -45,9 +45,6 @@
     <ClInclude Include="XStd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XAsyncFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="XStreamInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,9 +99,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XStd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XAsyncFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XStreamInput.cpp">

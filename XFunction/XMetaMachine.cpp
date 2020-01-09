@@ -2,7 +2,7 @@
 #include "XMetaMachine.h"
 #include <vector>
 
-XMetaMachine::XMetaMachine(): mRecusiveMachine(), mIterateMachine()
+XMetaMachine::XMetaMachine(): mRecursiveMachine(), mIterativeMachine()
 {
 	mState = true;
 }
@@ -11,25 +11,25 @@ XMetaMachine::~XMetaMachine()
 
 }
 
-XMachine& XMetaMachine::operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+XMachine& XMetaMachine::operator()(_XMachine& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	do
 	{
-		mState = !mRecusiveMachine.empty();
+		mState = !mRecursiveMachine.empty();
 		if (mState)
 		{
-			XMachine* recusive = mRecusiveMachine.top();
-			if (!((*recusive)(xin, xout, xerr, xlog)))
+			XMachine* recusive = mRecursiveMachine.top();
+			if (!((*recusive)(xstate, xin, xout, xerr, xlog)))
 			{
-				mRecusiveMachine.pop();
+				mRecursiveMachine.pop();
 				delete recusive;
 			}
-			std::list<XMachine*>::iterator it = mIterateMachine.begin();
-			while (it != mIterateMachine.end())
+			std::list<XMachine*>::iterator it = mIterativeMachine.begin();
+			while (it != mIterativeMachine.end())
 			{
 				if (*(*it))
 				{
-					(*(*it))(xin, xout, xerr, xlog);
+					(*(*it))(xstate, xin, xout, xerr, xlog);
 				}
 			}
 		}

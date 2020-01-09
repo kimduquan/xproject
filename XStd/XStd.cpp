@@ -3,7 +3,6 @@
 
 XStd::XStd() :
 	xabs(L"abs", &XStdFunction::xabs),
-	xasync(),
 	xexit(L"exit",&XStdFunction::xexit),
 	xfabs(L"fabs",&XStdFunction::xfabs),
 	xfmod(L"fmod",&XStdFunction::xfmod),
@@ -23,7 +22,6 @@ XStd::XStd() :
 XStd& XStd::operator >> (XMachine& xmachine)
 {
 	xmachine << xabs;
-	xmachine << xasync;
 	xmachine << xexit;
 	xmachine << xfabs;
 	xmachine << xfmod;

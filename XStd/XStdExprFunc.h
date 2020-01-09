@@ -9,7 +9,7 @@ class XStdExprFunc :
 private:
 	bool mState;
 public:
-	virtual XObject* operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
+	virtual XObject* operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	virtual operator bool() const;
 	virtual operator const wchar_t* () const;
 };

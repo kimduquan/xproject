@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "XMachine.h"
 
-XMachine& XMachine::operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+XMachine& XMachine::operator()(_XMachine& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	while (xin)
 	{
@@ -9,12 +9,13 @@ XMachine& XMachine::operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutpu
 		if (xnext)
 		{
 			XFunction& xfunc = (*this)[xnext];
+			_XFunction& _xfunc = xstate++;
 			if (xfunc)
 			{
-				XObject* xobj = xfunc(xnext, xout, xerr, xlog);
+				XObject* xobj = xfunc(_xfunc, xnext, xout, xerr, xlog);
 				if (xobj != NULL)
 				{
-					*this << *xobj;
+					(*this) << (*xobj);
 				}
 			}
 		}

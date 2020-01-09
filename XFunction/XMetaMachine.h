@@ -8,8 +8,8 @@ class XMetaMachine :
 	public XMachine
 {
 private:
-	std::stack<XMachine*> mRecusiveMachine;
-	std::list<XMachine*> mIterateMachine;
+	std::stack<XMachine*> mRecursiveMachine;
+	std::list<XMachine*> mIterativeMachine;
 	bool mState;
 public:
 	XMetaMachine();
@@ -17,7 +17,7 @@ public:
 
 	virtual XFunction& operator[](XInput& xin) = 0;
 	virtual XMachine& operator << (XFunction& xfunc) = 0;
-	virtual XMachine& operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
+	virtual XMachine& operator()(_XMachine& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	virtual XMachine& operator << (XObject& xobj) = 0;
 	virtual operator bool() const = 0;
 };

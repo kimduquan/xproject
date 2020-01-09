@@ -4,22 +4,20 @@
 #include "XFunction.h"
 #include "_XStdFunc.h"
 
-typedef XObject* (*XSTD_FUNC_PTR) (_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
-
 class XStdFunction :
 	public XFunction
 {
 private:
-	XSTD_FUNC_PTR mFunc;
+	XFUNC mFunc;
 	std::wstring mName;
 	_XStdFunc mState;
 public:
-	XStdFunction(const wchar_t* name, XSTD_FUNC_PTR func);
+	XStdFunction(const wchar_t* name, XFUNC func);
 	XStdFunction(const XStdFunction& other);
 	virtual ~XStdFunction();
 	virtual operator const wchar_t* () const;
 	virtual operator bool() const;
-	virtual XObject* operator()(XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
+	virtual XObject* operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 
 	static XObject* xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	static XObject* xsystem(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);

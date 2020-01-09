@@ -17,6 +17,10 @@ public:
 	virtual bool operator[](const unsigned long long& time);
 	virtual _XFunction& operator << (const wchar_t* data);
 	virtual _XFunction& operator >> (std::wstring& data);
+
+	virtual bool operator()(const unsigned long long& time, std::wstring& data);
+	virtual bool operator()(const unsigned long long& time, XInput& xin, std::wstring& data);
+	virtual bool operator()(const unsigned long long& time, XOutput& xout, const wchar_t* data);
 };
 
 #endif
