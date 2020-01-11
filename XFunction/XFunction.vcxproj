@@ -156,7 +156,6 @@
     <ClInclude Include="XFunction.h" />
     <ClInclude Include="XInput.h" />
     <ClInclude Include="XMachine.h" />
-    <ClInclude Include="XMetaMachine.h" />
     <ClInclude Include="XObject.h" />
     <ClInclude Include="XOutput.h" />
     <ClInclude Include="_XFunction.h" />
@@ -173,7 +172,6 @@
     <ClCompile Include="XFunction.cpp" />
     <ClCompile Include="XInput.cpp" />
     <ClCompile Include="XMachine.cpp" />
-    <ClCompile Include="XMetaMachine.cpp" />
     <ClCompile Include="XObject.cpp" />
     <ClCompile Include="XOutput.cpp" />
     <ClCompile Include="_XFunction.cpp" />

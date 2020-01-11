@@ -3,20 +3,21 @@
 
 XMachine& XMachine::operator()(_XMachine& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
-	while (xin)
+	XInput& xnext = xin++;
+	while (xnext)
 	{
-		XInput& xnext = xin++;
-		if (xnext)
+		XFunction& xfunc = (*this)[xnext];
+		if (xfunc)
 		{
-			XFunction& xfunc = (*this)[xnext];
-			_XFunction& _xfunc = xstate++;
-			if (xfunc)
+			_XFunction& _xstate = xstate++;
+			XObject* xobj = xfunc(_xstate, xnext, xout, xerr, xlog);
+			if (xobj != NULL)
 			{
-				XObject* xobj = xfunc(_xfunc, xnext, xout, xerr, xlog);
-				if (xobj != NULL)
-				{
-					(*this) << (*xobj);
-				}
+				(*this) << (*xobj);
+			}
+			if (!xnext)
+			{
+				xnext = xin++;
 			}
 		}
 	}
