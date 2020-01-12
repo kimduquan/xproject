@@ -21,12 +21,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XStdInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XStdOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="XStringInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -57,16 +51,10 @@
     <ClInclude Include="XStdExpression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XStdExprInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XCharInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XStdExprFunc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="_XStdFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_XStdMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -75,12 +63,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XStdInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XStdOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XStringInput.cpp">
@@ -113,16 +95,10 @@
     <ClCompile Include="XStdExpression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XStdExprInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XCharInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XStdExprFunc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="_XStdFunc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_XStdMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

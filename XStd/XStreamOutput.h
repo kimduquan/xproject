@@ -1,7 +1,7 @@
-#ifndef _XSTREAMINPUT_H_
-#define _XSTREAMINPUT_H_
+#ifndef _XSTREAMOUTPUT_H_
+#define _XSTREAMOUTPUT_H_
 
-#include <XOutput.h>
+#include "XOutput.h"
 #include <ostream>
 
 class XStreamOutput :

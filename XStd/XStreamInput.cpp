@@ -17,7 +17,7 @@ XStreamInput:: ~XStreamInput()
 
  XInput& XStreamInput::operator >> (std::wstring& value)
 {
-     (*mStream) >> value;
+     value = mData;
      return *this;
 }
 

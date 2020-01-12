@@ -22,7 +22,7 @@ public:
 	virtual _XFunction& operator += (XFunction& other);
 	virtual _XFunction& operator -= (XFunction& other);
 	virtual _XFunction& operator /= (XFunction& other);
-	virtual _XFunction& operator ++ (int) = 0;
+	virtual _XFunction& operator ++ (int);
 };
 
 #endif

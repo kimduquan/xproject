@@ -2,35 +2,53 @@
 #include "XStdMachine.h"
 #include "XStdFunction.h"
 
-XStdMachine::XStdMachine()
+XStdMachine::XStdMachine() : mFuncs(), mMapFuncs(), mObjects()
 {
 }
 
 XStdMachine::~XStdMachine()
 {
 	mFuncs.clear();
+	mMapFuncs.clear();
 	mObjects.clear();
 }
 
-XFunction& XStdMachine::operator[](XInput& xin)
+XFunction& XStdMachine::operator()(_XFunction& xstate, XInput& xin)
 {
-	std::wstring func;
-	xin >> func;
-	return *mFuncs[func];
+	std::wstring name;
+	xstate(0, xin, name);
+
+	XFunction* xfunc = NULL;
+	std::map<std::wstring, XFunction*>::iterator it = mMapFuncs.find(name);
+	if (it != mMapFuncs.end())
+	{
+		xfunc = it->second;
+	}
+	if (xfunc == NULL)
+	{
+		std::vector<XFunction*>::iterator it2 = mFuncs.begin();
+		while (it2 != mFuncs.end())
+		{
+			if (*(*it2) == name.c_str())
+			{
+				xfunc = *it2;
+				mMapFuncs[name] = xfunc;
+				break;
+			}
+			it++;
+		}
+	}
+	return *xfunc;
 }
 
 XMachine& XStdMachine::operator << (XFunction& xfunc)
 {
-	std::wstring name;
-
-	mFuncs[name] = &xfunc;
+	mFuncs.push_back(&xfunc);
 	return *this;
 }
 
 XMachine& XStdMachine::operator << (XObject& xobj)
 {
-	std::wstring name = (const wchar_t*)xobj;
-	mObjects[name] = &xobj;
 	return *this;
 }
 

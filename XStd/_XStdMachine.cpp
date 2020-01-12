@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "_XStdMachine.h"
 
-_XStdMachine::_XStdMachine() : mRecursive(), mIterative(), mIt()
+_XStdMachine::_XStdMachine() : mRecursive(), mIterative()
 {
-
+    mIt = mIterative.begin();
 }
 _XStdMachine:: ~_XStdMachine()
 {
@@ -40,6 +40,11 @@ _XFunction& _XStdMachine::operator ++ (int)
     {
         if (mRecursive.empty())
         {
+            if (mIterative.empty())
+            {
+                _XStdFunc xstate;
+                mIterative.push_back(xstate);
+            }
             mIt = mIterative.begin();
         }
         else
@@ -47,6 +52,10 @@ _XFunction& _XStdMachine::operator ++ (int)
             mIt = mIterative.begin();
             return mRecursive.top();
         }
+    }
+    else
+    {
+        mIt++;
     }
     return *mIt;
 }

@@ -156,22 +156,18 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="XCharInput.h" />
     <ClInclude Include="XStd.h" />
-    <ClInclude Include="XStdExprFunc.h" />
-    <ClInclude Include="XStdExprInput.h" />
     <ClInclude Include="XStdExpression.h" />
     <ClInclude Include="XStdFunction.h" />
-    <ClInclude Include="XStdInput.h" />
     <ClInclude Include="XStdMachine.h" />
     <ClInclude Include="XStdObject.h" />
-    <ClInclude Include="XStdOutput.h" />
     <ClInclude Include="XStdUtil.h" />
     <ClInclude Include="XStreamInput.h" />
     <ClInclude Include="XStreamOutput.h" />
     <ClInclude Include="XStringInput.h" />
     <ClInclude Include="XStringOutput.h" />
     <ClInclude Include="_XStdFunc.h" />
+    <ClInclude Include="_XStdMachine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -181,22 +177,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="XCharInput.cpp" />
     <ClCompile Include="XStd.cpp" />
-    <ClCompile Include="XStdExprFunc.cpp" />
-    <ClCompile Include="XStdExprInput.cpp" />
     <ClCompile Include="XStdExpression.cpp" />
     <ClCompile Include="XStdFunction.cpp" />
-    <ClCompile Include="XStdInput.cpp" />
     <ClCompile Include="XStdMachine.cpp" />
     <ClCompile Include="XStdObject.cpp" />
-    <ClCompile Include="XStdOutput.cpp" />
     <ClCompile Include="XStdUtil.cpp" />
     <ClCompile Include="XStreamInput.cpp" />
     <ClCompile Include="XStreamOutput.cpp" />
     <ClCompile Include="XStringInput.cpp" />
     <ClCompile Include="XStringOutput.cpp" />
     <ClCompile Include="_XStdFunc.cpp" />
+    <ClCompile Include="_XStdMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XFunction\XFunction.vcxproj">

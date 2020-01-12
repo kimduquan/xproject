@@ -2,7 +2,6 @@
 #define _XSTDFUNCTION_H_
 
 #include "XFunction.h"
-#include "_XStdFunc.h"
 
 class XStdFunction :
 	public XFunction
@@ -10,20 +9,18 @@ class XStdFunction :
 private:
 	XFUNC mFunc;
 	std::wstring mName;
-	_XStdFunc mState;
 public:
 	XStdFunction(const wchar_t* name, XFUNC func);
 	XStdFunction(const XStdFunction& other);
 	virtual ~XStdFunction();
-	virtual operator const wchar_t* () const;
+
+	virtual bool operator == (const wchar_t* name);
 	virtual operator bool() const;
 	virtual XObject* operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 
 	static XObject* xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	static XObject* xsystem(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	static XObject* xgetenv(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
-
-	
 
 	static XObject* xregex_replace(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	static XObject* xregex_match(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
