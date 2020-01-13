@@ -17,7 +17,7 @@ XStreamOutput:: ~XStreamOutput()
 
 XOutput& XStreamOutput::operator << (const wchar_t* value)
 {
-	*mStream << value;
+	*mStream << value << L"\n";
 	return *this;
 }
 

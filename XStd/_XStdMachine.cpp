@@ -38,24 +38,22 @@ _XFunction& _XStdMachine::operator ++ (int)
 {
     if (mIt == mIterative.end())
     {
-        if (mRecursive.empty())
+        if (!mRecursive.empty())
         {
-            if (mIterative.empty())
-            {
-                _XStdFunc xstate;
-                mIterative.push_back(xstate);
-            }
-            mIt = mIterative.begin();
-        }
-        else
-        {
-            mIt = mIterative.begin();
             return mRecursive.top();
         }
+        mIt = mIterative.begin();
     }
     else
     {
         mIt++;
+    }
+    if (mIt == mIterative.end())
+    {
+        _XStdFunc xstate;
+        mIterative.push_back(xstate);
+        mIt = mIterative.end();
+        mIt--;
     }
     return *mIt;
 }

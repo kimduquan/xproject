@@ -39,7 +39,11 @@ _XFunction& _XStdFunc::operator << (const wchar_t* state)
 
 _XFunction& _XStdFunc::operator >> (std::wstring& state)
 {
-	state = mStates[mTime];
+    std::map<unsigned long long, std::wstring>::iterator it = mStates.find(mTime);
+    if(it != mStates.end())
+    {
+        state = it->second;
+    }
 	return *this;
 }
 

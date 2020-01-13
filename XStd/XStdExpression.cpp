@@ -1,23 +1,24 @@
 #include "pch.h"
 #include "XStdExpression.h"
+#include "XStd.h"
 
 XStdExpression::XStdExpression() :
-	xabs(L"abs", &XStdFunction::xabs),
-	xfabs(L"fabs", &XStdFunction::xfabs),
-	xfmod(L"fmod", &XStdFunction::xfmod),
-	xfmodf(L"fmodf", &XStdFunction::xfmodf),
-	xfmodl(L"fmodl", &XStdFunction::xfmodl),
-	xgetenv(L"getenv", &XStdFunction::xgetenv),
-	xlabs(L"labs", &XStdFunction::xlabs),
-	xllabs(L"llabs", &XStdFunction::xllabs),
-	xregex_match(L"regex_match", &XStdFunction::xregex_match),
-	xregex_replace(L"regex_replace", &XStdFunction::xregex_replace),
-	xregex_search(L"regex_search", &XStdFunction::xregex_search)
+	xabs(L"abs", &XStd::xabs),
+	xfabs(L"fabs", &XStd::xfabs),
+	xfmod(L"fmod", &XStd::xfmod),
+	xfmodf(L"fmodf", &XStd::xfmodf),
+	xfmodl(L"fmodl", &XStd::xfmodl),
+	xgetenv(L"getenv", &XStd::xgetenv),
+	xlabs(L"labs", &XStd::xlabs),
+	xllabs(L"llabs", &XStd::xllabs),
+	xregex_match(L"regex_match", &XStd::xregex_match),
+	xregex_replace(L"regex_replace", &XStd::xregex_replace),
+	xregex_search(L"regex_search", &XStd::xregex_search)
 {
 
 }
 
-XStdExpression& XStdExpression::operator >> (XMachine& xmachine)
+XLibrary& XStdExpression::operator >> (XMachine& xmachine)
 {
 	xmachine << xabs;
 	xmachine << xfabs;

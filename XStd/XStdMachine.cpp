@@ -24,18 +24,18 @@ XFunction& XStdMachine::operator()(_XFunction& xstate, XInput& xin)
 	{
 		xfunc = it->second;
 	}
-	if (xfunc == NULL)
+	else
 	{
 		std::vector<XFunction*>::iterator it2 = mFuncs.begin();
 		while (it2 != mFuncs.end())
 		{
-			if (*(*it2) == name.c_str())
+			if ((*(*it2))(xstate, xin))
 			{
 				xfunc = *it2;
 				mMapFuncs[name] = xfunc;
 				break;
 			}
-			it++;
+			it2++;
 		}
 	}
 	return *xfunc;
@@ -50,9 +50,4 @@ XMachine& XStdMachine::operator << (XFunction& xfunc)
 XMachine& XStdMachine::operator << (XObject& xobj)
 {
 	return *this;
-}
-
-XStdMachine::operator bool() const
-{
-	return true;
 }

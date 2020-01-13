@@ -3,8 +3,9 @@
 
 #include "XStdFunction.h"
 #include "XMachine.h"
+#include "XLibrary.h"
 
-class XStdExpression
+class XStdExpression : public XLibrary
 {
 private:
 	XStdFunction xabs;
@@ -20,7 +21,7 @@ private:
 	XStdFunction xregex_search;
 public:
 	XStdExpression();
-	XStdExpression& operator >> (XMachine& xmachine);
+	virtual XLibrary& operator >> (XMachine& xmachine);
 };
 
 #endif

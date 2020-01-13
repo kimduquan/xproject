@@ -19,7 +19,6 @@ public:
 	virtual XFunction& operator()(_XFunction& xstate, XInput& xin);
 	virtual XMachine& operator << (XFunction& xfunc);
 	virtual XMachine& operator << (XObject& xobj);
-	virtual operator bool() const;
 };
 
 #endif
