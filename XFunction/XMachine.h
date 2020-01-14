@@ -13,7 +13,6 @@ public:
 	virtual XMachine& operator << (XFunction& xfunc) = 0;
 	virtual XMachine& operator()(_XMachine& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 	virtual XMachine& operator << (XObject& xobj) = 0;
-	virtual operator bool() const = 0;
 };
 
 #endif

@@ -155,6 +155,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="XFunction.h" />
     <ClInclude Include="XInput.h" />
+    <ClInclude Include="XLibrary.h" />
     <ClInclude Include="XMachine.h" />
     <ClInclude Include="XObject.h" />
     <ClInclude Include="XOutput.h" />
@@ -171,6 +172,7 @@
     </ClCompile>
     <ClCompile Include="XFunction.cpp" />
     <ClCompile Include="XInput.cpp" />
+    <ClCompile Include="XLibrary.cpp" />
     <ClCompile Include="XMachine.cpp" />
     <ClCompile Include="XObject.cpp" />
     <ClCompile Include="XOutput.cpp" />

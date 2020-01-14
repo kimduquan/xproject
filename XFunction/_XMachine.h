@@ -7,11 +7,12 @@
 class _XMachine
 {
 public:
-
-	virtual _XFunction& operator *= (XFunction& other) = 0;
-	virtual _XFunction& operator += (XFunction& other) = 0;
-	virtual _XFunction& operator -= (XFunction& other) = 0;
-	virtual _XFunction& operator /= (XFunction& other) = 0;
+	virtual operator bool() const = 0;
+	virtual _XMachine& operator = (const bool& state) = 0;
+	virtual _XFunction& operator *= (XFunction& xother) = 0;
+	virtual _XFunction& operator += (XFunction& xother) = 0;
+	virtual _XFunction& operator -= (XFunction& xother) = 0;
+	virtual _XFunction& operator /= (XFunction& xother) = 0;
 	virtual _XFunction& operator ++ (int) = 0;
 };
 

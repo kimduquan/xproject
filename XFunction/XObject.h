@@ -4,8 +4,8 @@
 class XObject
 {
 public:
-
 	virtual operator bool() const = 0;
+	virtual operator const wchar_t* () = 0;
 };
 
 #endif

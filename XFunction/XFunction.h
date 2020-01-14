@@ -13,8 +13,7 @@ class XFunction
 public:
 
 	virtual XObject* operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog) = 0;
-	virtual operator bool() const = 0;
-	virtual bool operator == (const wchar_t*) = 0;
+	virtual bool operator () (_XFunction& xstate, XInput& xin) = 0;
 };
 
 #endif
