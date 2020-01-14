@@ -4,6 +4,7 @@
 _XStdMachine::_XStdMachine() : mRecursive(), mIterative()
 {
     mIt = mIterative.begin();
+    mState = true;
 }
 _XStdMachine:: ~_XStdMachine()
 {
@@ -19,14 +20,12 @@ _XFunction& _XStdMachine::operator *= (XFunction& other)
 _XFunction& _XStdMachine::operator += (XFunction& other)
 {
     _XStdFunc state;
-    mIt++;
-    mIterative.insert(mIt, state);
+    mIt = mIterative.insert(mIt, state);
     return *mIt;
 }
 _XFunction& _XStdMachine::operator -= (XFunction& other)
 {
-    mIterative.erase(mIt);
-    mIt--;
+    mIt = mIterative.erase(mIt);
     return *mIt;
 }
 _XFunction& _XStdMachine::operator /= (XFunction& other)
@@ -36,24 +35,39 @@ _XFunction& _XStdMachine::operator /= (XFunction& other)
 }
 _XFunction& _XStdMachine::operator ++ (int)
 {
-    if (mIt == mIterative.end())
-    {
-        if (!mRecursive.empty())
-        {
-            return mRecursive.top();
-        }
-        mIt = mIterative.begin();
-    }
-    else
+    if (mIt != mIterative.end())
     {
         mIt++;
     }
     if (mIt == mIterative.end())
     {
-        _XStdFunc xstate;
-        mIterative.push_back(xstate);
-        mIt = mIterative.end();
-        mIt--;
+        mIt = mIterative.begin();
+        while (!mRecursive.empty())
+        {
+            if (mRecursive.top())
+            {
+                mRecursive.top()++;
+                break;
+            }
+            mRecursive.pop();
+        }
+        if (mRecursive.empty())
+        {
+            _XStdFunc xstate;
+            mRecursive.push(xstate);
+        }
+        return mRecursive.top();
     }
-    return *mIt;
+    return (*mIt)++;
+}
+
+_XMachine& _XStdMachine::operator = (const bool& b)
+{
+    mState = b;
+    return *this;
+}
+
+_XStdMachine::operator bool() const
+{
+    return mState;
 }

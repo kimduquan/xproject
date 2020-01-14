@@ -13,11 +13,13 @@ private:
 	std::stack<_XStdFunc> mRecursive;
 	std::list<_XStdFunc> mIterative;
 	std::list<_XStdFunc>::iterator mIt;
-
+	bool mState;
 public:
 	_XStdMachine();
 	virtual ~_XStdMachine();
 
+	virtual operator bool() const;
+	virtual _XMachine& operator = (const bool& b);
 	virtual _XFunction& operator *= (XFunction& other);
 	virtual _XFunction& operator += (XFunction& other);
 	virtual _XFunction& operator -= (XFunction& other);
