@@ -6,9 +6,13 @@ _XStdMachine::_XStdMachine() : mRecursive(), mIterative()
     mIt = mIterative.begin();
     mState = true;
 }
-_XStdMachine:: ~_XStdMachine()
+_XStdMachine::~_XStdMachine()
 {
     mIterative.clear();
+    while (!mRecursive.empty())
+    {
+        mRecursive.pop();
+    }
 }
 
 _XFunction& _XStdMachine::operator *= (XFunction& other)
@@ -46,7 +50,6 @@ _XFunction& _XStdMachine::operator ++ (int)
         {
             if (mRecursive.top())
             {
-                mRecursive.top()++;
                 break;
             }
             mRecursive.pop();
@@ -55,8 +58,9 @@ _XFunction& _XStdMachine::operator ++ (int)
         {
             _XStdFunc xstate;
             mRecursive.push(xstate);
+            return mRecursive.top();
         }
-        return mRecursive.top();
+        return (mRecursive.top())++;
     }
     return (*mIt)++;
 }

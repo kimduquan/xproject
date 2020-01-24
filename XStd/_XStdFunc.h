@@ -3,7 +3,6 @@
 
 #include "_XFunction.h"
 #include "XInput.h"
-#include "XObject.h"
 #include <map>
 
 class _XStdFunc :
@@ -21,9 +20,8 @@ public:
 
 	virtual _XFunction& operator ++(int);
 	virtual bool operator[](const unsigned long long& time);
-
+	virtual _XFunction& operator = (const bool& state);
 	virtual operator bool() const;
-	virtual XObject* operator ()(const unsigned long long& time, XObject* xobject);
 
 	virtual _XFunction& operator >> (std::wstring& state);
 	virtual _XFunction& operator >> (int& state);

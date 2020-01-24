@@ -42,7 +42,7 @@ XLibrary& XStd::operator >> (XMachine& xmachine)
 }
 
 
-XObject* XStd::xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring exitCode;
 	xstate(1, xin, exitCode);
@@ -58,10 +58,10 @@ XObject* XStd::xexit(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xe
 			std::exit(EXIT_FAILURE);
 		}
 	}
-	return xstate(2, NULL);
+	return NULL;
 }
 
-XObject* XStd::xsystem(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xsystem(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring command;
 	xstate(1, xin, command);
@@ -75,11 +75,14 @@ XObject* XStd::xsystem(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& 
 	}
 	xstate(2, xin, res);
 
-	xstate(3, xout, res);
-	return xstate(3, NULL);
+	if (xstate(3, xout, res))
+	{
+		xstate = false;
+	}
+	return NULL;
 }
 
-XObject* XStd::xgetenv(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xgetenv(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring env_var;
 	xstate(1, xin, env_var);
@@ -93,11 +96,14 @@ XObject* XStd::xgetenv(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& 
 	}
 	xstate(2, xin, res);
 
-	xstate(3, xout, res.c_str());
-	return xstate(3, NULL);
+	if(xstate(3, xout, res.c_str()))
+	{
+		xstate = false;
+	}
+	return NULL;
 }
 
-XObject* XStd::xregex_replace(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xregex_replace(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring _Str;
 	xstate(1, xin, _Str);
@@ -117,11 +123,14 @@ XObject* XStd::xregex_replace(_XFunction& xstate, XInput& xin, XOutput& xout, XO
 	}
 	xstate(4, xin, res);
 
-	xstate(5, xout, res.c_str());
-	return xstate(5, NULL);
+	if(xstate(5, xout, res.c_str()))
+	{
+		xstate = false;
+	}
+	return NULL;
 }
 
-XObject* XStd::xregex_match(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xregex_match(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring _Str;
 	xstate(1, xin, _Str);
@@ -138,10 +147,13 @@ XObject* XStd::xregex_match(_XFunction& xstate, XInput& xin, XOutput& xout, XOut
 	}
 	xstate(3, xin, res);
 
-	xstate(4, xout, res);
-	return xstate(4, NULL);
+	if(xstate(4, xout, res))
+	{
+		xstate = false;
+	}
+	return NULL;
 }
-XObject* XStd::xregex_search(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xregex_search(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	std::wstring _Str;
 	xstate(1, xin, _Str);
@@ -158,11 +170,14 @@ XObject* XStd::xregex_search(_XFunction& xstate, XInput& xin, XOutput& xout, XOu
 	}
 	xstate(3, xin, res);
 
-	xstate(4, xout, res);
-	return xstate(4, NULL);
+	if(xstate(4, xout, res))
+	{
+		xstate = false;
+	}
+	return NULL;
 }
 
-XObject* XStd::xabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	int _X = 0;
 	xstate(1, xin, _X);
@@ -175,10 +190,14 @@ XObject* XStd::xabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xer
 	}
 	xstate(2, xin, res);
 
-	xstate(3, xout, res);
-	return xstate(3, NULL);
+	if(xstate(3, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }
-XObject* XStd::xlabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xlabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	long _X = 0;
 	xstate(1, xin, _X);
@@ -191,10 +210,14 @@ XObject* XStd::xlabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xe
 	}
 	xstate(2, xin, res);
 
-	xstate(3, xout, res);
-	return xstate(3, NULL);
+	if(xstate(3, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }
-XObject* XStd::xllabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xllabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	long long _X = 0;
 	xstate(1, xin, _X);
@@ -207,11 +230,15 @@ XObject* XStd::xllabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& x
 	}
 	xstate(2, xin, res);
 
-	xstate(3, xout, res);
-	return xstate(3, NULL);
+	if(xstate(3, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }
 
-XObject* XStd::xfabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xfabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	float _X = 0;
 	xstate(1, xin, _X);
@@ -224,11 +251,15 @@ XObject* XStd::xfabs(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xe
 	}
 	xstate(2, xin, res);
 
-	xstate(3, xout, res);
-	return xstate(3, NULL);
+	if(xstate(3, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }
 
-XObject* XStd::xfmod(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xfmod(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	double _X = 0;
 	xstate(1, xin, _X);
@@ -244,11 +275,15 @@ XObject* XStd::xfmod(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xe
 	}
 	xstate(3, xin, res);
 
-	xstate(4, xout, res);
-	return xstate(4, NULL);
+	if(xstate(4, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }
 
-XObject* XStd::xfmodf(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xfmodf(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	float _X = 0;
 	xstate(1, xin, _X);
@@ -264,10 +299,14 @@ XObject* XStd::xfmodf(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& x
 	}
 	xstate(3, xin, res);
 
-	xstate(4, xout, res);
-	return xstate(4, NULL);
+	if(xstate(4, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }
-XObject* XStd::xfmodl(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStd::xfmodl(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	long double _X = 0;
 	xstate(1, xin, _X);
@@ -283,6 +322,10 @@ XObject* XStd::xfmodl(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& x
 	}
 	xstate(3, xin, res);
 
-	xstate(4, xout, res);
-	return xstate(4, NULL);
+	if(xstate(4, xout, res))
+	{
+		xstate = false;
+	}
+
+	return NULL;
 }

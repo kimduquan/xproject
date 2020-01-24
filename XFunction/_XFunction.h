@@ -5,7 +5,6 @@
 
 #include "XOutput.h"
 #include "XInput.h"
-#include "XObject.h"
 
 class _XFunction
 {
@@ -13,7 +12,7 @@ public:
 	virtual bool operator[](const unsigned long long& time) = 0;
 	virtual _XFunction& operator ++(int) = 0;
 	virtual operator bool() const = 0;
-	virtual XObject* operator ()(const unsigned long long& time, XObject* xobject) = 0;
+	virtual _XFunction& operator = (const bool& state) = 0;
 
 	virtual _XFunction& operator >> (std::wstring& state) = 0;
 	virtual _XFunction& operator >> (int& state) = 0;

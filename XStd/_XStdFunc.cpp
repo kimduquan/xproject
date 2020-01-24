@@ -26,6 +26,13 @@ _XFunction& _XStdFunc::operator ++(int)
 	mTime++;
 	return *this;
 }
+
+_XFunction& _XStdFunc::operator = (const bool& state)
+{
+    mState = state;
+    return *this;
+}
+
 bool _XStdFunc::operator[](const unsigned long long& time)
 {
 	return (mTime == time);
@@ -335,12 +342,4 @@ bool _XStdFunc::operator()(const unsigned long long& time, XOutput& xout, const 
  _XStdFunc::operator bool() const
  {
      return mState;
- }
- XObject* _XStdFunc::operator ()(const unsigned long long& time, XObject* xobject)
- {
-     if ((*this)[time])
-     {
-         mState = false;
-     }
-     return xobject;
  }

@@ -1,9 +1,9 @@
 #ifndef _XSTDOBJECT_H_
 #define _XSTDOBJECT_H_
 
-#include <XObject.h>
+#include <_XObject.h>
 class XStdObject :
-	public XObject
+	public _XObject
 {
 };
 

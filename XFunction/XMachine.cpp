@@ -5,9 +5,9 @@ XMachine& XMachine::operator()(_XMachine& xstate, XInput& xin, XOutput& xout, XO
 {
 	while (xstate)
 	{
-		_XFunction& _xstate = (xstate++);
+		_XFunction& _xstate = xstate++;
 		XFunction& xfunc = (*this)(_xstate, xin);
-		XObject* xobj = xfunc(_xstate, xin, xout, xerr, xlog);
+		_XObject* xobj = xfunc(_xstate, xin, xout, xerr, xlog);
 		if (xobj != NULL)
 		{
 			(*this) << (*xobj);

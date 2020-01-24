@@ -15,7 +15,7 @@ public:
 	virtual ~XStdFunction();
 
 	virtual bool operator () (_XFunction& xstate, XInput& xin);
-	virtual XObject* operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
+	virtual _XObject* operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog);
 
 };
 

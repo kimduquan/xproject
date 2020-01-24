@@ -23,7 +23,7 @@ bool XStdFunction::operator () (_XFunction& xstate, XInput& xin)
 	return mName == name;
 }
 
-XObject* XStdFunction::operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
+_XObject* XStdFunction::operator()(_XFunction& xstate, XInput& xin, XOutput& xout, XOutput& xerr, XOutput& xlog)
 {
 	return (*mFunc)(xstate, xin, xout, xerr, xlog);
 }

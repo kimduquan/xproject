@@ -50,9 +50,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFunction", "XFunction\XFun
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XStd", "XStd\XStd.vcxproj", "{E2CB3752-4593-4566-ACC1-A9A69A749AD3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XCOM", "XCOM\XCOM.vcxproj", "{94E7F005-8824-4936-8434-0A0198BFEB0F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XCom", "XCOM\XCOM.vcxproj", "{94E7F005-8824-4936-8434-0A0198BFEB0F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XWin32", "XWin32\XWin32.vcxproj", "{82E596F1-8FF0-4529-A28B-67B5CA1F86BE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "std", "std\std.vcxproj", "{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -340,6 +342,16 @@ Global
 		{82E596F1-8FF0-4529-A28B-67B5CA1F86BE}.Release|x64.Build.0 = Release|x64
 		{82E596F1-8FF0-4529-A28B-67B5CA1F86BE}.Release|x86.ActiveCfg = Release|Win32
 		{82E596F1-8FF0-4529-A28B-67B5CA1F86BE}.Release|x86.Build.0 = Release|Win32
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Debug|x64.ActiveCfg = Debug|x64
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Debug|x64.Build.0 = Debug|x64
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Debug|x86.ActiveCfg = Debug|Win32
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Debug|x86.Build.0 = Debug|Win32
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Release|x64.ActiveCfg = Release|x64
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Release|x64.Build.0 = Release|x64
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Release|x86.ActiveCfg = Release|Win32
+		{1F1CA5C8-0E16-41FF-AAA0-8C0D21231E3E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

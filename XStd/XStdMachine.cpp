@@ -47,7 +47,7 @@ XMachine& XStdMachine::operator << (XFunction& xfunc)
 	return *this;
 }
 
-XMachine& XStdMachine::operator << (XObject& xobj)
+XMachine& XStdMachine::operator << (_XObject& xobj)
 {
 	return *this;
 }

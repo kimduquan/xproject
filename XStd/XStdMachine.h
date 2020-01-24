@@ -11,14 +11,14 @@ class XStdMachine :
 private:
 	std::vector<XFunction*> mFuncs;
 	std::map<std::wstring, XFunction*> mMapFuncs;
-	std::map<std::wstring, XObject*> mObjects;
+	std::map<std::wstring, _XObject*> mObjects;
 public:
 	XStdMachine();
 	virtual ~XStdMachine();
 
 	virtual XFunction& operator()(_XFunction& xstate, XInput& xin);
 	virtual XMachine& operator << (XFunction& xfunc);
-	virtual XMachine& operator << (XObject& xobj);
+	virtual XMachine& operator << (_XObject& xobj);
 };
 
 #endif
