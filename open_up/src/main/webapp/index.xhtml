@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" type="text/css" href="/open_up/faces/jsfcrud.css" />
+    </h:head>
+    <h:body>
+        Hello from Facelets
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:form>
+            <h:commandLink action="#{additionalPerformers.listSetup}" value="Show All AdditionalPerformers Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{artifact.listSetup}" value="Show All Artifact Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{inputs.listSetup}" value="Show All Inputs Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{outputs.listSetup}" value="Show All Outputs Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{role.listSetup}" value="Show All Role Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{roleSet.listSetup}" value="Show All RoleSet Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{task.listSetup}" value="Show All Task Items"/>
+        </h:form>
+    </h:body>
+
+
+
+
+
+
+
+</html>
+
